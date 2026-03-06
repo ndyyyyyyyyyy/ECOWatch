@@ -1,0 +1,30 @@
+:root {
+  --shell-blue: #0f5a8c;
+  --left-bg: #c9d8e5;
+  --right-bg: #f3f3f3;
+  --text-main: #5e6773;
+  --line: #545c66;
+  --accent-blue: #0b4d8a;
+  --accent-green: #6eb21f;
+  --button-blue: #2f88c0;
+  --button-blue-hover: #2a7aae;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-main);
+  line-height: 1.4;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--shell-blue);
+}

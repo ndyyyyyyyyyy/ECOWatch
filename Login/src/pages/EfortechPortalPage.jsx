@@ -1,0 +1,49 @@
+import './style/efortech-portal.css'
+import efortechLogo from '../assets/efortech_logo.png'
+
+const DASHBOARD_URL = '/grafana/?orgId=1&from=now-6h&to=now&timezone=browser'
+
+function EfortechPortalPage({ user, onSignOut }) {
+  return (
+    <main className="portal-page">
+      <header className="portal-topbar">
+        <div className="portal-left">
+          <img className="portal-logo" src={efortechLogo} alt="Efortech" />
+        </div>
+        <div className="portal-right">
+          <span className="portal-user">{user}</span>
+          <button type="button" className="portal-signout-btn" onClick={onSignOut}>
+            Sign out
+          </button>
+        </div>
+      </header>
+
+      <section className="portal-content">
+        <h1>Welcome, {user}</h1>
+        <p>Choose a service to get started.</p>
+
+        <div className="portal-group">
+          <h2>Services</h2>
+          <div className="portal-grid">
+            <button type="button" className="portal-card">
+              <div className="portal-card-icon">EW</div>
+              <span>ECOWatch</span>
+            </button>
+            <button
+              type="button"
+              className="portal-card portal-card-primary"
+              onClick={() => {
+                window.location.href = DASHBOARD_URL
+              }}
+            >
+              <div className="portal-card-icon">DB</div>
+              <span>Dashboard Grafana</span>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+  )
+}
+
+export default EfortechPortalPage
