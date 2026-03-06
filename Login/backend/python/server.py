@@ -33,7 +33,7 @@ if DIST_DIR.exists():
 
 @app.get("/{full_path:path}")
 async def spa_fallback(full_path: str):
-    if full_path.startswith(("api", "grafana", "auth", "public", "avatar", "login")):
+    if full_path.startswith(("api", "grafana", "auth", "public", "avatar")):
         return JSONResponse({"message": "Not Found"}, status_code=404)
 
     if DIST_INDEX.exists():

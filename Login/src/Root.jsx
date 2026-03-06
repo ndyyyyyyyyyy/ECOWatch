@@ -16,7 +16,7 @@ const BACKEND_BASE_URL = window.location.origin
 
 function RequireSession({ sessionUser, children }) {
   if (!sessionUser) {
-    return <Navigate to="/login" replace />
+    return <Navigate to="/login?reason=auth" replace />
   }
   return children
 }

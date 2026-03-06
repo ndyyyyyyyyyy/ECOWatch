@@ -93,7 +93,6 @@ export function registerGrafanaProxyRoutes(app, config) {
   app.use('/api/live', requireUser, grafanaProxy)
   app.use('/public', requireUser, grafanaProxy)
   app.use('/avatar', requireUser, grafanaProxy)
-  app.use('/login', requireUser, grafanaProxy)
   app.use('/favicon.ico', requireUser, grafanaProxy)
 
   return grafanaProxy

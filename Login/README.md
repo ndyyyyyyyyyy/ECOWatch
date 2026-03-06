@@ -29,3 +29,16 @@ Run from repo root:
 1. `npm install`
 2. `npm run build`
 3. `npm run backend` (Python backend)
+
+## Auth Mode
+
+Python backend login mode can be controlled via env `AUTH_MODE`:
+
+- `AUTH_MODE=hybrid` (default): try Grafana auth first, fallback to local login if Grafana is unreachable.
+- `AUTH_MODE=grafana`: strict Grafana-only login.
+- `AUTH_MODE=local`: local login only (for ECOWatch development without Grafana setup).
+
+Default local auth credentials:
+
+- Username: `admin`
+- Password: `admin123`

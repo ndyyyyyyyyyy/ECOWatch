@@ -424,7 +424,6 @@ app.use('/grafana', requireUser, grafanaProxy)
 app.use('/api/live', requireUser, grafanaProxy)
 app.use('/public', requireUser, grafanaProxy)
 app.use('/avatar', requireUser, grafanaProxy)
-app.use('/login', requireUser, grafanaProxy)
 app.use('/favicon.ico', requireUser, grafanaProxy)
 
 const distDir = path.resolve(__dirname, '..', 'dist')

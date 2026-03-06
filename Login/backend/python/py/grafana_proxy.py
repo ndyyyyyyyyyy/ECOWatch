@@ -177,10 +177,6 @@ def register_grafana_proxy_routes(app: FastAPI):
     async def grafana_avatar_compat(request: Request, subpath: str):
         return await proxy_http_to_grafana(request, f"/avatar/{subpath}")
 
-    @app.api_route("/login", methods=["GET", "POST"])
-    async def grafana_login_compat(request: Request):
-        return await proxy_http_to_grafana(request, "/login")
-
     @app.get("/favicon.ico")
     async def grafana_favicon_compat(request: Request):
         return await proxy_http_to_grafana(request, "/favicon.ico")

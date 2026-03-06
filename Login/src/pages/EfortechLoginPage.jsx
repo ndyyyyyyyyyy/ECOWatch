@@ -1,15 +1,19 @@
 import { useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import './style/efortech-login.css'
 import efortechLogo from '../assets/efortech_logo.png'
 
 const BACKEND_BASE_URL = window.location.origin
 
 function EfortechLoginPage({ onLoginSuccess }) {
+  const location = useLocation()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [remember, setRemember] = useState(true)
   const [showPassword, setShowPassword] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
+  const reason = new URLSearchParams(location.search).get('reason')
+  const infoMessage = reason === 'auth' ? 'Session ended. Please sign in again.' : ''
 
   async function handleSubmit(event) {
     event.preventDefault()
@@ -57,6 +61,7 @@ function EfortechLoginPage({ onLoginSuccess }) {
 
         <form className="efortech-form" onSubmit={handleSubmit}>
           <h2>Sign In</h2>
+          {infoMessage && <p className="efortech-info">{infoMessage}</p>}
 
           <input
             type="text"

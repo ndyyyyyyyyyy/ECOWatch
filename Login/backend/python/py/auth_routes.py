@@ -1,7 +1,16 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse, RedirectResponse, Response
 
-from .config import GRAFANA_DEFAULT_PATH, GRAFANA_TARGET, LOGIN_APP_URL, SESSION_COOKIE_NAME
+from .config import (
+    ALLOW_LOCAL_LOGIN_WITHOUT_PASSWORD,
+    AUTH_MODE,
+    GRAFANA_DEFAULT_PATH,
+    GRAFANA_TARGET,
+    LOGIN_APP_URL,
+    LOCAL_AUTH_PASSWORD,
+    LOCAL_AUTH_USERNAME,
+    SESSION_COOKIE_NAME,
+)
 from .http_client import get_http_client
 from .security import is_weekend
 from .session_store import (
@@ -16,7 +25,7 @@ from .session_store import (
 def register_auth_routes(app: FastAPI):
     @app.get("/api/health")
     async def api_health():
-        return {"ok": True}
+        return {"ok": True, "auth_mode": AUTH_MODE}
 
     @app.get("/api/session")
     async def api_session(request: Request):
@@ -40,11 +49,30 @@ def register_auth_routes(app: FastAPI):
 
         if not account:
             return JSONResponse({"message": "Account is required."}, status_code=400)
-        if not password:
+        if not password and not (AUTH_MODE == "local" and ALLOW_LOCAL_LOGIN_WITHOUT_PASSWORD):
             return JSONResponse({"message": "Password is required."}, status_code=400)
+
+        def _local_login_response():
+            if account != LOCAL_AUTH_USERNAME:
+                return JSONResponse({"message": "Invalid account or password."}, status_code=401)
+            if not ALLOW_LOCAL_LOGIN_WITHOUT_PASSWORD and password != LOCAL_AUTH_PASSWORD:
+                return JSONResponse({"message": "Invalid account or password."}, status_code=401)
+
+            sid, _ = create_session(user=account, remember_applied=remember_applied)
+            response = JSONResponse(
+                {"ok": True, "user": account, "remember": remember_applied, "auth_mode": "local"}
+            )
+            apply_session_cookie(response, sid, remember_applied)
+            return response
+
+        mode = AUTH_MODE if AUTH_MODE in {"grafana", "hybrid", "local"} else "hybrid"
+        if mode == "local":
+            return _local_login_response()
 
         client = get_http_client()
         if client is None:
+            if mode == "hybrid":
+                return _local_login_response()
             return JSONResponse({"message": "Auth service not ready."}, status_code=503)
 
         try:
@@ -55,6 +83,8 @@ def register_auth_routes(app: FastAPI):
                 follow_redirects=False,
             )
         except Exception:
+            if mode == "hybrid":
+                return _local_login_response()
             return JSONResponse({"message": "Failed to connect to Grafana."}, status_code=502)
 
         if login_check.status_code != 200:

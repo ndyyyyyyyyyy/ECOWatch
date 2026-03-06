@@ -1,5 +1,6 @@
 import './style/efortech-portal.css'
 import efortechLogo from '../assets/efortech_logo.png'
+import { Activity, CalendarClock } from 'lucide-react'
 
 const DASHBOARD_URL = '/grafana/?orgId=1&from=now-6h&to=now&timezone=browser'
 const DEFAULT_ECOWATCH_URL = '/ecowatch/area-usage'
@@ -33,7 +34,9 @@ function EfortechPortalPage({ user, onSignOut }) {
           <h2>Services</h2>
           <div className="portal-grid">
             <button type="button" className="portal-card" onClick={handleEcowatchOpen}>
-              <div className="portal-card-icon">EW</div>
+              <div className="portal-card-icon">
+                <Activity size={22} strokeWidth={2.5} aria-hidden="true" />
+              </div>
               <span>ECOWatch</span>
             </button>
             <button
@@ -43,7 +46,9 @@ function EfortechPortalPage({ user, onSignOut }) {
                 window.location.href = DASHBOARD_URL
               }}
             >
-              <div className="portal-card-icon">DB</div>
+              <div className="portal-card-icon">
+                <CalendarClock size={22} strokeWidth={2.5} aria-hidden="true" />
+              </div>
               <span>Dashboard Grafana</span>
             </button>
           </div>
