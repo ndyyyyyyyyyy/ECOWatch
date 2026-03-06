@@ -18,3 +18,7 @@ Untuk menjalankan backend tersedia dua opsi:
  npm run backend:js
 - Backend Python
  npm run backend:py
+
+## Menjalankan Frontend
+
+npm run build
