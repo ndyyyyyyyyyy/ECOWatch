@@ -1,0 +1,1462 @@
+{
+  "{{enricherType}} enricher does not require any configuration": {
+    " It will start enriching alerts as soon as it is enabled": "Pengaya {{enricherType}} tidak memerlukan konfigurasi apa pun. Pengaya ini akan mulai memperkaya peringatan segera setelah diaktifkan."
+  },
+  "access-control": {
+    "permissions": {
+      "lbac-warning-basic-role": "",
+      "lbac-warning-rule": "Peringatan: Tim ini mungkin tidak memiliki izin untuk kueri sumber data.",
+      "lbac-warning-team": "Peringatan: Tim ini memiliki akses data penuh jika tidak ada aturan LBAC yang ditetapkan."
+    }
+  },
+  "admin": {
+    "role-filter": {
+      "admin-editor-option": "Admin/editor",
+      "multiselect-placeholder": "Filter berdasarkan peran berlisensi",
+      "server-admin-option": "Admin server",
+      "viewer-option": "Pemirsa"
+    }
+  },
+  "alert-enrichment": {
+    "error": "Gagal membuat pengayaan peringatan",
+    "metadata-error": "",
+    "success": "Pengayaan peringatan berhasil dibuat!",
+    "update-error": "Gagal memperbarui pengayaan peringatan",
+    "update-success": "Pengayaan peringatan berhasil diperbarui!"
+  },
+  "alert-enrichment-form": {
+    "actions": {
+      "cancel": "Batal",
+      "save": "Simpan Pengayaan"
+    },
+    "assign-enricher": {
+      "add-annotation": "Tambahkan tugas anotasi",
+      "annotation-name": "Kunci",
+      "annotation-name-placeholder": "kunci",
+      "annotation-value": "Nilai",
+      "annotation-value-placeholder": "nilai",
+      "remove-annotation-aria-label": "Hapus anotasi",
+      "remove-annotation-tooltip": "Hapus anotasi"
+    },
+    "basic-info": {
+      "description": "Deskripsi (opsional)",
+      "description-placeholder": "Deskripsi pengayaan",
+      "name": "Nama Pengayaan",
+      "name-placeholder": "pengayaan saya",
+      "name-required": "Nama wajib diisi",
+      "timeout": "Waktu habis",
+      "timeout-description": "Waktu maksimum yang diizinkan untuk pengayaan ini (misalnya, 30 dtk, 1 mnt)",
+      "timeout-placeholder": "30 dtk"
+    },
+    "ds-type": {
+      "logs": "Log",
+      "raw": "Mentah"
+    },
+    "dsquery-enricher": {
+      "add-first-query": "Tambahkan kueri pertama Anda",
+      "add-query": "Tambahkan kueri",
+      "no-datasource": "Sumber data tidak ada",
+      "no-datasource-description": "Kami tidak dapat menemukan sumber data untuk kueri ini. Sumber data telah dihapus atau tidak tersedia",
+      "no-queries": "Belum ada kueri yang ditentukan",
+      "raw-queries-description": "Tentukan kueri yang akan dijalankan untuk memperkaya peringatan Anda. Hasilnya akan tersedia dalam konteks pengayaan.",
+      "remove-query": "Hapus kueri"
+    },
+    "enricher-config": {
+      "llm-disabled": "LLM dinonaktifkan",
+      "llm-disabled-description": "Pengaya penjelasan memerlukan plugin Grafana LLM untuk diaktifkan",
+      "type": "Jenis Pengaya",
+      "type-placeholder": "Pilih jenis pengaya",
+      "type-required": "Jenis pengaya diperlukan"
+    },
+    "enricher-type": {
+      "asserts": "Penegasan",
+      "assign": "Ditugaskan",
+      "dsquery": "Kueri Sumber Data",
+      "explain": "Penjelasan",
+      "external": "Eksternal",
+      "sift": "Sift"
+    },
+    "explain-enricher": {
+      "annotation-label": "Kunci Anotasi",
+      "annotation-placeholder": "penjelasan",
+      "annotation-required": "Kunci anotasi diperlukan untuk pengaya penjelasan",
+      "annotation-tooltip": "Kunci anotasi tempat penjelasan yang dihasilkan LLM akan disimpan",
+      "description": "Pengaya penjelasan menggunakan LLM untuk menghasilkan penjelasan peringatan. Konfigurasikan kunci anotasi tempat penjelasan akan disimpan."
+    },
+    "external-enricher": {
+      "url-label": "URL Layanan Eksternal",
+      "url-placeholder": "https://api.example.com/enrich",
+      "url-required": "URL diperlukan untuk pengaya eksternal"
+    },
+    "matcher": {
+      "add-button": "Tambahkan",
+      "name-label": "Nama",
+      "name-placeholder": "Nama",
+      "remove-aria-label": "Hapus pencocok",
+      "remove-tooltip": "Hapus pencocok",
+      "type-label": "Jenis",
+      "type-placeholder": "Jenis",
+      "value-label": "Nilai",
+      "value-placeholder": "Nilai"
+    },
+    "matcher-type": {
+      "equals": "Sama dengan (=)",
+      "not-equals": "Tidak Sama Dengan (!=)",
+      "regex-match": "Pencocokan Regex (=~)",
+      "regex-not-match": "Regex Tidak Cocok (!~)"
+    },
+    "scope": {
+      "all-alerts": "Semua peringatan",
+      "annotation-scoped": "Anotasi dalam ruang lingkup",
+      "description": "Tentukan peringatan mana yang harus diperkaya",
+      "label-scoped": "Label dalam ruang lingkup",
+      "title": "Ruang Lingkup"
+    }
+  },
+  "alerting": {
+    "ai-feedback": {
+      "comment-description": "Bantu kami meningkatkan layanan dengan berbagi hal yang membuat Anda puas dan hal yang dapat kami perbaiki",
+      "comment-label": "Umpan balik tambahan (opsional)",
+      "comment-placeholder": "Bagikan pendapat Anda tentang tanggapan AI...",
+      "comment-prompt": "Apakah Anda ingin memberi tahu kami lebih banyak tentang pengalaman Anda?",
+      "helpful": "Ya, membantu",
+      "not-helpful": "Tidak, tidak membantu",
+      "question": "Apakah tanggapan AI ini membantu?",
+      "skip": "Lewati",
+      "submit": "Kirim Umpan Balik",
+      "thank-you": "Terima kasih atas masukan Anda!"
+    },
+    "enrichment": {
+      "appliesTo": "Berlaku untuk semua peringatan",
+      "delete": {
+        "body": "Yakin ingin menghapus pengayaan peringatan <1>{{name}}</1>?",
+        "cancel": "Batal",
+        "confirm": "Hapus",
+        "title": "Hapus pengayaan peringatan"
+      },
+      "delete-enrichment": "Hapus pengayaan {{name}}",
+      "edit-button": "Edit",
+      "edit-enrichment": "Edit pengayaan {{name}}",
+      "edit-title": "Edit pengayaan",
+      "enrichments": "Pengayaan",
+      "expanded-row": {
+        "annotationMatchers": "<0>Pencocok anotasi:</0> {formatMatchers(annotationMatchers)}",
+        "asserts": "Pengayaan <0>Penegasan</0> dikonfigurasi",
+        "assignments": "<0>Menetapkan:</0> {assignments.map((a) => `${a.name}=${a.value}`).join(', ')}",
+        "datasource": "<0>Sumber data:</0> {details.join(', ')}",
+        "externalUrl": "<0>URL:</0> {step.enricher.external.url}",
+        "labelMatchers": "<0>Pencocok label:</0> {formatMatchers(labelMatchers)}",
+        "sift": "Pengayaan <0>Sift</0> dikonfigurasi",
+        "type": "Tipe:"
+      },
+      "load-error": "Gagal memuat pengayaan",
+      "loading": "Memuat pengayaan...",
+      "loadMore": "Muat lainnya",
+      "new-alert": "Pengayaan peringatan baru",
+      "new-title": "Pengayaan baru",
+      "noEnrichments": "Tidak ada pengayaan peringatan yang dikonfigurasi",
+      "tab": {
+        "description": "Jadikan notifikasi peringatan Anda lebih dapat ditindaklanjuti dengan menjalankan analisis awal dan menambahkan lebih banyak konteks."
+      },
+      "table": {
+        "actions": "Tindakan",
+        "annotationMatchers": "Anotasi",
+        "annotationMatchers-scoped": "Dibuat ruang lingkupnya oleh ",
+        "enrichment": "Pengayaan",
+        "labelMatchers": "Label"
+      },
+      "tooltip": {
+        "asserts": "Menggunakan penegasan untuk memperkaya peringatan",
+        "assign": {
+          "assignments": "Anotasi:",
+          "default": "Menetapkan anotasi ke peringatan",
+          "emptyValue": "(kosong)",
+          "title": "Menetapkan anotasi ke peringatan"
+        },
+        "default": "Pengayaan peringatan dikonfigurasi",
+        "dsquery": {
+          "datasourceType": "Sumber data:",
+          "maxLines": "Baris maks:",
+          "queries": "Kueri:",
+          "query": "Kueri:",
+          "rawRequest": "Permintaan sumber data kustom dikonfigurasi",
+          "refId": "ID Ref.",
+          "title": "Kueri sumber data untuk pengayaan",
+          "type": "Tipe:"
+        },
+        "explain": {
+          "annotation": "Tersimpan di:",
+          "default": "Menggunakan LLM untuk menghasilkan penjelasan peringatan",
+          "title": "Menggunakan LLM untuk menghasilkan penjelasan peringatan"
+        },
+        "external": {
+          "default": "Memanggil layanan eksternal untuk pengayaan",
+          "title": "Memanggil layanan eksternal untuk pengayaan",
+          "url": "URL:"
+        },
+        "sift": "Menggunakan sift untuk memperkaya peringatan"
+      }
+    },
+    "generate-ai-rule": {
+      "button": "Buat dengan AI",
+      "modal": {
+        "error": "{stringifyErrorLike(error)}",
+        "error-title": "Kesalahan saat membuat aturan peringatan",
+        "generate": "Buat Aturan",
+        "generating": "Membuat...",
+        "preview-contact-point": "Narahubung:",
+        "preview-description": "Deskripsi:",
+        "preview-name": "Nama:",
+        "preview-queries": "Kueri:",
+        "preview-title": "Aturan Peringatan yang Dibuat",
+        "prompt-description": "Jelaskan apa yang ingin Anda pantau dan kapan Anda ingin diberi tahu. Misalnya: \"Peringatkan ketika penggunaan CPU di atas 80% selama lebih dari 5 menit\". Anda juga dapat menanyakan narahubung atau sumber data yang tersedia.",
+        "prompt-label": "Jelaskan aturan peringatan yang ingin Anda buat",
+        "prompt-placeholder": "Beri tahu ketika penggunaan disk di atas 90% selama lebih dari 5 menit dan kirim ke narahubung Slack...",
+        "title": "Buat Aturan Peringatan dengan AI",
+        "use-rule": "Gunakan Aturan Ini"
+      }
+    },
+    "improve-ai-annotations": {
+      "button": "Tingkatkan anotasi dengan AI",
+      "modal": {
+        "apply-improvements": "Terapkan Peningkatan Anotasi",
+        "error": "{stringifyErrorLike (generationError)}",
+        "error-title": "Kesalahan",
+        "generate": "Tingkatkan Anotasi",
+        "generating": "Membuat...",
+        "preview-annotations": "Notasi yang Ditingkatkan:",
+        "preview-title": "Pratinjau Peningkatan Anotasi AI",
+        "prompt-description": "Jelaskan apa yang ingin Anda tingkatkan tentang anotasi aturan peringatan. Misalnya: \"Buat ringkasan yang lebih deskriptif\", \"Tambahkan langkah pemecahan masalah ke deskripsi\", atau \"Tambahkan tautan runbook\".",
+        "prompt-label": "Bagaimana Anda ingin meningkatkan anotasi?",
+        "prompt-placeholder": "Buat ringkasan lebih deskriptif dan tambahkan langkah-langkah pemecahan masalah ke deskripsi...",
+        "title": "Tingkatkan Anotasi Aturan Peringatan dengan AI"
+      }
+    },
+    "improve-ai-labels": {
+      "button": "Tingkatkan label dengan AI",
+      "modal": {
+        "cancel": "Batal",
+        "error": "{stringifyErrorLike (generationError)}",
+        "error-title": "Kesalahan",
+        "generate": "Buat perbaikan",
+        "generating": "Membuat...",
+        "prompt-description": "Jelaskan apa yang ingin Anda tingkatkan tentang label aturan peringatan. Misalnya: \"Tambahkan label keparahan dinamis\", \"Sertakan kepemilikan tim\", atau \"Tambahkan label lingkungan\".",
+        "prompt-label": "Bagaimana Anda ingin meningkatkan label?",
+        "prompt-placeholder": "Tambahkan label keparahan dinamis berdasarkan nilai ambang batas dan sertakan kepemilikan tim...",
+        "title": "Tingkatkan Label Aturan Peringatan dengan AI"
+      },
+      "preview": {
+        "apply": "Terapkan peningkatan",
+        "cancel": "Batal",
+        "no-improvements": "Tidak ada perbaikan yang ditemukan",
+        "no-improvements-message": "AI tidak menyarankan peningkatan label untuk permintaan ini.",
+        "title": "AI menyarankan peningkatan label:"
+      }
+    },
+    "settings": {
+      "tabs": {
+        "enrichment": {
+          "title": "Pengayaan Peringatan"
+        }
+      }
+    },
+    "template-form": {
+      "genai": {
+        "modal": {
+          "error": "{stringifyErrorLike (generationError)}",
+          "error-title": "Kesalahan",
+          "generate": "Buat Templat",
+          "generating": "Membuat...",
+          "prompt-description": "Jelaskan format dan konten yang Anda inginkan untuk notifikasi Anda. Misalnya: \"Pesan Slack yang menunjukkan nama peringatan, status, dan ringkasan dengan indikator emoji\" atau \"Email dengan tabel semua peringatan yang aktif termasuk label dan waktu mulai\".",
+          "prompt-label": "Jelaskan bagaimana Anda ingin notifikasi Anda terlihat",
+          "prompt-placeholder": "Pesan Slack yang menunjukkan \"🔥PERINGATAN: [AlertName] sedang aktif\" dengan ringkasan dan tautan untuk melihat detail...",
+          "title": "Buat Templat dengan AI"
+        }
+      }
+    },
+    "templates": {
+      "editor": {
+        "generate-with-ai": "Buat dengan AI"
+      }
+    },
+    "triage-ai": {
+      "button": "Analisis dengan {{ provider }}",
+      "modal": {
+        "analysis-title": "Analisis Triase Peringatan",
+        "analyze": "Analisis",
+        "analyzing": "🤖 Menganalisis {{logRecordsLength}} peristiwa peringatan...",
+        "custom-question": {
+          "help": "Biarkan kosong untuk analisis triase umum, atau ajukan pertanyaan spesifik tentang peristiwa peringatan.",
+          "label": "Ajukan pertanyaan spesifik (opsional)",
+          "placeholder": "misalnya, \"Apa yang menyebabkan peringatan database?\" atau \"Apakah peringatan ini terkait dengan deployment baru-baru ini?\""
+        },
+        "description": "Analisis AI terhadap peristiwa peringatan saat ini untuk membantu memahami pola, memprioritaskan respons, dan mengidentifikasi potensi masalah.",
+        "error": "Kesalahan",
+        "title": "Analisis Triase Peringatan"
+      }
+    }
+  },
+  "auth-config": {
+    "action-bar": {
+      "content-disable-button": "Nonaktifkan akan menonaktifkan Grafana untuk tidak menggunakan autentikasi SAML.",
+      "delete": "Hapus",
+      "disable-button": "Nonaktifkan",
+      "enabled-badge": "Diaktifkan",
+      "more-actions-button": "Tindakan lainnya",
+      "not-enabled-badge": "Tidak diaktifkan",
+      "protocol": "Protokol",
+      "save-and-apply-button": "Simpan dan terapkan",
+      "save-and-enable-button": "Simpan dan aktifkan",
+      "save-button": "Simpan",
+      "status": "Status"
+    },
+    "assertion-mapping-unconnected": {
+      "aria-label-name-id-format": "nameIdFormat",
+      "assertionAttributeEmail-label-email-attribute": "Atribut email",
+      "assertionAttributeEmail-placeholder-mail": "surat",
+      "assertionAttributeExternalUid-label-external-uid": "Atribut UID eksternal",
+      "assertionAttributeExternalUid-tooltip-external-uid": "Pemetaan UID eksternal adalah mekanisme keamanan yang mencegah peniruan identitas dan hanya diperlukan ketika penyediaan SCIM diaktifkan. UID Eksternal yang disediakan (id pengguna yang dihasilkan penyedia identitas) harus ada dalam pernyataan SAML saat pengguna masuk. Nilai default untuk bidang ini adalah userUID.",
+      "assertionAttributeGroups-label-groups-attribute": "Atribut grup",
+      "assertionAttributeLogin-label-login-attribute": "Atribut login",
+      "assertionAttributeLogin-placeholder-mail": "surat",
+      "assertionAttributeName-label-name-attribute": "Atribut nama",
+      "assertionAttributeName-placeholder-display-name": "namaTampilan",
+      "assertionAttributeOrg-label-org-attribute": "Atribut organisasi",
+      "assertionAttributeRole-label-role-attribute": "Atribut peran",
+      "azure-ad-service-account-configuration": "Konfigurasi Akun Layanan Azure AD",
+      "clientId-label-client-id": "ID Klien",
+      "clientSecret-label-client-secret": "Rahasia Klien",
+      "description-allowed-organizations": "Daftar nama organisasi SAML yang dipisahkan koma atau spasi. Pengguna harus menjadi anggota dari setidaknya satu organisasi untuk masuk.",
+      "description-assertion-attributes-mapping": "Petakan atribut pernyataan SAML ke atribut pengguna Grafana. Atribut pernyataan mendukung pemetaan templat. Sinkronisasi tim tersedia jika atribut grup dikonfigurasi.",
+      "description-azure-ad-service-account-configuration": "Jika Anda memiliki pengguna yang tergabung dalam lebih dari 150 grup di organisasi Azure AD Anda, Anda perlu menyiapkan akun layanan di Azure AD untuk mengambil semua grup melalui Graph API. Akun layanan ini akan digunakan untuk mengambil semua grup untuk pengguna. Baca selengkapnya tentang konfigurasi akun layanan Azure AD di <1>dokumentasi</1>.",
+      "description-force-use-graph-api": "Paksa penggunaan Graph API untuk mengambil semua grup untuk pengguna.",
+      "description-name-identifier-format": "Format pengidentifikasi nama mengontrol cara pengguna di penyedia identitas dipetakan ke pengguna di Grafana",
+      "description-prevent-synchronizing-users-organization-roles": "Cegah sinkronisasi peran organisasi pengguna SAML dari IdP Anda.",
+      "label-allowed-organizations": "Organisasi yang diizinkan",
+      "label-assertion-attributes-mapping": "Pemetaan atribut pernyataan",
+      "label-force-use-graph-api": "Paksa penggunaan Graph API",
+      "label-name-identifier-format": "Format pengidentifikasi nama",
+      "label-org-mapping": "Pemetaan organisasi",
+      "label-role-mapping": "Pemetaan peran",
+      "label-skip-organization-role-sync": "Lewati sinkronisasi peran organisasi",
+      "label-user-mapping": "Pemetaan pengguna",
+      "orgMapping-label-org-mapping": "Pemetaan organisasi",
+      "roleValuesAdmin-label-admin": "Admin",
+      "roleValuesEditor-label-editor": "Editor",
+      "roleValuesGrafanaAdmin-label-grafana-admin": "Admin Grafana",
+      "roleValuesNone-label-none": "Tidak ada",
+      "roleValuesViewer-label-viewer": "Pemirsa",
+      "tokenUrl-label-access-token-url": "Akses URL Token",
+      "tooltip-assertion-attributes-mapping": "Pemetaan atribut pernyataan di Grafana mengambil informasi pengguna dari respons SAML dan menggunakannya untuk membuat atau memperbarui pengguna di basis datanya. Fitur ini membaca berbagai atribut—pasangan kunci/nilai—dalam pernyataan tersebut, seperti Nama, Handle (Identitas unik pengguna) saat login, dan email. Konfigurasi memungkinkan modifikasi pemilihan kunci.",
+      "tooltip-org-mapping": "Pemetaan organisasi memungkinkan Anda untuk menetapkan pengguna ke organisasi tertentu di Grafana tergantung pada nilai atribut yang diperoleh dari penyedia identitas. Gunakan konfigurasi untuk menetapkan pengguna dari organisasi Anda ke organisasi Grafana.",
+      "tooltip-role-mapping": "Pemetaan peran menyinkronkan peran pengguna dari penyedia identitas Anda ke Grafana dengan mengonfigurasi atribut peran untuk peran Tidak Ada, Pemirsa, Editor, Admin, dan Admin Grafana. Jika tidak ada kecocokan, peran default di Grafana adalah Pemirsa."
+    },
+    "config-action": {
+      "confirm-modal-body": "Anda yakin ingin menghapus konfigurasi SAML ini secara permanen? Semua perubahan yang dibuat di UI akan dihapus.",
+      "confirm-modal-confirm-text": "Hapus konfigurasi",
+      "confirm-modal-confirmation-text": "hapus",
+      "confirm-modal-dismiss-text": "Kembali ke pengeditan",
+      "confirm-modal-title": "Hapus konfigurasi SAML"
+    },
+    "connect-to-idp-unconnected": {
+      "configure-assertions-group-mappings": "Konfigurasikan pernyataan, grup, pemetaan grup dan organisasi pada langkah berikutnya.",
+      "configure-idp-using-grafana-metadata": "Konfigurasikan IdP menggunakan metadata Grafana",
+      "copy": "Salin",
+      "description-assertion-consumer-service-url": "URL layanan penerima pernyataan (ACS) dengan metode POST",
+      "description-idp-metadata": "Harus sama dengan pengaturan atau yang diperlukan oleh IdP.",
+      "description-metadata-url": "URL untuk metadata IdP",
+      "description-setup-idp": "Untuk mengonfigurasi penyedia identitas (IdP) Anda, Anda memerlukan URL metadata Grafana. Semua endpoint di bawah ini harus dapat dijangkau oleh Penyedia Identitas (IdP) Anda.",
+      "description-setup-required": "Kunjungi panel konfigurasi IdP Anda, tambahkan aplikasi baru, dan gunakan metadata dari langkah pertama untuk terhubung dengan Grafana. Anda perlu menyalin metadata IdP Anda dan menyediakannya di bawah ini. Uji koneksi dan salin label/nilai pernyataan.",
+      "description-slo-url": "URL layanan logout dengan motede POST / URL layanan logout dengan metode redirect (pengalihan)",
+      "description-sp-metadata-url-entity-id": "URL metadata SP / ID Entitas SP",
+      "description-test-connection": "Jika Anda ingin menguji koneksi dari panel IdP Anda, pastikan untuk mengizinkan login yang dimulai oleh IdP dan memberikan informasi status relay.",
+      "finish-configuring-grafana-using-idp-data": "Selesaikan konfigurasi Grafana menggunakan data IdP",
+      "label-assertion-consumer-service-url": "URL Layanan Penerima Pernyataan",
+      "label-baseencoded-idp-metadata": "Metadata IdP yang dikodekan dengan Base64",
+      "label-connect-grafana-with-identity-provider": "Hubungkan Grafana dengan Penyedia Identitas",
+      "label-idp-metadata": "Metadata IdP ",
+      "label-metadata-url": "URL Metadata",
+      "label-path-to-idp-metadata-file": "Jalur ke file metadata IdP",
+      "label-slo-url": "URL SLO",
+      "label-sp-metadata-url-entity-id": "URL Metadata",
+      "step-number-1": "1",
+      "step-number-2": "2",
+      "step-number-3": "3"
+    },
+    "general-unconnected": {
+      "description-allow-signup": "Apakah akan mengizinkan pembuatan pengguna baru Grafana melalui login SAML. Jika tidak diaktifkan, hanya pengguna Grafana yang sudah ada yang dapat masuk dengan SAML.",
+      "description-auto-login": "Mencoba masuk dengan SAML secara otomatis, tanpa harus melalui layar login.",
+      "description-display-name-for-this-saml-integration": "Berguna jika Anda menggunakan lebih dari satu penyedia atau protokol IdP SSO.",
+      "description-duration-grafana-metadata-valid": "Durasi, untuk berapa lama metadata Grafana valid.",
+      "description-entity-id": "ID entitas adalah pengidentifikasi unik global untuk penyedia layanan. Ini digunakan untuk mengidentifikasi penyedia layanan kepada penyedia identitas. Default ke URL instans Grafana.",
+      "description-identity-provider-initiated-login": "Memungkinkan pengguna untuk masuk ke Grafana langsung dari penyedia identitas.",
+      "description-max-issue-delay": "Durasi, sejak IdP mengeluarkan respons dan Grafana diizinkan untuk memprosesnya.",
+      "description-relay-state": "Diperlukan. Harus sesuai dengan status relay yang dikonfigurasi di IdP dan harus ada spasi di bagian akhir.",
+      "description-single-logout": "Memungkinkan pengguna untuk keluar dari sesi IdP dan aplikasi yang terkait dengan sesi IdP saat ini yang dibuat melalui SAML.",
+      "displayName-placeholder-saml": "SAML",
+      "label-allow-signup": "Izinkan pendaftaran",
+      "label-auto-login": "Login otomatis",
+      "label-display-name-for-this-saml-integration": "Nama tampilan untuk integrasi SAML 2.0 ini",
+      "label-entity-id": "ID Entitas",
+      "label-general-settings": "Pengaturan umum",
+      "label-identity-provider-initiated-login": "Penyedia identitas memulai login",
+      "label-max-issue-delay": "Keterlambatan penerbitan maksimum",
+      "label-metadata-valid-duration": "Durasi valid metadata",
+      "label-relay-state": "Status relay",
+      "label-single-logout": "Logout tunggal"
+    },
+    "input-with-reset": {
+      "reset": "Atur ulang"
+    },
+    "key-cert-drawer-unconnected": {
+      "close": "Tutup",
+      "description-number-generated-certificate-valid": "Masa berlaku (hari) untuk sertifikat yang dihasilkan.",
+      "generate": "Buat",
+      "label-city": "Kota",
+      "label-country-code": "Kode negara",
+      "label-state": "Status",
+      "label-validity-days": "Masa berlaku (hari)",
+      "label-your-organization": "Organisasi Anda",
+      "subtitle-saml-key-and-certificate": "Data berikut akan dimasukkan dalam sertifikat yang dihasilkan",
+      "title-saml-key-and-certificate": "Kunci dan sertifikat SAML",
+      "tooltip-generate-the-certificate-and-private-key": "Buat sertifikat dan kunci pribadi"
+    },
+    "key-cert-unconnected": {
+      "description-baseencoded-grafana-x-certificate": "Sertifikat Grafana X.509 yang dikodekan dengan Base64",
+      "description-baseencoded-private-key": "Kunci pribadi yang dikodekan dengan Base64",
+      "description-path-to-the-grafana-private-key": "Jalur ke kunci pribadi Grafana",
+      "description-path-to-the-grafana-x-certificate": "Jalur ke sertifikat Grafana X.509",
+      "description-sign-outgoing-requests-to-id-p": "Tanda tangani permintaan yang dikirim ke IdP",
+      "description-signature-algorithm": "Algoritme tanda tangan yang digunakan untuk menandatangani permintaan ke IdP. Harus sama dengan pengaturan atau yang diperlukan oleh IdP.",
+      "description-signing-and-encryption-key-certificate": "Sertifikat dan kunci pribadi untuk bertukar informasi antara Grafana dan IdP. Kunci pribadi perlu diterbitkan dalam format PKCS#8. Sertifikat harus berupa sertifikat X.509 yang valid.",
+      "generate-key-and-certificate": "Buat kunci dan sertifikat",
+      "label-certificate": "Sertifikat",
+      "label-private-key": "Kunci pribadi",
+      "label-sign-requests": "Tanda tangani permintaan",
+      "label-signature-algorithm": "Algoritme tanda tangan",
+      "label-signing-and-encryption-key-certificate": "Kunci dan sertifikat penandatanganan dan enkripsi"
+    },
+    "page-banner": {
+      "aria-label-close-banner": "Tutup banner",
+      "tooltip-close": "Tutup"
+    },
+    "SAML": {
+      "button-row-next": "Berikutnya: {{name}}",
+      "button-row-previous": "Sebelumnya: {{name}}"
+    },
+    "samlform": {
+      "text-saved": "Disimpan"
+    },
+    "save-and-test-unconnected": {
+      "button-save-and-enable": "Simpan dan aktifkan",
+      "label-test-and-enable": "Uji dan aktifkan",
+      "text-save-and-enable": "Jika Anda siap untuk menerapkan konfigurasi SAML Anda, gunakan tombol \"Simpan dan aktifkan\". Anda akan dapat menonaktifkan konfigurasi."
+    },
+    "save-samlsettings": {
+      "message": {
+        "cannot-save-settings": "Tidak dapat menyimpan pengaturan"
+      }
+    },
+    "text-input-with-reset": {
+      "reset": "Atur ulang"
+    }
+  },
+  "banner": {
+    "api": {
+      "result": {
+        "saved": "Pengaturan banner tersimpan"
+      }
+    },
+    "form": {
+      "button-save": "Simpan",
+      "button-saving": "Menyimpan...",
+      "enabled": {
+        "label": "Aktif"
+      },
+      "end": {
+        "description": "Jika tidak ada tanggal akhir yang dipilih, banner akan ditampilkan tanpa batas waktu.",
+        "error": "Jam berakhir harus setelah jam mulai",
+        "label": "Berakhir pada"
+      },
+      "message": {
+        "description": "Isi teks banner. Mendukung penurunan harga.",
+        "label": "Pesan"
+      },
+      "options": {
+        "error": "Kesalahan",
+        "info": "Info",
+        "warning": "PERINGATAN"
+      },
+      "select": {
+        "placeholder": "Pilih jenis banner"
+      },
+      "start": {
+        "description": "Banner akan ditampilkan mulai tanggal/waktu ini.",
+        "label": "Dimulai pada"
+      },
+      "title": "Konfigurasikan banner",
+      "variant": {
+        "label": "Varian"
+      }
+    },
+    "preview": {
+      "message": {
+        "default": "Perbarui pratinjau ini dengan mengubah bidang pesan."
+      },
+      "title": "Pratinjau"
+    }
+  },
+  "caching": {
+    "alert": {
+      "readonly": {
+        "message": "Sumber data ini ditambahkan oleh konfigurasi dan caching tidak dapat dimodifikasi menggunakan UI. Hubungi admin server Anda untuk memperbarui sumber data ini.",
+        "title": "Sumber data yang disediakan"
+      }
+    },
+    "cache-clean": {
+      "body-clear-cache": "Peringatan: Tindakan ini memengaruhi semua sumber data yang memiliki fitur cache diaktifkan. Jika Anda menggunakan Memcached, sistem akan menghapus semua data dari instans Memcached. Apa Anda ingin melanjutkan?",
+      "clear-cache": "Bersihkan cache",
+      "confirm-text-clear-cache": "Bersihkan cache",
+      "title-clear-cache": "Bersihkan cache"
+    },
+    "cache-cta": {
+      "enable-button-title": "Aktifkan",
+      "enable-button-tittle": "Aktifkan",
+      "protip-caching-cannot-enabled-source": "Konfigurasi sumber data ini tidak mengizinkan caching diaktifkan.",
+      "protip-caching-not-enabled": "Mengaktifkan caching dapat mengurangi jumlah permintaan berulang yang dikirim ke sumber data.",
+      "protip-link-caching-not-enabled": "Pelajari lebih lanjut",
+      "title-caching-cannot-enabled-source": "Caching tidak dapat diaktifkan untuk sumber data ini.",
+      "title-caching-not-enabled": "Caching tidak diaktifkan untuk sumber data ini."
+    },
+    "cache-settings-disable": {
+      "disable": "Nonaktifkan"
+    },
+    "cache-settings-form": {
+      "description-query-ttl": "Time-to-live untuk item cache kueri dalam satuan milidetik. Contoh: 5000",
+      "description-resource-ttl": "Sumber daya adalah nilai dinamis yang diambil plugin sumber data Grafana dari sumber data untuk digunakan di editor kueri. Contohnya adalah namespace Splunk, label Prometheus, dan nama metrik CloudWatch. Karena nilai ini lebih jarang diperbarui, Anda mungkin lebih memilih TTL cache yang lebih lama untuk Sumber Daya daripada kueri. Lihat <2>dokumen</2> untuk info selengkapnya.",
+      "description-timetolive-resources-cache-items-milliseconds-example": "Time-to-live untuk item cache sumber daya dalam satuan milidetik. Contoh: 5000",
+      "description-use-default-ttl": "Aktifkan ini untuk menggunakan TTL default yang ditetapkan dalam konfigurasi Grafana ({{defaultTTLMs}} md)",
+      "label-query-ttl": "TTL Kueri",
+      "label-use-default-ttl": "Gunakan TTL default",
+      "resource-ttl": "TTL Sumber Daya",
+      "save": "Simpan"
+    },
+    "caching": {
+      "content": {
+        "text": {
+          "enable-caching": "Aktifkan caching"
+        }
+      }
+    },
+    "data-source-cache": {
+      "caching-heading": "Caching (Penyimpanan sementara)",
+      "query-catching": "Aktifkan caching kueri secara gratis selama uji coba Grafana Pro Anda.",
+      "upgrade-content-author-dashboards": "Buat dasbor secara lebih lancar dengan menyimpan sementara data yang digunakan untuk membuat kueri, seperti bidang di ServiceNow atau metrik yang tersedia dari Datadog",
+      "upgrade-content-description": "Dengan penyimpanan sementara kueri, Anda dapat memuat dasbor lebih cepat dan mengurangi kueri berbiaya besar ke sumber data dengan menyimpan hasil kueri sementara di memori, Redis, atau Memcached.",
+      "upgrade-content-load-dashboards": "Memuat dasbor dari cache dalam waktu kurang dari satu detik, bahkan saat dasbor menyertakan kueri besar dan banyak pengguna yang melihat pada saat yang bersamaan",
+      "upgrade-content-save-money": "Hemat uang dan hindari pembatasan tarif dengan mengurangi jumlah panggilan API yang Anda buat ke sumber data seperti Splunk, CloudWatch, dan Github"
+    }
+  },
+  "common": {
+    "cancel": "Batalkan",
+    "close": "Tutup"
+  },
+  "explore": {
+    "query-library": {
+      "cancel": "Batalkan",
+      "default-title": "Kueri baru",
+      "discard": "Buang",
+      "editing-title": "Mengedit dari kueri tersimpan",
+      "explore": "Edit di Jelajahi",
+      "query-template-added": "Kueri berhasil disimpan ke pustaka",
+      "query-template-edit-error": "Kesalahan saat mencoba mengedit kueri ini",
+      "query-template-edited": "Templat kueri berhasil diedit",
+      "save": "Simpan",
+      "save-and-close": "",
+      "save-return": "Simpan dan kembali ke kueri tersimpan",
+      "saving": "Menyimpan..."
+    }
+  },
+  "export": {
+    "pdf": {
+      "cancel-button": "Batalkan",
+      "download-button": "Buat PDF",
+      "image-alt": "Pratinjau PDF",
+      "info-text": "Ekspor dasbor sebagai dokumen PDF",
+      "layout-label": "Tata Letak",
+      "orientation-label": "Orientasi",
+      "title": "Ekspor PDF dasbor",
+      "zoom-description": "Perbesar untuk memperbesar teks, atau perkecil untuk melihat lebih banyak data (seperti kolom tabel) per panel.",
+      "zoom-label": "Perbesar"
+    }
+  },
+  "groupsync": {
+    "empty-state": {
+      "pro-tip": "Ingin mengelola akses Grafana melalui grup di Penyedia Identitas Anda? Buat pemetaan grup ke peran Grafana RBAC. <2>Pelajari selengkapnya</2>",
+      "title": "Anda belum membuat pemetaan grup"
+    },
+    "group-sync-editor": {
+      "body-delete-group-mappings": "Anda yakin ingin menghapus semua pemetaan untuk grup ini?",
+      "close-button-drawer": "Tutup",
+      "confirm-text-delete-group-mappings": "Hapus",
+      "delete-group-mapping": "Hapus pemetaan grup",
+      "new-button-drawer": "Baru",
+      "new-group-mapping": "Pemetaan grup baru",
+      "placeholder-search-by-group-id": "Cari berdasarkan ID grup",
+      "text-deprecated-feature": "Fitur ini tidak digunakan lagi dan aturan Anda akan berhenti berfungsi pada Juni 2025. Harap migrasikan ke sinkronisasi grup eksternal di pengaturan tim yang diinginkan, lalu tetapkan peran ke tim.",
+      "title-delete-group-mappings": "Hapus pemetaan grup",
+      "title-deprecated-feature": "Fitur yang Tidak Digunakan Lagi"
+    },
+    "new-mapping-form": {
+      "label-group-id": "ID Grup",
+      "label-roles": "Peran",
+      "save": "Simpan"
+    }
+  },
+  "licensing": {
+    "customer-support-button": {
+      "contact-customer-support": "Hubungi dukungan pelanggan"
+    },
+    "expires-soon": {
+      "title-grafana-enterprise-license-expire": "Lisensi Grafana Enterprise Anda akan segera berakhir",
+      "sub-title-license-expiration_other": "Tersisa {{count}} hari lagi, setelah itu <3>fitur Enterprise akan dinonaktifkan.</3>"
+    },
+    "get-token-status": {
+      "title": {
+        "token-expired": "Token kedaluwarsa",
+        "token-expires-soon": "Token segera kedaluwarsa"
+      }
+    },
+    "get-trial-status": {
+      "title": {
+        "trial-active": "Uji coba aktif",
+        "trial-expired": "Uji coba kedaluwarsa"
+      }
+    },
+    "has-expired": {
+      "sub-title-licensing-reader": "<0>Beberapa fitur</0> telah dinonaktifkan.",
+      "title-your-grafana-enterprise-license-has-expired": "Lisensi Grafana Enterprise Anda telah berakhir"
+    },
+    "is-invalid": {
+      "sub-title-licensing-reader": "<0>Beberapa fitur</0> telah dinonaktifkan.",
+      "title-your-grafana-enterprise-license-is-invalid": "Lisensi Grafana Enterprise Anda tidak valid"
+    },
+    "license-info": {
+      "aria-label-details-about-license-grafana-cloud": "Lihat detail tentang lisensi Anda di Grafana Cloud",
+      "card-content-account": "Akun AWS",
+      "card-content-active-licensed-users": "Pengguna berlisensi aktif",
+      "card-content-anonymous-users": "Pengguna anonim",
+      "card-content-authenticated-users": "Pengguna terautentikasi",
+      "card-content-company": "Perusahaan",
+      "card-content-license-expires": "Lisensi kedaluwarsa",
+      "card-content-license-expires-tooltip": "Tanggal kedaluwarsa lisensi adalah tanggal ketika lisensi yang saat ini berlaku tidak lagi aktif. Saat tanggal kedaluwarsa lisensi semakin dekat, Grafana Enterprise menampilkan banner.",
+      "card-content-lid": "ID Lisensi",
+      "card-content-none": "Tidak ada",
+      "card-content-product": "Produk",
+      "card-content-products": "Produk",
+      "card-content-purchase-date": "Tanggal pembelian",
+      "card-content-token-auto-update": "Grafana secara otomatis memperbarui token sebelum kedaluwarsa. Jika token Anda tidak diperbarui, hubungi dukungan.",
+      "card-content-token-expires": "Token kedaluwarsa",
+      "card-content-token-id": "ID Token",
+      "card-content-token-issued": "Token diterbitkan",
+      "card-content-token-usage-billing-off": "Nonaktif",
+      "card-content-url-name": "URL",
+      "card-content-url-tooltip": "URL lisensi adalah root-URL dari instans Grafana Anda. Lisensi tidak akan berfungsi pada instans Grafana dengan root-URL yang berbeda.",
+      "card-content-usage-billing": "Penagihan penggunaan",
+      "card-content-usage-billing-on": "Aktif",
+      "card-content-usage-billing-tooltip": "Anda dapat meminta Grafana Labs untuk mengaktifkan penagihan penggunaan untuk mengizinkan jumlah pengguna aktif yang tanpa batas. Saat penagihan penggunaan diaktifkan, Grafana tidak memberlakukan batas pengguna aktif atau menampilkan banner peringatan. Sebagai gantinya, Anda dikenai biaya untuk pengguna aktif yang melebihi batas, sesuai dengan kontrak pelanggan Anda.",
+      "edition-notice-licensing-info": "Anda menjalankan Grafana Enterprise tanpa lisensi. Fitur Enterprise dinonaktifkan.",
+      "edition-notice-problem-licensing-info": "Ada masalah dengan token lisensi Enterprise Anda. Fitur Enterprise dinonaktifkan.",
+      "license-alert": "Token lisensi diunggah. Mulai ulang Grafana agar perubahan dapat diterapkan.",
+      "license-details": "Detail lisensi",
+      "license-token-info": "Baca tentang <2>tanggal kedaluwarsa lisensi</2> dan <6>aktivasi lisensi</6>.",
+      "renew-token": "Perpanjang token",
+      "renewing": " (Memperpanjang...)",
+      "text-loading-licensing-info": "Memuat info lisensi...",
+      "title-contact-support-renew-token-visit-cloud": "Hubungi dukungan untuk memperpanjang token Anda, atau kunjungi portal Cloud untuk mempelajari selengkapnya.",
+      "title-have-a-license": "Memiliki lisensi?",
+      "title-license": "Lisensi",
+      "title-license-token-renewed": "Token lisensi diperpanjang.",
+      "title-token": "Token",
+      "title-utilization": "Pemanfaatan",
+      "utilization-footer": "Pemanfaatan oleh pengguna berlisensi ditentukan berdasarkan aktivitas pengguna yang masuk dalam 30 hari terakhir.",
+      "utilization-info": "Baca tentang <2>batas pengguna aktif</2> dan <6>batas sesi bersamaan</6>.",
+      "card-content-anonymous-users-tooltip_other": "Untuk setiap {{count}} perangkat anonim, Grafana menghitung 1 pengguna."
+    },
+    "license-token-upload": {
+      "instance-url": "URL Instans: <1>{{licensedUrl}}</1>",
+      "upload-a-new-token": "Unggah token baru",
+      "uploading": "Mengunggah..."
+    },
+    "max-users-reached": {
+      "title-exceeded-included-number-active-users": "Anda telah melampaui jumlah pengguna aktif yang disertakan",
+      "upgrade-your-license-link": "Silakan <2>tingkatkan lisensi Anda.</2>",
+      "upgrade-your-license-no-link": "Silakan tingkatkan lisensi Anda.",
+      "upgrade-your-license-subtitle_other": "Lisensi Grafana Enterprise Anda mencakup {{maxUsers}} pengguna aktif; Anda saat ini memiliki {{count}} pengguna aktif. "
+    },
+    "page-alert": {
+      "learn-about-enterprise-licenses": "Pelajari tentang lisensi Enterprise"
+    },
+    "token-expires-soon": {
+      "title-grafana-enterprise-token-needs-renewed": "Token Grafana Enterprise Anda perlu diperpanjang",
+      "sub-title-token-expiration_other": "Tersisa {{count}} hari lagi untuk token lisensi Anda, setelah itu <4>fitur Enterprise akan dinonaktifkan.</4>"
+    }
+  },
+  "meta-analytics": {
+    "analytics-drawer": {
+      "public-dashboards-tab-label": "Dasbor publik",
+      "shared-dashboards-tab-label": "Dasbor bersama",
+      "stats-tab-label": "Statistik",
+      "text-access-usage-insights-during-trial-grafana": "Dapatkan akses penuh ke wawasan penggunaan secara gratis selama uji coba Grafana Pro Anda.",
+      "title-dashboard-insights": "{{dashboardTitle}} - analitik",
+      "users-activity-tab-label": "Pengguna dan aktivitas"
+    },
+    "analytics-public-dashboards-tab": {
+      "daily-query-count-cached-queries-label": "kueri di dalam cache",
+      "daily-query-count-title": "Jumlah kueri harian",
+      "errors-last-month-title": "Kesalahan 30 hari terakhir",
+      "no-data": "Tidak ada data.",
+      "views-last-month-title": "Jumlah tayangan 30 hari terakhir"
+    },
+    "analytics-stats-tab": {
+      "daily-query-count-cached-queries-label": "kueri di dalam cache",
+      "daily-query-count-title": "Jumlah kueri harian",
+      "errors-last-month-title": "Kesalahan 30 hari terakhir",
+      "no-data": "Tidak ada data."
+    },
+    "analytics-toolbar-button": {
+      "tooltip-dashboard-insights": "Wawasan dasbor"
+    },
+    "analytics-upgrade-drawer": {
+      "description-usage-insights-provide-detailed-information-about": "Wawasan penggunaan memberikan informasi terperinci tentang penggunaan dasbor, seperti jumlah tayangan, kueri, dan kesalahan yang dialami pengguna. Anda dapat menggunakan ini untuk meningkatkan pengalaman pengguna dan memecahkan masalah.",
+      "title-dashboard-insights": "{{dashboardTitle}} - analitik"
+    },
+    "analytics-users-tab": {
+      "aria-label-recent-users-table": "Tabel pengguna terbaru",
+      "aria-label-user-box-title": "Judul kotak pengguna",
+      "aria-label-user-information-box": "Kotak informasi pengguna",
+      "aria-label-version-history-button": "Tombol riwayat versi",
+      "created-user-box": "Dibuat",
+      "dashboard-version-history": "Riwayat versi dasbor",
+      "format-date-currently-viewing": "Sedang melihat",
+      "format-date-last-hour": "Jam terakhir",
+      "format-date-today": "Hari ini",
+      "format-date-yesterday": "Kemarin",
+      "last-dashboard-viewers": "30 pemirsa terakhir dasbor",
+      "last-edited-user-box": "Terakhir diedit",
+      "last-viewed-user-box": "Terakhir dilihat",
+      "user-views-data-frame-user-field": "Pengguna",
+      "user-views-data-frame-when-field": "Kapan",
+      "views-last-month-title": "Jumlah tayangan 30 hari terakhir"
+    },
+    "data-source-insights": {
+      "available-source": "Tidak tersedia data untuk sumber data ini.",
+      "average-load-duration-last-month-title": "Durasi muat rata-rata 30 hari terakhir (md)",
+      "errors-last-month-title": "Kesalahan 30 hari terakhir",
+      "queries-last-month-title": "Kueri 30 hari terakhir",
+      "text-enable-source-usage-insights-during-trial": "Aktifkan wawasan penggunaan sumber data secara gratis selama uji coba Grafana Pro Anda.",
+      "text-feature-not-available-expired-license": "Wawasan sumber data tidak tersedia dengan lisensi yang kedaluwarsa. Data akan terus dikumpulkan, tetapi Anda perlu memperbarui lisensi untuk melihat halaman ini.",
+      "title-feature-available-expired-license": "Fitur tidak tersedia dengan lisensi yang kedaluwarsa",
+      "title-read-more-license-expiration": "Baca selengkapnya tentang masa berlaku lisensi"
+    },
+    "data-source-insights-upgrade": {
+      "clean-instance-list-item": "Bersihkan instans Anda dengan menemukan dan menghapus sumber data yang tidak digunakan",
+      "demonstrate-and-improve-list-item": "Tunjukkan dan tingkatkan nilai layanan observabilitas Anda dengan melacak keterlibatan pengguna",
+      "description-usage-insights-provide-detailed-information-about": "Wawasan penggunaan memberikan informasi terperinci tentang penggunaan sumber data, seperti jumlah tayangan, kueri, dan kesalahan yang dialami pengguna. Anda dapat menggunakan ini untuk meningkatkan pengalaman pengguna dan memecahkan masalah",
+      "keep-performant-list-item": "Pertahankan kinerja Grafana dengan mengidentifikasi dan memperbaiki sumber data yang lambat dan rentan terhadap kesalahan",
+      "review-insights-list-item": "Tinjau sekilas wawasan penggunaan sumber data individu di UI, urutkan hasil pencarian berdasarkan penggunaan dan kesalahan, atau pelajari log penggunaan secara terperinci"
+    }
+  },
+  "permissions": {
+    "data-source-permissions": {
+      "text-enable-source-permissions-during-trial-grafana": "Aktifkan izin sumber data secara gratis selama uji coba Grafana Pro Anda."
+    },
+    "permissions-upgrade-content": {
+      "description-source-permissions-protect-sensitive-limiting-access": "Dengan izin sumber data, Anda dapat melindungi data sensitif dengan membatasi akses ke sumber data ini ke pengguna, tim, dan peran tertentu.",
+      "source-permissions-protect-clean-experience-list-item": "Sederhanakan pengalaman pengguna dengan menyembunyikan sumber data yang tidak perlu mereka gunakan",
+      "source-permissions-protect-sensitive-data-list-item": "Lindungi data sensitif, seperti log keamanan, basis data produksi, dan informasi identitas pribadi",
+      "source-permissions-protect-share-access-list-item": "Bagikan akses Grafana dengan lebih bebas, karena pengguna tidak akan melihat data sensitif tanpa sengaja"
+    }
+  },
+  "plugins": {
+    "sandbox": {
+      "enable-sandbox-label": "Sandbox Frontend",
+      "enable-sandbox-tooltip": "Sandbox frontend menjalankan kode frontend secara terpisah, membatasi akses ke ruang lingkup browser global dan membatasi modifikasi UI ke area plugin.",
+      "enable-sandbox-tooltip-link": "Baca selengkapnya"
+    }
+  },
+  "public-dashboard": {
+    "email-sharing": {
+      "success-confirm-access": "Akses dikonfirmasi!",
+      "success-resend-recipient-invitation": "Undangan email telah dikirim ulang.",
+      "success-revoke-access-description": "Anda telah berhasil mencabut akses untuk {{recipientEmail}}.",
+      "success-revoke-access-title": "Akses Dicabut",
+      "success-revoke-all-accesses-description": "Akses {{email}} ke semua dasbor publik telah berhasil dihapus.",
+      "success-revoke-all-accesses-title": "Akses Dicabut",
+      "success-send-recipient-invitation": "Undangan email telah dikirim."
+    }
+  },
+  "public-dashboards": {
+    "confirm-access-page": {
+      "confirm-access": "Konfirmasikan akses",
+      "login-subtitle": "Dapatkan akses ke dasbor selama 30 hari. Setelah 30 hari, Anda dapat meminta akses lagi untuk terus melihat dasbor.",
+      "login-title": "Akses dasbor"
+    },
+    "request-view-access-page": {
+      "access-requested": "Akses diminta",
+      "label-email": "Email",
+      "placeholder-email": "email",
+      "register-pattern-invalid-email": "Email tidak valid",
+      "register-required-email": "Email wajib diisi",
+      "request-access": "Minta akses"
+    }
+  },
+  "query-library": {
+    "actions": {
+      "delete-query-button": "Hapus kueri",
+      "duplicate-query-button": "Duplikat kueri",
+      "duplicate-query-title-copy": "Salin",
+      "lock-query-button": "Kunci kueri",
+      "menu-button": "",
+      "save-history-query-button": "",
+      "select-query-button": "Pilih kueri",
+      "unlock-query-button": "Buka kunci kueri"
+    },
+    "delete-modal": {
+      "body-text": "Anda akan menghapus kueri tersimpan ini. Tindakan ini tidak dapat dibatalkan. Apa Anda ingin melanjutkan?",
+      "confirm-button": "Hapus kueri",
+      "title": "Hapus kueri"
+    },
+    "discard-changes": {
+      "discard-button": "Buang",
+      "text": "Anda memiliki perubahan yang belum disimpan ke kueri ini. Anda yakin ingin membuangnya?",
+      "title": "Batalkan perubahan pada kueri?"
+    },
+    "drawer": {
+      "title": "Kueri tersimpan",
+      "tooltip": "Saat ini, setiap organisasi dapat menyimpan hingga 1000 kueri"
+    },
+    "empty-state": {
+      "message": "Mulai menambahkannya dari Explore atau saat mengedit dasbor",
+      "no-favorites": "",
+      "no-favorites-description": "",
+      "no-history": "",
+      "no-history-description": "",
+      "title": ""
+    },
+    "error-state": {
+      "title": "Terjadi kesalahan!"
+    },
+    "explore-modal": {
+      "cancel-button": "",
+      "confirm-button": "",
+      "title": "",
+      "warning": ""
+    },
+    "filters": {
+      "datasource-placeholder": "Filter berdasarkan sumber data",
+      "datasource-user": "Filter berdasarkan nama pengguna",
+      "search-placeholder": "Cari berdasarkan sumber data, konten kueri, atau deskripsi",
+      "sort": {
+        "asc": "Sesuai abjad (A–Z)",
+        "desc": "Sesuai abjad (Z–A)",
+        "newest": "Terbaru lebih dulu",
+        "oldest": "Terlama lebih dulu"
+      },
+      "sort-placeholder": "Urutkan"
+    },
+    "item": {
+      "add-to-library": "",
+      "favorite": "Favorit",
+      "new": "Baru",
+      "unfavorite": "Batal favorit"
+    },
+    "not-found": {
+      "message": "Coba sesuaikan kriteria pencarian atau filter Anda",
+      "title": "Hasil tidak ditemukan"
+    },
+    "notifications": {
+      "query-deleted": "Kueri dihapus"
+    },
+    "query-details": {
+      "author": "Penulis",
+      "datasource": "Sumber data",
+      "date-added": "Tanggal ditambahkan",
+      "description": "Deskripsi",
+      "edit-button": "Edit kueri",
+      "edit-button-short": "Edit",
+      "make-query-visible": "Bagikan kueri dengan semua pengguna",
+      "recent-description": "",
+      "recent-example": "",
+      "tags": "Tag",
+      "title": "Judul"
+    },
+    "tabs": {
+      "all": "Semua",
+      "favorites": "Favorit",
+      "recent": ""
+    },
+    "template-variables-warning": {
+      "message": "",
+      "message-explore": "",
+      "title": ""
+    },
+    "user-info": {
+      "error": "Kesalahan saat mencoba mendapatkan info pengguna dari pustaka: {{error}} "
+    }
+  },
+  "query-operation": {
+    "header": {
+      "replace-query-from-library": "Ganti dengan kueri tersimpan",
+      "save-to-query-library": "Simpan kueri"
+    }
+  },
+  "recorded-queries": {
+    "create-recorded-query-unconnected": {
+      "alert-severity-succesful": "Berhasil",
+      "alert-severity-test": "Uji rekaman kueri ini",
+      "aria-label-start-recording-query-button": "Tombol mulai merekam kueri",
+      "contact-support": "Untuk mengirimkan tiket dukungan ke Grafana Labs, selesaikan <2>Hubungi Grafana Labs</2>",
+      "count-rows-returned": "Hitung baris yang dikembalikan dari kueri ini",
+      "description-decide-often-record-query": "Tentukan seberapa sering kueri ini akan direkam",
+      "description-give-this-query-a-name": "Beri nama kueri ini",
+      "description-provide-a-description-for-this-query": "Berikan deskripsi untuk kueri ini",
+      "description-select-value-template-variable": "Pilih nilai untuk setiap variabel templat",
+      "done-button": {
+        "aria-label-cancel-recording-query-button": "Tombol batalkan perekaman kueri",
+        "aria-label-close-recording-query-button": "Tombol tutup perekaman kueri",
+        "cancel": "Batalkan",
+        "close": "Tutup"
+      },
+      "label": {
+        "relative-time-range": "Rentang Waktu Relatif"
+      },
+      "label-count-query-results": "Hitung hasil kueri",
+      "label-description": "Deskripsi",
+      "label-interval": "Interval",
+      "label-name": "Nama",
+      "label-template-variables": "Variabel templat",
+      "message": {
+        "name-is-required": "Nama wajib diisi"
+      },
+      "query-relative-time-range": "Pilih rentang waktu relatif kueri ini",
+      "results-alert-message": "Hasil: ",
+      "start-recording-query": "Mulai merekam kueri",
+      "success-alert-message": "Kueri rekaman baru Anda berhasil direkam!",
+      "sync-button": {
+        "aria-label-test-the-recorded-query": "Uji rekaman kueri"
+      },
+      "title-create-recorded-query": "Buat rekaman kueri"
+    },
+    "data-source-filter": {
+      "button-clear-filter": "Hapus filter sumber data",
+      "filter-by-data-source": "Filter berdasarkan sumber data",
+      "placeholder-select-a-data-source": "Pilih sumber data"
+    },
+    "empty-recorded-query-list": {
+      "message": "Tidak ada rekaman kueri yang ditentukan",
+      "pro-tip": "Tips Pro: Anda dapat merekam kueri dari editor kueri."
+    },
+    "query-card": {
+      "interval-content": "Interval: {{interval}}",
+      "interval-range": "Rentang: {{range}} terakhir",
+      "query-expression": "Ekspresi kueri:"
+    },
+    "recorded-queries-config-unconnected": {
+      "body-delete": "Anda yakin ingin mengahapus '{{name}}'?",
+      "confirm-text-delete": "Hapus",
+      "edit-remote-write-target": "Edit target penulisan jarak jauh",
+      "queries-to-display": {
+        "buttons": {
+          "aria-label-delete-recorded-query": "Hapus rekaman kueri",
+          "aria-label-pause-recorded-query": "Jeda perekaman",
+          "aria-label-resume-recorded-query": "Lanjutkan perekaman",
+          "delete": "Hapus"
+        }
+      },
+      "title-delete": "Hapus"
+    },
+    "recorded-queries-deprecation-notice": {
+      "description": "Rekaman kueri sudah tidak digunakan lagi. Silakan gunakan <2>Aturan Perekaman yang Dikelola Grafana</2> yang baru.",
+      "title-deprecation-notice": "Pemberitahuan Rekaman yang Tidak Digunakan Lagi"
+    },
+    "recorded-query-add-modal-unconnected": {
+      "add": "Tambahkan",
+      "cancel": "Batalkan",
+      "new-recorded-query-alert": "Untuk membuat Rekaman Kueri baru, kembali ke editor kueri dan gunakan ikon <2></2> di bilah deret waktu (series).",
+      "no-queries-available": "Tidak ada rekaman kueri yang tersedia untuk {{datasourceName}}",
+      "recorded-query": "Rekaman kueri",
+      "title-add-recorded-query": "Tambahkan rekaman kueri"
+    },
+    "write-target-config-unconnected": {
+      "label-remote-write-path": "Jalur penulisan jarak jauh",
+      "placeholder-select-a-data-source": "Pilih sumber data",
+      "save": "Simpan",
+      "select-data-source-label": "Pilih sumber data tempat metrik akan ditulis"
+    }
+  },
+  "report": {
+    "report-header": {
+      "time-range": "Rentang waktu data:",
+      "title": "{{reportTitle}} - Dibuat pada {{generatedOnDate}}"
+    }
+  },
+  "reporting": {
+    "button-row": {
+      "next-step": "Berikutnya: {{nextName}}",
+      "previous-step": "Sebelumnya: {{prevName}}"
+    },
+    "create-report": {
+      "alert-title": "Terjadi kesalahan saat memuat laporan",
+      "loading-report": "Memuat laporan...",
+      "title": "Buat laporan baru"
+    },
+    "errors": {
+      "action-message": "Hubungi administrator Grafana Anda untuk menginstal plugin.",
+      "no-renderer-description": "Untuk membuat laporan PDF, Anda harus menginstal plugin <2>Perender Gambar Grafana</2>.",
+      "no-renderer-title": "Plugin perender gambar belum diinstal",
+      "old-renderer-description": "Untuk membuat file CSV, Anda harus memperbarui plugin <2>Perender Gambar Grafana</2>.",
+      "old-renderer-title": "Anda menggunakan versi lama plugin perender gambar"
+    },
+    "image-preview": {
+      "invalid-image": "Gambar tidak valid"
+    },
+    "page": {
+      "empty-button": "Buat laporan",
+      "empty-pro-tip": "Buat laporan dari dasbor yang sudah ada. <2>Pelajari selengkapnya</2>",
+      "empty-title": "Belum ada laporan yang dibuat",
+      "settings-button": "Pengaturan laporan"
+    },
+    "page-actions": {
+      "discard-button": "Buang",
+      "save-as-draft-button": "Simpan sebagai draf",
+      "update-button": "Perbarui laporan"
+    },
+    "report-footer": {
+      "page-pagination": "Halaman {{currentPage}}/{{totalPageCount}}"
+    },
+    "report-form": {
+      "edit-step": "5. Konfirmasi"
+    },
+    "report-list": {
+      "confirmText-delete": "Hapus",
+      "content-pause-report": "Jeda laporan",
+      "content-resume-report": "Lanjutkan laporan",
+      "delete-report": "Hapus laporan {{name}}"
+    },
+    "schedule": {
+      "frecuency-custom-input-label": "Ulangi setiap",
+      "frecuency-custom-select-label": "Frekuensi kustom",
+      "frecuency-custom-select-placeholder": "jam",
+      "frecuency-date-picker-label": "Tanggal mulai jadwal laporan",
+      "frecuency-date-picker-placeholder": "Pilih tanggal",
+      "frecuency-end-date-label": "Tanggal selesai",
+      "frecuency-end-time-label": "Waktu selesai",
+      "frecuency-last-day-label": "Kirim pada hari terakhir setiap bulan",
+      "frecuency-last-day-warning": "Catatan: beberapa bulan tidak memiliki {{warningDateText}} hari dan laporan tidak akan dikirim pada bulan-bulan tersebut. Pilih tanggal sebelumnya atau <3>\"Kirim pada hari terakhir setiap bulan\"</3> untuk mengirim laporan pada akhir setiap bulan.",
+      "frecuency-send-later": "Kirim nanti",
+      "frecuency-send-now": "Kirim sekarang",
+      "frecuency-start-time-label": "Waktu mulai",
+      "frecuency-time-zone-label": "Zona waktu",
+      "frecuency-workdays-label": "Kirim Senin hingga Jumat saja",
+      "report-schedule-end-date-label": "Tanggal akhir jadwal laporan",
+      "report-schedule-end-date-placeholder": "Tidak berakhir"
+    },
+    "settings": {
+      "attachment-settings-fieldset-label": "Pengaturan lampiran",
+      "drawer-title": "Pengaturan templat laporan",
+      "email-branding-fieldset-label": "Branding email",
+      "email-footer-field-label": "Footer email",
+      "email-logo-image-preview-altText": "Pratinjau logo perusahaan",
+      "email-logo-url-field-description": "Logo akan ditampilkan di header email. Format yang didukung: png, jpg, gif.",
+      "email-logo-url-field-label": "URL logo perusahaan",
+      "embedded-image-header": "Sematkan gambar",
+      "embedded-image-theme-picker-description": "Tema akan diterapkan ke gambar dasbor yang disematkan di email.",
+      "footer-link-field-label": "Teks tautan footer",
+      "footer-link-url-field-label": "URL tautan footer",
+      "no-data": "Tidak ada data pengaturan yang tersedia",
+      "none-footer-label": "Tidak ada",
+      "pdf-header": "PDF",
+      "pdf-theme-picker-description": "Tema akan diterapkan ke PDF yang dilampirkan ke laporan.",
+      "report-logo-image-preview-altText": "Pratinjau logo perusahaan",
+      "report-logo-url-field-description": "Logo akan ditampilkan di footer dokumen. Format yang didukung: png, jpg, gif.",
+      "report-logo-url-field-label": "URL logo perusahaan",
+      "save-button": "Simpan",
+      "saving-button": "Menyimpan...",
+      "sent-by-footer-label": "Dikirim oleh",
+      "settings-subtitle": "Kelola pengaturan templat laporan."
+    },
+    "update-report": {
+      "title": "Perbarui laporan"
+    }
+  },
+  "reports": {
+    "all-template-alert": {
+      "description-not-supported": "Nilai \"Semua\" dalam variabel templat yang digunakan dalam baris atau panel berulang tidak didukung dalam format PDF",
+      "title-not-supported": "Tidak didukung"
+    },
+    "confirm": {
+      "edit": "Edit",
+      "report-data": {
+        "title": {
+          "combine-all-pdfs-in-one-file": "Gabungkan semua PDF dalam satu file",
+          "dashboard-link": "Tautan dasbor",
+          "email-subject": "Perihal email",
+          "end-date": "Tanggal selesai",
+          "end-time": "Waktu selesai",
+          "format-report": "Format laporan",
+          "message": "Pesan",
+          "pdf-layout": "Tata letak PDF",
+          "pdf-orientation": "Orientasi PDF",
+          "pdf-show-template-variables": "Variabel templat tampilan PDF",
+          "preferred-format": "Format yang disukai*",
+          "recipients": "Penerima*",
+          "recurrence": "Pengulangan",
+          "repeat-every": "Ulangi setiap",
+          "replytoemail": "Email tujuan balasan",
+          "report-name": "Nama laporan*",
+          "scale-factor": "Faktor skala",
+          "schedule": "Jadwal",
+          "select-dashboard": "Pilih dasbor",
+          "send-monday-to-friday-only": "Kirim Senin hingga Jumat saja",
+          "share": "Bagikan",
+          "start-date": "Tanggal mulai",
+          "start-time": "Waktu mulai",
+          "template-variables": "Variabel templat",
+          "time-range": "Rentang waktu",
+          "time-zone": "Zona waktu"
+        }
+      }
+    },
+    "create-report-tab": {
+      "create-report-using-this-dashboard": "Buat laporan menggunakan dasbor ini",
+      "description-reporting-allows-automatically-generate-dashboards-grafana": "Pelaporan memungkinkan Anda untuk secara otomatis membuat PDF dari dasbor Anda dan meminta Grafana mengirimkannya melalui email kepada pihak yang berkepentingan sesuai jadwal.",
+      "get-started-with-reporting": "Memulai dengan pelaporan",
+      "learn-more": "Pelajari lebih lanjut",
+      "text-create-unlimited-reports-during-trial-grafana": "Buat laporan tanpa batas selama uji coba Grafana Pro Anda."
+    },
+    "dashbord-report-renderer": {
+      "title-unsupported-dashboard-layout": "Tata letak dasbor tidak didukung"
+    },
+    "edit-actions": {
+      "aria-label-delete-report": "Hapus laporan",
+      "body-are-you-sure": "Yakin ingin menghapus laporan ini?",
+      "confirmText-delete": "Hapus",
+      "edit-report": "Edit laporan",
+      "pause-button": "Jeda",
+      "resume-button": "Lanjutkan",
+      "title-delete-report": "Hapus laporan",
+      "tooltip-delete": "Hapus"
+    },
+    "format-report": {
+      "aria-label-zoom": "Perbesar",
+      "description-enlarge-table-columns-panel": "Perbesar untuk memperbesar teks, atau perkecil untuk melihat lebih banyak data (seperti kolom tabel) per panel.",
+      "label-combine-dashboard": "Gabungkan semua PDF dasbor dalam satu file",
+      "label-configure-multiple-pdfs": "Konfigurasikan beberapa PDF",
+      "label-configure-report-header": "Konfigurasikan header laporan",
+      "label-format-report": "2. Format laporan",
+      "label-layout": "Tata Letak",
+      "label-orientation": "Orientasi",
+      "label-show-template-variables": "Tampilkan variabel templat",
+      "label-style-the-pdf": "Rancang tampilan PDF",
+      "label-zoom": "Perbesar",
+      "preview-pdf": "Pratinjau PDF",
+      "tooltip-download-table-panel": "Unduh data panel tabel sebagai CSV dalam file ZIP"
+    },
+    "highlight-trial-report": {
+      "get-started-with-reporting": "Memulai dengan pelaporan",
+      "get-started-with-reporting-text": "Pelaporan memungkinkan Anda untuk secara otomatis membuat PDF dari dasbor Anda dan meminta Grafana mengirimkannya melalui email kepada pihak yang berkepentingan sesuai jadwal.",
+      "learn-more": "Pelajari lebih lanjut",
+      "text-create-unlimited-reports-during-trial-grafana": "Buat laporan tanpa batas selama uji coba Grafana Pro Anda."
+    },
+    "report-upgrade-content": {
+      "description-reporting-allows-automatically-generate-dashboards-grafana": "Pelaporan memungkinkan Anda untuk secara otomatis membuat PDF dari dasbor Anda dan meminta Grafana mengirimkannya melalui email kepada pihak yang berkepentingan sesuai jadwal."
+    },
+    "reports-list-page": {
+      "render-list": {
+        "create-a-new-report": "Buat laporan baru",
+        "placeholder-search-reports-report-dashboard-recipients": "Cari laporan berdasarkan nama laporan, nama dasbor, atau penerima",
+        "text": {
+          "create-report": "Buat laporan"
+        },
+        "text-create-unlimited-reports-during-trial-grafana": "Buat laporan tanpa batas selama uji coba Grafana Pro Anda."
+      }
+    },
+    "schedule": {
+      "label-frequency": "Frekuensi",
+      "label-schedule": "3. Jadwal",
+      "label-start-date": "Tanggal mulai",
+      "label-time": "Waktu"
+    },
+    "select-dashboard": {
+      "aria-label-source-dashboard": "Dasbor sumber",
+      "description-time-range": "Buat laporan dengan data dari rentang waktu yang ditentukan. Jika rentang waktu kustom tidak diisi, rentang waktu dari dasbor laporan akan digunakan.",
+      "label-source-dashboard": "Dasbor sumber",
+      "label-template-variables": "Variabel templat",
+      "label-time-range": "Rentang waktu"
+    },
+    "select-dashboards": {
+      "add-another-dashboard": "Tambahkan dasbor lain",
+      "label-select-dashboard": "1. Pilih dasbor",
+      "remove-dashboard": "Hapus dasbor"
+    },
+    "send-test-email-modal": {
+      "cancel": "Batalkan",
+      "label-email": "Email",
+      "label-use-emails-from-report": "Gunakan email dari laporan",
+      "send": "Kirim",
+      "title-send-test-email": "Kirim email uji coba"
+    },
+    "share": {
+      "description-address-appear-reply-field-email": "Alamat yang akan muncul di bidang \"Balas ke\" pada email",
+      "description-separate-multiple-emails-comma-semicolon": "Pisahkan beberapa email dengan koma atau titik koma.",
+      "email-info-button": "Nama laporan akan digunakan sebagai subjek email jika bidang ini dibiarkan kosong",
+      "email-subject": "Perihal email",
+      "label-include-a-dashboard-link": "Sertakan tautan dasbor",
+      "label-message": "Pesan",
+      "label-recipients": "Penerima",
+      "label-replyto-email-address": "Alamat untuk membalas email",
+      "label-report-name": "Nama laporan",
+      "label-share": "4. Bagikan",
+      "name-placeholder-system-status-report": "Laporan status sistem",
+      "recipients-placeholder-recipients-email-addresses-press-enter": "Ketik alamat email penerima dan tekan Enter",
+      "send-test-email": "Kirim email uji coba",
+      "subject-placeholder-email-subject": "Perihal email",
+      "title-sending-test-email": "Mengirim email uji coba..."
+    },
+    "share-pdfbase": {
+      "cancel": "Batalkan",
+      "save-as-pdf": "Simpan sebagai PDF"
+    },
+    "unavailable-feature-info-box": {
+      "title-feature-available-expired-license": "Fitur tidak tersedia dengan lisensi yang kedaluwarsa"
+    },
+    "upgrade-report": {
+      "description-reporting-allows-automatically-generate-dashboards-grafana": "Pelaporan memungkinkan Anda untuk secara otomatis membuat PDF dari dasbor Anda dan meminta Grafana mengirimkannya melalui email kepada pihak yang berkepentingan sesuai jadwal."
+    },
+    "variables-preview": {
+      "none": "tidak ada"
+    }
+  },
+  "saml-connect-to-idp": {
+    "validate-idp-metadata": {
+      "require-one": "Satu jenis metadata harus ditentukan"
+    }
+  },
+  "share-dashboard": {
+    "menu": {
+      "export-pdf-title": "Ekspor sebagai PDF",
+      "schedule-report-title": "Jadwalkan laporan"
+    }
+  },
+  "share-report": {
+    "actions": {
+      "aria-label-open-menu": "Menu aksi buka",
+      "download-csv-label": "Unduh CSV",
+      "downloading-label": "Mengunduh...",
+      "preview-pdf-label": "Pratinjau PDF",
+      "report-settings-label": "Pengaturan laporan"
+    },
+    "attachments": {
+      "combine-one-file": "Gabungkan semua PDF dasbor dalam satu file",
+      "csv-tables": "Lampirkan file CSV data panel tabel",
+      "layout": "Tata Letak",
+      "orientation": "Orientasi",
+      "orientation-tooltip": "Pemilihan orientasi akan diterapkan ke PDF dasbor, data tabel, dan lampiran PDF",
+      "pdf-format": "Format PDF",
+      "pdf-report": "Lampirkan laporan sebagai PDF",
+      "pdf-tables": "Lampirkan PDF data tabel terpisah",
+      "pdf-tables-appendix": "Sertakan data tabel sebagai lampiran PDF",
+      "section-title": "Lampiran",
+      "show-template-variables": "Tampilkan variabel templat di header",
+      "zoom": "Skala pembesaran"
+    },
+    "back-button-text": "Kembali ke daftar laporan",
+    "confirm-delete": {
+      "button": "Hapus laporan",
+      "description": "Yakin ingin menghapus laporan ini?",
+      "title": "Hapus laporan"
+    },
+    "create-report": "Buat laporan baru",
+    "dashboard": {
+      "add-dashboard": "Tambahkan dasbor",
+      "dashboard-required": "Dasbor wajib diisi",
+      "delete-dashboard-tooltip": "Hapus dasbor ini",
+      "repeated-template-variables-description": "Saat menambahkan dasbor yang sama beberapa kali dalam satu laporan, variabel templat yang Anda pilih terlebih dahulu diterapkan ke semua instans dasbor tersebut dalam laporan.",
+      "section-title": "Dasbor",
+      "source-dashboard-label": "Dasbor sumber",
+      "template-variables-title": "Sesuaikan variabel templat",
+      "time-range-description": "Rentang waktu yang tidak diisi akan kembali ke rentang waktu dari dasbor laporan. Rentang waktu absolut ditampilkan dalam zona waktu peramban Anda.",
+      "time-range-label": "Rentang waktu",
+      "view-dashboard-tooltip": "Lihat dasbor"
+    },
+    "discard-changes": {
+      "discard-button": "Buang",
+      "text": "Anda memiliki perubahan yang belum disimpan ke laporan dasbor ini. Anda yakin ingin membuangnya?",
+      "title": "Buang perubahan pada laporan?"
+    },
+    "email-configuration": {
+      "add-dashboard-image-label": "Sematkan gambar dasbor",
+      "add-dashboard-url-label": "Sertakan tautan dasbor",
+      "dashboard-image-settings-description": "Pengaturan gambar dasbor dapat disesuaikan di <1>pengaturan laporan</1> umum",
+      "invalid-email": "Email tidak valid",
+      "message-label": "Pesan",
+      "message-placeholder": "Masukkan pesan",
+      "reply-to-label": "Alamat email balasan",
+      "section-title": "Pengaturan email",
+      "subject-description": "Nama laporan akan digunakan sebagai subjek email jika bidang ini dibiarkan kosong",
+      "subject-label": "Perihal email"
+    },
+    "empty-list": {
+      "description": "Buat laporan dari dasbor ini. <2>Pelajari selengkapnya</2>",
+      "title": "Tidak ada laporan untuk dasbor ini"
+    },
+    "error-form": {
+      "title": "Terjadi kesalahan saat memuat laporan"
+    },
+    "error-list": {
+      "title": "Terjadi kesalahan saat memuat laporan"
+    },
+    "loading-form": "Memuat formulir...",
+    "loading-report": "Memuat laporan...",
+    "loading-report-form": "Memuat formulir laporan...",
+    "loading-reports": "Memuat laporan...",
+    "recipients": {
+      "field-label": "Penerima",
+      "invalid-email": "Email tidak valid: {{email}} ",
+      "invalid-emails": "Email tidak valid: {{emails}} ",
+      "placeholder": "Ketik alamat email penerima dan tekan Enter",
+      "recipients-required": "Penerima wajib diisi",
+      "section-title": "Penerima",
+      "tooltip": "Pisahkan beberapa alamat email dengan koma atau titik koma"
+    },
+    "report-name": {
+      "label": "Nama laporan",
+      "required": "Nama laporan wajib diisi"
+    },
+    "save-draft": {
+      "button": "Simpan draf",
+      "saving-button": "Menyimpan draf..."
+    },
+    "schedule": {
+      "end-date": "Tanggal selesai",
+      "end-date-invalid": "Tanggal selesai harus lebih besar atau sama dengan tanggal mulai",
+      "end-date-placeholder": "Tidak berakhir",
+      "end-time": "Waktu selesai",
+      "frequency": "Frekuensi",
+      "interval-amount-min": "Jumlah interval setidaknya harus 2",
+      "interval-amount-required": "Jumlah interval wajib diisi",
+      "last-day-of-month": "Kirim pada hari terakhir setiap bulan",
+      "monthly-schedule-alert-title": "Catatan: Laporan tidak akan dikirim pada bulan yang tidak memiliki {{ dayNumber }} hari. Pilih tanggal sebelumnya atau pilih \"Kirim pada hari terakhir setiap bulan\" untuk mengirim laporan pada akhir setiap bulan.",
+      "repeat-every": "Ulangi setiap",
+      "repeat-every-placeholder": "misalnya, 2",
+      "repeat-interval-frequency-placeholder": "misalnya, jam",
+      "section-title": "Jadwal",
+      "send-time": "Jadwal",
+      "start-date": "Tanggal mulai",
+      "start-date-placeholder": "Pilih tanggal",
+      "start-date-required": "Tanggal mulai wajib diisi",
+      "start-time": "Waktu mulai",
+      "time-zone": "Zona waktu",
+      "workdays-only": "Kirim Senin hingga Jumat saja"
+    },
+    "schedule-report": {
+      "button": "Jadwalkan laporan",
+      "scheduling-button": "Menjadwalkan laporan..."
+    },
+    "see-all-reports": "Lihat semua laporan",
+    "send-preview": {
+      "button": "Kirim pratinjau",
+      "cancel": "Batalkan",
+      "email": "Email",
+      "email-description": "Pisahkan beberapa alamat email dengan koma atau titik koma",
+      "email-required": "Email wajib diisi",
+      "send": "Kirim",
+      "sending": "Mengirim...",
+      "title": "Kirim pratinjau",
+      "use-report-emails": "Gunakan email dari laporan"
+    },
+    "settings": {
+      "loading": "Memuat pengaturan..."
+    },
+    "state": "Status:",
+    "unavailable-feature-info-box": {
+      "message": "Membuat laporan baru tidak tersedia dengan lisensi yang kedaluwarsa. Laporan yang ada terus diproses, tetapi Anda perlu memperbarui lisensi untuk membuat yang baru."
+    },
+    "update-report": {
+      "button": "Perbarui laporan",
+      "delete-button": "Hapus",
+      "pause-button": "Jeda",
+      "pausing-button": "Menjeda laporan...",
+      "resume-button": "Lanjutkan",
+      "resuming-button": "Melanjutkan laporan...",
+      "updating-button": "Memperbarui laporan..."
+    }
+  },
+  "shared": {
+    "resource-picker": {
+      "placeholder-select-color": "Pilih warna"
+    }
+  },
+  "team-lbac": {
+    "create-team-lbacform": {
+      "label-rule": "Aturan",
+      "label-team": "Tim",
+      "new-lbac-rule": "Aturan LBAC yang Baru",
+      "new-lbac-rule-example": "Contoh:",
+      "save": "Simpan"
+    },
+    "editable-cell": {
+      "empty-rule": "Aturan kosong"
+    },
+    "team-label": {
+      "placeholder": "Tim dengan id {{teamId}} tidak ditemukan"
+    },
+    "team-lbaceditor-unconnected": {
+      "add-a-lbac-rule": "Tambahkan aturan LBAC",
+      "add-query-permissions": "<0>Tambahkan Izin Kueri:</0> Tim berikut tidak memiliki izin kueri untuk sumber data, dan oleh karena itu tidak dapat melakukan kueri log dengan aturan LBAC yang telah dikonfigurasi.",
+      "add-team-lbac-rules": "<0>Tambahkan Aturan LBAC Tim:</0> Tim berikut dapat menanyakan semua log. Tambahkan aturan LBAC Tim untuk mereka:",
+      "clear-filter": "Hapus",
+      "clear-filter-aria-label": "Hapus filter",
+      "content-found-recommendation": "Rekomendasi yang ditemukan",
+      "description-data-access": "Di sini Anda dapat mengonfigurasi akses ke data tertentu dalam sumber data menggunakan selektor label LogQL.",
+      "ensure-proper-access-control-please-follow": "Untuk memastikan kontrol akses yang tepat, ikuti rekomendasi ini:",
+      "filter-results-single": "Menampilkan 1 hasil",
+      "filter-teams-aria-label": "Filter aturan LBAC berdasarkan nama tim",
+      "filter-teams-placeholder": "Filter tim",
+      "hide-access-control-recommendations": "Sembunyikan Rekomendasi Kontrol Akses",
+      "hide-lbac-rule": "Sembunyikan aturan LBAC",
+      "label-selector": "Selektor label",
+      "lbac-description": "Konfigurasikan aturan LBAC untuk membatasi akses untuk metrik/log tertentu.",
+      "lbac-labelbased-access-control": "LBAC (Kontrol akses berbasis label)",
+      "lbac-rules-note": "Catatan:<1></1>- Aturan LBAC TIDAK akan berlaku pada kueri jika token Kebijakan Akses Cloud yang diautentikasi memiliki selektor label yang dikonfigurasi di Grafana Cloud.<3></3>- Perubahan pada aturan LBAC mungkin memerlukan waktu hingga 5 menit untuk ditampilkan karena adanya cache pada jalur kueri.",
+      "learn-more-about-lbac-rules": "Pelajari selengkapnya tentang aturan LBAC",
+      "remove-unrestricted-access": "<0>Hapus Akses Tanpa Batasan:</0> Peran berikut saat ini memiliki akses tanpa batasan ke log.",
+      "role-warning-list": "Peran: {{role}}",
+      "show-access-control-recommendations": "Tampilkan Rekomendasi Kontrol Akses",
+      "sort-teams-ascending": "Urutkan tim A-Z",
+      "sort-teams-descending": "Urutkan tim Z-A",
+      "team": "Tim",
+      "title-access-control-recommendations": "Rekomendasi Kontrol Akses",
+      "title-data-access": "Akses data",
+      "filter-results-multiple_other": ""
+    },
+    "team-rules-row": {
+      "aria-label-add-team-rule": "tambahkan aturan tim",
+      "aria-label-delete-rule": "Hapus aturan",
+      "aria-label-edit-team-rule": "edit aturan tim",
+      "cancel": "Batalkan",
+      "or": "ATAU",
+      "save": "Simpan",
+      "tooltip-add-new-rule": "Tambahkan aturan baru",
+      "tooltip-provisioned-rule": "Aturan yang disediakan"
+    }
+  },
+  "teamLBAC": {
+    "create-team-lbacform": {
+      "message": {
+        "required": "Wajib diisi"
+      }
+    }
+  }
+}

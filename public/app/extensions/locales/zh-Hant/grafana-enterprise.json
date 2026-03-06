@@ -1,0 +1,1462 @@
+{
+  "{{enricherType}} enricher does not require any configuration": {
+    " It will start enriching alerts as soon as it is enabled": "{{enricherType}}增強器不需要任何設定。一旦啟用，它將開始增強警報。"
+  },
+  "access-control": {
+    "permissions": {
+      "lbac-warning-basic-role": "",
+      "lbac-warning-rule": "警告：此團隊可能沒有權限查詢資料來源。",
+      "lbac-warning-team": "警告：如果未設定 LBAC 規則，此團隊將具有完整的資料存取權限。"
+    }
+  },
+  "admin": {
+    "role-filter": {
+      "admin-editor-option": "管理員/編輯器",
+      "multiselect-placeholder": "按授權角色篩選",
+      "server-admin-option": "伺服器管理員",
+      "viewer-option": "檢視器"
+    }
+  },
+  "alert-enrichment": {
+    "error": "無法建立警報強化",
+    "metadata-error": "",
+    "success": "已成功建立警報強化！",
+    "update-error": "無法更新警報增強",
+    "update-success": "警報增強已成功更新！"
+  },
+  "alert-enrichment-form": {
+    "actions": {
+      "cancel": "取消",
+      "save": "儲存強化"
+    },
+    "assign-enricher": {
+      "add-annotation": "新增註解指派",
+      "annotation-name": "鍵",
+      "annotation-name-placeholder": "鍵",
+      "annotation-value": "值",
+      "annotation-value-placeholder": "值",
+      "remove-annotation-aria-label": "移除註解",
+      "remove-annotation-tooltip": "移除註解"
+    },
+    "basic-info": {
+      "description": "描述（選擇性）",
+      "description-placeholder": "增強的說明",
+      "name": "增強功能名稱",
+      "name-placeholder": "我的增強功能",
+      "name-required": "名稱為必填",
+      "timeout": "逾時",
+      "timeout-description": "此增強功能允許的最長時間（例如 30 秒、1 分鐘）",
+      "timeout-placeholder": "30 秒"
+    },
+    "ds-type": {
+      "logs": "紀錄",
+      "raw": "原始"
+    },
+    "dsquery-enricher": {
+      "add-first-query": "新增您的第一個查詢",
+      "add-query": "新增查詢",
+      "no-datasource": "缺少資料來源",
+      "no-datasource-description": "我們找不到此查詢項目的資料來源。資料來源已被移除或無法使用",
+      "no-queries": "尚未定義任何查詢",
+      "raw-queries-description": "定義將執行的查詢以豐富您的警報。結果可在增強功能上下文中使用。",
+      "remove-query": "移除查詢"
+    },
+    "enricher-config": {
+      "llm-disabled": "LLM 已停用",
+      "llm-disabled-description": "說明增強工具需要啟用 Grafana LLM 外掛程式",
+      "type": "增強器類型",
+      "type-placeholder": "選取增強器類型",
+      "type-required": "增強器類型為必填"
+    },
+    "enricher-type": {
+      "asserts": "聲明",
+      "assign": "指派",
+      "dsquery": "資料來源查詢",
+      "explain": "說明",
+      "external": "外部",
+      "sift": "Sift"
+    },
+    "explain-enricher": {
+      "annotation-label": "註解金鑰",
+      "annotation-placeholder": "解釋",
+      "annotation-required": "說明增強器需要註解鍵",
+      "annotation-tooltip": "LLM 產生的說明將儲存在註解金鑰中",
+      "description": "說明增強器使用 LLM 為警報產生說明。設定將儲存說明的註解鍵。"
+    },
+    "external-enricher": {
+      "url-label": "外部服務網址",
+      "url-placeholder": "https://api.example.com/enrich",
+      "url-required": "外部增強器需要網址"
+    },
+    "matcher": {
+      "add-button": "新增",
+      "name-label": "名稱",
+      "name-placeholder": "名稱",
+      "remove-aria-label": "移除匹配器",
+      "remove-tooltip": "移除匹配器",
+      "type-label": "類型",
+      "type-placeholder": "類型",
+      "value-label": "值",
+      "value-placeholder": "值"
+    },
+    "matcher-type": {
+      "equals": "等於 (=)",
+      "not-equals": "不等於 (!=)",
+      "regex-match": "正則表達式匹配 (=~)",
+      "regex-not-match": "正則表達式不匹配 (!~)"
+    },
+    "scope": {
+      "all-alerts": "所有警報",
+      "annotation-scoped": "註解範圍",
+      "description": "定義應增強的警報",
+      "label-scoped": "標籤範圍",
+      "title": "範圍"
+    }
+  },
+  "alerting": {
+    "ai-feedback": {
+      "comment-description": "分享哪些方面做得好，哪些方面可以改進，協助我們改善",
+      "comment-label": "其他意見回饋（選填）",
+      "comment-placeholder": "分享您對 AI 回應的想法…",
+      "comment-prompt": "您想告訴我們更多關於您的體驗嗎？",
+      "helpful": "是的，很有幫助",
+      "not-helpful": "不，沒有幫助",
+      "question": "此 AI 回應是否有幫助？",
+      "skip": "跳過",
+      "submit": "提交意見回饋",
+      "thank-you": "感謝您的意見回饋！"
+    },
+    "enrichment": {
+      "appliesTo": "適用於所有警報",
+      "delete": {
+        "body": "確定要刪除警報強化 <1>{{name}}</1> 嗎？",
+        "cancel": "取消",
+        "confirm": "刪除",
+        "title": "刪除警報增強"
+      },
+      "delete-enrichment": "刪除增強功能{{name}}",
+      "edit-button": "編輯",
+      "edit-enrichment": "編輯增強功能{{name}}",
+      "edit-title": "編輯增強功能",
+      "enrichments": "增強功能",
+      "expanded-row": {
+        "annotationMatchers": "<0>註解比對器：</0>{formatMatchers(annotationMatchers)}",
+        "asserts": "已設定<0>聲明</0>強化",
+        "assignments": "<0>指派：</0> {assignments.map((a) => '${a.name}=${a.value}').join(', ')}",
+        "datasource": "<0>資料來源：</0> {details.join(', ')}",
+        "externalUrl": "<0>網址：</0> {step.enricher.external.url}",
+        "labelMatchers": "<0>標籤比對器：</0> {formatMatchers(labelMatchers)}",
+        "sift": "已設定 <0>Sift</0> 強化",
+        "type": "類型："
+      },
+      "load-error": "無法載入增強功能",
+      "loading": "正在載入增強功能…",
+      "loadMore": "載入更多",
+      "new-alert": "新的警報增強功能",
+      "new-title": "新的增強功能",
+      "noEnrichments": "未設定警報增強功能",
+      "tab": {
+        "description": "透過執行初步分析並新增更多內容，使警報通知更具可操作性。"
+      },
+      "table": {
+        "actions": "動作",
+        "annotationMatchers": "註解",
+        "annotationMatchers-scoped": "範圍由",
+        "enrichment": "增強功能",
+        "labelMatchers": "標籤"
+      },
+      "tooltip": {
+        "asserts": "使用聲明來增強警報",
+        "assign": {
+          "assignments": "註解：",
+          "default": "將註解指派給警報",
+          "emptyValue": "（空）",
+          "title": "將註解指派給警報"
+        },
+        "default": "警報增強已設定",
+        "dsquery": {
+          "datasourceType": "資料來源：",
+          "maxLines": "最大行數：",
+          "queries": "查詢：",
+          "query": "查詢：",
+          "rawRequest": "已設定自訂資料來源要求",
+          "refId": "參考 ID：",
+          "title": "用於增強的資料來源查詢",
+          "type": "類型："
+        },
+        "explain": {
+          "annotation": "儲存於：",
+          "default": "使用 LLM 產生警報說明",
+          "title": "使用 LLM 產生警報說明"
+        },
+        "external": {
+          "default": "呼叫外部服務以進行增強",
+          "title": "呼叫外部服務以進行增強",
+          "url": "網址："
+        },
+        "sift": "使用 Sift 來增強警報"
+      }
+    },
+    "generate-ai-rule": {
+      "button": "使用 AI 產生",
+      "modal": {
+        "error": "{stringifyErrorLike (error)}",
+        "error-title": "產生警報規則時發生錯誤",
+        "generate": "產生規則",
+        "generating": "正在產生…",
+        "preview-contact-point": "聯絡點：",
+        "preview-description": "描述：",
+        "preview-name": "姓名：",
+        "preview-queries": "查詢：",
+        "preview-title": "產生的警報規則",
+        "prompt-description": "描述您想要監控的內容以及何時要收到警報。例如：「當 CPU 使用率超過 80% 超過 5 分鐘時發出警報」。您也可以詢問可用的聯絡點或資料來源相關資訊。",
+        "prompt-label": "描述您要建立的警報規則",
+        "prompt-placeholder": "當磁碟使用率多於 90% 超過 5 分鐘時發出警報，並傳送至 Slack 聯絡點…",
+        "title": "使用 AI 產生警報規則",
+        "use-rule": "使用此規則"
+      }
+    },
+    "improve-ai-annotations": {
+      "button": "使用 AI 改善註解",
+      "modal": {
+        "apply-improvements": "套用註解改善",
+        "error": "{stringifyErrorLike (generationError)}",
+        "error-title": "錯誤",
+        "generate": "改善註解",
+        "generating": "正在產生…",
+        "preview-annotations": "改善的註解：",
+        "preview-title": "AI 註解改善預覽",
+        "prompt-description": "請說明您希望改善警報規則註解的哪些方面。例如：「使摘要更具描述性」、「在描述中新增疑難排解步驟」或「新增 Runbook 連結」。",
+        "prompt-label": "您希望如何改善註解？",
+        "prompt-placeholder": "使摘要更具描述性，並在描述中新增疑難排解步驟…",
+        "title": "使用 AI 改善警報規則註解"
+      }
+    },
+    "improve-ai-labels": {
+      "button": "使用 AI 改善標籤",
+      "modal": {
+        "cancel": "取消",
+        "error": "{stringifyErrorLike (generationError)}",
+        "error-title": "錯誤",
+        "generate": "產生改善",
+        "generating": "正在產生…",
+        "prompt-description": "描述您想要改善的警報規則標籤。例如：「新增動態嚴重性標籤」、「包含團隊所有權」或「新增環境標籤」。",
+        "prompt-label": "您希望如何改善標籤？",
+        "prompt-placeholder": "根據閾值新增動態嚴重性標籤，並包含團隊所有權…",
+        "title": "使用 AI 改善警報規則標籤"
+      },
+      "preview": {
+        "apply": "套用改善",
+        "cancel": "取消",
+        "no-improvements": "未找到改善",
+        "no-improvements-message": "AI 未針對此請求提出任何標籤改善建議。",
+        "title": "AI 建議的標籤改善："
+      }
+    },
+    "settings": {
+      "tabs": {
+        "enrichment": {
+          "title": "警報增強功能"
+        }
+      }
+    },
+    "template-form": {
+      "genai": {
+        "modal": {
+          "error": "{stringifyErrorLike (generationError)}",
+          "error-title": "錯誤",
+          "generate": "產生範本",
+          "generating": "正在產生…",
+          "prompt-description": "描述您想要的通知格式和內容。例如：「顯示警報名稱、狀態和帶有表情符號指示器摘要的 Slack 訊息」或「包含所有觸發警報（包括其標籤和開始時間）表格的電子郵件」。",
+          "prompt-label": "描述您想要的通知外觀",
+          "prompt-placeholder": "顯示「🔥 警報：[AlertName] 正在觸發」的 Slack 訊息，其中包含摘要和檢視詳細資訊的連結…",
+          "title": "使用 AI 產生範本"
+        }
+      }
+    },
+    "templates": {
+      "editor": {
+        "generate-with-ai": "使用 AI 產生"
+      }
+    },
+    "triage-ai": {
+      "button": "使用工具 {{ provider }} 進行分析",
+      "modal": {
+        "analysis-title": "警報分類分析",
+        "analyze": "分析",
+        "analyzing": "🤖 正在分析 {{logRecordsLength}} 個警報事件…",
+        "custom-question": {
+          "help": "將一般分類分析留空，或詢問有關警報事件的特定問題。",
+          "label": "提出特定問題（選填）",
+          "placeholder": "例如：「導致資料庫警報的原因是什麼？」或「這些警報是否與最近的部署有關？」"
+        },
+        "description": "對目前警報事件進行 AI 分析，以協助了解模式、優先回應和識別潛在問題。",
+        "error": "錯誤",
+        "title": "警報分類分析"
+      }
+    }
+  },
+  "auth-config": {
+    "action-bar": {
+      "content-disable-button": "停用後將停用 Grafana，隨後不使用 SAML 驗證。",
+      "delete": "刪除",
+      "disable-button": "停用",
+      "enabled-badge": "已啟用",
+      "more-actions-button": "更多動作",
+      "not-enabled-badge": "未啟用",
+      "protocol": "通訊協定",
+      "save-and-apply-button": "儲存並套用",
+      "save-and-enable-button": "儲存並啟用",
+      "save-button": "儲存",
+      "status": "狀態"
+    },
+    "assertion-mapping-unconnected": {
+      "aria-label-name-id-format": "nameIdFormat",
+      "assertionAttributeEmail-label-email-attribute": "電子郵件屬性",
+      "assertionAttributeEmail-placeholder-mail": "電子郵件",
+      "assertionAttributeExternalUid-label-external-uid": "外部 UID 屬性",
+      "assertionAttributeExternalUid-tooltip-external-uid": "外部 UID 對應是一種防止冒充的安全機制，僅在啟用 SCIM 佈建時才需要。使用者登入時，佈建的外部 UID（身分提供者產生的使用者 ID）需要存在於 SAML 聲明中。此欄位的預設值為 userUID。",
+      "assertionAttributeGroups-label-groups-attribute": "群組屬性",
+      "assertionAttributeLogin-label-login-attribute": "登入屬性",
+      "assertionAttributeLogin-placeholder-mail": "電子郵件",
+      "assertionAttributeName-label-name-attribute": "名稱屬性",
+      "assertionAttributeName-placeholder-display-name": "顯示名稱",
+      "assertionAttributeOrg-label-org-attribute": "組織屬性",
+      "assertionAttributeRole-label-role-attribute": "角色屬性",
+      "azure-ad-service-account-configuration": "Azure AD 服務帳戶設定",
+      "clientId-label-client-id": "用戶端 ID",
+      "clientSecret-label-client-secret": "用戶端機密",
+      "description-allowed-organizations": "以逗號或空格分隔的 SAML 組織名稱清單。使用者應至少是一個組織的成員才能登入。",
+      "description-assertion-attributes-mapping": "將 SAML 聲明屬性對應至 Grafana 使用者屬性。聲明屬性支援範本對應。如果設定了群組屬性，則可以使用團隊同步。",
+      "description-azure-ad-service-account-configuration": "如果您的 Azure AD 組織中有屬於 150 多個群組的使用者，則需要在 Azure AD 中設定服務帳戶，才能透過 Graph API 取得所有群組。此服務帳戶將用於取得使用者的所有群組。請參閱<1>文件</1>，進一步了解 Azure AD 服務帳戶設定。",
+      "description-force-use-graph-api": "強制使用 Graph API 取得使用者的所有群組。",
+      "description-name-identifier-format": "名稱識別碼格式控制身分提供者的使用者如何對應到 Grafana 中的使用者",
+      "description-prevent-synchronizing-users-organization-roles": "防止從您的 IdP 同步 SAML 使用者的組織角色。",
+      "label-allowed-organizations": "允許的組織",
+      "label-assertion-attributes-mapping": "聲明屬性對應",
+      "label-force-use-graph-api": "強制使用 Graph API",
+      "label-name-identifier-format": "名稱識別碼格式",
+      "label-org-mapping": "組織對應",
+      "label-role-mapping": "角色對應",
+      "label-skip-organization-role-sync": "跳過組織角色同步",
+      "label-user-mapping": "使用者對應",
+      "orgMapping-label-org-mapping": "組織對應",
+      "roleValuesAdmin-label-admin": "管理員",
+      "roleValuesEditor-label-editor": "編輯器",
+      "roleValuesGrafanaAdmin-label-grafana-admin": "Grafana 管理員",
+      "roleValuesNone-label-none": "無",
+      "roleValuesViewer-label-viewer": "檢視器",
+      "tokenUrl-label-access-token-url": "存取權杖網址",
+      "tooltip-assertion-attributes-mapping": "Grafana 中的聲明屬性對應會從 SAML 回應中取得使用者資訊，並使用該資訊在其資料庫中建立或更新使用者。它會讀取聲明中的屬性鍵／值對，例如名稱、登入處理和電子郵件。設定允許修改金鑰選擇。",
+      "tooltip-org-mapping": "組織對應可讓您根據從身分提供者獲得的屬性值，將使用者指派到 Grafana 中的特定組織。使用設定將您組織中的使用者指派至 Grafana 組織。",
+      "tooltip-role-mapping": "透過設定「無」、「檢視者」、「編輯者」、「管理員」和「Grafana 管理員」角色的角色屬性，角色對應可將使用者角色從您的身分識別提供者同步到 Grafana。如果沒有相符項目，Grafana 中的預設角色便會設為「檢視者」。"
+    },
+    "config-action": {
+      "confirm-modal-body": "確定要永久刪除此 SAML 設定嗎？將移除在使用者介面中所做的所有變更。",
+      "confirm-modal-confirm-text": "刪除設定",
+      "confirm-modal-confirmation-text": "刪除",
+      "confirm-modal-dismiss-text": "返回編輯",
+      "confirm-modal-title": "刪除 SAML 設定"
+    },
+    "connect-to-idp-unconnected": {
+      "configure-assertions-group-mappings": "在下一步中設定聲明、群組、群組與組織對應。",
+      "configure-idp-using-grafana-metadata": "使用 Grafana 中繼資料設定 IdP",
+      "copy": "複製",
+      "description-assertion-consumer-service-url": "聲明取用者服務 POST 綁定網址",
+      "description-idp-metadata": "必須與設定相同，或符合 IdP 要求。",
+      "description-metadata-url": "IdP 中繼資料的網址",
+      "description-setup-idp": "若要設定您的身分識別提供者 (IdP)，您需有 Grafana 中繼資料網址。您的身分識別提供者 (IdP) 必須能夠存取以下所有端點。",
+      "description-setup-required": "請前往您的 IdP 設定面板，新增應用程式，並使用第一步中的中繼資料與 Grafana 連線。您需要複製 IdP 的中繼資料，並在下方提供。測試連線並複製聲明標籤／值。",
+      "description-slo-url": "登出服務重新導向綁定網址／登出服務 POST 綁定網址",
+      "description-sp-metadata-url-entity-id": "SP 中繼資料網址／SP 實體識別碼",
+      "description-test-connection": "如果您想從 IdP 的面板測試連線，請務必允許 IdP 起始登入，並提供中繼狀態資訊。",
+      "finish-configuring-grafana-using-idp-data": "使用 IdP 資料完成 Grafana 設定",
+      "label-assertion-consumer-service-url": "判斷提示取用者服務 URL",
+      "label-baseencoded-idp-metadata": "Base64 編碼的 IdP 中繼資料",
+      "label-connect-grafana-with-identity-provider": "將 Grafana 與身分提供者連線",
+      "label-idp-metadata": "IdP 的中繼資料",
+      "label-metadata-url": "中繼資料網址",
+      "label-path-to-idp-metadata-file": "IdP 中繼資料檔案的路徑",
+      "label-slo-url": "SLO 網址",
+      "label-sp-metadata-url-entity-id": "中繼資料網址",
+      "step-number-1": "1",
+      "step-number-2": "2",
+      "step-number-3": "3"
+    },
+    "general-unconnected": {
+      "description-allow-signup": "是否允許透過 SAML 登入建立新的 Grafana 使用者。若未啟用，則只有現有的 Grafana 使用者可以使用 SAML 登入。",
+      "description-auto-login": "嘗試自動使用 SAML 登入，跳過登入畫面。",
+      "description-display-name-for-this-saml-integration": "若您使用多個 SSO IdP 提供者或通訊協定，這項功能會很有幫助。",
+      "description-duration-grafana-metadata-valid": "Grafana 中繼資料有效期限。",
+      "description-entity-id": "實體識別碼是服務提供者的全域唯一識別碼。它用於向身分識別提供者識別服務提供者。預設為 Grafana 執行個體的網址。",
+      "description-identity-provider-initiated-login": "允許使用者直接從身分提供者登入 Grafana。",
+      "description-max-issue-delay": "自 IdP 發出回應且允許 Grafana 處理發出回應以來的持續時間。",
+      "description-relay-state": "必要。應與 IdP 中設定的中繼狀態匹配，且需要末端空格。",
+      "description-single-logout": "允許使用者登出 IdP 工作階段，以及透過 SAML 建立的目前 IdP 工作階段關聯應用程式。",
+      "displayName-placeholder-saml": "SAML",
+      "label-allow-signup": "允許註冊",
+      "label-auto-login": "自動登入",
+      "label-display-name-for-this-saml-integration": "此 SAML 2.0 整合的顯示名稱",
+      "label-entity-id": "實體識別碼",
+      "label-general-settings": "通用設定",
+      "label-identity-provider-initiated-login": "身分識別提供者已啟動登入",
+      "label-max-issue-delay": "最大問題延遲",
+      "label-metadata-valid-duration": "中繼資料有效期",
+      "label-relay-state": "中繼狀態",
+      "label-single-logout": "單一登出"
+    },
+    "input-with-reset": {
+      "reset": "重設"
+    },
+    "key-cert-drawer-unconnected": {
+      "close": "關閉",
+      "description-number-generated-certificate-valid": "產生的憑證有效天數。",
+      "generate": "產生",
+      "label-city": "城市",
+      "label-country-code": "國家代碼",
+      "label-state": "狀態",
+      "label-validity-days": "有效天數",
+      "label-your-organization": "您的組織",
+      "subtitle-saml-key-and-certificate": "以下資料將包含在產生的憑證中",
+      "title-saml-key-and-certificate": "SAML 金鑰和憑證",
+      "tooltip-generate-the-certificate-and-private-key": "產生憑證和私人金鑰"
+    },
+    "key-cert-unconnected": {
+      "description-baseencoded-grafana-x-certificate": "Base64 編碼的 Grafana X.509 憑證",
+      "description-baseencoded-private-key": "Base64 編碼的私人金鑰",
+      "description-path-to-the-grafana-private-key": "Grafana 私人金鑰的路徑",
+      "description-path-to-the-grafana-x-certificate": "Grafana X.509 憑證的路徑",
+      "description-sign-outgoing-requests-to-id-p": "簽署傳出的 IdP 請求",
+      "description-signature-algorithm": "用於簽署 IdP 請求的簽名演算法。必須與設定相同，或符合 IdP 要求。",
+      "description-signing-and-encryption-key-certificate": "用於 Grafana 和 IdP 之間交換資訊的憑證和私人金鑰。私人金鑰需要以 PKCS#8 格式發出。憑證應為有效的 X.509 憑證。",
+      "generate-key-and-certificate": "產生金鑰和憑證",
+      "label-certificate": "憑證",
+      "label-private-key": "私人金鑰",
+      "label-sign-requests": "簽署請求",
+      "label-signature-algorithm": "簽名演算法",
+      "label-signing-and-encryption-key-certificate": "簽署和加密金鑰和憑證"
+    },
+    "page-banner": {
+      "aria-label-close-banner": "關閉橫幅",
+      "tooltip-close": "關閉"
+    },
+    "SAML": {
+      "button-row-next": "下一個：{{name}}",
+      "button-row-previous": "上一個：{{name}}"
+    },
+    "samlform": {
+      "text-saved": "已儲存"
+    },
+    "save-and-test-unconnected": {
+      "button-save-and-enable": "儲存並啟用",
+      "label-test-and-enable": "測試並啟用",
+      "text-save-and-enable": "如果您已準備好套用 SAML 設定，請使用「儲存並啟用」按鈕。您便可以停用設定。"
+    },
+    "save-samlsettings": {
+      "message": {
+        "cannot-save-settings": "無法儲存設定"
+      }
+    },
+    "text-input-with-reset": {
+      "reset": "重設"
+    }
+  },
+  "banner": {
+    "api": {
+      "result": {
+        "saved": "橫幅設定已儲存"
+      }
+    },
+    "form": {
+      "button-save": "儲存",
+      "button-saving": "正在儲存…",
+      "enabled": {
+        "label": "已啟用"
+      },
+      "end": {
+        "description": "若未選取結束日期，橫幅將無限期顯示。",
+        "error": "結束時間必須晚於開始時間",
+        "label": "結束於"
+      },
+      "message": {
+        "description": "橫幅的文字內容。支援標記。",
+        "label": "訊息"
+      },
+      "options": {
+        "error": "錯誤",
+        "info": "相關資訊",
+        "warning": "警告"
+      },
+      "select": {
+        "placeholder": "選取橫幅類型"
+      },
+      "start": {
+        "description": "橫幅將從此日期／時間開始顯示。",
+        "label": "開始於"
+      },
+      "title": "設定橫幅",
+      "variant": {
+        "label": "變數"
+      }
+    },
+    "preview": {
+      "message": {
+        "default": "透過修改訊息欄位來更新此預覽。"
+      },
+      "title": "預覽"
+    }
+  },
+  "caching": {
+    "alert": {
+      "readonly": {
+        "message": "此資料來源是透過設定新增的，無法使用使用者介面修改快取。請聯絡您的伺服器管理員以更新此資料來源。",
+        "title": "已設定的資料來源"
+      }
+    },
+    "cache-clean": {
+      "body-clear-cache": "警告：此動作會影響所有已啟用快取的資料來源。如果您使用的是 Memcached，系統會清除 Memcached 執行個體中的所有資料。是否要繼續？",
+      "clear-cache": "清除快取",
+      "confirm-text-clear-cache": "清除快取",
+      "title-clear-cache": "清除快取"
+    },
+    "cache-cta": {
+      "enable-button-title": "啟用",
+      "enable-button-tittle": "啟用",
+      "protip-caching-cannot-enabled-source": "此資料來源的設定不允許啟用快取。",
+      "protip-caching-not-enabled": "啟用快取可以減少傳送到資料來源的冗餘請求數量。",
+      "protip-link-caching-not-enabled": "了解詳情",
+      "title-caching-cannot-enabled-source": "無法為此資料來源啟用快取。",
+      "title-caching-not-enabled": "此資料來源未啟用快取。"
+    },
+    "cache-settings-disable": {
+      "disable": "停用"
+    },
+    "cache-settings-form": {
+      "description-query-ttl": "查詢快取項目的存活時間（以毫秒為單位）。範例：5000",
+      "description-resource-ttl": "資源是 Grafana 資料來源外掛程式從資料來源中擷取的動態值，可在查詢編輯器中使用。例如：Splunk 命名空間、Prometheus 標籤和 CloudWatch 指標名稱。由於這些值的更新頻率較低，因此您可能會希望資源的快取 TTL 長於查詢。如需更多資訊，請參閱<2>文件</2>。",
+      "description-timetolive-resources-cache-items-milliseconds-example": "資源快取項目的存活時間（以毫秒為單位）。範例：5000",
+      "description-use-default-ttl": "啟用此功能以使用 Grafana 設定中設定的預設 TTL（{{defaultTTLMs}} 毫秒）",
+      "label-query-ttl": "查詢 TTL",
+      "label-use-default-ttl": "使用預設 TTL",
+      "resource-ttl": "資源 TTL",
+      "save": "儲存"
+    },
+    "caching": {
+      "content": {
+        "text": {
+          "enable-caching": "啟用快取"
+        }
+      }
+    },
+    "data-source-cache": {
+      "caching-heading": "快取",
+      "query-catching": "在試用 Grafana 專業版期間，免費啟用查詢快取。",
+      "upgrade-content-author-dashboards": "透過快取用於建立查詢的資料（例如 ServiceNow 中的欄位或 Datadog 提供的指標），更順暢地撰寫儀表板",
+      "upgrade-content-description": "透過查詢快取，您可以將查詢結果暫時儲存在記憶體、Redis 或 Memcached 中，從而更快地載入儀表板，並減少費用高昂的資料來源查詢。",
+      "upgrade-content-load-dashboards": "即使儀表板包含大型查詢，且有許多使用者同時查看，也能在不到一秒的時間內從快取中載入儀表板",
+      "upgrade-content-save-money": "減少對 Splunk、CloudWatch 和 Github 等資料來源的 API 呼叫次數，從而節省費用並避免速率限制"
+    }
+  },
+  "common": {
+    "cancel": "取消",
+    "close": "關閉"
+  },
+  "explore": {
+    "query-library": {
+      "cancel": "取消",
+      "default-title": "新查詢",
+      "discard": "捨棄",
+      "editing-title": "從已儲存的查詢中編輯",
+      "explore": "在「探索」中編輯",
+      "query-template-added": "查詢已成功儲存到資料庫",
+      "query-template-edit-error": "嘗試編輯此查詢時發生錯誤",
+      "query-template-edited": "查詢範本已成功編輯",
+      "save": "儲存",
+      "save-and-close": "",
+      "save-return": "儲存並返回已儲存的查詢",
+      "saving": "正在儲存…"
+    }
+  },
+  "export": {
+    "pdf": {
+      "cancel-button": "取消",
+      "download-button": "匯出 PDF",
+      "image-alt": "PDF 預覽",
+      "info-text": "將儀表板匯出為 PDF 文件",
+      "layout-label": "版面配置",
+      "orientation-label": "方向",
+      "title": "匯出儀表板 PDF",
+      "zoom-description": "放大以放大文字，或縮小以查看每個面板的更多資料（如表格欄）。",
+      "zoom-label": "縮放"
+    }
+  },
+  "groupsync": {
+    "empty-state": {
+      "pro-tip": "想透過身分識別提供者中的群組管理 Grafana 存取嗎？建立群組對應至 Grafana RBAC 角色。<2>了解更多</2>",
+      "title": "您尚未建立任何群組對應"
+    },
+    "group-sync-editor": {
+      "body-delete-group-mappings": "確定要刪除此群組的所有對應嗎？",
+      "close-button-drawer": "關閉",
+      "confirm-text-delete-group-mappings": "刪除",
+      "delete-group-mapping": "刪除群組對應",
+      "new-button-drawer": "新",
+      "new-group-mapping": "新群組對應",
+      "placeholder-search-by-group-id": "按群組 ID 搜尋",
+      "text-deprecated-feature": "此功能已被取代，您的規則將於 2025 年 6 月停止運作。請在所需團隊的設定中移轉至外部群組同步，並為團隊指派角色。",
+      "title-delete-group-mappings": "刪除群組對應",
+      "title-deprecated-feature": "已棄用的功能"
+    },
+    "new-mapping-form": {
+      "label-group-id": "群組 ID",
+      "label-roles": "角色",
+      "save": "儲存"
+    }
+  },
+  "licensing": {
+    "customer-support-button": {
+      "contact-customer-support": "聯絡客服支援"
+    },
+    "expires-soon": {
+      "title-grafana-enterprise-license-expire": "您的 Grafana Enterprise 授權即將到期",
+      "sub-title-license-expiration_other": "剩餘 {{count}} 天，之後將停用<3>企業版功能。</3>"
+    },
+    "get-token-status": {
+      "title": {
+        "token-expired": "權杖已到期",
+        "token-expires-soon": "權杖即將到期"
+      }
+    },
+    "get-trial-status": {
+      "title": {
+        "trial-active": "試用已啟用",
+        "trial-expired": "試用已到期"
+      }
+    },
+    "has-expired": {
+      "sub-title-licensing-reader": "<0>部分功能</0>已停用。",
+      "title-your-grafana-enterprise-license-has-expired": "您的 Grafana 企業版授權已到期"
+    },
+    "is-invalid": {
+      "sub-title-licensing-reader": "<0>部分功能</0>已停用。",
+      "title-your-grafana-enterprise-license-is-invalid": "您的 Grafana 企業版授權無效"
+    },
+    "license-info": {
+      "aria-label-details-about-license-grafana-cloud": "在 Grafana Cloud 中查看授權的詳細資訊",
+      "card-content-account": "AWS 帳戶",
+      "card-content-active-licensed-users": "有效授權使用者",
+      "card-content-anonymous-users": "匿名使用者",
+      "card-content-authenticated-users": "經過身分驗證的使用者",
+      "card-content-company": "公司",
+      "card-content-license-expires": "授權到期日",
+      "card-content-license-expires-tooltip": "授權到期日是目前授權不再有效的日期。隨著授權到期日臨近，Grafana 企業版會顯示橫幅。",
+      "card-content-lid": "授權 ID",
+      "card-content-none": "無",
+      "card-content-product": "產品",
+      "card-content-products": "產品",
+      "card-content-purchase-date": "訂購日期",
+      "card-content-token-auto-update": "Grafana 會在權杖到期前自動更新。如果您的權杖未更新，請聯絡支援部門。",
+      "card-content-token-expires": "權杖到期",
+      "card-content-token-id": "權杖 ID",
+      "card-content-token-issued": "已發出權杖",
+      "card-content-token-usage-billing-off": "關閉",
+      "card-content-url-name": "網址",
+      "card-content-url-tooltip": "授權網址是 Grafana 執行個體的根網址。授權將無法在具有不同根網址的 Grafana 執行個體上運作。",
+      "card-content-usage-billing": "使用計費",
+      "card-content-usage-billing-on": "開啟",
+      "card-content-usage-billing-tooltip": "您可以請求 Grafana Labs 開啟使用計費，以允許無限制的活躍使用者數量。啟用使用計費後，Grafana 不會強制執行活躍使用者限制或顯示警告橫幅。相反，根據您的客戶合約，您需為超過限制的活躍使用者付費。",
+      "edition-notice-licensing-info": "您正在未經授權的情況下執行 Grafana 企業版。企業版功能已停用。",
+      "edition-notice-problem-licensing-info": "您的企業版授權權杖發生問題。企業版功能已停用。",
+      "license-alert": "已上傳授權權杖。請重新啟動 Grafana 以使變更生效。",
+      "license-details": "授權詳細資料",
+      "license-token-info": "閱讀關於<2>授權到期</2>和<6>授權啟用</6>的資訊。",
+      "renew-token": "更新權杖",
+      "renewing": "（正在更新...）",
+      "text-loading-licensing-info": "正在載入授權資訊…",
+      "title-contact-support-renew-token-visit-cloud": "聯絡支援部門以更新您的權杖，或前往雲端入口網站了解更多資訊。",
+      "title-have-a-license": "已有授權了嗎？",
+      "title-license": "授權",
+      "title-license-token-renewed": "已更新授權權杖。",
+      "title-token": "權杖",
+      "title-utilization": "使用率",
+      "utilization-footer": "授權使用者的使用率，是根據過去 30 天內登入使用者的活動來決定。",
+      "utilization-info": "閱讀關於<2>活躍使用者限制</2>和<6>並行工作階段限制</6>的資訊。",
+      "card-content-anonymous-users-tooltip_other": "Grafana 會將每 {{count}} 個匿名裝置計算為 1 位使用者。"
+    },
+    "license-token-upload": {
+      "instance-url": "執行個體網址：<1>{{licensedUrl}}</1>",
+      "upload-a-new-token": "上傳新權杖",
+      "uploading": "上傳中…"
+    },
+    "max-users-reached": {
+      "title-exceeded-included-number-active-users": "您已超過包含的活躍使用者數量",
+      "upgrade-your-license-link": "請<2>升級您的授權。</2>",
+      "upgrade-your-license-no-link": "請升級您的授權。",
+      "upgrade-your-license-subtitle_other": "您的 Grafana 企業版授權包含 {{maxUsers}} 位有效使用者；您目前有 {{count}} 位有效使用者。"
+    },
+    "page-alert": {
+      "learn-about-enterprise-licenses": "了解企業版授權"
+    },
+    "token-expires-soon": {
+      "title-grafana-enterprise-token-needs-renewed": "您的 Grafana 企業版權杖需要更新",
+      "sub-title-token-expiration_other": "您的授權權杖剩餘 {{count}} 天，之後將停用<4>企業版功能。</4>"
+    }
+  },
+  "meta-analytics": {
+    "analytics-drawer": {
+      "public-dashboards-tab-label": "公共儀表板",
+      "shared-dashboards-tab-label": "共用儀表板",
+      "stats-tab-label": "統計資料",
+      "text-access-usage-insights-during-trial-grafana": "在試用 Grafana 專業版期間，可免費取得使用情況深入解析的完整存取權。",
+      "title-dashboard-insights": "{{dashboardTitle}} - 分析",
+      "users-activity-tab-label": "使用者及活動"
+    },
+    "analytics-public-dashboards-tab": {
+      "daily-query-count-cached-queries-label": "快取查詢",
+      "daily-query-count-title": "每日查詢次數",
+      "errors-last-month-title": "最近 30 天的錯誤",
+      "no-data": "暫無資料。",
+      "views-last-month-title": "最近 30 天的檢視"
+    },
+    "analytics-stats-tab": {
+      "daily-query-count-cached-queries-label": "快取查詢",
+      "daily-query-count-title": "每日查詢次數",
+      "errors-last-month-title": "最近 30 天的錯誤",
+      "no-data": "暫無資料。"
+    },
+    "analytics-toolbar-button": {
+      "tooltip-dashboard-insights": "儀表板深入解析"
+    },
+    "analytics-upgrade-drawer": {
+      "description-usage-insights-provide-detailed-information-about": "使用情況深入解析可提供有關儀表板使用情況的詳細資訊，例如使用者的檢視次數、查詢和遇到的錯誤數。您可以使用此功能來改善使用者體驗並排除問題。",
+      "title-dashboard-insights": "{{dashboardTitle}} - 分析"
+    },
+    "analytics-users-tab": {
+      "aria-label-recent-users-table": "最近的使用者表格",
+      "aria-label-user-box-title": "使用者方塊標題",
+      "aria-label-user-information-box": "使用者資訊方塊",
+      "aria-label-version-history-button": "版本歷史紀錄按鈕",
+      "created-user-box": "已建立",
+      "dashboard-version-history": "儀表板版本歷史紀錄",
+      "format-date-currently-viewing": "目前正在檢視",
+      "format-date-last-hour": "過去一小時",
+      "format-date-today": "今天",
+      "format-date-yesterday": "昨天",
+      "last-dashboard-viewers": "最近 30 個儀表板檢視者",
+      "last-edited-user-box": "上次編輯",
+      "last-viewed-user-box": "上次檢視",
+      "user-views-data-frame-user-field": "使用者",
+      "user-views-data-frame-when-field": "當",
+      "views-last-month-title": "最近 30 天的檢視"
+    },
+    "data-source-insights": {
+      "available-source": "此資料來源沒有可用的資料。",
+      "average-load-duration-last-month-title": "最近 30 天的平均載入持續時間（毫秒）",
+      "errors-last-month-title": "最近 30 天的錯誤",
+      "queries-last-month-title": "最近 30 天的查詢",
+      "text-enable-source-usage-insights-during-trial": "在試用 Grafana 專業版期間，可免費啟用資料來源使用情況深入解析。",
+      "text-feature-not-available-expired-license": "授權到期時，無法使用資料來源深入解析。系統將繼續收集資料，但您需要更新授權才能查看此頁面。",
+      "title-feature-available-expired-license": "授權到期時，無法使用此功能",
+      "title-read-more-license-expiration": "閱讀更多關於授權到期的資訊"
+    },
+    "data-source-insights-upgrade": {
+      "clean-instance-list-item": "透過尋找並移除未使用的資料來源來清理您的執行個體",
+      "demonstrate-and-improve-list-item": "透過追蹤使用者參與度，展現並提升可觀察性服務的價值",
+      "description-usage-insights-provide-detailed-information-about": "使用情況深入解析可提供有關資料來源使用情況的詳細資訊，例如使用者的檢視次數、查詢和遇到的錯誤數。您可以使用此資訊來改善使用者體驗並排除問題",
+      "keep-performant-list-item": "透過識別並修復緩慢、容易出錯的資料來源，保持 Grafana 的效能",
+      "review-insights-list-item": "在使用者介面中快速查看個別資料來源使用情況深入解析，依據使用情況和錯誤排序搜尋結果，或深入了解詳細使用情況紀錄"
+    }
+  },
+  "permissions": {
+    "data-source-permissions": {
+      "text-enable-source-permissions-during-trial-grafana": "在試用 Grafana 專業版期間，可免費啟用資料來源權限。"
+    },
+    "permissions-upgrade-content": {
+      "description-source-permissions-protect-sensitive-limiting-access": "透過資料來源權限，您可以將此資料來源的存取權限授予限制為特定使用者、團隊和角色，藉此保護敏感資料。",
+      "source-permissions-protect-clean-experience-list-item": "隱藏使用者不需使用的資料來源，讓使用者體驗保持整潔有條理",
+      "source-permissions-protect-sensitive-data-list-item": "保護敏感資料，例如安全歷史紀錄、生產資料庫和個人身分資訊",
+      "source-permissions-protect-share-access-list-item": "更自由地分享 Grafana 存取權限，因為您知道使用者不會在不知情的情況下看到敏感資料"
+    }
+  },
+  "plugins": {
+    "sandbox": {
+      "enable-sandbox-label": "前端沙盒",
+      "enable-sandbox-tooltip": "前端沙盒會隔離執行前端代碼，限制存取全域瀏覽器範圍，並限制使用者介面修改至外掛程式區域。",
+      "enable-sandbox-tooltip-link": "了解更多"
+    }
+  },
+  "public-dashboard": {
+    "email-sharing": {
+      "success-confirm-access": "存取已確認！",
+      "success-resend-recipient-invitation": "電子郵件已重新傳送。",
+      "success-revoke-access-description": "您已成功撤銷 {{recipientEmail}} 的存取權限。",
+      "success-revoke-access-title": "存取權限已撤銷",
+      "success-revoke-all-accesses-description": "已成功移除 {{email}} 對所有公共儀表板的存取權限。",
+      "success-revoke-all-accesses-title": "存取權限已撤銷",
+      "success-send-recipient-invitation": "電子郵件邀請已傳送。"
+    }
+  },
+  "public-dashboards": {
+    "confirm-access-page": {
+      "confirm-access": "確認存取權限",
+      "login-subtitle": "取得 30 天儀表板存取權限。30 天後，您可以再次請求存取權限，以便繼續查看儀表板。",
+      "login-title": "儀表板存取權限"
+    },
+    "request-view-access-page": {
+      "access-requested": "已請求存取權限",
+      "label-email": "電子郵件",
+      "placeholder-email": "電子郵件",
+      "register-pattern-invalid-email": "無效的電子郵件",
+      "register-required-email": "必須要有電子郵件",
+      "request-access": "請求存取權限"
+    }
+  },
+  "query-library": {
+    "actions": {
+      "delete-query-button": "刪除查詢",
+      "duplicate-query-button": "複製查詢",
+      "duplicate-query-title-copy": "複製",
+      "lock-query-button": "鎖定查詢",
+      "menu-button": "",
+      "save-history-query-button": "",
+      "select-query-button": "選取查詢",
+      "unlock-query-button": "解鎖查詢"
+    },
+    "delete-modal": {
+      "body-text": "您將要移除此已儲存的查詢。此動作無法回復。是否要繼續？",
+      "confirm-button": "刪除查詢",
+      "title": "刪除查詢"
+    },
+    "discard-changes": {
+      "discard-button": "捨棄",
+      "text": "這項查詢有未儲存的變更。確定要捨棄嗎？",
+      "title": "要捨棄查詢的變更嗎？"
+    },
+    "drawer": {
+      "title": "已儲存的查詢",
+      "tooltip": "目前，每個組織最多可儲存 1000 個查詢"
+    },
+    "empty-state": {
+      "message": "從「探索」或編輯儀表板時開始新增",
+      "no-favorites": "",
+      "no-favorites-description": "",
+      "no-history": "",
+      "no-history-description": "",
+      "title": ""
+    },
+    "error-state": {
+      "title": "發生錯誤！"
+    },
+    "explore-modal": {
+      "cancel-button": "",
+      "confirm-button": "",
+      "title": "",
+      "warning": ""
+    },
+    "filters": {
+      "datasource-placeholder": "依資料來源篩選",
+      "datasource-user": "按使用者名稱篩選",
+      "search-placeholder": "依據資料來源、查詢內容、標題或描述搜尋",
+      "sort": {
+        "asc": "按字母順序 (A–Z)",
+        "desc": "按字母順序 (Z–A)",
+        "newest": "最新排前",
+        "oldest": "最舊排前"
+      },
+      "sort-placeholder": "排序"
+    },
+    "item": {
+      "add-to-library": "",
+      "favorite": "最愛",
+      "new": "新",
+      "unfavorite": "移除最愛"
+    },
+    "not-found": {
+      "message": "請嘗試調整搜尋或篩選條件",
+      "title": "未找到結果"
+    },
+    "notifications": {
+      "query-deleted": "查詢已刪除"
+    },
+    "query-details": {
+      "author": "作者",
+      "datasource": "資料來源",
+      "date-added": "新增日期",
+      "description": "說明",
+      "edit-button": "編輯查詢",
+      "edit-button-short": "編輯",
+      "make-query-visible": "與所有使用者分享查詢",
+      "recent-description": "",
+      "recent-example": "",
+      "tags": "標籤",
+      "title": "標題"
+    },
+    "tabs": {
+      "all": "全部",
+      "favorites": "我的最愛",
+      "recent": ""
+    },
+    "template-variables-warning": {
+      "message": "",
+      "message-explore": "",
+      "title": ""
+    },
+    "user-info": {
+      "error": "嘗試從資料庫中取得使用者資訊時發生錯誤：{{error}}"
+    }
+  },
+  "query-operation": {
+    "header": {
+      "replace-query-from-library": "替換為已儲存的查詢",
+      "save-to-query-library": "儲存查詢"
+    }
+  },
+  "recorded-queries": {
+    "create-recorded-query-unconnected": {
+      "alert-severity-succesful": "成功",
+      "alert-severity-test": "測試這項已記錄的查詢",
+      "aria-label-start-recording-query-button": "開始錄製查詢按鈕",
+      "contact-support": "若要向 Grafana Labs 提交支援表單，請完成<2>聯絡 Grafana Labs</2>",
+      "count-rows-returned": "計算這項查詢傳回的列",
+      "description-decide-often-record-query": "決定記錄此查詢的頻率",
+      "description-give-this-query-a-name": "為此查詢命名",
+      "description-provide-a-description-for-this-query": "提供關於此查詢的描述",
+      "description-select-value-template-variable": "為每個範本變數選取一個值",
+      "done-button": {
+        "aria-label-cancel-recording-query-button": "取消錄製查詢按鈕",
+        "aria-label-close-recording-query-button": "關閉錄製查詢按鈕",
+        "cancel": "取消",
+        "close": "關閉"
+      },
+      "label": {
+        "relative-time-range": "相對時間範圍"
+      },
+      "label-count-query-results": "計數查詢結果",
+      "label-description": "說明",
+      "label-interval": "間隔",
+      "label-name": "名稱（名字）",
+      "label-template-variables": "範本變數",
+      "message": {
+        "name-is-required": "名稱為必填"
+      },
+      "query-relative-time-range": "選取此查詢的相對時間範圍",
+      "results-alert-message": "結果：",
+      "start-recording-query": "開始錄製查詢",
+      "success-alert-message": "您的新錄製查詢已成功記錄！",
+      "sync-button": {
+        "aria-label-test-the-recorded-query": "測試已記錄的查詢"
+      },
+      "title-create-recorded-query": "建立已記錄的查詢"
+    },
+    "data-source-filter": {
+      "button-clear-filter": "清除資料來源篩選條件",
+      "filter-by-data-source": "依資料來源篩選",
+      "placeholder-select-a-data-source": "選擇一個資料來源"
+    },
+    "empty-recorded-query-list": {
+      "message": "未定義任何已記錄的查詢",
+      "pro-tip": "專家提示：您可以從查詢編輯器中記錄查詢。"
+    },
+    "query-card": {
+      "interval-content": "間隔：{{interval}}",
+      "interval-range": "範圍：最後 {{range}}",
+      "query-expression": "查詢表達式："
+    },
+    "recorded-queries-config-unconnected": {
+      "body-delete": "確定要刪除「{{name}}」嗎？",
+      "confirm-text-delete": "刪除",
+      "edit-remote-write-target": "編輯遠端寫入目標",
+      "queries-to-display": {
+        "buttons": {
+          "aria-label-delete-recorded-query": "刪除已記錄的查詢",
+          "aria-label-pause-recorded-query": "暫停錄製",
+          "aria-label-resume-recorded-query": "恢復錄製",
+          "delete": "刪除"
+        }
+      },
+      "title-delete": "刪除"
+    },
+    "recorded-queries-deprecation-notice": {
+      "description": "記錄的查詢已棄用。請改用新的 <2>Grafana 管理的錄製規則</2>。",
+      "title-deprecation-notice": "棄用通知"
+    },
+    "recorded-query-add-modal-unconnected": {
+      "add": "新增",
+      "cancel": "取消",
+      "new-recorded-query-alert": "若要建立新的錄製查詢，請返回查詢編輯器，並使用系列列中的 <2></2> 圖示。",
+      "no-queries-available": "沒有可用的「{{datasourceName}}」已記錄查詢",
+      "recorded-query": "已記錄的查詢",
+      "title-add-recorded-query": "新增已記錄的查詢"
+    },
+    "write-target-config-unconnected": {
+      "label-remote-write-path": "遠端寫入路徑",
+      "placeholder-select-a-data-source": "選擇一個資料來源",
+      "save": "儲存",
+      "select-data-source-label": "選擇要寫入指標的資料來源"
+    }
+  },
+  "report": {
+    "report-header": {
+      "time-range": "資料時間範圍：",
+      "title": "{{reportTitle}} - 產生於 {{generatedOnDate}}"
+    }
+  },
+  "reporting": {
+    "button-row": {
+      "next-step": "下一個：{{nextName}}",
+      "previous-step": "上一個：{{prevName}}"
+    },
+    "create-report": {
+      "alert-title": "載入報告時發生錯誤",
+      "loading-report": "正在載入報告…",
+      "title": "建立新報告"
+    },
+    "errors": {
+      "action-message": "請聯絡您的 Grafana 管理員以安裝外掛程式。",
+      "no-renderer-description": "若要產生 PDF 報告，您必須安裝 <2>Grafana 圖像渲染器</2>外掛程式。",
+      "no-renderer-title": "未安裝圖片轉譯器外掛程式",
+      "old-renderer-description": "若要產生 CSV 檔案，您必須更新 <2>Grafana 圖像渲染器</2>外掛程式。",
+      "old-renderer-title": "您正在使用舊版的圖像渲染器外掛程式"
+    },
+    "image-preview": {
+      "invalid-image": "無效圖片"
+    },
+    "page": {
+      "empty-button": "建立報告",
+      "empty-pro-tip": "從任何現有儀表板建立報告。<2>了解更多</2>",
+      "empty-title": "尚未建立報告",
+      "settings-button": "報告設定"
+    },
+    "page-actions": {
+      "discard-button": "捨棄",
+      "save-as-draft-button": "儲存為草稿",
+      "update-button": "更新報告"
+    },
+    "report-footer": {
+      "page-pagination": "頁面 {{currentPage}}/{{totalPageCount}}"
+    },
+    "report-form": {
+      "edit-step": "5. 確認"
+    },
+    "report-list": {
+      "confirmText-delete": "刪除",
+      "content-pause-report": "暫停報告",
+      "content-resume-report": "恢復報告",
+      "delete-report": "刪除報告「{{name}}」"
+    },
+    "schedule": {
+      "frecuency-custom-input-label": "重複間隔為每",
+      "frecuency-custom-select-label": "自訂頻率",
+      "frecuency-custom-select-placeholder": "小時",
+      "frecuency-date-picker-label": "報告排程開始日期",
+      "frecuency-date-picker-placeholder": "選擇日期",
+      "frecuency-end-date-label": "結束日期",
+      "frecuency-end-time-label": "結束時間",
+      "frecuency-last-day-label": "在當月最後一天傳送",
+      "frecuency-last-day-warning": "請注意：有些月份沒有 {{warningDateText}} 天，因此在這些月份系統不會傳送報告。選擇較早的日期或<3>「在當月最後一天傳送」</3>，以便在每個月底傳送報告。",
+      "frecuency-send-later": "稍候再傳送",
+      "frecuency-send-now": "立即傳送",
+      "frecuency-start-time-label": "開始時間",
+      "frecuency-time-zone-label": "時區",
+      "frecuency-workdays-label": "僅在星期一至星期五傳送",
+      "report-schedule-end-date-label": "報告排程結束日期",
+      "report-schedule-end-date-placeholder": "不結束"
+    },
+    "settings": {
+      "attachment-settings-fieldset-label": "附檔設定",
+      "drawer-title": "報告範本設定",
+      "email-branding-fieldset-label": "電子郵件品牌",
+      "email-footer-field-label": "電子郵件頁尾",
+      "email-logo-image-preview-altText": "公司標誌預覽",
+      "email-logo-url-field-description": "標誌將顯示在電子郵件標題中。支援的格式：png、jpg、gif。",
+      "email-logo-url-field-label": "公司標誌網址",
+      "embedded-image-header": "嵌入式圖片",
+      "embedded-image-theme-picker-description": "主題將套用至電子郵件中嵌入的儀表板圖片。",
+      "footer-link-field-label": "頁尾連結文字",
+      "footer-link-url-field-label": "頁尾連結網址",
+      "no-data": "沒有可用的設定資料",
+      "none-footer-label": "無",
+      "pdf-header": "PDF",
+      "pdf-theme-picker-description": "主題將套用至附加到報告的 PDF。",
+      "report-logo-image-preview-altText": "公司標誌預覽",
+      "report-logo-url-field-description": "標誌將顯示在文件頁尾中。支援的格式：png、jpg、gif。",
+      "report-logo-url-field-label": "公司標誌網址",
+      "save-button": "儲存",
+      "saving-button": "正在儲存…",
+      "sent-by-footer-label": "傳送者",
+      "settings-subtitle": "管理報告範本設定。"
+    },
+    "update-report": {
+      "title": "更新報告"
+    }
+  },
+  "reports": {
+    "all-template-alert": {
+      "description-not-supported": "PDF 不支援重複列或面板中，使用的範本變數中的「All」值",
+      "title-not-supported": "不支援"
+    },
+    "confirm": {
+      "edit": "編輯",
+      "report-data": {
+        "title": {
+          "combine-all-pdfs-in-one-file": "在一個檔案中合併所有 PDF",
+          "dashboard-link": "儀表板連結",
+          "email-subject": "電子郵件主旨",
+          "end-date": "結束日期",
+          "end-time": "結束時間",
+          "format-report": "格式化報告",
+          "message": "訊息",
+          "pdf-layout": "PDF 版面配置",
+          "pdf-orientation": "PDF 方向",
+          "pdf-show-template-variables": "PDF 顯示範本變數",
+          "preferred-format": "偏好格式*",
+          "recipients": "收件者*",
+          "recurrence": "週期",
+          "repeat-every": "重複間隔為每",
+          "replytoemail": "回覆電子郵件",
+          "report-name": "報告名稱*",
+          "scale-factor": "比例係數",
+          "schedule": "排程",
+          "select-dashboard": "選擇儀表板",
+          "send-monday-to-friday-only": "僅在星期一至星期五傳送",
+          "share": "分享",
+          "start-date": "開始日期",
+          "start-time": "開始時間",
+          "template-variables": "範本變數",
+          "time-range": "時間範圍",
+          "time-zone": "時區"
+        }
+      }
+    },
+    "create-report-tab": {
+      "create-report-using-this-dashboard": "使用此儀表板建立報告",
+      "description-reporting-allows-automatically-generate-dashboards-grafana": "報告功能可讓您從任何儀表板自動產生 PDF 檔案，並讓 Grafana 按照排程將其透過電子郵件傳送給相關人員。",
+      "get-started-with-reporting": "開始使用報告",
+      "learn-more": "了解詳情",
+      "text-create-unlimited-reports-during-trial-grafana": "在試用 Grafana 專業版期間，可不受限制建立報告。"
+    },
+    "dashbord-report-renderer": {
+      "title-unsupported-dashboard-layout": "不支援的儀表板版面配置"
+    },
+    "edit-actions": {
+      "aria-label-delete-report": "刪除報告",
+      "body-are-you-sure": "確定要刪除此報告嗎？",
+      "confirmText-delete": "刪除",
+      "edit-report": "編輯報告",
+      "pause-button": "暫停",
+      "resume-button": "繼續",
+      "title-delete-report": "刪除報告",
+      "tooltip-delete": "刪除"
+    },
+    "format-report": {
+      "aria-label-zoom": "縮放",
+      "description-enlarge-table-columns-panel": "放大以放大文字，或縮小以查看每個面板的更多資料（如表格欄）。",
+      "label-combine-dashboard": "在一個檔案中合併所有儀表板 PDF",
+      "label-configure-multiple-pdfs": "設定多個 PDF 檔案",
+      "label-configure-report-header": "設定報告標題",
+      "label-format-report": "2. 格式化報告",
+      "label-layout": "版面配置",
+      "label-orientation": "方向",
+      "label-show-template-variables": "顯示範本變數",
+      "label-style-the-pdf": "設定 PDF 樣式",
+      "label-zoom": "縮放",
+      "preview-pdf": "預覽 PDF",
+      "tooltip-download-table-panel": "以 CSV 檔的形式將表格面板資料下載為 ZIP 檔"
+    },
+    "highlight-trial-report": {
+      "get-started-with-reporting": "開始使用報告",
+      "get-started-with-reporting-text": "報告功能可讓您從任何儀表板自動產生 PDF 檔案，並讓 Grafana 按照排程將其透過電子郵件傳送給相關人員。",
+      "learn-more": "了解詳情",
+      "text-create-unlimited-reports-during-trial-grafana": "在試用 Grafana 專業版期間，可不受限制建立報告。"
+    },
+    "report-upgrade-content": {
+      "description-reporting-allows-automatically-generate-dashboards-grafana": "報告功能可讓您從任何儀表板自動產生 PDF 檔案，並讓 Grafana 按照排程將其透過電子郵件傳送給相關人員。"
+    },
+    "reports-list-page": {
+      "render-list": {
+        "create-a-new-report": "建立新報告",
+        "placeholder-search-reports-report-dashboard-recipients": "按報告名稱、儀表板名稱或收件人搜尋報告",
+        "text": {
+          "create-report": "建立報告"
+        },
+        "text-create-unlimited-reports-during-trial-grafana": "在試用 Grafana 專業版期間，可不受限制建立報告。"
+      }
+    },
+    "schedule": {
+      "label-frequency": "頻率",
+      "label-schedule": "3. 排程",
+      "label-start-date": "開始日期",
+      "label-time": "時間"
+    },
+    "select-dashboard": {
+      "aria-label-source-dashboard": "來源儀表板",
+      "description-time-range": "使用指定時間範圍內的資料產生報告。如果自訂時間範圍為空，則使用報告儀表板中的時間範圍。",
+      "label-source-dashboard": "來源儀表板",
+      "label-template-variables": "範本變數",
+      "label-time-range": "時間範圍"
+    },
+    "select-dashboards": {
+      "add-another-dashboard": "新增其他儀表板",
+      "label-select-dashboard": "1. 選取儀表板",
+      "remove-dashboard": "移除儀表板"
+    },
+    "send-test-email-modal": {
+      "cancel": "取消",
+      "label-email": "電子郵件",
+      "label-use-emails-from-report": "使用報告中的電子郵件",
+      "send": "傳送",
+      "title-send-test-email": "傳送測試電子郵件"
+    },
+    "share": {
+      "description-address-appear-reply-field-email": "將顯示在電子郵件「回覆」欄位中的地址",
+      "description-separate-multiple-emails-comma-semicolon": "使用逗號或分號分隔多個電子郵件。",
+      "email-info-button": "如果此欄位留空，報告名稱將用作電子郵件主旨",
+      "email-subject": "電子郵件主旨",
+      "label-include-a-dashboard-link": "包含儀表板連結",
+      "label-message": "訊息",
+      "label-recipients": "收件者",
+      "label-replyto-email-address": "回覆電子郵件地址",
+      "label-report-name": "報告名稱",
+      "label-share": "4. 分享",
+      "name-placeholder-system-status-report": "系統狀態報告",
+      "recipients-placeholder-recipients-email-addresses-press-enter": "輸入收件者的電子郵件地址，然後按 Enter",
+      "send-test-email": "傳送測試電子郵件",
+      "subject-placeholder-email-subject": "電子郵件主旨",
+      "title-sending-test-email": "正在傳送測試電子郵件…"
+    },
+    "share-pdfbase": {
+      "cancel": "取消",
+      "save-as-pdf": "儲存為 PDF"
+    },
+    "unavailable-feature-info-box": {
+      "title-feature-available-expired-license": "授權到期時，無法使用此功能"
+    },
+    "upgrade-report": {
+      "description-reporting-allows-automatically-generate-dashboards-grafana": "報告功能可讓您從任何儀表板自動產生 PDF 檔案，並讓 Grafana 按照排程將其透過電子郵件傳送給相關人員。"
+    },
+    "variables-preview": {
+      "none": "無"
+    }
+  },
+  "saml-connect-to-idp": {
+    "validate-idp-metadata": {
+      "require-one": "應定義一個中繼資料類型"
+    }
+  },
+  "share-dashboard": {
+    "menu": {
+      "export-pdf-title": "匯出為 PDF",
+      "schedule-report-title": "排程報告"
+    }
+  },
+  "share-report": {
+    "actions": {
+      "aria-label-open-menu": "開啟動作選單",
+      "download-csv-label": "下載 CSV",
+      "downloading-label": "下載中…",
+      "preview-pdf-label": "預覽 PDF",
+      "report-settings-label": "報告設定"
+    },
+    "attachments": {
+      "combine-one-file": "在一個檔案中合併所有儀表板 PDF",
+      "csv-tables": "附加表格面板資料的 CSV 檔",
+      "layout": "版面配置",
+      "orientation": "方向",
+      "orientation-tooltip": "方向選擇將套用至儀表板 PDF、表格資料和 PDF 附錄",
+      "pdf-format": "PDF 格式",
+      "pdf-report": "以 PDF 檔附加報告",
+      "pdf-tables": "附加表格資料的單獨 PDF 檔",
+      "pdf-tables-appendix": "包含表格資料作為 PDF 附錄",
+      "section-title": "附件",
+      "show-template-variables": "在標題中顯示範本變數",
+      "zoom": "縮放比例"
+    },
+    "back-button-text": "返回報告清單",
+    "confirm-delete": {
+      "button": "刪除報告",
+      "description": "確定要刪除此報告嗎？",
+      "title": "刪除報告"
+    },
+    "create-report": "建立新報告",
+    "dashboard": {
+      "add-dashboard": "新增儀表板",
+      "dashboard-required": "儀表板為必填",
+      "delete-dashboard-tooltip": "刪除此儀表板",
+      "repeated-template-variables-description": "在一個報告中多次新增相同的儀表板時，您首先選擇的範本變數將套用至報告中該儀表板的所有執行個體。",
+      "section-title": "儀表板",
+      "source-dashboard-label": "來源儀表板",
+      "template-variables-title": "自訂範本變數",
+      "time-range-description": "空白時間範圍將回退至報告儀表板中的時間範圍。絕對時間範圍以瀏覽器的時區表示。",
+      "time-range-label": "時間範圍",
+      "view-dashboard-tooltip": "檢視儀表板"
+    },
+    "discard-changes": {
+      "discard-button": "捨棄",
+      "text": "此儀表板報告有未儲存的變更。確定要捨棄嗎？",
+      "title": "要捨棄報告的變更嗎？"
+    },
+    "email-configuration": {
+      "add-dashboard-image-label": "嵌入的儀表板圖片",
+      "add-dashboard-url-label": "包含儀表板連結",
+      "dashboard-image-settings-description": "儀表板圖片設定可在一般<1>報告設定</1>中調整",
+      "invalid-email": "無效的電子郵件",
+      "message-label": "訊息",
+      "message-placeholder": "輸入訊息",
+      "reply-to-label": "回覆電子郵件位址",
+      "section-title": "電子郵件設定",
+      "subject-description": "如果此欄位留空，報告名稱將用作電子郵件主旨",
+      "subject-label": "電子郵件主旨"
+    },
+    "empty-list": {
+      "description": "從此儀表板建立報告。<2>了解更多</2>",
+      "title": "此儀表板沒有報告"
+    },
+    "error-form": {
+      "title": "載入報告時發生錯誤"
+    },
+    "error-list": {
+      "title": "載入報告時發生錯誤"
+    },
+    "loading-form": "正在載入表單…",
+    "loading-report": "正在載入報告…",
+    "loading-report-form": "正在載入報告表單…",
+    "loading-reports": "正在載入報告…",
+    "recipients": {
+      "field-label": "收件者",
+      "invalid-email": "無效的電子郵件：{{email}}",
+      "invalid-emails": "無效的電子郵件：{{emails}}",
+      "placeholder": "輸入收件者的電子郵件地址，然後按 Enter",
+      "recipients-required": "收件者為必填",
+      "section-title": "收件者",
+      "tooltip": "使用逗號或分號分隔多個電子郵件地址"
+    },
+    "report-name": {
+      "label": "報告名稱",
+      "required": "報告名稱為必填"
+    },
+    "save-draft": {
+      "button": "儲存草稿",
+      "saving-button": "正在儲存草稿..."
+    },
+    "schedule": {
+      "end-date": "結束日期",
+      "end-date-invalid": "結束日期必須大於或等於開始日期",
+      "end-date-placeholder": "不結束",
+      "end-time": "結束時間",
+      "frequency": "頻率",
+      "interval-amount-min": "間隔數量必須至少為 2",
+      "interval-amount-required": "間隔數量為必填",
+      "last-day-of-month": "在當月最後一天傳送",
+      "monthly-schedule-alert-title": "請注意：沒有 {{ dayNumber }} 天的月份不會傳送報告。選擇較早的日期或選擇「在當月最後一天傳送」，以便在每個月底傳送報告。",
+      "repeat-every": "重複間隔為每",
+      "repeat-every-placeholder": "例如：2",
+      "repeat-interval-frequency-placeholder": "例如：小時",
+      "section-title": "排程",
+      "send-time": "排程",
+      "start-date": "開始日期",
+      "start-date-placeholder": "選擇日期",
+      "start-date-required": "開始日期為必填",
+      "start-time": "開始時間",
+      "time-zone": "時區",
+      "workdays-only": "僅在星期一至星期五傳送"
+    },
+    "schedule-report": {
+      "button": "排程報告",
+      "scheduling-button": "正在進行報告排程..."
+    },
+    "see-all-reports": "查看所有報告",
+    "send-preview": {
+      "button": "傳送預覽",
+      "cancel": "取消",
+      "email": "電子郵件",
+      "email-description": "使用逗號或分號分隔多個電子郵件地址",
+      "email-required": "必須要有電子郵件",
+      "send": "傳送",
+      "sending": "正在送出...",
+      "title": "傳送預覽",
+      "use-report-emails": "使用報告中的電子郵件"
+    },
+    "settings": {
+      "loading": "正在載入設定…"
+    },
+    "state": "狀態：",
+    "unavailable-feature-info-box": {
+      "message": "授權到期時，無法建立新報告。系統會繼續處理現有報告，但您需要更新授權才能建立新報告。"
+    },
+    "update-report": {
+      "button": "更新報告",
+      "delete-button": "刪除",
+      "pause-button": "暫停",
+      "pausing-button": "正在暫停報告…",
+      "resume-button": "繼續",
+      "resuming-button": "正在恢復報告…",
+      "updating-button": "正在更新報告…"
+    }
+  },
+  "shared": {
+    "resource-picker": {
+      "placeholder-select-color": "選擇顏色"
+    }
+  },
+  "team-lbac": {
+    "create-team-lbacform": {
+      "label-rule": "規則",
+      "label-team": "團隊",
+      "new-lbac-rule": "新的 LBAC 規則",
+      "new-lbac-rule-example": "範例：",
+      "save": "儲存"
+    },
+    "editable-cell": {
+      "empty-rule": "空白規則"
+    },
+    "team-label": {
+      "placeholder": "找到 ID 為 {{teamId}} 的團隊"
+    },
+    "team-lbaceditor-unconnected": {
+      "add-a-lbac-rule": "新增 LBAC 規則",
+      "add-query-permissions": "<0>新增查詢權限：</0>以下團隊沒有資料來源的查詢權限，因此無法使用設定的 LBAC 規則查詢紀錄。",
+      "add-team-lbac-rules": "<0>新增團隊 LBAC 規則：</0>以下團隊可以查詢所有紀錄。請為他們新增團隊 LBAC 規則：",
+      "clear-filter": "清除",
+      "clear-filter-aria-label": "清除篩選條件",
+      "content-found-recommendation": "已找到建議",
+      "description-data-access": "您可以在此處使用 LogQL 標籤選取器，設定對資料來源中特定資料的存取權限。",
+      "ensure-proper-access-control-please-follow": "為確保存取控制妥善無虞，請遵循以下建議：",
+      "filter-results-single": "顯示 1 個結果",
+      "filter-teams-aria-label": "按團隊名稱篩選 LBAC 規則",
+      "filter-teams-placeholder": "篩選團隊",
+      "hide-access-control-recommendations": "隱藏存取控制建議",
+      "hide-lbac-rule": "隱藏 LBAC 規則",
+      "label-selector": "標籤選擇器",
+      "lbac-description": "設定 LBAC 規則以限制特定指標/紀錄的存取權限。",
+      "lbac-labelbased-access-control": "LBAC（標籤型存取控制）",
+      "lbac-rules-note": "請注意：<1></1>- 如果已驗證的雲端存取政策權杖在 Grafana Cloud 中設定了任何標籤選取器，則 LBAC 規則不會套用於查詢。<3></3>- 由於查詢路徑快取，對 LBAC 規則的變更可能需要長達 5 分鐘才會反映。",
+      "learn-more-about-lbac-rules": "進一步了解 LBAC 規則",
+      "remove-unrestricted-access": "<0>移除不受限制的存取權限：</0>以下角色目前具有不受限制的紀錄存取權限。",
+      "role-warning-list": "角色：{{role}}",
+      "show-access-control-recommendations": "顯示存取控制建議",
+      "sort-teams-ascending": "將團隊按 A 到 Z 排序",
+      "sort-teams-descending": "將團隊按 Z 到 A 排序",
+      "team": "團隊",
+      "title-access-control-recommendations": "存取控制建議",
+      "title-data-access": "資料存取權限",
+      "filter-results-multiple_other": ""
+    },
+    "team-rules-row": {
+      "aria-label-add-team-rule": "新增團隊規則",
+      "aria-label-delete-rule": "刪除規則",
+      "aria-label-edit-team-rule": "編輯團隊規則",
+      "cancel": "取消",
+      "or": "或",
+      "save": "儲存",
+      "tooltip-add-new-rule": "新增規則",
+      "tooltip-provisioned-rule": "佈建規則"
+    }
+  },
+  "teamLBAC": {
+    "create-team-lbacform": {
+      "message": {
+        "required": "必填"
+      }
+    }
+  }
+}

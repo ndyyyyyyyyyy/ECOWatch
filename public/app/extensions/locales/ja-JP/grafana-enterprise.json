@@ -1,0 +1,1462 @@
+{
+  "{{enricherType}} enricher does not require any configuration": {
+    " It will start enriching alerts as soon as it is enabled": "{{enricherType}}のエンリッチャーは設定を必要としません。有効にするとすぐにアラートのエンリッチメントが開始されます。"
+  },
+  "access-control": {
+    "permissions": {
+      "lbac-warning-basic-role": "",
+      "lbac-warning-rule": "警告：このチームには、データソースをクエリする権限がない可能性があります。",
+      "lbac-warning-team": "警告：LBACルールが設定されていない場合、このチームは完全なデータアクセス権を持ちます。"
+    }
+  },
+  "admin": {
+    "role-filter": {
+      "admin-editor-option": "管理者/編集者",
+      "multiselect-placeholder": "ライセンス付きロールで絞り込み",
+      "server-admin-option": "サーバー管理者",
+      "viewer-option": "閲覧者"
+    }
+  },
+  "alert-enrichment": {
+    "error": "アラートのエンリッチメントの作成に失敗しました",
+    "metadata-error": "",
+    "success": "アラートのエンリッチメントが正常に作成されました！",
+    "update-error": "アラートエンリッチメントの更新に失敗しました",
+    "update-success": "アラートのエンリッチメントが正常に更新されました！"
+  },
+  "alert-enrichment-form": {
+    "actions": {
+      "cancel": "キャンセル",
+      "save": "エンリッチメントを保存"
+    },
+    "assign-enricher": {
+      "add-annotation": "注釈の割り当てを追加",
+      "annotation-name": "キー",
+      "annotation-name-placeholder": "キー",
+      "annotation-value": "値",
+      "annotation-value-placeholder": "値",
+      "remove-annotation-aria-label": "注釈を削除",
+      "remove-annotation-tooltip": "注釈を削除"
+    },
+    "basic-info": {
+      "description": "説明 (オプション)",
+      "description-placeholder": "エンリッチメントの説明",
+      "name": "エンリッチメント名",
+      "name-placeholder": "my-enrichment",
+      "name-required": "名前を入力してください",
+      "timeout": "タイムアウト",
+      "timeout-description": "このエンリッチメントに許可される最大時間 (例：30秒、1分)",
+      "timeout-placeholder": "30秒"
+    },
+    "ds-type": {
+      "logs": "ログ",
+      "raw": "未加工データ"
+    },
+    "dsquery-enricher": {
+      "add-first-query": "最初のクエリを追加",
+      "add-query": "クエリを追加",
+      "no-datasource": "データソースがありません",
+      "no-datasource-description": "このクエリのデータソースが見つかりませんでした。データソースが削除されたか、利用できません",
+      "no-queries": "クエリがまだ定義されていません",
+      "raw-queries-description": "アラートをエンリッチメントするために実行されるクエリを定義します。結果はエンリッチメントコンテキストで利用できます。",
+      "remove-query": "クエリを削除"
+    },
+    "enricher-config": {
+      "llm-disabled": "LLMは無効です",
+      "llm-disabled-description": "エンリッチャーの説明には、Grafana LLMプラグインを有効にする必要があります",
+      "type": "エンリッチャータイプ",
+      "type-placeholder": "エンリッチャータイプを選択",
+      "type-required": "エンリッチャータイプが必要です"
+    },
+    "enricher-type": {
+      "asserts": "アサート",
+      "assign": "割り当て",
+      "dsquery": "データソースクエリ",
+      "explain": "説明",
+      "external": "外部",
+      "sift": "Sift"
+    },
+    "explain-enricher": {
+      "annotation-label": "注釈キー",
+      "annotation-placeholder": "説明",
+      "annotation-required": "説明エンリッチャーには注釈キーが必要です",
+      "annotation-tooltip": "LLM生成の説明が保存される注釈キー",
+      "description": "説明エンリッチャーは、LLMを使用してアラートの説明を生成します。説明を保存する注釈キーを設定します。"
+    },
+    "external-enricher": {
+      "url-label": "外部サービスURL",
+      "url-placeholder": "https://api.example.com/enrich",
+      "url-required": "外部エンリッチャーにはURLが必要です"
+    },
+    "matcher": {
+      "add-button": "追加",
+      "name-label": "名前",
+      "name-placeholder": "名前",
+      "remove-aria-label": "マッチャーを削除",
+      "remove-tooltip": "マッチャーを削除",
+      "type-label": "タイプ",
+      "type-placeholder": "タイプ",
+      "value-label": "値",
+      "value-placeholder": "値"
+    },
+    "matcher-type": {
+      "equals": "等しい (=)",
+      "not-equals": "等しくない (!=)",
+      "regex-match": "正規表現一致 (=~)",
+      "regex-not-match": "正規表現不一致 (!~)"
+    },
+    "scope": {
+      "all-alerts": "すべてのアラート",
+      "annotation-scoped": "注釈の範囲",
+      "description": "エンリッチメントするアラートを定義する",
+      "label-scoped": "ラベル範囲指定",
+      "title": "スコープ"
+    }
+  },
+  "alerting": {
+    "ai-feedback": {
+      "comment-description": "うまくいったことや改善できることを共有して、改善にご協力ください",
+      "comment-label": "追加のフィードバック (オプション)",
+      "comment-placeholder": "AIの応答についてご意見をお聞かせください...",
+      "comment-prompt": "ご利用体験について詳しくお聞かせください。",
+      "helpful": "はい、役に立ちました",
+      "not-helpful": "いいえ、役に立ちませんでした",
+      "question": "このAI応答は役に立ちましたか？",
+      "skip": "スキップ",
+      "submit": "フィードバックを送信",
+      "thank-you": "ご意見・ご感想ありがとうございます！"
+    },
+    "enrichment": {
+      "appliesTo": "すべてのアラートに適用",
+      "delete": {
+        "body": "アラートのエンリッチメント<1>{{name}}</1>を削除してもよろしいですか？",
+        "cancel": "キャンセル",
+        "confirm": "削除",
+        "title": "アラートのエンリッチメントを削除"
+      },
+      "delete-enrichment": "エンリッチメント「{{name}}」を削除",
+      "edit-button": "編集",
+      "edit-enrichment": "エンリッチメント「{{name}}」を編集",
+      "edit-title": "エンリッチメントを編集",
+      "enrichments": "エンリッチメント",
+      "expanded-row": {
+        "annotationMatchers": "<0>注釈マッチャー：</0> {formatMatchers(annotationMatchers)",
+        "asserts": "<0>アサート</0>エンリッチメントが構成されました",
+        "assignments": "<0>割り当て：</0> {assignments.map((a) => '${a.name}=${a.value}').join(', ')}",
+        "datasource": "<0>データソース：</0> {details.join(', ')}",
+        "externalUrl": "<0>URL：</0> {step.enricher.external.url}",
+        "labelMatchers": "<0>ラベルマッチャー：</0> {formatMatchers(labelMatchers)}",
+        "sift": "<0>Sift</0>エンリッチメントが構成されました",
+        "type": "タイプ："
+      },
+      "load-error": "エンリッチメントの読み込みに失敗しました",
+      "loading": "エンリッチメントを読み込み中...",
+      "loadMore": "さらに読み込む",
+      "new-alert": "アラートのエンリッチメント",
+      "new-title": "新しいエンリッチメント",
+      "noEnrichments": "アラートエンリッチメントが設定されていません",
+      "tab": {
+        "description": "予備分析を実行し、コンテキストを追加することで、アラート通知をより実用的にします。"
+      },
+      "table": {
+        "actions": "アクション",
+        "annotationMatchers": "注釈",
+        "annotationMatchers-scoped": "範囲指定",
+        "enrichment": "エンリッチメント",
+        "labelMatchers": "ラベル"
+      },
+      "tooltip": {
+        "asserts": "アサーションを使用してアラートを強化",
+        "assign": {
+          "assignments": "注釈：",
+          "default": "アラートに注釈を割り当てます",
+          "emptyValue": "(空白)",
+          "title": "アラートに注釈を割り当てます"
+        },
+        "default": "アラートのエンリッチメントが設定されました",
+        "dsquery": {
+          "datasourceType": "データソース",
+          "maxLines": "最大行数：",
+          "queries": "クエリ：",
+          "query": "クエリ：",
+          "rawRequest": "カスタムデータソースリクエストが設定されました",
+          "refId": "参照ID：",
+          "title": "エンリッチメントのためのデータソースクエリ",
+          "type": "タイプ："
+        },
+        "explain": {
+          "annotation": "保存先：",
+          "default": "LLMを使用してアラートの説明を生成",
+          "title": "LLMを使用してアラートの説明を生成"
+        },
+        "external": {
+          "default": "エンリッチメントのために外部サービスを呼び出す",
+          "title": "エンリッチメントのために外部サービスを呼び出す",
+          "url": "URL："
+        },
+        "sift": "Siftを使用してアラートを強化"
+      }
+    },
+    "generate-ai-rule": {
+      "button": "AIで生成",
+      "modal": {
+        "error": "{stringifyErrorLike(error)}",
+        "error-title": "アラートルールの生成中にエラーが発生しました",
+        "generate": "ルールを生成",
+        "generating": "生成中…",
+        "preview-contact-point": "コンタクトポイント",
+        "preview-description": "詳細：",
+        "preview-name": "名前：",
+        "preview-queries": "クエリ：",
+        "preview-title": "生成されたアラートルール",
+        "prompt-description": "監視したいものとアラートを受けたいタイミングを説明してください。例：「CPU使用率が5分以上80%を超えたときにアラートを出す」。利用可能な連絡先またはデータソースについて尋ねることもできます。",
+        "prompt-label": "作成するアラートルールを説明してください",
+        "prompt-placeholder": "ディスク使用率が90%を超えて5分以上経過した場合にアラートを送信し、Slackのコンタクトポイントに送信します...",
+        "title": "AIでアラートルールを生成",
+        "use-rule": "このルールを使用"
+      }
+    },
+    "improve-ai-annotations": {
+      "button": "AIで注釈を改善",
+      "modal": {
+        "apply-improvements": "注釈の改善を適用",
+        "error": "{stringifyErrorLike(generationError)}",
+        "error-title": "エラー",
+        "generate": "注釈を改善",
+        "generating": "生成中…",
+        "preview-annotations": "改善された注釈：",
+        "preview-title": "AI注釈の改善プレビュー",
+        "prompt-description": "アラートルールの注釈について、改善したい点を説明してください。例：「サマリーをより説明的にする」、「説明にトラブルシューティングの手順を追加する」、「ランブックのリンクを追加する」など。",
+        "prompt-label": "注釈をどのように改善したいですか？",
+        "prompt-placeholder": "サマリーをより説明的にし、説明にトラブルシューティングの手順を追加します...",
+        "title": "AIを使用してアラートルールの注釈を改善する"
+      }
+    },
+    "improve-ai-labels": {
+      "button": "AIを活用してラベルを改善する",
+      "modal": {
+        "cancel": "キャンセル",
+        "error": "{stringifyErrorLike(generationError)}",
+        "error-title": "エラー",
+        "generate": "改善を生成",
+        "generating": "生成中…",
+        "prompt-description": "アラートルールラベルについて改善したい点を説明してください。例：「動的な重大度ラベルを追加」、「チームの所有権を含める」、「環境ラベルを追加」など。",
+        "prompt-label": "ラベルをどのように改善したいですか？",
+        "prompt-placeholder": "しきい値に基づいて動的な重大度ラベルを追加し、チームの所有権を含めます...",
+        "title": "AIでアラートルールラベルを改善"
+      },
+      "preview": {
+        "apply": "改善を適用",
+        "cancel": "キャンセル",
+        "no-improvements": "改善点は見つかりませんでした",
+        "no-improvements-message": "AIはこのリクエストに対してラベルの改善を提案しませんでした。",
+        "title": "AIが提案したラベルの改善点："
+      }
+    },
+    "settings": {
+      "tabs": {
+        "enrichment": {
+          "title": "アラートのエンリッチメント"
+        }
+      }
+    },
+    "template-form": {
+      "genai": {
+        "modal": {
+          "error": "{stringifyErrorLike(generationError)}",
+          "error-title": "エラー",
+          "generate": "テンプレートを生成",
+          "generating": "生成中…",
+          "prompt-description": "通知に必要な形式と内容を説明してください。例：「アラート名、ステータス、絵文字インジケーター付きのサマリーを示すSlackメッセージ」または「ラベルと開始時間を含むすべての発生アラートのテーブルを含むメール」。",
+          "prompt-label": "通知の見た目について説明してください",
+          "prompt-placeholder": "「🔥 アラート：[AlertName]が発生しています」と表示されるSlackメッセージと、詳細を表示するための概要とリンク...",
+          "title": "AIでテンプレートを生成"
+        }
+      }
+    },
+    "templates": {
+      "editor": {
+        "generate-with-ai": "AIで生成"
+      }
+    },
+    "triage-ai": {
+      "button": "{{ provider }}で分析",
+      "modal": {
+        "analysis-title": "アラートトリアージ分析",
+        "analyze": "分析する",
+        "analyzing": "🤖{{logRecordsLength}}件のアラートイベントを分析しています...",
+        "custom-question": {
+          "help": "一般的なトリアージ分析の場合は空欄のままにするか、アラートイベントに関する特定の質問をします。",
+          "label": "特定の質問をする (オプション)",
+          "placeholder": "例：「データベースアラートの原因は何ですか？」または「これらのアラートは最近のデプロイに関連していますか？」"
+        },
+        "description": "現在のアラートイベントのAI分析により、パターンの理解、応答の優先順位付け、潜在的な問題の特定に役立ちます。",
+        "error": "エラー",
+        "title": "アラートトリアージ分析"
+      }
+    }
+  },
+  "auth-config": {
+    "action-bar": {
+      "content-disable-button": "無効にすると、GrafanaでSAML認証が使用されなくなります。",
+      "delete": "削除",
+      "disable-button": "無効化",
+      "enabled-badge": "有効",
+      "more-actions-button": "その他の操作",
+      "not-enabled-badge": "有効になっていません",
+      "protocol": "プロトコル",
+      "save-and-apply-button": "保存して適用",
+      "save-and-enable-button": "保存して有効にする",
+      "save-button": "保存",
+      "status": "ステータス"
+    },
+    "assertion-mapping-unconnected": {
+      "aria-label-name-id-format": "nameIdFormat",
+      "assertionAttributeEmail-label-email-attribute": "メール属性",
+      "assertionAttributeEmail-placeholder-mail": "メール",
+      "assertionAttributeExternalUid-label-external-uid": "外部UID属性",
+      "assertionAttributeExternalUid-tooltip-external-uid": "外部UIDマッピングはなりすましを防ぐセキュリティメカニズムであり、SCIMプロビジョニングが有効になっている場合にのみ必要です。プロビジョニングされた外部UID（IDプロバイダーが生成したユーザーID）は、ユーザーのログイン時にSAMLアサーションに存在する必要があります。このフィールドのデフォルト値はuserUIDです。",
+      "assertionAttributeGroups-label-groups-attribute": "グループ属性",
+      "assertionAttributeLogin-label-login-attribute": "ログイン属性",
+      "assertionAttributeLogin-placeholder-mail": "メール",
+      "assertionAttributeName-label-name-attribute": "名前属性",
+      "assertionAttributeName-placeholder-display-name": "表示名",
+      "assertionAttributeOrg-label-org-attribute": "組織属性",
+      "assertionAttributeRole-label-role-attribute": "ロール属性",
+      "azure-ad-service-account-configuration": "Azure ADサービスアカウント設定",
+      "clientId-label-client-id": "クライアントID",
+      "clientSecret-label-client-secret": "クライアントシークレット",
+      "description-allowed-organizations": "カンマまたはスペースで区切られたSAML組織名のリスト。ユーザーがログインするには、少なくとも1つの組織のメンバーである必要があります。",
+      "description-assertion-attributes-mapping": "SAMLアサーション属性をGrafanaユーザー属性にマッピングします。アサーション属性はテンプレートマッピングをサポートします。グループ属性が設定されている場合、チーム同期を利用できます。",
+      "description-azure-ad-service-account-configuration": "Azure AD組織で150を超えるグループに属するユーザーがいる場合は、Graph APIを介してすべてのグループを取得するために、Azure ADでサービスアカウントを設定する必要があります。設定したサービスアカウントを使用して、ユーザーのすべてのグループが取得されます。Azure ADサービスアカウント設定の詳細については、<1>ドキュメント</1>をご覧ください。",
+      "description-force-use-graph-api": "Graph APIの使用を強制して、ユーザーのすべてのグループを取得します。",
+      "description-name-identifier-format": "名前識別子形式は、IDプロバイダーのユーザーがGrafanaのユーザーにどのようにマッピングされるかを制御します",
+      "description-prevent-synchronizing-users-organization-roles": "IdPからのSAMLユーザーの組織ロールの同期を防ぎます。",
+      "label-allowed-organizations": "許可された組織",
+      "label-assertion-attributes-mapping": "アサーション属性マッピング",
+      "label-force-use-graph-api": "Graph APIの使用を強制する",
+      "label-name-identifier-format": "名前識別子形式",
+      "label-org-mapping": "組織マッピング",
+      "label-role-mapping": "ロールマッピング",
+      "label-skip-organization-role-sync": "組織の役割の同期をスキップ",
+      "label-user-mapping": "ユーザーマッピング",
+      "orgMapping-label-org-mapping": "組織マッピング",
+      "roleValuesAdmin-label-admin": "管理者",
+      "roleValuesEditor-label-editor": "編集者",
+      "roleValuesGrafanaAdmin-label-grafana-admin": "Grafana管理者",
+      "roleValuesNone-label-none": "なし",
+      "roleValuesViewer-label-viewer": "閲覧者",
+      "tokenUrl-label-access-token-url": "アクセストークンURL",
+      "tooltip-assertion-attributes-mapping": "Grafanaのアサーション属性マッピングは、SAML応答からユーザー情報を取得し、それを使用してデータベース内のユーザーを作成または更新します。アサーション内の属性（キー/値のペア）を読み取ります。例えば、名前、ログインハンドル、メールアドレスなどです。設定により、キー選択の変更が可能です。",
+      "tooltip-org-mapping": "組織マッピングでは、IDプロバイダーから取得した属性値に応じて、Grafanaの特定の組織にユーザーを割り当てることができます。設定を使用して、組織のユーザーをGrafanaの組織に割り当てます。",
+      "tooltip-role-mapping": "ロールマッピングは、なし、閲覧者、編集者、管理者、Grafana管理者ロールのロール属性を設定することにより、IDプロバイダーからGrafanaへのユーザーロールを同期します。一致するものがない場合、Grafanaのデフォルトロールは閲覧者です。"
+    },
+    "config-action": {
+      "confirm-modal-body": "このSAML設定を完全に削除してもよろしいですか？UIで行われたすべての変更が失われます。",
+      "confirm-modal-confirm-text": "設定を削除する",
+      "confirm-modal-confirmation-text": "削除",
+      "confirm-modal-dismiss-text": "編集に戻る",
+      "confirm-modal-title": "SAML設定を削除"
+    },
+    "connect-to-idp-unconnected": {
+      "configure-assertions-group-mappings": "次のステップで、アサーション、グループ、組織のマッピングを設定します。",
+      "configure-idp-using-grafana-metadata": "Grafanaメタデータを使用してIdPを設定する",
+      "copy": "コピー",
+      "description-assertion-consumer-service-url": "アサーションコンシューマーサービスのPOSTバインディングURL",
+      "description-idp-metadata": "IdPでの設定または要求と同じである必要があります。",
+      "description-metadata-url": "IdPメタデータのURL",
+      "description-setup-idp": "IDプロバイダー（IdP）を設定するには、GrafanaメタデータURLが必要です。以下のすべてのエンドポイントには、IDプロバイダー（IdP）からアクセス可能である必要があります。",
+      "description-setup-required": "IdPの設定パネルにアクセスし、新しいアプリを追加し、ステップ1のメタデータを使用してGrafanaに接続します。IdPのメタデータをコピーして、以下に入力する必要があります。接続をテストし、アサーションラベル/値をコピーします。",
+      "description-slo-url": "ログアウトサービスリダイレクトバインディングURL/ログアウトサービスPOSTバインディングURL",
+      "description-sp-metadata-url-entity-id": "SPメタデータURL/SPエンティティID",
+      "description-test-connection": "IdPのパネルから接続をテストする場合は、IdP開始ログインを許可し、リレーステート情報を提供してください。",
+      "finish-configuring-grafana-using-idp-data": "IdPデータを使用してGrafanaの設定を完了する",
+      "label-assertion-consumer-service-url": "アサーションコンシューマーサービスURL",
+      "label-baseencoded-idp-metadata": "Base64でエンコードされたIdPメタデータ",
+      "label-connect-grafana-with-identity-provider": "GrafanaをIDプロバイダーに接続",
+      "label-idp-metadata": "IdPのメタデータ",
+      "label-metadata-url": "メタデータURL",
+      "label-path-to-idp-metadata-file": "IdPメタデータファイルへのパス",
+      "label-slo-url": "SLO URL",
+      "label-sp-metadata-url-entity-id": "メタデータURL",
+      "step-number-1": "1",
+      "step-number-2": "2",
+      "step-number-3": "3"
+    },
+    "general-unconnected": {
+      "description-allow-signup": "SAMLログインによる新しいGrafanaユーザーの作成を許可するかどうか。有効にしない場合、既存のGrafanaユーザーのみがSAML認証でログインできます。",
+      "description-auto-login": "ログイン画面をスキップして、SAML認証で自動的にログインを試行します。",
+      "description-display-name-for-this-saml-integration": "複数のSSO IdPプロバイダーまたはプロトコルを使用している場合に役立ちます。",
+      "description-duration-grafana-metadata-valid": "Grafanaメタデータが有効な期間。",
+      "description-entity-id": "エンティティIDは、サービスプロバイダーのグローバル一意識別子です。IDプロバイダーでサービスプロバイダーを識別するために使用されます。デフォルトはGrafanaインスタンスのURLです。",
+      "description-identity-provider-initiated-login": "IDプロバイダーから直接Grafanaにログインできるようにします。",
+      "description-max-issue-delay": "IdPが応答を発行してからGrafanaが処理を許可されるまでの期間。",
+      "description-relay-state": "必須。IdPで設定されたリレーステートと一致する必要があり、末尾のスペースが必要です。",
+      "description-single-logout": "SAML経由で確立された現在のIdPセッションと、そのIdPセッションに関連付けられたアプリケーションからログアウトできます。",
+      "displayName-placeholder-saml": "SAML",
+      "label-allow-signup": "サインアップを許可する",
+      "label-auto-login": "自動ログイン",
+      "label-display-name-for-this-saml-integration": "このSAML 2.0統合の表示名",
+      "label-entity-id": "エンティティID",
+      "label-general-settings": "一般設定",
+      "label-identity-provider-initiated-login": "IDプロバイダー開始ログイン",
+      "label-max-issue-delay": "最大発行遅延",
+      "label-metadata-valid-duration": "メタデータ有効期間",
+      "label-relay-state": "リレーステート",
+      "label-single-logout": "シングルログアウト"
+    },
+    "input-with-reset": {
+      "reset": "リセット"
+    },
+    "key-cert-drawer-unconnected": {
+      "close": "閉じる",
+      "description-number-generated-certificate-valid": "生成される証明書の有効日数。",
+      "generate": "生成",
+      "label-city": "都市",
+      "label-country-code": "国コード",
+      "label-state": "ステート",
+      "label-validity-days": "有効日数",
+      "label-your-organization": "あなたの組織",
+      "subtitle-saml-key-and-certificate": "次のデータが生成される証明書に含まれます",
+      "title-saml-key-and-certificate": "SAMLキーと証明書",
+      "tooltip-generate-the-certificate-and-private-key": "証明書と秘密鍵を生成する"
+    },
+    "key-cert-unconnected": {
+      "description-baseencoded-grafana-x-certificate": "Base64でエンコードされたGrafana X.509証明書",
+      "description-baseencoded-private-key": "Base64でエンコードされた秘密鍵",
+      "description-path-to-the-grafana-private-key": "Grafana秘密鍵へのパス",
+      "description-path-to-the-grafana-x-certificate": "Grafana X.509証明書へのパス",
+      "description-sign-outgoing-requests-to-id-p": "IdPへの送信リクエストに署名する",
+      "description-signature-algorithm": "IdPへのリクエストに署名するために使用される署名アルゴリズム。IdPでの設定または要求と同じである必要があります。",
+      "description-signing-and-encryption-key-certificate": "GrafanaとIdP間で情報を交換するための証明書と秘密鍵。秘密鍵はPKCS#8形式で発行される必要があります。証明書は有効なX.509証明書である必要があります。",
+      "generate-key-and-certificate": "キーと証明書を生成する",
+      "label-certificate": "証明書",
+      "label-private-key": "秘密鍵",
+      "label-sign-requests": "リクエストに署名する",
+      "label-signature-algorithm": "署名アルゴリズム",
+      "label-signing-and-encryption-key-certificate": "署名と暗号化キーと証明書"
+    },
+    "page-banner": {
+      "aria-label-close-banner": "バナーを閉じる",
+      "tooltip-close": "閉じる"
+    },
+    "SAML": {
+      "button-row-next": "次へ：{{name}}",
+      "button-row-previous": "前へ：{{name}}"
+    },
+    "samlform": {
+      "text-saved": "保存済み"
+    },
+    "save-and-test-unconnected": {
+      "button-save-and-enable": "保存して有効にする",
+      "label-test-and-enable": "テストして有効にする",
+      "text-save-and-enable": "SAML設定を適用する準備ができたら、「保存して有効にする」ボタンを使用してください。設定を無効にすることができます。"
+    },
+    "save-samlsettings": {
+      "message": {
+        "cannot-save-settings": "設定を保存できません"
+      }
+    },
+    "text-input-with-reset": {
+      "reset": "リセット"
+    }
+  },
+  "banner": {
+    "api": {
+      "result": {
+        "saved": "バナー設定を保存しました"
+      }
+    },
+    "form": {
+      "button-save": "保存",
+      "button-saving": "保存中…",
+      "enabled": {
+        "label": "有効化"
+      },
+      "end": {
+        "description": "終了日が選択されていない場合、バナーは無期限に表示されます。",
+        "error": "終了時刻は開始時刻より後である必要があります",
+        "label": "終了："
+      },
+      "message": {
+        "description": "バナーのテキストコンテンツ。マークダウンをサポートします。",
+        "label": "メッセージ"
+      },
+      "options": {
+        "error": "エラー",
+        "info": "インフォメーション",
+        "warning": "警告"
+      },
+      "select": {
+        "placeholder": "バナータイプを選択"
+      },
+      "start": {
+        "description": "バナーはこの日時から表示されます。",
+        "label": "開始："
+      },
+      "title": "バナーを構成する",
+      "variant": {
+        "label": "バリアント"
+      }
+    },
+    "preview": {
+      "message": {
+        "default": "メッセージフィールドを変更して、このプレビューを更新します。"
+      },
+      "title": "プレビュー"
+    }
+  },
+  "caching": {
+    "alert": {
+      "readonly": {
+        "message": "このデータソースは設定によって追加されたものであり、UIを使用してキャッシュを変更することはできません。このデータソースを更新するには、サーバー管理者に連絡してください。",
+        "title": "プロビジョニングされたデータソース"
+      }
+    },
+    "cache-clean": {
+      "body-clear-cache": "警告：この操作は、すべてのキャッシュ有効データソースに影響します。Memcachedを使用している場合、システムはMemcachedインスタンスからすべてのデータをクリアします。続けますか？",
+      "clear-cache": "キャッシュをクリア",
+      "confirm-text-clear-cache": "キャッシュをクリア",
+      "title-clear-cache": "キャッシュをクリア"
+    },
+    "cache-cta": {
+      "enable-button-title": "有効化",
+      "enable-button-tittle": "有効化",
+      "protip-caching-cannot-enabled-source": "このデータソースの設定では、キャッシュを有効にすることはできません。",
+      "protip-caching-not-enabled": "キャッシュを有効にすると、データソースに送信される冗長なリクエストの量を減らすことができます。",
+      "protip-link-caching-not-enabled": "詳細を見る",
+      "title-caching-cannot-enabled-source": "このデータソースではキャッシュを有効にできません。",
+      "title-caching-not-enabled": "このデータソースではキャッシュが有効になっていません。"
+    },
+    "cache-settings-disable": {
+      "disable": "無効化"
+    },
+    "cache-settings-form": {
+      "description-query-ttl": "クエリキャッシュ項目の有効期間（ミリ秒）。例：5000",
+      "description-resource-ttl": "リソースは、Grafanaデータソースプラグインがクエリエディターで使用するためにデータソースから取得する動的な値です。例としては、Splunkの名前空間、Prometheusのラベル、CloudWatchのメトリック名などがあります。これらの値はあまり頻繁に更新されないため、リソースのキャッシュTTLをクエリよりも長く設定することをお勧めします。詳細については、<2>ドキュメント</2>をご覧ください。",
+      "description-timetolive-resources-cache-items-milliseconds-example": "リソースキャッシュ項目の有効期間（ミリ秒）。例：5000",
+      "description-use-default-ttl": "これを有効にすると、Grafanaの設定で指定されたデフォルトのTTL（{{defaultTTLMs}}ms）が使用されます",
+      "label-query-ttl": "クエリTTL",
+      "label-use-default-ttl": "デフォルトのTTLを使用",
+      "resource-ttl": "リソースTTL",
+      "save": "保存"
+    },
+    "caching": {
+      "content": {
+        "text": {
+          "enable-caching": "キャッシュの有効化"
+        }
+      }
+    },
+    "data-source-cache": {
+      "caching-heading": "キャッシュ",
+      "query-catching": "Grafana Proの試用期間中にクエリキャッシュを無料で有効にします。",
+      "upgrade-content-author-dashboards": "ServiceNowのフィールドやDatadogから提供されるメトリックなど、クエリの構築に使用されるデータをキャッシュすることで、ダッシュボードをよりスムーズに作成できます",
+      "upgrade-content-description": "クエリキャッシュを使用すると、クエリ結果をメモリ、Redis、またはMemcachedに一時的に保存することで、ダッシュボードをより高速に読み込み、データソースへのコストのかかるクエリを削減できます。",
+      "upgrade-content-load-dashboards": "大きなクエリが含まれ、多くのユーザーが同時に閲覧している場合でも、キャッシュから1秒未満でダッシュボードを読み込みます",
+      "upgrade-content-save-money": "Splunk、CloudWatch、GitHubなどのデータソースへのAPI呼び出し数を減らすことで、コストを節約し、レート制限を回避します"
+    }
+  },
+  "common": {
+    "cancel": "キャンセル",
+    "close": "閉じる"
+  },
+  "explore": {
+    "query-library": {
+      "cancel": "キャンセル",
+      "default-title": "新規クエリ",
+      "discard": "破棄",
+      "editing-title": "保存されたクエリからの編集",
+      "explore": "Exploreで表示",
+      "query-template-added": "クエリがライブラリに正常に保存されました",
+      "query-template-edit-error": "このクエリの編集中にエラーが発生しました",
+      "query-template-edited": "クエリテンプレートの編集に成功しました",
+      "save": "保存",
+      "save-and-close": "",
+      "save-return": "保存してから保存したクエリに戻る",
+      "saving": "保存中…"
+    }
+  },
+  "export": {
+    "pdf": {
+      "cancel-button": "キャンセル",
+      "download-button": "PDFを生成",
+      "image-alt": "PDFプレビュー",
+      "info-text": "ダッシュボードをPDFドキュメントとしてエクスポートする",
+      "layout-label": "レイアウト",
+      "orientation-label": "用紙の向き",
+      "title": "ダッシュボードのPDFをエクスポート",
+      "zoom-description": "ズームインしてテキストを拡大するか、ズームアウトしてパネルごとに表示されるデータ（テーブル列など）を増やします。",
+      "zoom-label": "ズーム"
+    }
+  },
+  "groupsync": {
+    "empty-state": {
+      "pro-tip": "IDプロバイダのグループを通じてGrafanaアクセスを管理しますか？Grafana RBAC役割へのグループマッピングを作成します。<2>詳細はこちら</2>",
+      "title": "まだグループマッピングを作成していません"
+    },
+    "group-sync-editor": {
+      "body-delete-group-mappings": "このグループのすべてのマッピングを削除してもよろしいですか？",
+      "close-button-drawer": "閉じる",
+      "confirm-text-delete-group-mappings": "削除",
+      "delete-group-mapping": "グループマッピングを削除",
+      "new-button-drawer": "新規",
+      "new-group-mapping": "新しいグループマッピング",
+      "placeholder-search-by-group-id": "グループIDで検索",
+      "text-deprecated-feature": "この機能は廃止予定であり、ルールは2025年6月に機能しなくなります。ご希望のチームの設定で外部グループ同期に移行し、チームにロールを割り当ててください。",
+      "title-delete-group-mappings": "グループマッピングを削除",
+      "title-deprecated-feature": "廃止予定の機能"
+    },
+    "new-mapping-form": {
+      "label-group-id": "グループID",
+      "label-roles": "ロール",
+      "save": "保存"
+    }
+  },
+  "licensing": {
+    "customer-support-button": {
+      "contact-customer-support": "カスタマーサポートへの問い合わせ"
+    },
+    "expires-soon": {
+      "title-grafana-enterprise-license-expire": "Grafana Enterpriseライセンスの有効期限が近づいています",
+      "sub-title-license-expiration_other": "残り{{count}}日。その後、<3>Enterprise機能が無効になります。</3>"
+    },
+    "get-token-status": {
+      "title": {
+        "token-expired": "トークンは期限切れです",
+        "token-expires-soon": "トークンの有効期限が間もなく切れます"
+      }
+    },
+    "get-trial-status": {
+      "title": {
+        "trial-active": "トライアル中",
+        "trial-expired": "トライアル期間が終了しました"
+      }
+    },
+    "has-expired": {
+      "sub-title-licensing-reader": "<0>一部の機能</0>が無効になっています。",
+      "title-your-grafana-enterprise-license-has-expired": "Grafana Enterpriseライセンスの有効期限が切れました"
+    },
+    "is-invalid": {
+      "sub-title-licensing-reader": "<0>一部の機能</0>が無効になっています。",
+      "title-your-grafana-enterprise-license-is-invalid": "Grafana Enterpriseライセンスが無効です"
+    },
+    "license-info": {
+      "aria-label-details-about-license-grafana-cloud": "Grafana Cloudでライセンスの詳細を表示",
+      "card-content-account": "AWSアカウント",
+      "card-content-active-licensed-users": "アクティブなライセンスユーザー",
+      "card-content-anonymous-users": "匿名ユーザー",
+      "card-content-authenticated-users": "認証済みユーザー",
+      "card-content-company": "会社",
+      "card-content-license-expires": "ライセンス有効期限",
+      "card-content-license-expires-tooltip": "ライセンスの有効期限は、現在のライセンスがアクティブでなくなる日付です。ライセンスの有効期限が近づくと、Grafana Enterpriseはバナーを表示します。",
+      "card-content-lid": "ライセンスID",
+      "card-content-none": "なし",
+      "card-content-product": "製品",
+      "card-content-products": "製品",
+      "card-content-purchase-date": "購入日",
+      "card-content-token-auto-update": "Grafanaは、トークンの有効期限が切れる前に自動的にトークンを更新します。トークンが更新されない場合は、サポートにお問い合わせください。",
+      "card-content-token-expires": "トークンの有効期限",
+      "card-content-token-id": "トークンID",
+      "card-content-token-issued": "トークン発行日",
+      "card-content-token-usage-billing-off": "オフ",
+      "card-content-url-name": "URL",
+      "card-content-url-tooltip": "ライセンスURLは、GrafanaインスタンスのルートURLです。ライセンスは、異なるルートURLを持つGrafanaインスタンスでは機能しません。",
+      "card-content-usage-billing": "使用量課金",
+      "card-content-usage-billing-on": "オン",
+      "card-content-usage-billing-tooltip": "Grafana Labsに使用量課金を有効にするようリクエストして、アクティブユーザー数を無制限にすることができます。使用量課金が有効になっている場合、Grafanaはアクティブユーザーの制限を適用せず、警告バナーも表示しません。代わりに、カスタマー契約に従って、制限を超えるアクティブユーザーに対して料金が請求されます。",
+      "edition-notice-licensing-info": "ライセンスなしでGrafana Enterpriseを実行しています。Enterprise機能は無効になっています。",
+      "edition-notice-problem-licensing-info": "Enterpriseライセンストークンに問題があります。Enterprise機能は無効になっています。",
+      "license-alert": "ライセンストークンがアップロードされました。変更を有効にするには、Grafanaを再起動してください。",
+      "license-details": "ライセンスの詳細",
+      "license-token-info": "<2>ライセンスの有効期限</2>と<6>ライセンスの有効化</6>についてお読みください。",
+      "renew-token": "トークンを更新",
+      "renewing": "（更新中...）",
+      "text-loading-licensing-info": "ライセンス情報を読み込み中…",
+      "title-contact-support-renew-token-visit-cloud": "トークンを更新するにはサポートにお問い合わせいただくか、Cloudポータルにアクセスして詳細をご覧ください。",
+      "title-have-a-license": "ライセンスをお持ちですか？",
+      "title-license": "ライセンス",
+      "title-license-token-renewed": "ライセンストークンが更新されました。",
+      "title-token": "トークン",
+      "title-utilization": "使用率",
+      "utilization-footer": "ライセンスユーザーの使用率は、過去30日間のサインインユーザーのアクティビティに基づいて決定されます。",
+      "utilization-info": "<2>アクティブユーザー制限</2>と<6>同時セッション制限</6>についてお読みください。",
+      "card-content-anonymous-users-tooltip_other": "匿名デバイス{{count}}個ごとに、Grafanaは1人のユーザーとしてカウントします。"
+    },
+    "license-token-upload": {
+      "instance-url": "インスタンスURL：<1>{{licensedUrl}}</1>",
+      "upload-a-new-token": "新しいトークンをアップロード",
+      "uploading": "アップロード中…"
+    },
+    "max-users-reached": {
+      "title-exceeded-included-number-active-users": "含まれているアクティブユーザー数を超えました",
+      "upgrade-your-license-link": "<2>ライセンスをアップグレードしてください。</2>",
+      "upgrade-your-license-no-link": "ライセンスをアップグレードしてください。",
+      "upgrade-your-license-subtitle_other": "Grafana Enterpriseライセンスには{{maxUsers}}人のアクティブユーザーが含まれています。現在、{{count}}人のアクティブユーザーがいます。"
+    },
+    "page-alert": {
+      "learn-about-enterprise-licenses": "Enterpriseライセンスについて学ぶ"
+    },
+    "token-expires-soon": {
+      "title-grafana-enterprise-token-needs-renewed": "Grafana Enterpriseトークンを更新する必要があります",
+      "sub-title-token-expiration_other": "ライセンストークンの残り日数は{{count}}日です。その後、<4>Enterprise機能が無効になります。</4>"
+    }
+  },
+  "meta-analytics": {
+    "analytics-drawer": {
+      "public-dashboards-tab-label": "公開ダッシュボード",
+      "shared-dashboards-tab-label": "共有したダッシュボード",
+      "stats-tab-label": "ステータス",
+      "text-access-usage-insights-during-trial-grafana": "Grafana Proの試用期間中に、使用状況のインサイトに無料でフルアクセスできます。",
+      "title-dashboard-insights": "{{dashboardTitle}} - 分析",
+      "users-activity-tab-label": "ユーザーとアクティビティ"
+    },
+    "analytics-public-dashboards-tab": {
+      "daily-query-count-cached-queries-label": "キャッシュされたクエリ",
+      "daily-query-count-title": "1日のクエリ数",
+      "errors-last-month-title": "過去30日間のエラー数",
+      "no-data": "データはありません。",
+      "views-last-month-title": "過去30日間のビュー数"
+    },
+    "analytics-stats-tab": {
+      "daily-query-count-cached-queries-label": "キャッシュされたクエリ",
+      "daily-query-count-title": "1日のクエリ数",
+      "errors-last-month-title": "過去30日間のエラー数",
+      "no-data": "データはありません。"
+    },
+    "analytics-toolbar-button": {
+      "tooltip-dashboard-insights": "ダッシュボードインサイト"
+    },
+    "analytics-upgrade-drawer": {
+      "description-usage-insights-provide-detailed-information-about": "使用状況インサイトは、ビュー数、クエリ数、発生したエラー数など、ダッシュボードの使用状況に関する詳細情報を提供します。これを使用して、ユーザーのエクスペリエンスを向上させ、問題をトラブルシューティングできます。",
+      "title-dashboard-insights": "{{dashboardTitle}} - 分析"
+    },
+    "analytics-users-tab": {
+      "aria-label-recent-users-table": "最近のユーザーテーブル",
+      "aria-label-user-box-title": "ユーザーボックスタイトル",
+      "aria-label-user-information-box": "ユーザー情報ボックス",
+      "aria-label-version-history-button": "バージョン履歴ボタン",
+      "created-user-box": "作成済み",
+      "dashboard-version-history": "ダッシュボードバージョン履歴",
+      "format-date-currently-viewing": "現在表示中",
+      "format-date-last-hour": "過去1時間",
+      "format-date-today": "今日",
+      "format-date-yesterday": "昨日",
+      "last-dashboard-viewers": "過去30日間のダッシュボード閲覧者",
+      "last-edited-user-box": "最終編集者",
+      "last-viewed-user-box": "最終閲覧者",
+      "user-views-data-frame-user-field": "ユーザー",
+      "user-views-data-frame-when-field": "日時",
+      "views-last-month-title": "過去30日間のビュー数"
+    },
+    "data-source-insights": {
+      "available-source": "このデータソースで利用可能なデータはありません。",
+      "average-load-duration-last-month-title": "過去30日間の平均ロード時間（ミリ秒）",
+      "errors-last-month-title": "過去30日間のエラー数",
+      "queries-last-month-title": "過去30日間のクエリ数",
+      "text-enable-source-usage-insights-during-trial": "Grafana Proの試用期間中に、データソース使用状況インサイトを無料で有効にできます。",
+      "text-feature-not-available-expired-license": "ライセンスの有効期限が切れている場合、データソースインサイトは利用できません。データは引き続き収集されますが、このページを表示するにはライセンスを更新する必要があります。",
+      "title-feature-available-expired-license": "ライセンスの有効期限が切れている場合、機能は利用できません",
+      "title-read-more-license-expiration": "ライセンスの有効期限について詳しく読む"
+    },
+    "data-source-insights-upgrade": {
+      "clean-instance-list-item": "未使用のデータソースを見つけて削除し、インスタンスをクリーンアップする",
+      "demonstrate-and-improve-list-item": "ユーザーエンゲージメントを追跡することで、オブザーバビリティサービスの価値を実証し、向上させる",
+      "description-usage-insights-provide-detailed-information-about": "使用状況インサイトは、ビュー数、クエリ数、発生したエラー数など、データソース使用状況に関する詳細情報を提供します。これを使用して、ユーザーのエクスペリエンスを向上させ、問題をトラブルシューティングできます。",
+      "keep-performant-list-item": "低速でエラーが発生しやすいデータソースを特定して修正し、Grafanaのパフォーマンスを維持する",
+      "review-insights-list-item": "UIで個々のデータソース使用状況インサイトを一目で確認したり、使用状況やエラーで検索結果を並び替えたり、詳細な使用状況ログを調べたりする"
+    }
+  },
+  "permissions": {
+    "data-source-permissions": {
+      "text-enable-source-permissions-during-trial-grafana": "Grafana Proの試用期間中に、データソース権限を無料で有効にできます。"
+    },
+    "permissions-upgrade-content": {
+      "description-source-permissions-protect-sensitive-limiting-access": "データソース権限を使用すると、このデータソースへのアクセスを特定のユーザー、チーム、ロールに制限することで、機密データを保護できます。",
+      "source-permissions-protect-clean-experience-list-item": "ユーザーが使用する必要のないデータソースを非表示にして、ユーザーエクスペリエンスを向上させる",
+      "source-permissions-protect-sensitive-data-list-item": "セキュリティログ、本番データベース、個人識別情報などの機密データを保護する",
+      "source-permissions-protect-share-access-list-item": "ユーザーが意図せずに機密データを見ることがないことを認識した上で、Grafanaへのアクセスをより自由に共有する"
+    }
+  },
+  "plugins": {
+    "sandbox": {
+      "enable-sandbox-label": "フロントエンドサンドボックス",
+      "enable-sandbox-tooltip": "フロントエンドサンドボックスは、フロントエンドコードを分離して実行し、グローバルブラウザスコープへのアクセスを制限し、プラグインエリアへのUI変更を制限します。",
+      "enable-sandbox-tooltip-link": "続きを読む"
+    }
+  },
+  "public-dashboard": {
+    "email-sharing": {
+      "success-confirm-access": "アクセスが確認されました！",
+      "success-resend-recipient-invitation": "メールの招待状が再送信されました。",
+      "success-revoke-access-description": "{{recipientEmail}}のアクセス権を取り消すことに成功しました 。",
+      "success-revoke-access-title": "アクセスが取り消されました",
+      "success-revoke-all-accesses-description": "{{email}}のすべての公開ダッシュボードへのアクセスが正常に削除されました。",
+      "success-revoke-all-accesses-title": "アクセスが取り消されました",
+      "success-send-recipient-invitation": "招待メールが送信されました。"
+    }
+  },
+  "public-dashboards": {
+    "confirm-access-page": {
+      "confirm-access": "アクセスを確認",
+      "login-subtitle": "ダッシュボードに30日間アクセスできます。30日後、引き続きダッシュボードを閲覧できるように、再度アクセスをリクエストできます。",
+      "login-title": "ダッシュボードへのアクセス"
+    },
+    "request-view-access-page": {
+      "access-requested": "アクセスがリクエストされました",
+      "label-email": "メールアドレス",
+      "placeholder-email": "メールアドレス",
+      "register-pattern-invalid-email": "メールアドレスが無効です",
+      "register-required-email": "メールアドレスを入力してください",
+      "request-access": "アクセスをリクエスト"
+    }
+  },
+  "query-library": {
+    "actions": {
+      "delete-query-button": "クエリを削除",
+      "duplicate-query-button": "クエリを複製",
+      "duplicate-query-title-copy": "コピー",
+      "lock-query-button": "クエリをロック",
+      "menu-button": "",
+      "save-history-query-button": "",
+      "select-query-button": "クエリの選択",
+      "unlock-query-button": "クエリのロックを解除"
+    },
+    "delete-modal": {
+      "body-text": "保存したクエリを削除しようとしています。この操作は元に戻せません。続けますか？",
+      "confirm-button": "クエリを削除",
+      "title": "クエリを削除"
+    },
+    "discard-changes": {
+      "discard-button": "破棄",
+      "text": "このクエリへの変更が保存されていません。変更を破棄してよろしいですか？",
+      "title": "クエリへの変更を破棄しますか？"
+    },
+    "drawer": {
+      "title": "保存されたクエリ",
+      "tooltip": "現時点では、各組織は最大1,000件のクエリを保存できます"
+    },
+    "empty-state": {
+      "message": "Exploreから、またはダッシュボードの編集時に追加を開始します",
+      "no-favorites": "",
+      "no-favorites-description": "",
+      "no-history": "",
+      "no-history-description": "",
+      "title": ""
+    },
+    "error-state": {
+      "title": "問題が発生しました！"
+    },
+    "explore-modal": {
+      "cancel-button": "",
+      "confirm-button": "",
+      "title": "",
+      "warning": ""
+    },
+    "filters": {
+      "datasource-placeholder": "データソースで絞り込む",
+      "datasource-user": "ユーザーで絞り込む",
+      "search-placeholder": "データソース、クエリ内容、タイトル、または説明で検索",
+      "sort": {
+        "asc": "アルファベット順 (A-Z)",
+        "desc": "アルファベット順 (Z-A)",
+        "newest": "新しいものから表示",
+        "oldest": "古いものから表示"
+      },
+      "sort-placeholder": "並べ替え"
+    },
+    "item": {
+      "add-to-library": "",
+      "favorite": "お気に入り",
+      "new": "新規",
+      "unfavorite": "お気に入りから削除"
+    },
+    "not-found": {
+      "message": "検索条件またはフィルタ条件を調整してみてください",
+      "title": "結果はありません"
+    },
+    "notifications": {
+      "query-deleted": "クエリが削除されました"
+    },
+    "query-details": {
+      "author": "著者",
+      "datasource": "データソース",
+      "date-added": "追加日",
+      "description": "説明",
+      "edit-button": "クエリを編集",
+      "edit-button-short": "編集",
+      "make-query-visible": "すべてのユーザーとクエリを共有",
+      "recent-description": "",
+      "recent-example": "",
+      "tags": "タグ",
+      "title": "タイトル"
+    },
+    "tabs": {
+      "all": "すべて",
+      "favorites": "お気に入り",
+      "recent": ""
+    },
+    "template-variables-warning": {
+      "message": "",
+      "message-explore": "",
+      "title": ""
+    },
+    "user-info": {
+      "error": "ライブラリからユーザー情報を取得しようとしたときにエラーが発生しました：{{error}}"
+    }
+  },
+  "query-operation": {
+    "header": {
+      "replace-query-from-library": "保存されたクエリに置き換える",
+      "save-to-query-library": "クエリを保存"
+    }
+  },
+  "recorded-queries": {
+    "create-recorded-query-unconnected": {
+      "alert-severity-succesful": "成功",
+      "alert-severity-test": "この記録されたクエリをテスト",
+      "aria-label-start-recording-query-button": "クエリの記録を開始ボタン",
+      "contact-support": "Grafana Labsにサポートチケットを送信するには、<2>Grafana Labsにお問い合わせください</2>",
+      "count-rows-returned": "このクエリから返された行数をカウントする",
+      "description-decide-often-record-query": "このクエリの記録頻度を決定する",
+      "description-give-this-query-a-name": "このクエリに名前を付ける",
+      "description-provide-a-description-for-this-query": "このクエリの説明を入力する",
+      "description-select-value-template-variable": "各テンプレート変数の値を選択",
+      "done-button": {
+        "aria-label-cancel-recording-query-button": "クエリの記録をキャンセルボタン",
+        "aria-label-close-recording-query-button": "クエリの記録を閉じるボタン",
+        "cancel": "キャンセル",
+        "close": "閉じる"
+      },
+      "label": {
+        "relative-time-range": "相対時間範囲"
+      },
+      "label-count-query-results": "クエリ結果をカウント",
+      "label-description": "説明",
+      "label-interval": "間隔",
+      "label-name": "名前",
+      "label-template-variables": "テンプレートの変数",
+      "message": {
+        "name-is-required": "名前を入力してください"
+      },
+      "query-relative-time-range": "このクエリの相対時間範囲を選択",
+      "results-alert-message": "結果：",
+      "start-recording-query": "クエリの記録を開始",
+      "success-alert-message": "新しいクエリが正常に記録されています！",
+      "sync-button": {
+        "aria-label-test-the-recorded-query": "記録されたクエリをテスト"
+      },
+      "title-create-recorded-query": "記録されたクエリを作成"
+    },
+    "data-source-filter": {
+      "button-clear-filter": "データソースフィルターを消去",
+      "filter-by-data-source": "データソースで絞り込む",
+      "placeholder-select-a-data-source": "データソースを選択"
+    },
+    "empty-recorded-query-list": {
+      "message": "記録されたクエリが定義されていません",
+      "pro-tip": "プロのヒント：クエリエディターからクエリを記録できます。"
+    },
+    "query-card": {
+      "interval-content": "間隔：{{interval}} ",
+      "interval-range": "範囲：過去{{range}}",
+      "query-expression": "クエリ式："
+    },
+    "recorded-queries-config-unconnected": {
+      "body-delete": "「{{name}}」を削除してもよろしいですか？",
+      "confirm-text-delete": "削除",
+      "edit-remote-write-target": "リモート書き込みターゲットを編集",
+      "queries-to-display": {
+        "buttons": {
+          "aria-label-delete-recorded-query": "記録されたクエリを削除",
+          "aria-label-pause-recorded-query": "記録を一時停止",
+          "aria-label-resume-recorded-query": "記録を再開",
+          "delete": "削除"
+        }
+      },
+      "title-delete": "削除"
+    },
+    "recorded-queries-deprecation-notice": {
+      "description": "記録されたクエリは廃止予定です。代わりに、新しい<2>Grafana管理記録ルール</2>を使用してください。",
+      "title-deprecation-notice": "廃止予定のお知らせ"
+    },
+    "recorded-query-add-modal-unconnected": {
+      "add": "追加",
+      "cancel": "キャンセル",
+      "new-recorded-query-alert": "記録されたクエリを新たに作成するには、クエリエディターに戻り、系列バーの<2></2>アイコンを使用します。",
+      "no-queries-available": "{{datasourceName}}で利用可能な記録クエリがありません",
+      "recorded-query": "記録クエリ",
+      "title-add-recorded-query": "記録クエリを追加"
+    },
+    "write-target-config-unconnected": {
+      "label-remote-write-path": "リモート書き込みパス",
+      "placeholder-select-a-data-source": "データソースを選択",
+      "save": "保存",
+      "select-data-source-label": "メトリックが書き込まれるデータソースを選択"
+    }
+  },
+  "report": {
+    "report-header": {
+      "time-range": "データ時間範囲：",
+      "title": "{{reportTitle}} -  {{generatedOnDate}}に生成"
+    }
+  },
+  "reporting": {
+    "button-row": {
+      "next-step": "次へ：{{nextName}}",
+      "previous-step": "前へ：{{prevName}}"
+    },
+    "create-report": {
+      "alert-title": "レポートの読み込みエラー",
+      "loading-report": "レポートを読み込み中...",
+      "title": "新規レポートを作成"
+    },
+    "errors": {
+      "action-message": "プラグインをインストールするには、Grafana管理者にお問い合わせください。",
+      "no-renderer-description": "PDFレポートを生成するには、<2>Grafana Image Renderer</2>プラグインをインストールする必要があります。",
+      "no-renderer-title": "画像レンダラープラグインがインストールされていません",
+      "old-renderer-description": "CSVファイルを生成するには、<2>Grafana Image Renderer</2>プラグインを更新する必要があります。",
+      "old-renderer-title": "古いバージョンの画像レンダリングプラグインを使用しています"
+    },
+    "image-preview": {
+      "invalid-image": "無効な画像"
+    },
+    "page": {
+      "empty-button": "レポートを作成",
+      "empty-pro-tip": "既存のダッシュボードからレポートを作成します。<2>詳細はこちら</2>",
+      "empty-title": "まだ作成されたレポートはありません",
+      "settings-button": "レポート設定"
+    },
+    "page-actions": {
+      "discard-button": "破棄",
+      "save-as-draft-button": "下書きとして保存",
+      "update-button": "レポートを更新"
+    },
+    "report-footer": {
+      "page-pagination": "ページ {{currentPage}}/{{totalPageCount}}"
+    },
+    "report-form": {
+      "edit-step": "5. 確認"
+    },
+    "report-list": {
+      "confirmText-delete": "削除",
+      "content-pause-report": "レポートを一時停止",
+      "content-resume-report": "レポートを再開",
+      "delete-report": "レポート{{name}}を削除"
+    },
+    "schedule": {
+      "frecuency-custom-input-label": "繰り返し間隔",
+      "frecuency-custom-select-label": "カスタム頻度",
+      "frecuency-custom-select-placeholder": "時間",
+      "frecuency-date-picker-label": "レポートスケジュール開始日",
+      "frecuency-date-picker-placeholder": "日付を選択",
+      "frecuency-end-date-label": "終了日",
+      "frecuency-end-time-label": "終了時間",
+      "frecuency-last-day-label": "毎月の最終日に送信",
+      "frecuency-last-day-warning": "注：一部の月には{{warningDateText}}日がないため、それらの月にはレポートは送信されません。より早い日付を選ぶか、<3>「毎月の最終日に送信」</3>を選択すると、毎月末にレポートが送信されます。",
+      "frecuency-send-later": "後で送信",
+      "frecuency-send-now": "今すぐ送信",
+      "frecuency-start-time-label": "開始時間",
+      "frecuency-time-zone-label": "タイムゾーン",
+      "frecuency-workdays-label": "平日のみ送信（月〜金）",
+      "report-schedule-end-date-label": "レポートスケジュール終了日",
+      "report-schedule-end-date-placeholder": "終わらない"
+    },
+    "settings": {
+      "attachment-settings-fieldset-label": "添付ファイルの設定",
+      "drawer-title": "レポートテンプレート設定",
+      "email-branding-fieldset-label": "メールブランディング",
+      "email-footer-field-label": "メールフッター",
+      "email-logo-image-preview-altText": "会社ロゴのプレビュー",
+      "email-logo-url-field-description": "ロゴはメールヘッダーに表示されます。サポートされている形式：png、jpg、gif。",
+      "email-logo-url-field-label": "会社ロゴのURL",
+      "embedded-image-header": "埋め込み画像",
+      "embedded-image-theme-picker-description": "テーマは、メールに埋め込まれたダッシュボード画像に適用されます。",
+      "footer-link-field-label": "フッターリンクテキスト",
+      "footer-link-url-field-label": "フッターリンクURL",
+      "no-data": "利用可能な設定データがありません",
+      "none-footer-label": "なし",
+      "pdf-header": "PDF",
+      "pdf-theme-picker-description": "テーマは、レポートに添付されたPDFに適用されます。",
+      "report-logo-image-preview-altText": "会社ロゴのプレビュー",
+      "report-logo-url-field-description": "ロゴは文書のフッターに表示されます。サポートされている形式：png、jpg、gif。",
+      "report-logo-url-field-label": "会社ロゴのURL",
+      "save-button": "保存",
+      "saving-button": "保存中…",
+      "sent-by-footer-label": "送信者",
+      "settings-subtitle": "レポートテンプレート設定を管理します。"
+    },
+    "update-report": {
+      "title": "レポートを更新"
+    }
+  },
+  "reports": {
+    "all-template-alert": {
+      "description-not-supported": "繰り返し行またはパネルで使用されるテンプレート変数の値「All」は、PDFではサポートされていません",
+      "title-not-supported": "サポート対象外"
+    },
+    "confirm": {
+      "edit": "編集",
+      "report-data": {
+        "title": {
+          "combine-all-pdfs-in-one-file": "すべてのダッシュボードPDFを1つのファイルにまとめる",
+          "dashboard-link": "ダッシュボードへのリンク",
+          "email-subject": "メール件名",
+          "end-date": "終了日",
+          "end-time": "終了時間",
+          "format-report": "レポートの書式設定",
+          "message": "メッセージ",
+          "pdf-layout": "PDFレイアウト",
+          "pdf-orientation": "PDFの向き",
+          "pdf-show-template-variables": "テンプレート変数を表示",
+          "preferred-format": "優先フォーマット*",
+          "recipients": "受信者",
+          "recurrence": "繰り返し",
+          "repeat-every": "繰り返し間隔",
+          "replytoemail": "返信先メール",
+          "report-name": "レポート名",
+          "scale-factor": "スケールファクター",
+          "schedule": "スケジュール",
+          "select-dashboard": "ダッシュボードを選択",
+          "send-monday-to-friday-only": "平日のみ送信 (月〜金)",
+          "share": "共有",
+          "start-date": "開始日",
+          "start-time": "開始時間",
+          "template-variables": "テンプレートの変数",
+          "time-range": "時間範囲",
+          "time-zone": "タイムゾーン"
+        }
+      }
+    },
+    "create-report-tab": {
+      "create-report-using-this-dashboard": "このダッシュボードを使用してレポートを作成",
+      "description-reporting-allows-automatically-generate-dashboards-grafana": "レポート機能を使用すると、任意のダッシュボードからPDFを自動生成し、スケジュールに従ってGrafanaから関係者にメールで送信できます。",
+      "get-started-with-reporting": "レポートを使いはじめる",
+      "learn-more": "詳細を見る",
+      "text-create-unlimited-reports-during-trial-grafana": "Grafana Proの試用期間中に無制限のレポートを作成できます。"
+    },
+    "dashbord-report-renderer": {
+      "title-unsupported-dashboard-layout": "サポートされていないダッシュボードレイアウト"
+    },
+    "edit-actions": {
+      "aria-label-delete-report": "レポートを削除",
+      "body-are-you-sure": "このレポートを削除してもよろしいですか？",
+      "confirmText-delete": "削除",
+      "edit-report": "レポートを編集",
+      "pause-button": "一時停止",
+      "resume-button": "再開",
+      "title-delete-report": "レポートを削除",
+      "tooltip-delete": "削除"
+    },
+    "format-report": {
+      "aria-label-zoom": "ズーム",
+      "description-enlarge-table-columns-panel": "ズームインしてテキストを拡大するか、ズームアウトしてパネルごとに表示されるデータ（テーブル列など）を増やします。",
+      "label-combine-dashboard": "すべてのダッシュボードPDFを1つのファイルにまとめる",
+      "label-configure-multiple-pdfs": "複数のPDFを設定",
+      "label-configure-report-header": "レポートヘッダーを設定",
+      "label-format-report": "2. レポートの書式設定",
+      "label-layout": "レイアウト",
+      "label-orientation": "向き",
+      "label-show-template-variables": "テンプレート変数を表示",
+      "label-style-the-pdf": "PDFのスタイル設定",
+      "label-zoom": "ズーム",
+      "preview-pdf": "PDFをプレビュー",
+      "tooltip-download-table-panel": "CSV形式のテーブルパネルデータをZIPファイルとしてダウンロード"
+    },
+    "highlight-trial-report": {
+      "get-started-with-reporting": "レポートを使いはじめる",
+      "get-started-with-reporting-text": "レポート機能を使用すると、任意のダッシュボードからPDFを自動生成し、スケジュールに従ってGrafanaから関係者にメールで送信できます。",
+      "learn-more": "詳細を見る",
+      "text-create-unlimited-reports-during-trial-grafana": "Grafana Proの試用期間中に無制限のレポートを作成できます。"
+    },
+    "report-upgrade-content": {
+      "description-reporting-allows-automatically-generate-dashboards-grafana": "レポート機能を使用すると、任意のダッシュボードからPDFを自動生成し、スケジュールに従ってGrafanaから関係者にメールで送信できます。"
+    },
+    "reports-list-page": {
+      "render-list": {
+        "create-a-new-report": "新しいレポートを作成",
+        "placeholder-search-reports-report-dashboard-recipients": "レポート名、ダッシュボード名、または受信者でレポートを検索",
+        "text": {
+          "create-report": "レポートを作成"
+        },
+        "text-create-unlimited-reports-during-trial-grafana": "Grafana Proの試用期間中に無制限のレポートを作成できます。"
+      }
+    },
+    "schedule": {
+      "label-frequency": "頻度",
+      "label-schedule": "3. スケジュール",
+      "label-start-date": "開始日",
+      "label-time": "時間"
+    },
+    "select-dashboard": {
+      "aria-label-source-dashboard": "元のダッシュボード",
+      "description-time-range": "指定された時間範囲のデータを使用してレポートを生成します。カスタム時間範囲が空の場合、レポートのダッシュボードの時間範囲が使用されます。",
+      "label-source-dashboard": "元のダッシュボード",
+      "label-template-variables": "テンプレートの変数",
+      "label-time-range": "時間範囲"
+    },
+    "select-dashboards": {
+      "add-another-dashboard": "別のダッシュボードを追加",
+      "label-select-dashboard": "1. ダッシュボードを選択",
+      "remove-dashboard": "ダッシュボードを削除"
+    },
+    "send-test-email-modal": {
+      "cancel": "キャンセル",
+      "label-email": "メールアドレス",
+      "label-use-emails-from-report": "レポートからのメールを使用",
+      "send": "送金",
+      "title-send-test-email": "テストメールを送信"
+    },
+    "share": {
+      "description-address-appear-reply-field-email": "メールの返信先フィールドに表示されるアドレス",
+      "description-separate-multiple-emails-comma-semicolon": "複数のメールアドレスをカンマまたはセミコロンで区切ります。",
+      "email-info-button": "このフィールドを空白のままにすると、レポート名がメールの件名として使用されます",
+      "email-subject": "メール件名",
+      "label-include-a-dashboard-link": "ダッシュボードリンクを含める",
+      "label-message": "メッセージ",
+      "label-recipients": "受信者",
+      "label-replyto-email-address": "返信先メールアドレス",
+      "label-report-name": "レポート名",
+      "label-share": "4. 共有",
+      "name-placeholder-system-status-report": "システムステータスレポート",
+      "recipients-placeholder-recipients-email-addresses-press-enter": "受信者のメールアドレスを入力し、Enter キーを押してください",
+      "send-test-email": "テストメールを送信",
+      "subject-placeholder-email-subject": "メール件名",
+      "title-sending-test-email": "テストメールを送信中…"
+    },
+    "share-pdfbase": {
+      "cancel": "キャンセル",
+      "save-as-pdf": "PDFとして保存"
+    },
+    "unavailable-feature-info-box": {
+      "title-feature-available-expired-license": "ライセンスの有効期限が切れている場合、機能は利用できません"
+    },
+    "upgrade-report": {
+      "description-reporting-allows-automatically-generate-dashboards-grafana": "レポート機能を使用すると、任意のダッシュボードからPDFを自動生成し、スケジュールに従ってGrafanaから関係者にメールで送信できます。"
+    },
+    "variables-preview": {
+      "none": "なし"
+    }
+  },
+  "saml-connect-to-idp": {
+    "validate-idp-metadata": {
+      "require-one": "1つのメタデータタイプを定義する必要があります"
+    }
+  },
+  "share-dashboard": {
+    "menu": {
+      "export-pdf-title": "PDFとしてエクスポートする",
+      "schedule-report-title": "レポートをスケジュール"
+    }
+  },
+  "share-report": {
+    "actions": {
+      "aria-label-open-menu": "アクションメニューを開く",
+      "download-csv-label": "CSVをダウンロード",
+      "downloading-label": "ダウンロード中...",
+      "preview-pdf-label": "PDFをプレビュー",
+      "report-settings-label": "レポート設定"
+    },
+    "attachments": {
+      "combine-one-file": "すべてのダッシュボードPDFを1つのファイルにまとめる",
+      "csv-tables": "テーブルパネルデータをCSVファイルとして添付",
+      "layout": "レイアウト",
+      "orientation": "向き",
+      "orientation-tooltip": "向きの選択はダッシュボードPDF、テーブルデータ、PDF付録に適用されます",
+      "pdf-format": "PDF形式",
+      "pdf-report": "レポートをPDFとして添付",
+      "pdf-tables": "テーブルデータを別のPDFとして添付",
+      "pdf-tables-appendix": "テーブルデータをPDF付録として含める",
+      "section-title": "添付資料",
+      "show-template-variables": "ヘッダーにテンプレート変数を表示",
+      "zoom": "拡大・縮小率"
+    },
+    "back-button-text": "レポート一覧に戻る",
+    "confirm-delete": {
+      "button": "レポートを削除",
+      "description": "このレポートを削除してもよろしいですか？",
+      "title": "レポートを削除"
+    },
+    "create-report": "新しいレポートを作成",
+    "dashboard": {
+      "add-dashboard": "ダッシュボードを追加",
+      "dashboard-required": "ダッシュボードは必須です",
+      "delete-dashboard-tooltip": "このダッシュボードを削除",
+      "repeated-template-variables-description": "1つのレポート内に同じダッシュボードを複数回追加する場合、最初に選択したテンプレート変数が、そのレポート内のすべての同一ダッシュボードに適用されます。",
+      "section-title": "ダッシュボード",
+      "source-dashboard-label": "元のダッシュボード",
+      "template-variables-title": "テンプレート変数をカスタマイズする",
+      "time-range-description": "時間範囲が空の場合、レポートのダッシュボードの時間範囲が使用されます。絶対時間範囲は、ブラウザのタイムゾーンで表されます。",
+      "time-range-label": "時間範囲",
+      "view-dashboard-tooltip": "ダッシュボードを表示"
+    },
+    "discard-changes": {
+      "discard-button": "破棄",
+      "text": "このダッシュボードには未保存の変更があります。破棄してもよろしいですか？",
+      "title": "レポートへの変更を破棄しますか？"
+    },
+    "email-configuration": {
+      "add-dashboard-image-label": "ダッシュボード画像を埋め込む",
+      "add-dashboard-url-label": "ダッシュボードリンクを含める",
+      "dashboard-image-settings-description": "ダッシュボード画像の設定は、一般的な<1>レポート設定</1>で調整できます",
+      "invalid-email": "メールアドレスが無効です",
+      "message-label": "メッセージ",
+      "message-placeholder": "メッセージを入力",
+      "reply-to-label": "返信先メールアドレス",
+      "section-title": "メール設定",
+      "subject-description": "このフィールドを空白のままにすると、レポート名がメールの件名として使用されます",
+      "subject-label": "メール件名"
+    },
+    "empty-list": {
+      "description": "このダッシュボードからレポートを作成します。<2>詳細はこちら</2>",
+      "title": "このダッシュボードのレポートはありません"
+    },
+    "error-form": {
+      "title": "レポートの読み込みエラー"
+    },
+    "error-list": {
+      "title": "レポートの読み込みエラー"
+    },
+    "loading-form": "フォームを読み込み中...",
+    "loading-report": "レポートを読み込み中...",
+    "loading-report-form": "レポートフォームを読み込み中...",
+    "loading-reports": "レポートを読み込み中...",
+    "recipients": {
+      "field-label": "受信者",
+      "invalid-email": "無効なメールアドレス：{{email}}",
+      "invalid-emails": "無効なメールアドレス：{{emails}}",
+      "placeholder": "受信者のメールアドレスを入力し、Enterキーを押してください",
+      "recipients-required": "受信者は必須です",
+      "section-title": "受信者",
+      "tooltip": "複数のメールアドレスをコンマまたはセミコロンで区切ります"
+    },
+    "report-name": {
+      "label": "レポート名",
+      "required": "レポート名が必要です"
+    },
+    "save-draft": {
+      "button": "ドラフトの保存",
+      "saving-button": "下書きを保存中..."
+    },
+    "schedule": {
+      "end-date": "終了日",
+      "end-date-invalid": "終了日は開始日以降である必要があります",
+      "end-date-placeholder": "終わらない",
+      "end-time": "終了時間",
+      "frequency": "頻度",
+      "interval-amount-min": "間隔は2以上に設定してください",
+      "interval-amount-required": "間隔は必須です",
+      "last-day-of-month": "毎月の最終日に送信",
+      "monthly-schedule-alert-title": "注：{{ dayNumber }}日間ない月には、レポートは送信されません。より早い日付を選ぶか、「毎月の最終日に送信」を選択すれば毎月末にレポートを送信できます。",
+      "repeat-every": "繰り返し間隔",
+      "repeat-every-placeholder": "例：2",
+      "repeat-interval-frequency-placeholder": "例：時間",
+      "section-title": "スケジュール",
+      "send-time": "スケジュール",
+      "start-date": "開始日",
+      "start-date-placeholder": "日付を選択",
+      "start-date-required": "開始日は必須です。",
+      "start-time": "開始時間",
+      "time-zone": "タイムゾーン",
+      "workdays-only": "平日のみ送信（月〜金）"
+    },
+    "schedule-report": {
+      "button": "レポートをスケジュール",
+      "scheduling-button": "レポートをスケジューリング中..."
+    },
+    "see-all-reports": "すべてのレポートを見る",
+    "send-preview": {
+      "button": "プレビューの送信",
+      "cancel": "キャンセル",
+      "email": "メール",
+      "email-description": "複数のメールアドレスをコンマまたはセミコロンで区切ります",
+      "email-required": "メールアドレスを入力してください",
+      "send": "送金",
+      "sending": "送信中...",
+      "title": "プレビューの送信",
+      "use-report-emails": "レポートからのメールを使用"
+    },
+    "settings": {
+      "loading": "設定を読み込み中..."
+    },
+    "state": "状態：",
+    "unavailable-feature-info-box": {
+      "message": "ライセンスの有効期限が切れている場合、新しいレポートを作成することはできません。既存のレポートは引き続き処理されますが、新しいレポートを作成するにはライセンスを更新する必要があります。"
+    },
+    "update-report": {
+      "button": "レポートを更新",
+      "delete-button": "削除",
+      "pause-button": "一時停止",
+      "pausing-button": "レポートを一時停止中...",
+      "resume-button": "再開",
+      "resuming-button": "レポートを再開中...",
+      "updating-button": "レポートを更新中..."
+    }
+  },
+  "shared": {
+    "resource-picker": {
+      "placeholder-select-color": "色を選択"
+    }
+  },
+  "team-lbac": {
+    "create-team-lbacform": {
+      "label-rule": "ルール",
+      "label-team": "チーム",
+      "new-lbac-rule": "新しいLBACルール",
+      "new-lbac-rule-example": "例：",
+      "save": "保存"
+    },
+    "editable-cell": {
+      "empty-rule": "空のルール"
+    },
+    "team-label": {
+      "placeholder": "ID{{teamId}}のチームが見つかりません"
+    },
+    "team-lbaceditor-unconnected": {
+      "add-a-lbac-rule": "LBACルールを追加",
+      "add-query-permissions": "<0>クエリ権限の追加：</0>次のチームにはデータソースのクエリ権限がないため、設定されたLBACルールを使用してログをクエリできません。",
+      "add-team-lbac-rules": "<0>チームLBACルールの追加：</0>次のチームはすべてのログをクエリできます。チームLBACルールを追加してください：",
+      "clear-filter": "消去",
+      "clear-filter-aria-label": "フィルタを解除",
+      "content-found-recommendation": "推奨事項が見つかりました",
+      "description-data-access": "ここでは、LogQLラベルセレクターを使用して、データソース内の特定のデータへのアクセスを設定できます。",
+      "ensure-proper-access-control-please-follow": "適切にアクセス制御を行うために、次の推奨事項に従ってください：",
+      "filter-results-single": "1件の結果を表示",
+      "filter-teams-aria-label": "チーム名でLBACルールを絞り込み",
+      "filter-teams-placeholder": "チームを絞り込み",
+      "hide-access-control-recommendations": "アクセス制御の推奨事項を非表示",
+      "hide-lbac-rule": "LBACルールを非表示",
+      "label-selector": "ラベルセレクター",
+      "lbac-description": "特定のメトリック/ログへのアクセスを制限するLBACルールを設定します。",
+      "lbac-labelbased-access-control": "LBAC（ラベルベースのアクセス制御）",
+      "lbac-rules-note": "注：<1></1>- 認証されたクラウドアクセスポリシートークンにGrafana Cloudで設定されたラベルセレクターがある場合、LBACルールはクエリに適用されません。<3></3>- LBACルールの変更は、クエリパスのキャッシュにより、反映されるまでに最大5分かかる場合があります。",
+      "learn-more-about-lbac-rules": "LBACルールの詳細",
+      "remove-unrestricted-access": "<0>無制限アクセスの削除：</0>次のロールには現在、ログへの無制限アクセス権があります。",
+      "role-warning-list": "ロール：{{role}}",
+      "show-access-control-recommendations": "アクセス制御の推奨事項を表示",
+      "sort-teams-ascending": "チームをA-Zで並び替え",
+      "sort-teams-descending": "チームをZ-Aで並び替え",
+      "team": "チーム",
+      "title-access-control-recommendations": "アクセス制御の推奨事項",
+      "title-data-access": "データアクセス",
+      "filter-results-multiple_other": ""
+    },
+    "team-rules-row": {
+      "aria-label-add-team-rule": "チームルールを追加",
+      "aria-label-delete-rule": "ルールを削除",
+      "aria-label-edit-team-rule": "チームルールを編集",
+      "cancel": "キャンセル",
+      "or": "または",
+      "save": "保存",
+      "tooltip-add-new-rule": "新しいルールを追加",
+      "tooltip-provisioned-rule": "プロビジョニング済みルール"
+    }
+  },
+  "teamLBAC": {
+    "create-team-lbacform": {
+      "message": {
+        "required": "必須"
+      }
+    }
+  }
+}

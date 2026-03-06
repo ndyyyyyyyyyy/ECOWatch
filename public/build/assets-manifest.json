@@ -1,0 +1,117 @@
+{
+  "2052.b664f0069cd63088abf5.js": {
+    "src": "public/build/2052.b664f0069cd63088abf5.js",
+    "integrity": "sha384-OGTMG/bvZPDKh3vgqEAhjpLQ1q8GdXCBIB5PbXNHBVQEJKwDOa5AfK7HFqnmFqjN sha512-d9oYPYYxVK3VQo/qT4wByx24Edn7UaoYTUSY4AxDq+s1ctTxIMWwtSD+CjDrPGVnuGATGtON/fFeLN3NYouj+Q=="
+  },
+  "4438.a61486773d9778003039.js": {
+    "src": "public/build/4438.a61486773d9778003039.js",
+    "integrity": "sha384-dcmd0JbZeILvxmNRt5aT1uFRNBygb6SpSxIsUOeTqG2x3KTs7aJK0Aeo4tBFqscQ sha512-kBRs8uNgu0pAilc69E2Zh/MuXvLvVGAtGQMRihzgNtEvSYrUzYhNNgc1vS3XII3k4H9KCuZ5AJUTKjPPr4kPtQ=="
+  },
+  "5202.66fd0842779f6da6c738.js": {
+    "src": "public/build/5202.66fd0842779f6da6c738.js",
+    "integrity": "sha384-KLIA8iGbggBN8N5Jo6lKs6i6iR6ZPD5YdgQ3KMD459aD+4sBu4QZnWT7EOeJ0v6v sha512-bmEPPRjRpnblMlcg/3u7oTD7Qpr6pniWgdmgFB6Ife2xyOZHKAsDP7/YKSbBieNMDswcW11RVLosk2R3nXUnDA=="
+  },
+  "5923.8612bccc09ea7d26e01c.js": {
+    "src": "public/build/5923.8612bccc09ea7d26e01c.js",
+    "integrity": "sha384-jLR5BSln+dWW2TJ0AftcLFPovLoMCu7wib1pzCNJOrAFvVcE1TDxovTwWM4Nb4E3 sha512-v7c3ttm+x2ALGShFuYumXxIMCvP526qQVfHUqEAbSbOaYO/w9IdcGtKaJwIV28y2u6CT9dpiUsDlkx8vujAhhQ=="
+  },
+  "6029.bdcbf27bcdd36812f646.js": {
+    "src": "public/build/6029.bdcbf27bcdd36812f646.js",
+    "integrity": "sha384-e/obC5KsjNUnCeEI9ByqIxk5afp7DXFSOFmJZp+IqGEQTWjY9Fdarr8WmXCMIHij sha512-0EN/mo52g2Xe7mLtx0uY+0pgJZw6xeVPiXNp3K/9EX2IOgOEGc8Nw0xeGlGSE9iFgzIF1WDCsiwRI/xMf7JN4g=="
+  },
+  "758.1cf10aa90f347e5c9dd2.js": {
+    "src": "public/build/758.1cf10aa90f347e5c9dd2.js",
+    "integrity": "sha384-vbO/5YHswHr2R6WKMviNwtgaxaPJ2j9Zjd1JVUXwlFxiEFSDYnDAE84A7f72ensH sha512-5B9AA9yfTVRxVipYv7L/0NiwgPDtyVKI7HugLVpGYCslHS+UyAo+386QiwB+RgFHGAUfx6Zm+C+EzO4EJ13JXg=="
+  },
+  "app.css": {
+    "src": "public/build/grafana.app.1f6473bb54b1e1647be8.css",
+    "integrity": "sha384-dfbC2tTYjeW7/ml0CcHzJoSMlJMtNI1aruKmoypJ+BRvvSnuBT0U5wjnaXwfKkxu sha512-1QKL7DOg0FUJTfOgJv6/XffTqmLZKLsvX/4BuxuZ+SC4p23i0D/zGNto4M6WlwaseSKLJRVVXdNn0GEb7V6XEw=="
+  },
+  "app.js": {
+    "src": "public/build/app.8761af5710866978e723.js",
+    "integrity": "sha384-O2+9wp+G0edbD7DTeA2pG/sJ5ZryRtU2/8sdoQV3HY1NvFE7FwX2HeKgD6Naqw0c sha512-YH463yXGKVrg6Ryi+KpfBr/JvLblc7iniLy7SPTYngzM1sG54EosbUbezS/7qLfKeHNUxHuoVX/WW5/JFCRfbQ=="
+  },
+  "dark.css": {
+    "src": "public/build/grafana.dark.23c5425b7a9e1580d499.css",
+    "integrity": "sha384-DITHLWhSlqtkEnv4huQhd2p49ZN8XCps2egTAnHn8Z7PrTl1w/1w6VAFCrZnHiPh sha512-cmcTe82e8BIiaAu2940l8lGdGdoinRlvz2Hb3Kpl20HTnrHddr5Q45jIfUzGWnBOcVdN5vL5uLpdxrCn2FQcbA=="
+  },
+  "dark.js": {
+    "src": "public/build/dark.b66fa87185b9a313ec14.js",
+    "integrity": "sha384-oz9q9EBDw+twxlALCD5QzkJRjZiOZR+WDEAt35EcViUuRL22/Zbn4KHk8Pf6kfwR sha512-4/Pr+CEqiArbJ7Z/ORI58QApteajOzVmT0bB2jEK+OppxFYZoLPEP7I1pdrNwjUOyANfDKgVMidoBl+VHs4c/Q=="
+  },
+  "light.css": {
+    "src": "public/build/grafana.light.303347f04b1c5140c769.css",
+    "integrity": "sha384-utg8gKxy+WYuxi+V52nRxwS0Tyfbr0TX3KzzLjksjdl53eqHLWvgTvKQ1Gf4Hjti sha512-bDMT5SsK6Ml/YKhPLeuIfTdoBhFityBO2pNBlFjlGa38uytwtIUJEO/NwDrvusQeigBu1NEk7JkT0avyzjw0Hg=="
+  },
+  "light.js": {
+    "src": "public/build/light.827d442410485e491818.js",
+    "integrity": "sha384-znPdUOX43SpuEwJpt/9RfEwWqXtWjIiV6L8Ypibg5mtXVtlJI23JFK3Za8alPtpl sha512-k+yruU7Jwn9wX01Xif/1S8eKNpBidSbGS6pYXuL0/pwi/YlUNJv8kka984wFTmPpJyqkCntdw+AOsDaYG39VDg=="
+  },
+  "runtime.js": {
+    "src": "public/build/runtime.bff6c06433864cc449e8.js",
+    "integrity": "sha384-Yy82tuqLkuq/OVJdva0ZJoeVl8iLkvM1Qk+tuBV0nb10dLwc61QU3wKocTOovkkO sha512-Rp0o4jPAw9Tw9xS9Gh2CzG96mcww5XK51vIairoIxkPHFxzJjh9xWztvE4Wfk3PYPzqI6nERMMzbfsVzT+ukKA=="
+  },
+  "swagger.css": {
+    "src": "public/build/grafana.swagger.d0a2da197b9827204ac1.css",
+    "integrity": "sha384-WCNS9FySedugIyb8fkjUCt0U2ZQWKifCFICWKaBB/1X1roVDZiilm+hPnmFyt35H sha512-InI1FqWH/FNfgMiG9BCcL+2MIiBDQVc9nq7A5Ik4LFbbEhQ11exrTCBjOV6c35XvLVho87+z0uVbh4UbgkHxBA=="
+  },
+  "swagger.js": {
+    "src": "public/build/swagger.7b3f2b4890989dbb4de1.js",
+    "integrity": "sha384-/fb9NOwbmQIe9vU1jGxo4U8j/g17BLZm3ggJf0euPU8Hu49WoY7VfKhBQOBLObdb sha512-Fua5fpoSYCJHl0QaXMHmfLKiSAYZmG/q7y7dOULXJHvhRwpHdIuN29gVI5Vo0dq2/zUX2T8SxF9FCmBrxIgDIA=="
+  },
+  "entrypoints": {
+    "app": {
+      "assets": {
+        "js": [
+          "public/build/runtime.bff6c06433864cc449e8.js",
+          "public/build/6029.bdcbf27bcdd36812f646.js",
+          "public/build/758.1cf10aa90f347e5c9dd2.js",
+          "public/build/2052.b664f0069cd63088abf5.js",
+          "public/build/5923.8612bccc09ea7d26e01c.js",
+          "public/build/5202.66fd0842779f6da6c738.js",
+          "public/build/app.8761af5710866978e723.js"
+        ],
+        "css": [
+          "public/build/grafana.app.1f6473bb54b1e1647be8.css"
+        ]
+      }
+    },
+    "swagger": {
+      "assets": {
+        "js": [
+          "public/build/runtime.bff6c06433864cc449e8.js",
+          "public/build/6029.bdcbf27bcdd36812f646.js",
+          "public/build/758.1cf10aa90f347e5c9dd2.js",
+          "public/build/4438.a61486773d9778003039.js",
+          "public/build/5923.8612bccc09ea7d26e01c.js",
+          "public/build/swagger.7b3f2b4890989dbb4de1.js"
+        ],
+        "css": [
+          "public/build/grafana.swagger.d0a2da197b9827204ac1.css"
+        ]
+      }
+    },
+    "dark": {
+      "assets": {
+        "js": [
+          "public/build/runtime.bff6c06433864cc449e8.js",
+          "public/build/dark.b66fa87185b9a313ec14.js"
+        ],
+        "css": [
+          "public/build/grafana.dark.23c5425b7a9e1580d499.css"
+        ]
+      }
+    },
+    "light": {
+      "assets": {
+        "js": [
+          "public/build/runtime.bff6c06433864cc449e8.js",
+          "public/build/light.827d442410485e491818.js"
+        ],
+        "css": [
+          "public/build/grafana.light.303347f04b1c5140c769.css"
+        ]
+      }
+    }
+  }
+}

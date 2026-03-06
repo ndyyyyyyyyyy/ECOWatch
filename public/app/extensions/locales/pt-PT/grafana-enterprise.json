@@ -1,0 +1,1467 @@
+{
+  "{{enricherType}} enricher does not require any configuration": {
+    " It will start enriching alerts as soon as it is enabled": "O enriquecedor {{enricherType}} não requer nenhuma configuração. Começará a enriquecer os alertas assim que for ativado."
+  },
+  "access-control": {
+    "permissions": {
+      "lbac-warning-basic-role": "",
+      "lbac-warning-rule": "Aviso: esta equipa pode não ter permissão para consultar a origem dos dados.",
+      "lbac-warning-team": "Aviso: esta equipa tem acesso total aos dados se não forem definidas regras LBAC."
+    }
+  },
+  "admin": {
+    "role-filter": {
+      "admin-editor-option": "Administrador/Editor",
+      "multiselect-placeholder": "Filtrar por função licenciada",
+      "server-admin-option": "Administrador do servidor",
+      "viewer-option": "Visualizador"
+    }
+  },
+  "alert-enrichment": {
+    "error": "Falha ao criar enriquecimento de alerta",
+    "metadata-error": "",
+    "success": "Enriquecimento de alerta criado com sucesso!",
+    "update-error": "Falha ao atualizar o enriquecimento de alerta",
+    "update-success": "Enriquecimento de alerta atualizado com sucesso!"
+  },
+  "alert-enrichment-form": {
+    "actions": {
+      "cancel": "Cancelar",
+      "save": "Guardar enriquecimento"
+    },
+    "assign-enricher": {
+      "add-annotation": "Adicionar atribuição de anotação",
+      "annotation-name": "Chave",
+      "annotation-name-placeholder": "chave",
+      "annotation-value": "Valor",
+      "annotation-value-placeholder": "valor",
+      "remove-annotation-aria-label": "Remover anotação",
+      "remove-annotation-tooltip": "Remover anotação"
+    },
+    "basic-info": {
+      "description": "Descrição (opcional)",
+      "description-placeholder": "Descrição do enriquecimento",
+      "name": "Nome do enriquecimento",
+      "name-placeholder": "o meu enriquecimento",
+      "name-required": "O nome é obrigatório",
+      "timeout": "Tempo limite",
+      "timeout-description": "Tempo máximo permitido para este enriquecimento (por exemplo, 30 s, 1 min)",
+      "timeout-placeholder": "30 s"
+    },
+    "ds-type": {
+      "logs": "Registos",
+      "raw": "Natural"
+    },
+    "dsquery-enricher": {
+      "add-first-query": "Adicione a sua primeira consulta",
+      "add-query": "Adicionar consulta",
+      "no-datasource": "A origem dos dados está em falta",
+      "no-datasource-description": "Não foi possível encontrar uma origem de dados para esta consulta. A origem de dados foi removida ou não está disponível",
+      "no-queries": "Ainda não foram definidas consultas",
+      "raw-queries-description": "Defina consultas que serão executadas para enriquecer os seus alertas. Os resultados estarão disponíveis no contexto de enriquecimento.",
+      "remove-query": "Remover consulta"
+    },
+    "enricher-config": {
+      "llm-disabled": "O LLM está desativado",
+      "llm-disabled-description": "O enriquecedor de explicações requer que o plugin Grafana LLM esteja ativado",
+      "type": "Tipo de enriquecedor",
+      "type-placeholder": "Selecionar tipo de enriquecedor",
+      "type-required": "O tipo de enriquecedor é obrigatório"
+    },
+    "enricher-type": {
+      "asserts": "Declarações",
+      "assign": "Atribuir",
+      "dsquery": "Consulta de origem de dados",
+      "explain": "Explicar",
+      "external": "Externo",
+      "sift": "Sift"
+    },
+    "explain-enricher": {
+      "annotation-label": "Chave de anotação",
+      "annotation-placeholder": "explicação",
+      "annotation-required": "A chave de anotação é necessária para explicar o enriquecedor",
+      "annotation-tooltip": "A chave de anotação onde a explicação gerada por LLM será armazenada",
+      "description": "O enriquecedor de explicações usa o LLM para gerar explicações para alertas. Configure a chave de anotação onde a explicação será armazenada."
+    },
+    "external-enricher": {
+      "url-label": "URL do serviço externo",
+      "url-placeholder": "https://api.example.com/enrich",
+      "url-required": "O URL é necessário para o enriquecedor externo"
+    },
+    "matcher": {
+      "add-button": "Adicionar",
+      "name-label": "Nome",
+      "name-placeholder": "Nome",
+      "remove-aria-label": "Remover elemento de correspondência",
+      "remove-tooltip": "Remover elemento de correspondência",
+      "type-label": "Tipo",
+      "type-placeholder": "Tipo",
+      "value-label": "Valor",
+      "value-placeholder": "Valor"
+    },
+    "matcher-type": {
+      "equals": "Igual (=)",
+      "not-equals": "Não é igual (!=)",
+      "regex-match": "Correspondência Regex (=~)",
+      "regex-not-match": "Regex não corresponde (!~)"
+    },
+    "scope": {
+      "all-alerts": "Todos os alertas",
+      "annotation-scoped": "Anotação com âmbito",
+      "description": "Defina que alertas devem ser enriquecidos",
+      "label-scoped": "Etiqueta com âmbito",
+      "title": "Âmbito"
+    }
+  },
+  "alerting": {
+    "ai-feedback": {
+      "comment-description": "Ajude-nos a melhorar partilhando o que resultou ou o que poderia ser melhorado",
+      "comment-label": "Feedback adicional (opcional)",
+      "comment-placeholder": "Partilhe a sua opinião sobre a resposta da IA...",
+      "comment-prompt": "Gostaria de nos fornecer mais informações sobre a sua experiência?",
+      "helpful": "Sim, útil",
+      "not-helpful": "Não, não foi útil",
+      "question": "Esta resposta de IA foi útil?",
+      "skip": "Ignorar",
+      "submit": "Enviar feedback",
+      "thank-you": "Agradecemos o seu feedback!"
+    },
+    "enrichment": {
+      "appliesTo": "Aplica-se a todos os alertas",
+      "delete": {
+        "body": "Tem a certeza de que pretende eliminar o enriquecimento de alerta <1>{{name}}</1>?",
+        "cancel": "Cancelar",
+        "confirm": "Eliminar",
+        "title": "Eliminar enriquecimento de alerta"
+      },
+      "delete-enrichment": "Eliminar enriquecimento {{name}}",
+      "edit-button": "Editar",
+      "edit-enrichment": "Editar enriquecimento {{name}}",
+      "edit-title": "Editar enriquecimento",
+      "enrichments": "Enriquecimentos",
+      "expanded-row": {
+        "annotationMatchers": "<0>Correspondências de anotação:</0> {formatMatchers(annotationMatchers)}",
+        "asserts": "Enriquecimento de <0>declarações</0> configurado",
+        "assignments": "<0>Atribuições:</0> {assignments.map((a) => '${a.name}=${a.value}').join(', ')}",
+        "datasource": "<0>Origem de dados:</0> {details.join(', ')}",
+        "externalUrl": "<0>URL:</0> {step.enricher.external.url}",
+        "labelMatchers": "<0>Correspondências de etiquetas:</0> {formatMatchers(labelMatchers)}",
+        "sift": "Enriquecimento de <0>Sift</0> configurado",
+        "type": "Tipo:"
+      },
+      "load-error": "Falha ao carregar o enriquecimento",
+      "loading": "A carregar enriquecimentos...",
+      "loadMore": "Carregar mais",
+      "new-alert": "Novo enriquecimento de alerta",
+      "new-title": "Novo enriquecimento",
+      "noEnrichments": "Nenhum enriquecimento de alerta configurado",
+      "tab": {
+        "description": "Torne as suas notificações de alerta mais acionáveis executando uma análise preliminar e adicionando mais contexto."
+      },
+      "table": {
+        "actions": "Ações",
+        "annotationMatchers": "Anotações",
+        "annotationMatchers-scoped": "Com âmbito definido por ",
+        "enrichment": "Enriquecimento",
+        "labelMatchers": "Etiquetas"
+      },
+      "tooltip": {
+        "asserts": "Usa declarações para enriquecer alertas",
+        "assign": {
+          "assignments": "Anotações:",
+          "default": "Atribui anotações a alertas",
+          "emptyValue": "(vazio)",
+          "title": "Atribui anotações a alertas"
+        },
+        "default": "Enriquecimento de alerta configurado",
+        "dsquery": {
+          "datasourceType": "Origem dos dados:",
+          "maxLines": "Máx. de linhas:",
+          "queries": "Consultas:",
+          "query": "Consulta:",
+          "rawRequest": "Pedido de origem de dados personalizada configurado",
+          "refId": "ID de ref.:",
+          "title": "Consultas de origem de dados para enriquecimento",
+          "type": "Tipo:"
+        },
+        "explain": {
+          "annotation": "Armazenado em:",
+          "default": "Usa LLM para gerar explicações de alerta",
+          "title": "Usa LLM para gerar explicações de alerta"
+        },
+        "external": {
+          "default": "Chama serviço externo para enriquecimento",
+          "title": "Chama serviço externo para enriquecimento",
+          "url": "URL:"
+        },
+        "sift": "Usa SIFT para enriquecer alertas"
+      }
+    },
+    "generate-ai-rule": {
+      "button": "Gerar com IA",
+      "modal": {
+        "error": "{stringifyErrorLike(error)}",
+        "error-title": "Erro ao gerar regra de alerta",
+        "generate": "Gerar regra",
+        "generating": "A gerar...",
+        "preview-contact-point": "Ponto de contacto:",
+        "preview-description": "Descrição:",
+        "preview-name": "Nome:",
+        "preview-queries": "Consultas:",
+        "preview-title": "Regra de alerta gerada",
+        "prompt-description": "Descreva o que pretende monitorizar e quando pretende ser alertado. Por exemplo: \"Alertar quando a utilização da CPU estiver acima de 80% durante mais de 5 minutos\". Também pode perguntar sobre os pontos de contacto ou fontes de dados disponíveis.",
+        "prompt-label": "Descreva a regra de alerta que pretende criar",
+        "prompt-placeholder": "Alertar quando a utilização do disco estiver acima de 90% durante mais de 5 minutos e enviar para o ponto de contacto do Slack...",
+        "title": "Gerar regra de alerta com IA",
+        "use-rule": "Usar esta regra"
+      }
+    },
+    "improve-ai-annotations": {
+      "button": "Melhorar as anotações com IA",
+      "modal": {
+        "apply-improvements": "Aplicar melhorias de anotação",
+        "error": "{stringifyErrorLike(generationError)}",
+        "error-title": "Erro",
+        "generate": "Melhorar anotações",
+        "generating": "A gerar...",
+        "preview-annotations": "Anotações melhoradas:",
+        "preview-title": "Pré-visualização de melhorias de anotações de IA",
+        "prompt-description": "Descreva o que pretende melhorar nas anotações da regra de alerta. Por exemplo: \"Tornar o resumo mais descritivo\", \"Adicionar etapas de resolução de problemas à descrição\" ou \"Adicionar links de runbook\".",
+        "prompt-label": "Como gostaria de melhorar as anotações?",
+        "prompt-placeholder": "Tornar o resumo mais descritivo e adicionar etapas de resolução de problemas à descrição...",
+        "title": "Melhorar as anotações de regras de alerta com IA"
+      }
+    },
+    "improve-ai-labels": {
+      "button": "Melhorar as etiquetas com IA",
+      "modal": {
+        "cancel": "Cancelar",
+        "error": "{stringifyErrorLike(generationError)}",
+        "error-title": "Erro",
+        "generate": "Gerar melhorias",
+        "generating": "A gerar...",
+        "prompt-description": "Descreva o que pretende melhorar nas etiquetas da regra de alerta. Por exemplo: \"Adicionar etiquetas de gravidade dinâmicas\", \"Incluir propriedade da equipa\" ou \"Adicionar etiquetas de ambiente\".",
+        "prompt-label": "Como gostaria de melhorar as etiquetas?",
+        "prompt-placeholder": "Adicionar etiquetas de gravidade dinâmicas com base nos valores de limite e incluir a propriedade da equipa...",
+        "title": "Melhorar as etiquetas de regras de alerta com IA"
+      },
+      "preview": {
+        "apply": "Aplicar melhorias",
+        "cancel": "Cancelar",
+        "no-improvements": "Nenhuma melhoria encontrada",
+        "no-improvements-message": "A IA não sugeriu nenhuma melhoria de etiqueta para este pedido.",
+        "title": "Melhorias de etiqueta sugeridas pela IA:"
+      }
+    },
+    "settings": {
+      "tabs": {
+        "enrichment": {
+          "title": "Enriquecimento de alerta"
+        }
+      }
+    },
+    "template-form": {
+      "genai": {
+        "modal": {
+          "error": "{stringifyErrorLike(generationError)}",
+          "error-title": "Erro",
+          "generate": "Gerar modelo",
+          "generating": "A gerar...",
+          "prompt-description": "Descreva o formato e o conteúdo que pretende para a sua notificação. Por exemplo: \"Uma mensagem do Slack a mostrar o nome do alerta, o estado e um resumo com indicadores de emoji\" ou \"Um e-mail com uma tabela de todos os alertas de disparo, incluindo as respetivas etiquetas e horas de início\".",
+          "prompt-label": "Descreva como pretende que a sua notificação seja apresentada",
+          "prompt-placeholder": "Uma mensagem do Slack que mostra \"🔥ALERTA: [AlertName] está a disparar\" com um resumo e um link para ver os detalhes...",
+          "title": "Gerar modelo com IA"
+        }
+      }
+    },
+    "templates": {
+      "editor": {
+        "generate-with-ai": "Gerar com IA"
+      }
+    },
+    "triage-ai": {
+      "button": "Analisar com {{ provider }}",
+      "modal": {
+        "analysis-title": "Análise de triagem de alerta",
+        "analyze": "Analisar",
+        "analyzing": "🤖 A analisar {{logRecordsLength}} eventos de alerta...",
+        "custom-question": {
+          "help": "Deixe em branco para análise geral de triagem ou faça uma pergunta específica sobre os eventos de alerta.",
+          "label": "Faça uma pergunta específica (opcional)",
+          "placeholder": "Por exemplo, \"O que está a causar os alertas da base de dados? \" ou \"Estes alertas estão relacionados com a implementação recente?\""
+        },
+        "description": "Análise de IA de eventos de alerta atuais para ajudar a entender padrões, priorizar a resposta e identificar possíveis problemas.",
+        "error": "Erro",
+        "title": "Análise de triagem de alerta"
+      }
+    }
+  },
+  "auth-config": {
+    "action-bar": {
+      "content-disable-button": "Desativar irá desativar o Grafana para não utilizar a autenticação SAML.",
+      "delete": "Eliminar",
+      "disable-button": "Desativar",
+      "enabled-badge": "Ativado",
+      "more-actions-button": "Mais ações",
+      "not-enabled-badge": "Não ativado",
+      "protocol": "Protocolo",
+      "save-and-apply-button": "Guardar e aplicar",
+      "save-and-enable-button": "Guardar e ativar",
+      "save-button": "Guardar",
+      "status": "Estado"
+    },
+    "assertion-mapping-unconnected": {
+      "aria-label-name-id-format": "nameIdFormat",
+      "assertionAttributeEmail-label-email-attribute": "Atributo de e-mail",
+      "assertionAttributeEmail-placeholder-mail": "e-mail",
+      "assertionAttributeExternalUid-label-external-uid": "Atributo de UID externa",
+      "assertionAttributeExternalUid-tooltip-external-uid": "O mapeamento de UID externas é um mecanismo de segurança que impede a usurpação de identidade e é necessário apenas quando o provisionamento SCIM está ativado. A UID externa fornecida (a ID de utilizador gerada pelo fornecedor de identidade) tem de estar presente na asserção SAML quando o utilizador inicia sessão. O valor predefinido para este campo é userUID.",
+      "assertionAttributeGroups-label-groups-attribute": "Atributo de grupos",
+      "assertionAttributeLogin-label-login-attribute": "Atributo de início de sessão",
+      "assertionAttributeLogin-placeholder-mail": "e-mail",
+      "assertionAttributeName-label-name-attribute": "Nome de atributo",
+      "assertionAttributeName-placeholder-display-name": "Nome a apresentar",
+      "assertionAttributeOrg-label-org-attribute": "Atributo de organização",
+      "assertionAttributeRole-label-role-attribute": "Atributo de função",
+      "azure-ad-service-account-configuration": "Configuração da conta de serviço do Azure AD",
+      "clientId-label-client-id": "ID do cliente",
+      "clientSecret-label-client-secret": "Segredo do cliente",
+      "description-allowed-organizations": "Lista de nomes de organizações SAML separados por vírgulas ou espaços. O utilizador deve ser membro de, pelo menos, uma organização para iniciar sessão.",
+      "description-assertion-attributes-mapping": "Mapear atributos de asserção SAML para os atributos de utilizador Grafana. Os atributos de asserção suportam mapeamentos de modelos. A sincronização de equipa está disponível se o atributo de grupos estiver configurado.",
+      "description-azure-ad-service-account-configuration": "Se tiver utilizadores que pertencem a mais de 150 grupos na sua organização do Azure AD, precisa de configurar uma conta de serviço no Azure AD para obter todos os grupos através da API do Graph. Esta conta de serviço será utilizada para obter todos os grupos para o utilizador. Leia mais sobre a configuração da conta de serviço do Azure AD na <1>documentação</1>.",
+      "description-force-use-graph-api": "Forçar o uso da API do Graph para obter todos os grupos para o utilizador.",
+      "description-name-identifier-format": "Os formatos de identificador de nome controlam como os utilizadores no fornecedor de identidade são mapeados para utilizadores no Grafana",
+      "description-prevent-synchronizing-users-organization-roles": "Impedir a sincronização para SAML das funções de organização dos utilizadores a partir do seu IdP.",
+      "label-allowed-organizations": "Organizações permitidas",
+      "label-assertion-attributes-mapping": "Mapeamentos de atributos de asserção",
+      "label-force-use-graph-api": "Forçar o uso da API do Graph",
+      "label-name-identifier-format": "Formato do identificador de nome",
+      "label-org-mapping": "Mapeamento de organizações",
+      "label-role-mapping": "Mapeamento de funções",
+      "label-skip-organization-role-sync": "Ignorar sincronização de função de organização",
+      "label-user-mapping": "Mapeamento de utilizadores",
+      "orgMapping-label-org-mapping": "Mapeamento de organizações",
+      "roleValuesAdmin-label-admin": "Administrador",
+      "roleValuesEditor-label-editor": "Editor",
+      "roleValuesGrafanaAdmin-label-grafana-admin": "Administrador da Grafana",
+      "roleValuesNone-label-none": "Nenhum",
+      "roleValuesViewer-label-viewer": "Visualizador",
+      "tokenUrl-label-access-token-url": "Token de acesso URL",
+      "tooltip-assertion-attributes-mapping": "O mapeamento de atributos de asserção no Grafana obtém informações do utilizador a partir de uma resposta SAML e utiliza-as para criar ou atualizar um utilizador na sua base de dados. Lê atributos — pares de chave/valor — na asserção, como Nome, Identificador de início de sessão e E-mail. As configurações permitem a modificação da seleção de chaves.",
+      "tooltip-org-mapping": "O mapeamento de organizações permite-lhe atribuir utilizadores a uma organização específica no Grafana, dependendo do valor do atributo obtido do fornecedor de identidade. Utilize a configuração para atribuir utilizadores da sua organização à organização Grafana.",
+      "tooltip-role-mapping": "O mapeamento de funções sincroniza as funções de utilizador do seu fornecedor de identidade com o Grafana ao configurar atributos de função para as funções Nenhum, Visualizador, Editor, Administrador e Administrador Grafana. Caso não exista qualquer correspondência, a função predefinida no Grafana é Visualizador."
+    },
+    "config-action": {
+      "confirm-modal-body": "Tem a certeza de que pretende eliminar permanentemente esta configuração SAML? Todas as alterações realizadas na interface do utilizador serão removidas.",
+      "confirm-modal-confirm-text": "Apagar a configuração",
+      "confirm-modal-confirmation-text": "eliminar",
+      "confirm-modal-dismiss-text": "Voltar à edição",
+      "confirm-modal-title": "Eliminar configuração SAML"
+    },
+    "connect-to-idp-unconnected": {
+      "configure-assertions-group-mappings": "Configure asserções, grupo, mapeamentos de grupos e organizações no passo seguinte.",
+      "configure-idp-using-grafana-metadata": "Configurar IdP através de metadados do Grafana",
+      "copy": "Copiar",
+      "description-assertion-consumer-service-url": "URL de ligação POST do serviço de asserção do consumidor",
+      "description-idp-metadata": "Tem de ser o mesmo que o configurado ou exigido pelo IdP.",
+      "description-metadata-url": "URL para metadados do IdP",
+      "description-setup-idp": "Para configurar o seu fornecedor de identidade (IdP), precisará do URL de metadados do Grafana. Todos os pontos finais abaixo devem ser acessíveis pelo seu fornecedor de identidade (IdP).",
+      "description-setup-required": "Visite o painel de configuração do seu IdP, adicione uma nova aplicação e utilize os metadados do primeiro passo para se ligar ao Grafana. Terá de copiar os metadados do seu IdP e fornecê-los abaixo. Teste a ligação e copie as etiquetas/os valores de asserção.",
+      "description-slo-url": "URL de ligação de redirecionamento do serviço de encerramento de sessão/URL de ligação POST do serviço de encerramento de sessão",
+      "description-sp-metadata-url-entity-id": "URL de metadados SP/ID de entidade SP",
+      "description-test-connection": "Se pretender testar a ligação a partir do painel do seu IdP, certifique-se de que permite o início de sessão iniciado pelo IdP e fornece as informações de estado de reencaminhamento.",
+      "finish-configuring-grafana-using-idp-data": "Concluir a configuração do Grafana através de dados do IdP",
+      "label-assertion-consumer-service-url": "URL do serviço de asserção do consumidor",
+      "label-baseencoded-idp-metadata": "Metadados do IdP codificados em Base64",
+      "label-connect-grafana-with-identity-provider": "Ligar o Grafana ao fornecedor de identidade",
+      "label-idp-metadata": "Metadados do IdP ",
+      "label-metadata-url": "URL de metadados",
+      "label-path-to-idp-metadata-file": "Caminho para o ficheiro de metadados do IdP",
+      "label-slo-url": "URL de SLO",
+      "label-sp-metadata-url-entity-id": "URL de metadados",
+      "step-number-1": "1",
+      "step-number-2": "2\n",
+      "step-number-3": "3"
+    },
+    "general-unconnected": {
+      "description-allow-signup": "Se deve permitir a criação de novos utilizadores do Grafana através do início de sessão SAML. Se não estiver ativado, apenas os utilizadores do Grafana existentes podem iniciar sessão com SAML.",
+      "description-auto-login": "Tente iniciar sessão com SAML automaticamente, ignorando o ecrã de início de sessão.",
+      "description-display-name-for-this-saml-integration": "Útil se utilizar mais de um fornecedor ou protocolo SSO IdP.",
+      "description-duration-grafana-metadata-valid": "Duração, por quanto tempo os metadados do Grafana são válidos.",
+      "description-entity-id": "A ID da entidade é um identificador globalmente exclusivo para o fornecedor de serviços. É utilizada para identificar o fornecedor de serviços para o fornecedor de identidade. Predefinições para o URL da instância Grafana.",
+      "description-identity-provider-initiated-login": "Permite que os utilizadores iniciem sessão no Grafana diretamente a partir do fornecedor de identidade.",
+      "description-max-issue-delay": "Duração, desde que o IdP emitiu uma resposta e o Grafana tem permissão para a processar.",
+      "description-relay-state": "Necessário. Deve corresponder ao estado de reencaminhamento configurado no IdP e o espaço final é obrigatório.",
+      "description-single-logout": "Permite que os utilizadores terminem sessão da sessão do IdP e de aplicações associadas à sessão do IdP atual estabelecida através de SAML.",
+      "displayName-placeholder-saml": "SAML",
+      "label-allow-signup": "Permitir o registo",
+      "label-auto-login": "Início de sessão automático",
+      "label-display-name-for-this-saml-integration": "Nome a apresentar para esta integração SAML 2.0",
+      "label-entity-id": "ID da Entidade",
+      "label-general-settings": "Definições gerais",
+      "label-identity-provider-initiated-login": "Início de sessão iniciado pelo fornecedor de identidade",
+      "label-max-issue-delay": "Atraso máximo de emissão",
+      "label-metadata-valid-duration": "Duração válida dos metadados",
+      "label-relay-state": "Estado de reencaminhamento",
+      "label-single-logout": "Encerramento de sessão único"
+    },
+    "input-with-reset": {
+      "reset": "Redefinir"
+    },
+    "key-cert-drawer-unconnected": {
+      "close": "Fechar",
+      "description-number-generated-certificate-valid": "Número de dias para os quais o certificado gerado é válido.",
+      "generate": "Gerar",
+      "label-city": "Cidade",
+      "label-country-code": "Código do país",
+      "label-state": "Estado",
+      "label-validity-days": "Dias de validade",
+      "label-your-organization": "A sua organização",
+      "subtitle-saml-key-and-certificate": "Os seguintes dados serão incluídos no certificado gerado",
+      "title-saml-key-and-certificate": "Chave e certificado SAML",
+      "tooltip-generate-the-certificate-and-private-key": "Gerar o certificado e a chave privada"
+    },
+    "key-cert-unconnected": {
+      "description-baseencoded-grafana-x-certificate": "Certificado Grafana X.509 codificado em Base64",
+      "description-baseencoded-private-key": "Chave privada codificada em Base64",
+      "description-path-to-the-grafana-private-key": "Caminho para a chave privada Grafana",
+      "description-path-to-the-grafana-x-certificate": "Caminho para o certificado Grafana X.509",
+      "description-sign-outgoing-requests-to-id-p": "Assinar pedidos efetuados ao IdP",
+      "description-signature-algorithm": "Algoritmo de assinatura utilizado para assinar pedidos ao IdP. Tem de ser o mesmo que o configurado ou exigido pelo IdP.",
+      "description-signing-and-encryption-key-certificate": "Certificado e chave privada para troca de informações entre o Grafana e o IdP. A chave privada tem de ser emitida num formato PKCS#8. O certificado deve ser um certificado X.509 válido.",
+      "generate-key-and-certificate": "Gerar chave e certificado",
+      "label-certificate": " Certificado",
+      "label-private-key": "Chave privada",
+      "label-sign-requests": "Assinar pedidos",
+      "label-signature-algorithm": "Algoritmo de assinatura",
+      "label-signing-and-encryption-key-certificate": "Chave e certificado de assinatura e encriptação"
+    },
+    "page-banner": {
+      "aria-label-close-banner": "Fechar banner",
+      "tooltip-close": "Fechar"
+    },
+    "SAML": {
+      "button-row-next": "Seguinte: {{name}}",
+      "button-row-previous": "Anterior: {{name}}"
+    },
+    "samlform": {
+      "text-saved": "Guardado"
+    },
+    "save-and-test-unconnected": {
+      "button-save-and-enable": "Guardar e ativar",
+      "label-test-and-enable": "Testar e ativar",
+      "text-save-and-enable": "Se estiver pronto para aplicar a sua configuração SAML, utilize o botão \"Guardar e ativar\". Poderá desativar a configuração."
+    },
+    "save-samlsettings": {
+      "message": {
+        "cannot-save-settings": "Não é possível guardar as definições"
+      }
+    },
+    "text-input-with-reset": {
+      "reset": "Redefinir"
+    }
+  },
+  "banner": {
+    "api": {
+      "result": {
+        "saved": "Definições de banner guardadas"
+      }
+    },
+    "form": {
+      "button-save": "Guardar",
+      "button-saving": "A guardar...",
+      "enabled": {
+        "label": "Ativado"
+      },
+      "end": {
+        "description": "Se não for selecionada qualquer data de fim, o banner será exibido indefinidamente.",
+        "error": "A hora de término deve ser posterior à hora de início",
+        "label": "Termina às"
+      },
+      "message": {
+        "description": "Conteúdo de texto do banner. Suporta markdown.",
+        "label": "Mensagem"
+      },
+      "options": {
+        "error": "Erro",
+        "info": "Informação",
+        "warning": "Aviso"
+      },
+      "select": {
+        "placeholder": "Selecione o tipo de banner"
+      },
+      "start": {
+        "description": "O banner será mostrado a partir desta data/hora.",
+        "label": "Começa às"
+      },
+      "title": "Configurar banner",
+      "variant": {
+        "label": "Variante"
+      }
+    },
+    "preview": {
+      "message": {
+        "default": "Atualizar esta pré-visualização modificando o campo da mensagem."
+      },
+      "title": "Pré-visualizar"
+    }
+  },
+  "caching": {
+    "alert": {
+      "readonly": {
+        "message": "Esta origem de dados foi adicionada por configuração e o armazenamento em cache não pode ser modificado utilizando a interface do utilizador. Entre em contacto com o seu administrador do servidor para atualizar esta origem de dados.",
+        "title": "Origem de dados provisionada"
+      }
+    },
+    "cache-clean": {
+      "body-clear-cache": "Aviso: Esta ação afeta todas as fontes de dados com capacidade de cache. Se estiver a utilizar o Memcached, o sistema apaga todos os dados da instância Memcached. Pretende continuar?",
+      "clear-cache": "Limpar cache",
+      "confirm-text-clear-cache": "Limpar cache",
+      "title-clear-cache": "Limpar cache"
+    },
+    "cache-cta": {
+      "enable-button-title": "Ativar",
+      "enable-button-tittle": "Ativar",
+      "protip-caching-cannot-enabled-source": "A configuração desta fonte de dados não permite que o armazenamento em cache seja ativado.",
+      "protip-caching-not-enabled": "Ativar o armazenamento em cache pode reduzir a quantidade de pedidos redundantes enviados para a fonte de dados.",
+      "protip-link-caching-not-enabled": "Saiba mais",
+      "title-caching-cannot-enabled-source": "Não é possível ativar o armazenamento em cache para esta fonte de dados.",
+      "title-caching-not-enabled": "O armazenamento em cache não está ativado para esta fonte de dados."
+    },
+    "cache-settings-disable": {
+      "disable": "Desativar"
+    },
+    "cache-settings-form": {
+      "description-query-ttl": "O tempo de vida de um item em cache de consulta em milissegundos. Exemplo: 5000",
+      "description-resource-ttl": "Os recursos são valores dinâmicos que os plugins de fonte de dados do Grafana obtêm de fontes de dados para utilização no editor de consultas. Exemplos são espaços de nomes Splunk, etiquetas Prometheus e nomes de métricas CloudWatch. Uma vez que estes valores são atualizados com menos frequência, talvez prefira um TTL de cache mais longo para recursos do que para consultas. Consulte os <2>documentos</2> para obter mais informações.",
+      "description-timetolive-resources-cache-items-milliseconds-example": "O tempo de vida de itens em cache de recursos em milissegundos. Exemplo: 5000",
+      "description-use-default-ttl": "Ative isto para utilizar o TTL predefinido ajustado na configuração do Grafana ({{defaultTTLMs}} ms)",
+      "label-query-ttl": "TTL de consulta",
+      "label-use-default-ttl": "Utilizar TTL predefinido",
+      "resource-ttl": "TTL de recurso",
+      "save": "Guardar"
+    },
+    "caching": {
+      "content": {
+        "text": {
+          "enable-caching": "Ativar cache"
+        }
+      }
+    },
+    "data-source-cache": {
+      "caching-heading": "Armazenamento em cache",
+      "query-catching": "Ative gratuitamente o armazenamento em cache de consultas durante o seu período de avaliação do Grafana Pro.",
+      "upgrade-content-author-dashboards": "Crie painéis de controlo de forma mais suave, armazenando em cache os dados utilizados para construir consultas, como campos no ServiceNow ou métricas disponíveis no Datadog",
+      "upgrade-content-description": "Com o armazenamento em cache de consultas, pode carregar painéis mais rapidamente e reduzir consultas dispendiosas de fontes de dados, ao armazenar temporariamente os resultados das consultas na memória, Redis ou Memcached.",
+      "upgrade-content-load-dashboards": "Carregue painéis em menos de um segundo a partir da cache, mesmo quando incluem grandes consultas e muitos utilizadores estão a visualizar ao mesmo tempo",
+      "upgrade-content-save-money": "Poupe dinheiro e evite a limitação de velocidade, ao reduzir o número de chamadas de API que faz a fontes de dados como Splunk, CloudWatch e Github"
+    }
+  },
+  "common": {
+    "cancel": "Cancelar",
+    "close": "Fechar"
+  },
+  "explore": {
+    "query-library": {
+      "cancel": "Cancelar",
+      "default-title": "Nova consulta",
+      "discard": "Descartar",
+      "editing-title": "Edição de consultas guardadas",
+      "explore": "Editar no Explorar",
+      "query-template-added": "Consulta guardada com sucesso na biblioteca",
+      "query-template-edit-error": "Erro ao tentar editar esta consulta",
+      "query-template-edited": "Modelo de consulta editado com sucesso",
+      "save": "Guardar",
+      "save-and-close": "",
+      "save-return": "Guardar e voltar às consultas guardadas",
+      "saving": "A guardar..."
+    }
+  },
+  "export": {
+    "pdf": {
+      "cancel-button": "Cancelar",
+      "download-button": "Gerar PDF",
+      "image-alt": "Pré-visualizar PDF",
+      "info-text": "Exportar o painel de controlo como documento PDF",
+      "layout-label": "Layout",
+      "orientation-label": "Orientação",
+      "title": "Exportar PDF do painel de controlo",
+      "zoom-description": "Aumente o zoom para ampliar o texto ou diminua o zoom para ver mais dados (como colunas de tabela) por painel.",
+      "zoom-label": "Zoom"
+    }
+  },
+  "groupsync": {
+    "empty-state": {
+      "pro-tip": "Pretende gerir o acesso à Grafana através de grupos no seu fornecedor de identidade? Crie mapeamentos de grupo para funções RBAC da Grafana. <2>Saiba mais</2>",
+      "title": "Ainda não criou qualquer mapeamento de grupo"
+    },
+    "group-sync-editor": {
+      "body-delete-group-mappings": "Tem a certeza de que pretende eliminar todos os mapeamentos para este grupo?",
+      "close-button-drawer": "Fechar",
+      "confirm-text-delete-group-mappings": "Eliminar",
+      "delete-group-mapping": "Eliminar mapeamento de grupo",
+      "new-button-drawer": "Novo",
+      "new-group-mapping": "Mapeamento de grupo novo",
+      "placeholder-search-by-group-id": "Pesquisar por ID de grupo",
+      "text-deprecated-feature": "Esta funcionalidade foi descontinuada e as suas regras deixarão de funcionar em junho de 2025. Migre para a sincronização de grupos externa nas definições da equipa desejada e atribua funções a equipas.",
+      "title-delete-group-mappings": "Eliminar mapeamentos de grupo",
+      "title-deprecated-feature": "Funcionalidade descontinuada"
+    },
+    "new-mapping-form": {
+      "label-group-id": "ID do Grupo",
+      "label-roles": "Funções",
+      "save": "Guardar"
+    }
+  },
+  "licensing": {
+    "customer-support-button": {
+      "contact-customer-support": "Contacte o apoio ao cliente"
+    },
+    "expires-soon": {
+      "title-grafana-enterprise-license-expire": "A sua licença do Grafana Enterprise irá expirar em breve",
+      "sub-title-license-expiration_one": "Resta {{count}} dia, após o qual as <3>funcionalidades Enterprise serão desativadas.</3>",
+      "sub-title-license-expiration_other": "Restam {{count}} dias, após os quais as <3>funcionalidades Enterprise serão desativadas.</3>"
+    },
+    "get-token-status": {
+      "title": {
+        "token-expired": "Token expirado",
+        "token-expires-soon": "O token expira em breve"
+      }
+    },
+    "get-trial-status": {
+      "title": {
+        "trial-active": "Versão de avaliação ativa",
+        "trial-expired": "Versão de avaliação expirada"
+      }
+    },
+    "has-expired": {
+      "sub-title-licensing-reader": "<0>Algumas funcionalidades</0> foram desativadas.",
+      "title-your-grafana-enterprise-license-has-expired": "A sua licença do Grafana Enterprise expirou"
+    },
+    "is-invalid": {
+      "sub-title-licensing-reader": "<0>Algumas funcionalidades</0> foram desativadas.",
+      "title-your-grafana-enterprise-license-is-invalid": "A sua licença do Grafana Enterprise é inválida"
+    },
+    "license-info": {
+      "aria-label-details-about-license-grafana-cloud": "Consulte detalhes sobre a sua licença no Grafana Cloud",
+      "card-content-account": "Conta AWS",
+      "card-content-active-licensed-users": "Utilizadores licenciados ativos",
+      "card-content-anonymous-users": "Utilizadores anónimos",
+      "card-content-authenticated-users": "Utilizadores autenticados",
+      "card-content-company": "Empresa",
+      "card-content-license-expires": "A licença expira",
+      "card-content-license-expires-tooltip": "A data de validade da licença é a data em que a licença atual deixa de estar ativa. À medida que a data de validade da licença se aproxima, o Grafana Enterprise mostra um banner.",
+      "card-content-lid": "ID da licença",
+      "card-content-none": "Nenhum",
+      "card-content-product": "Produto",
+      "card-content-products": "Produtos",
+      "card-content-purchase-date": "Data da compra",
+      "card-content-token-auto-update": "O Grafana atualiza automaticamente o token antes de expirar. Se o seu token não estiver a ser atualizado, contacte o apoio.",
+      "card-content-token-expires": "O token expira",
+      "card-content-token-id": "ID do Token",
+      "card-content-token-issued": "Token emitido",
+      "card-content-token-usage-billing-off": "Desligado",
+      "card-content-url-name": "URL",
+      "card-content-url-tooltip": "O URL da licença é o URL raiz da sua instância Grafana. A licença não funcionará numa instância do Grafana com um URL raiz diferente.",
+      "card-content-usage-billing": "Faturação baseada na utilização",
+      "card-content-usage-billing-on": "Em ",
+      "card-content-usage-billing-tooltip": "Pode solicitar à Grafana Labs que ative a faturação baseada na utilização para permitir um número ilimitado de utilizadores ativos. Quando a faturação baseada na utilização está ativada, o Grafana não impõe limites de utilizadores ativos, nem mostra banners de aviso. Em vez disso, são-lhe cobrados os utilizadores ativos acima do limite, de acordo com o seu contrato de cliente.",
+      "edition-notice-licensing-info": "Está a executar o Grafana Enterprise sem uma licença. As funcionalidades Enterprise estão desativadas.",
+      "edition-notice-problem-licensing-info": "Ocorreu um problema com o seu token de licença Enterprise. As funcionalidades Enterprise estão desativadas.",
+      "license-alert": "Token de licença carregado. Reinicie o Grafana para que as alterações sejam aplicadas.",
+      "license-details": "Detalhes da licença",
+      "license-token-info": "Leia sobre a <2>expiração da licença</2> e a <6>ativação da licença</6>.",
+      "renew-token": "Renovar token",
+      "renewing": " (A renovar...)",
+      "text-loading-licensing-info": "A carregar informações de licenciamento...",
+      "title-contact-support-renew-token-visit-cloud": "Contacte o apoio para renovar o seu token ou visite o portal Cloud para saber mais.",
+      "title-have-a-license": "Tem uma licença?",
+      "title-license": "Licença",
+      "title-license-token-renewed": "Token de licença renovado.",
+      "title-token": "Token",
+      "title-utilization": "Utilização",
+      "utilization-footer": "A utilização de utilizadores licenciados é determinada com base na atividade dos utilizadores com sessão iniciada nos últimos 30 dias.",
+      "utilization-info": "Leia sobre os <2>limites de utilizadores ativos</2> e os <6>limites de sessões simultâneas</6>.",
+      "card-content-anonymous-users-tooltip_one": "Para cada {{count}} dispositivo anónimo, o Grafana conta 1 utilizador.",
+      "card-content-anonymous-users-tooltip_other": "Para cada {{count}} dispositivos anónimos, o Grafana conta 1 utilizador."
+    },
+    "license-token-upload": {
+      "instance-url": "URL da instância: <1>{{licensedUrl}}</1>",
+      "upload-a-new-token": "Carregar um novo token",
+      "uploading": "A carregar..."
+    },
+    "max-users-reached": {
+      "title-exceeded-included-number-active-users": "Excedeu o número incluído de utilizadores ativos",
+      "upgrade-your-license-link": "<2>Atualize a sua licença.</2>",
+      "upgrade-your-license-no-link": "Atualize a sua licença.",
+      "upgrade-your-license-subtitle_one": "A sua licença do Grafana Enterprise inclui {{maxUsers}} utilizadores ativos; neste momento, tem {{count}} utilizador ativo. ",
+      "upgrade-your-license-subtitle_other": "A sua licença do Grafana Enterprise inclui {{maxUsers}} utilizadores ativos; neste momento, tem {{count}} utilizadores ativos. "
+    },
+    "page-alert": {
+      "learn-about-enterprise-licenses": "Saiba mais sobre licenças Enterprise"
+    },
+    "token-expires-soon": {
+      "title-grafana-enterprise-token-needs-renewed": "O seu token do Grafana Enterprise tem de ser renovado",
+      "sub-title-token-expiration_one": "O seu token de licença tem {{count}} dia restante, após o qual as <4>funcionalidades Enterprise serão desativadas.</4>",
+      "sub-title-token-expiration_other": "O seu token de licença tem {{count}} dias restantes, após os quais as <4>funcionalidades Enterprise serão desativadas.</4>"
+    }
+  },
+  "meta-analytics": {
+    "analytics-drawer": {
+      "public-dashboards-tab-label": "Painéis de controlo públicos",
+      "shared-dashboards-tab-label": "Painéis de controlo partilhados",
+      "stats-tab-label": "Estatísticas",
+      "text-access-usage-insights-during-trial-grafana": "Obtenha gratuitamente acesso total a informações de utilização durante o seu período de avaliação do Grafana Pro.",
+      "title-dashboard-insights": "{{dashboardTitle}} - análise",
+      "users-activity-tab-label": "Utilizadores e atividade"
+    },
+    "analytics-public-dashboards-tab": {
+      "daily-query-count-cached-queries-label": "consultas em cache",
+      "daily-query-count-title": "Contagem diária de consultas",
+      "errors-last-month-title": "Erros nos últimos 30 dias",
+      "no-data": "Sem dados.",
+      "views-last-month-title": "Visualizações nos últimos 30 dias"
+    },
+    "analytics-stats-tab": {
+      "daily-query-count-cached-queries-label": "consultas em cache",
+      "daily-query-count-title": "Contagem diária de consultas",
+      "errors-last-month-title": "Erros nos últimos 30 dias",
+      "no-data": "Sem dados."
+    },
+    "analytics-toolbar-button": {
+      "tooltip-dashboard-insights": "Informações do painel"
+    },
+    "analytics-upgrade-drawer": {
+      "description-usage-insights-provide-detailed-information-about": "As informações de utilização fornecem informações detalhadas sobre a utilização do painel, como o número de visualizações, consultas e erros que os utilizadores experienciaram. Pode usar isto para melhorar a experiência dos utilizadores e resolver problemas.",
+      "title-dashboard-insights": "{{dashboardTitle}} - análise"
+    },
+    "analytics-users-tab": {
+      "aria-label-recent-users-table": "Tabela de utilizadores recentes",
+      "aria-label-user-box-title": "Título da caixa do utilizador",
+      "aria-label-user-information-box": "Caixa de informações do utilizador",
+      "aria-label-version-history-button": "Botão de histórico de versões",
+      "created-user-box": "Criado",
+      "dashboard-version-history": "Histórico de versões do painel",
+      "format-date-currently-viewing": "A visualizar atualmente",
+      "format-date-last-hour": "Última hora",
+      "format-date-today": "Hoje",
+      "format-date-yesterday": "Ontem",
+      "last-dashboard-viewers": "Últimos 30 visualizadores do painel de controlo",
+      "last-edited-user-box": "Última edição",
+      "last-viewed-user-box": "Última visualização",
+      "user-views-data-frame-user-field": "Utilizador",
+      "user-views-data-frame-when-field": "Quando",
+      "views-last-month-title": "Visualizações nos últimos 30 dias"
+    },
+    "data-source-insights": {
+      "available-source": "Não há dados disponíveis para esta fonte de dados.",
+      "average-load-duration-last-month-title": "Duração média de carregamento nos últimos 30 dias (ms)",
+      "errors-last-month-title": "Erros nos últimos 30 dias",
+      "queries-last-month-title": "Consultas nos últimos 30 dias",
+      "text-enable-source-usage-insights-during-trial": "Ative gratuitamente as informações de utilização da fonte de dados durante o seu período de avaliação do Grafana Pro.",
+      "text-feature-not-available-expired-license": "Informações da fonte de dados não estão disponíveis com uma licença expirada. Os dados continuarão a ser recolhidos, mas tem de atualizar a sua licença para visualizar esta página.",
+      "title-feature-available-expired-license": "Funcionalidade não disponível com uma licença expirada",
+      "title-read-more-license-expiration": "Leia mais sobre a expiração da licença"
+    },
+    "data-source-insights-upgrade": {
+      "clean-instance-list-item": "Limpe a sua instância ao localizar e remover fontes de dados não utilizadas",
+      "demonstrate-and-improve-list-item": "Demonstre e melhore o valor do seu serviço de observância ao monitorizar a interação do utilizador",
+      "description-usage-insights-provide-detailed-information-about": "As informações de utilização fornecem informações detalhadas sobre a utilização da fonte de dados, como o número de visualizações, consultas e erros que os utilizadores experienciaram. Pode usar isto para melhorar a experiência dos utilizadores e resolver problemas.",
+      "keep-performant-list-item": "Mantenha o desempenho do Grafana ao identificar e corrigir fontes de dados lentas e propensas a erros",
+      "review-insights-list-item": "Reveja rapidamente informações de utilização de fontes de dados individuais na interface do utilizador, classifique os resultados de pesquisa por utilização e erros ou analise registos de utilização detalhados"
+    }
+  },
+  "permissions": {
+    "data-source-permissions": {
+      "text-enable-source-permissions-during-trial-grafana": "Ative gratuitamente as permissões de fontes de dados durante o seu período de avaliação do Grafana Pro."
+    },
+    "permissions-upgrade-content": {
+      "description-source-permissions-protect-sensitive-limiting-access": "Com as permissões de fontes de dados, pode proteger dados confidenciais ao limitar  o acesso a esta fonte de dados a utilizadores, equipas e funções específicos.",
+      "source-permissions-protect-clean-experience-list-item": "Limpe a experiência dos utilizadores ao ocultar origens de dados que estes não precisam de utilizar",
+      "source-permissions-protect-sensitive-data-list-item": "Proteja dados confidenciais, como registos de segurança, bases de dados de produção e informações de identificação pessoal",
+      "source-permissions-protect-share-access-list-item": "Partilhe o acesso ao Grafana mais à vontade, sabendo que os utilizadores não verão inadvertidamente dados confidenciais"
+    }
+  },
+  "plugins": {
+    "sandbox": {
+      "enable-sandbox-label": "Área restrita de frontend",
+      "enable-sandbox-tooltip": "O área restrita de frontend executa o código de frontend de forma isolada, restringindo o acesso ao âmbito global do navegador e limitando as modificações da interface do utilizador à área do plugin.",
+      "enable-sandbox-tooltip-link": "Ler mais"
+    }
+  },
+  "public-dashboard": {
+    "email-sharing": {
+      "success-confirm-access": "Acesso confirmado!",
+      "success-resend-recipient-invitation": "O convite por e-mail foi reenviado.",
+      "success-revoke-access-description": "Revogou com sucesso o acesso para {{recipientEmail}}.",
+      "success-revoke-access-title": "Acesso revogado",
+      "success-revoke-all-accesses-description": "O acesso do endereço de e-mail {{email}} a todos os painéis de controlo públicos foi removido com sucesso.",
+      "success-revoke-all-accesses-title": "Acesso revogado",
+      "success-send-recipient-invitation": "O convite por e-mail foi enviado."
+    }
+  },
+  "public-dashboards": {
+    "confirm-access-page": {
+      "confirm-access": "Confirmar acesso",
+      "login-subtitle": "Obtenha acesso ao painel durante 30 dias. Após 30 dias, pode solicitar acesso novamente para continuar a visualizar o painel.",
+      "login-title": "Acesso ao painel de controlo"
+    },
+    "request-view-access-page": {
+      "access-requested": "Acesso pedido",
+      "label-email": "E-mail",
+      "placeholder-email": "e-mail",
+      "register-pattern-invalid-email": "E-mail inválido",
+      "register-required-email": "O e-mail é obrigatório",
+      "request-access": "Pedir acesso"
+    }
+  },
+  "query-library": {
+    "actions": {
+      "delete-query-button": "Eliminar consulta",
+      "duplicate-query-button": "Duplicar consulta",
+      "duplicate-query-title-copy": "Copiar",
+      "lock-query-button": "Bloquear consulta",
+      "menu-button": "",
+      "save-history-query-button": "",
+      "select-query-button": "Selecionar consulta",
+      "unlock-query-button": "Desbloquear consulta"
+    },
+    "delete-modal": {
+      "body-text": "Está prestes a remover esta consulta guardada. Esta ação não pode ser anulada. Pretende continuar?",
+      "confirm-button": "Eliminar consulta",
+      "title": "Eliminar consulta"
+    },
+    "discard-changes": {
+      "discard-button": "Descartar",
+      "text": "Tem alterações não guardadas a esta consulta. Tem a certeza de que pretende descartá-las?",
+      "title": "Descartar alterações à consulta?"
+    },
+    "drawer": {
+      "title": "Consultas guardadas",
+      "tooltip": "Neste momento, cada organização pode guardar até 1000 consultas"
+    },
+    "empty-state": {
+      "message": "Comece a adicioná-las a partir de Explorar ou ao editar um painel de controlo",
+      "no-favorites": "",
+      "no-favorites-description": "",
+      "no-history": "",
+      "no-history-description": "",
+      "title": ""
+    },
+    "error-state": {
+      "title": "Ocorreu um erro!"
+    },
+    "explore-modal": {
+      "cancel-button": "",
+      "confirm-button": "",
+      "title": "",
+      "warning": ""
+    },
+    "filters": {
+      "datasource-placeholder": "Filtrar por fonte de dados",
+      "datasource-user": "Filtrar por nome de utilizador",
+      "search-placeholder": "Pesquise por origem de dados, conteúdo da consulta, título ou descrição",
+      "sort": {
+        "asc": "Por ordem alfabética (A–Z)",
+        "desc": "Por ordem alfabética (Z–A)",
+        "newest": "Mais recentes primeiro",
+        "oldest": "Mais antigos primeiro"
+      },
+      "sort-placeholder": "Ordenar"
+    },
+    "item": {
+      "add-to-library": "",
+      "favorite": "Favorito",
+      "new": "Novo",
+      "unfavorite": "Remover dos favoritos"
+    },
+    "not-found": {
+      "message": "Tente ajustar os seus critérios de pesquisa ou de filtragem",
+      "title": "Não foram encontrados resultados"
+    },
+    "notifications": {
+      "query-deleted": "Consulta eliminada"
+    },
+    "query-details": {
+      "author": "Autor",
+      "datasource": "Origem dos dados",
+      "date-added": "Data adicionada",
+      "description": "Descrição",
+      "edit-button": "Editar consulta",
+      "edit-button-short": "Editar",
+      "make-query-visible": "Partilhar consulta com todos os utilizadores",
+      "recent-description": "",
+      "recent-example": "",
+      "tags": "Etiquetas",
+      "title": "Título"
+    },
+    "tabs": {
+      "all": "Tudo",
+      "favorites": "Favoritos",
+      "recent": ""
+    },
+    "template-variables-warning": {
+      "message": "",
+      "message-explore": "",
+      "title": ""
+    },
+    "user-info": {
+      "error": "Erro ao tentar obter informações do utilizador da biblioteca: {{error}}"
+    }
+  },
+  "query-operation": {
+    "header": {
+      "replace-query-from-library": "Substituir por consulta guardada",
+      "save-to-query-library": "Guardar consulta"
+    }
+  },
+  "recorded-queries": {
+    "create-recorded-query-unconnected": {
+      "alert-severity-succesful": "Com sucesso",
+      "alert-severity-test": "Testar esta consulta gravada",
+      "aria-label-start-recording-query-button": "Botão Iniciar gravação de consulta",
+      "contact-support": "Para enviar um pedido de apoio para a Grafana Labs, preencha o formulário <2>Contactar a Grafana Labs</2>",
+      "count-rows-returned": "Conte as linhas devolvidas desta consulta",
+      "description-decide-often-record-query": "Decida com que frequência gravar esta consulta",
+      "description-give-this-query-a-name": "Atribua um nome a esta consulta",
+      "description-provide-a-description-for-this-query": "Forneça uma descrição para esta consulta",
+      "description-select-value-template-variable": "Selecione um valor para cada variável do modelo",
+      "done-button": {
+        "aria-label-cancel-recording-query-button": "Botão Cancelar gravação de consulta",
+        "aria-label-close-recording-query-button": "Botão Fechar gravação de consulta",
+        "cancel": "Cancelar",
+        "close": "Fechar"
+      },
+      "label": {
+        "relative-time-range": "Intervalo de tempo relativo"
+      },
+      "label-count-query-results": "Contar resultados da consulta",
+      "label-description": "Descrição",
+      "label-interval": "Intervalo",
+      "label-name": "Nome",
+      "label-template-variables": "Variáveis do modelo",
+      "message": {
+        "name-is-required": "O nome é obrigatório"
+      },
+      "query-relative-time-range": "Selecione o intervalo de tempo relativo desta consulta",
+      "results-alert-message": "Resultados: ",
+      "start-recording-query": "Iniciar gravação de consulta",
+      "success-alert-message": "A sua nova consulta gravada está a ser gravada com sucesso!",
+      "sync-button": {
+        "aria-label-test-the-recorded-query": "Testar a consulta gravada"
+      },
+      "title-create-recorded-query": "Criar consulta gravada"
+    },
+    "data-source-filter": {
+      "button-clear-filter": "Limpar filtro da origem de dados",
+      "filter-by-data-source": "Filtrar por fonte de dados",
+      "placeholder-select-a-data-source": "Selecionar uma origem de dados"
+    },
+    "empty-recorded-query-list": {
+      "message": "Nenhuma consulta gravada definida",
+      "pro-tip": "Dica: pode gravar consultas a partir do editor de consultas."
+    },
+    "query-card": {
+      "interval-content": "Intervalo: {{interval}}",
+      "interval-range": "Intervalo: último(s) {{range}}",
+      "query-expression": "Expressão de consulta:"
+    },
+    "recorded-queries-config-unconnected": {
+      "body-delete": "Tem a certeza de que pretende eliminar '{{name}}'?",
+      "confirm-text-delete": "Eliminar",
+      "edit-remote-write-target": "Editar destino de escrita remota",
+      "queries-to-display": {
+        "buttons": {
+          "aria-label-delete-recorded-query": "Eliminar consulta gravada",
+          "aria-label-pause-recorded-query": "Pausar a gravação",
+          "aria-label-resume-recorded-query": "Retomar a gravação",
+          "delete": "Eliminar"
+        }
+      },
+      "title-delete": "Eliminar"
+    },
+    "recorded-queries-deprecation-notice": {
+      "description": "As consultas gravadas foram descontinuadas. Utilize em vez disso as novas <2>Regras de gravação geridas pelo Grafana</2>.",
+      "title-deprecation-notice": "Aviso de descontinuação"
+    },
+    "recorded-query-add-modal-unconnected": {
+      "add": "Adicionar",
+      "cancel": "Cancelar",
+      "new-recorded-query-alert": "Para criar uma nova consulta gravada, volte ao editor de consultas e utilize o ícone <2></2> na barra de séries.",
+      "no-queries-available": "Nenhuma consulta gravada disponível para {{datasourceName}}",
+      "recorded-query": "Consulta gravada",
+      "title-add-recorded-query": "Adicionar consulta gravada"
+    },
+    "write-target-config-unconnected": {
+      "label-remote-write-path": "Caminho de escrita remota",
+      "placeholder-select-a-data-source": "Selecionar uma origem de dados",
+      "save": "Guardar",
+      "select-data-source-label": "Selecione a fonte de dados na qual as métricas serão escritas"
+    }
+  },
+  "report": {
+    "report-header": {
+      "time-range": "Intervalo de tempo dos dados:",
+      "title": "{{reportTitle}} - Gerado em {{generatedOnDate}}"
+    }
+  },
+  "reporting": {
+    "button-row": {
+      "next-step": "Seguinte: {{nextName}}",
+      "previous-step": "Anterior: {{prevName}}"
+    },
+    "create-report": {
+      "alert-title": "Erro ao carregar relatório",
+      "loading-report": "A carregar relatório...",
+      "title": "Criar um relatório novo"
+    },
+    "errors": {
+      "action-message": "Entre em contacto com o seu administrador da Grafana para instalar o plugin.",
+      "no-renderer-description": "Para gerar relatórios em PDF, tem de instalar o plugin <2>Renderizador de imagens Grafana</2>.",
+      "no-renderer-title": "Plugin de renderização de imagem não instalado",
+      "old-renderer-description": "Para gerar ficheiros CSV, tem de atualizar o plugin <2>Renderizador de imagens Grafana</2>.",
+      "old-renderer-title": "Está a utilizar uma versão antiga do plugin do renderizador de imagens"
+    },
+    "image-preview": {
+      "invalid-image": "Imagem inválida"
+    },
+    "page": {
+      "empty-button": "Criar relatório",
+      "empty-pro-tip": "Crie um relatório a partir de quaisquer painéis existentes. <2>Saiba mais</2>",
+      "empty-title": "Ainda não foi criado nenhum relatório",
+      "settings-button": "Definições do relatório"
+    },
+    "page-actions": {
+      "discard-button": "Descartar",
+      "save-as-draft-button": "Guardar como rascunho",
+      "update-button": "Atualizar relatório"
+    },
+    "report-footer": {
+      "page-pagination": "Página {{currentPage}}/{{totalPageCount}}"
+    },
+    "report-form": {
+      "edit-step": "5. Confirmar"
+    },
+    "report-list": {
+      "confirmText-delete": "Eliminar",
+      "content-pause-report": "Pausar relatório",
+      "content-resume-report": "Retomar relatório",
+      "delete-report": "Eliminar relatório {{name}}"
+    },
+    "schedule": {
+      "frecuency-custom-input-label": "Repetir a cada",
+      "frecuency-custom-select-label": "Frequência personalizada",
+      "frecuency-custom-select-placeholder": "horas",
+      "frecuency-date-picker-label": "Data de início do agendamento do relatório",
+      "frecuency-date-picker-placeholder": "Selecionar a data",
+      "frecuency-end-date-label": "Data de fim",
+      "frecuency-end-time-label": "Hora de fim",
+      "frecuency-last-day-label": "Enviar no último dia do mês",
+      "frecuency-last-day-warning": "Nota: alguns meses não têm um dia {{warningDateText}} e os relatórios não serão enviados nesses meses. Escolha uma data anterior ou <3>\"Enviar no último dia do mês\"</3> para enviar um relatório no final de cada mês.",
+      "frecuency-send-later": "Enviar mais tarde",
+      "frecuency-send-now": "Enviar agora",
+      "frecuency-start-time-label": "Hora de início",
+      "frecuency-time-zone-label": "Fuso horário",
+      "frecuency-workdays-label": "Enviar apenas de segunda a sexta-feira",
+      "report-schedule-end-date-label": "Data de fim do agendamento do relatório",
+      "report-schedule-end-date-placeholder": "Não termina"
+    },
+    "settings": {
+      "attachment-settings-fieldset-label": "Definições do anexo",
+      "drawer-title": "Definições do modelo de relatório",
+      "email-branding-fieldset-label": "Marca do e-mail",
+      "email-footer-field-label": "Rodapé do e-mail",
+      "email-logo-image-preview-altText": "Pré-visualização do logótipo da empresa",
+      "email-logo-url-field-description": "O logótipo será exibido no cabeçalho do e-mail. Formatos suportados: png, jpg, gif.",
+      "email-logo-url-field-label": "URL do logótipo da empresa",
+      "embedded-image-header": "Imagem incorporada",
+      "embedded-image-theme-picker-description": "O tema será aplicado à imagem do painel de controlo incorporada no e-mail.",
+      "footer-link-field-label": "Texto do link do rodapé",
+      "footer-link-url-field-label": "URL do link do rodapé",
+      "no-data": "Sem dados de definições disponíveis",
+      "none-footer-label": "Nenhum",
+      "pdf-header": "PDF",
+      "pdf-theme-picker-description": "O tema será aplicado ao PDF anexado ao relatório.",
+      "report-logo-image-preview-altText": "Pré-visualização do logótipo da empresa",
+      "report-logo-url-field-description": "O logotipo será exibido no rodapé do documento. Formatos suportados: png, jpg, gif.",
+      "report-logo-url-field-label": "URL do logótipo da empresa",
+      "save-button": "Guardar",
+      "saving-button": "A guardar...",
+      "sent-by-footer-label": "Enviado por",
+      "settings-subtitle": "Gerir as definições do modelo de relatório."
+    },
+    "update-report": {
+      "title": "Atualizar relatório"
+    }
+  },
+  "reports": {
+    "all-template-alert": {
+      "description-not-supported": "O valor Todas as variáveis de modelos utilizadas em linhas ou painéis repetidos não é suportado em PDF",
+      "title-not-supported": "Não suportado"
+    },
+    "confirm": {
+      "edit": "Editar",
+      "report-data": {
+        "title": {
+          "combine-all-pdfs-in-one-file": "Combinar todos os PDF num ficheiro",
+          "dashboard-link": "Link do painel de controlo",
+          "email-subject": "Assunto do e-mail",
+          "end-date": "Data de fim",
+          "end-time": "Hora de fim",
+          "format-report": "Formatar relatório",
+          "message": "Mensagem",
+          "pdf-layout": "Layout do PDF",
+          "pdf-orientation": "Orientação do PDF",
+          "pdf-show-template-variables": "Mostrar variáveis do modelo PDF",
+          "preferred-format": "Formato preferido*",
+          "recipients": "Destinatários*",
+          "recurrence": "Recorrência",
+          "repeat-every": "Repetir a cada",
+          "replytoemail": "E-mail para resposta",
+          "report-name": "Nome do relatório*",
+          "scale-factor": "Fator de escala",
+          "schedule": "Agendar",
+          "select-dashboard": "Selecionar painel de controlo",
+          "send-monday-to-friday-only": "Enviar apenas de segunda a sexta-feira",
+          "share": "Partilhar",
+          "start-date": "Data de início",
+          "start-time": "Hora de início",
+          "template-variables": "Variáveis do modelo",
+          "time-range": "Intervalo de tempo",
+          "time-zone": "Fuso horário"
+        }
+      }
+    },
+    "create-report-tab": {
+      "create-report-using-this-dashboard": "Criar relatório através deste painel",
+      "description-reporting-allows-automatically-generate-dashboards-grafana": "Os relatórios permitem-lhe gerar PDF automaticamente a partir de qualquer um dos seus painéis e fazer com que o Grafana os envie por e-mail para as partes interessadas, de acordo com um agendamento.",
+      "get-started-with-reporting": "Introdução aos relatórios",
+      "learn-more": "Saiba mais",
+      "text-create-unlimited-reports-during-trial-grafana": "Crie relatórios ilimitados durante o seu período de avaliação do Grafana Pro."
+    },
+    "dashbord-report-renderer": {
+      "title-unsupported-dashboard-layout": "Disposição do painel não suportada"
+    },
+    "edit-actions": {
+      "aria-label-delete-report": "Eliminar relatório",
+      "body-are-you-sure": "Tem a certeza de que pretende eliminar este relatório?",
+      "confirmText-delete": "Eliminar",
+      "edit-report": "Editar relatório",
+      "pause-button": "Pausar",
+      "resume-button": "Continuar",
+      "title-delete-report": "Eliminar relatório",
+      "tooltip-delete": "Eliminar"
+    },
+    "format-report": {
+      "aria-label-zoom": "Zoom",
+      "description-enlarge-table-columns-panel": "Aumente o zoom para ampliar o texto ou diminua o zoom para ver mais dados (como colunas de tabela) por painel.",
+      "label-combine-dashboard": "Combinar todos os PDF do painel num ficheiro",
+      "label-configure-multiple-pdfs": "Configurar múltiplos PDF",
+      "label-configure-report-header": "Configurar o cabeçalho do relatório",
+      "label-format-report": "2. Formatar relatório",
+      "label-layout": "Layout",
+      "label-orientation": "Orientação",
+      "label-show-template-variables": "Mostrar variáveis do modelo",
+      "label-style-the-pdf": "Alterar o estilo do PDF",
+      "label-zoom": "Zoom",
+      "preview-pdf": "Pré-visualizar PDF",
+      "tooltip-download-table-panel": "Transferir dados do painel da tabela como CSV num ficheiro ZIP"
+    },
+    "highlight-trial-report": {
+      "get-started-with-reporting": "Introdução aos relatórios",
+      "get-started-with-reporting-text": "Os relatórios permitem-lhe gerar PDF automaticamente a partir de qualquer um dos seus painéis e fazer com que o Grafana os envie por e-mail para as partes interessadas, de acordo com um agendamento.",
+      "learn-more": "Saiba mais",
+      "text-create-unlimited-reports-during-trial-grafana": "Crie relatórios ilimitados durante o seu período de avaliação do Grafana Pro."
+    },
+    "report-upgrade-content": {
+      "description-reporting-allows-automatically-generate-dashboards-grafana": "Os relatórios permitem-lhe gerar PDF automaticamente a partir de qualquer um dos seus painéis e fazer com que o Grafana os envie por e-mail para as partes interessadas, de acordo com um agendamento."
+    },
+    "reports-list-page": {
+      "render-list": {
+        "create-a-new-report": "Criar um relatório novo",
+        "placeholder-search-reports-report-dashboard-recipients": "Pesquisar relatórios por nome do relatório, nome do painel ou destinatários",
+        "text": {
+          "create-report": "Criar relatório"
+        },
+        "text-create-unlimited-reports-during-trial-grafana": "Crie relatórios ilimitados durante o seu período de avaliação do Grafana Pro."
+      }
+    },
+    "schedule": {
+      "label-frequency": "Frequência",
+      "label-schedule": "3. Agendar",
+      "label-start-date": "Data de início",
+      "label-time": "Hora"
+    },
+    "select-dashboard": {
+      "aria-label-source-dashboard": "Painel de controlo de origem",
+      "description-time-range": "Crie um relatório com os dados do intervalo de tempo especificado. Se o intervalo de tempo personalizado estiver vazio, será utilizado o intervalo de tempo do painel do relatório.",
+      "label-source-dashboard": "Painel de controlo de origem",
+      "label-template-variables": "Variáveis do modelo",
+      "label-time-range": "Intervalo de tempo"
+    },
+    "select-dashboards": {
+      "add-another-dashboard": "Adicionar outro painel",
+      "label-select-dashboard": "1. Selecionar um painel",
+      "remove-dashboard": "Remover painel"
+    },
+    "send-test-email-modal": {
+      "cancel": "Cancelar",
+      "label-email": "E-mail",
+      "label-use-emails-from-report": "Utilizar e-mails do relatório",
+      "send": "Enviar",
+      "title-send-test-email": "Enviar e-mail de teste"
+    },
+    "share": {
+      "description-address-appear-reply-field-email": "O endereço que aparecerá no campo Responder a do e-mail",
+      "description-separate-multiple-emails-comma-semicolon": "Separe múltiplos e-mails com uma vírgula ou um ponto e vírgula.",
+      "email-info-button": "O nome do relatório será utilizado como o assunto do e-mail se este campo for deixado em branco",
+      "email-subject": "Assunto do e-mail",
+      "label-include-a-dashboard-link": "Incluir uma ligação do painel",
+      "label-message": "Mensagem",
+      "label-recipients": "Destinatários",
+      "label-replyto-email-address": "Endereço de e-mail do remetente",
+      "label-report-name": "Nome do relatório",
+      "label-share": "4. Partilhar",
+      "name-placeholder-system-status-report": "Relatório de estado do sistema",
+      "recipients-placeholder-recipients-email-addresses-press-enter": "Digite os endereços de e-mail dos destinatários e prima Enter",
+      "send-test-email": "Enviar e-mail de teste",
+      "subject-placeholder-email-subject": "Assunto do e-mail",
+      "title-sending-test-email": "A enviar e-mail de teste..."
+    },
+    "share-pdfbase": {
+      "cancel": "Cancelar",
+      "save-as-pdf": "Guardar como PDF"
+    },
+    "unavailable-feature-info-box": {
+      "title-feature-available-expired-license": "Funcionalidade não disponível com uma licença expirada"
+    },
+    "upgrade-report": {
+      "description-reporting-allows-automatically-generate-dashboards-grafana": "Os relatórios permitem-lhe gerar PDF automaticamente a partir de qualquer um dos seus painéis e fazer com que o Grafana os envie por e-mail para as partes interessadas, de acordo com um agendamento."
+    },
+    "variables-preview": {
+      "none": "nenhuma"
+    }
+  },
+  "saml-connect-to-idp": {
+    "validate-idp-metadata": {
+      "require-one": "Deve ser definido um tipo de metadados"
+    }
+  },
+  "share-dashboard": {
+    "menu": {
+      "export-pdf-title": "Exportar como PDF",
+      "schedule-report-title": "Agendar relatório"
+    }
+  },
+  "share-report": {
+    "actions": {
+      "aria-label-open-menu": "Abrir o menu de ações",
+      "download-csv-label": "Transferir CSV",
+      "downloading-label": "A descarregar...",
+      "preview-pdf-label": "Pré-visualizar PDF",
+      "report-settings-label": "Definições do relatório"
+    },
+    "attachments": {
+      "combine-one-file": "Combinar todos os PDFs do painel de controlo num ficheiro",
+      "csv-tables": "Anexar um ficheiro CSV dos dados do painel da tabela",
+      "layout": "Layout",
+      "orientation": "Orientação",
+      "orientation-tooltip": "A seleção de orientação será aplicada ao PDF do painel de controlo, aos dados da tabela e ao apêndice em PDF",
+      "pdf-format": "Formato PDF",
+      "pdf-report": "Anexar o relatório como PDF",
+      "pdf-tables": "Anexar um PDF separado dos dados da tabela",
+      "pdf-tables-appendix": "Incluir dados da tabela como apêndice em PDF",
+      "section-title": "Anexos",
+      "show-template-variables": "Mostrar variáveis do modelo no cabeçalho",
+      "zoom": "Escala do Zoom"
+    },
+    "back-button-text": "Voltar à lista de relatórios",
+    "confirm-delete": {
+      "button": "Eliminar relatório",
+      "description": "Tem a certeza de que quer eliminar esta denúncia?",
+      "title": "Eliminar relatório"
+    },
+    "create-report": "Criar um relatório novo",
+    "dashboard": {
+      "add-dashboard": "Adicionar painel de controlo",
+      "dashboard-required": "O painel de controlo é obrigatório",
+      "delete-dashboard-tooltip": "Eliminar este painel de controlo",
+      "repeated-template-variables-description": "Ao adicionar o mesmo painel de controlo várias vezes num relatório, as variáveis de modelo que selecionou primeiro são aplicadas a todas as instâncias desse painel de controlo no relatório.",
+      "section-title": "Painéis de controlo",
+      "source-dashboard-label": "Painel de controlo de origem",
+      "template-variables-title": "Personalizar variáveis do modelo",
+      "time-range-description": "Se o intervalo de tempo estiver vazio, será utilizado o intervalo de tempo do painel de controlo do relatório. O intervalo de tempo absoluto é representado no fuso horário do seu navegador.",
+      "time-range-label": "Intervalo de tempo",
+      "view-dashboard-tooltip": "Visualizar painel de controlo"
+    },
+    "discard-changes": {
+      "discard-button": "Descartar",
+      "text": "Tem alterações não guardadas a este relatório do painel. Tem a certeza de que pretende rejeitá-las?",
+      "title": "Rejeitar alterações ao relatório?"
+    },
+    "email-configuration": {
+      "add-dashboard-image-label": "Incorporar imagem do painel de controlo",
+      "add-dashboard-url-label": "Incluir link do painel de controlo",
+      "dashboard-image-settings-description": "As definições da imagem do painel de controlo podem ser ajustadas nas <1>definições gerais do relatório</1>",
+      "invalid-email": "E-mail inválido",
+      "message-label": "Mensagem",
+      "message-placeholder": "Introduza uma mensagem",
+      "reply-to-label": "Endereço de resposta ao e-mail",
+      "section-title": "Definições de e-mail\n",
+      "subject-description": "O nome do relatório será utilizado como o assunto do e-mail se este campo for deixado em branco",
+      "subject-label": "Assunto do e-mail"
+    },
+    "empty-list": {
+      "description": "Crie um relatório a partir deste painel. <2>Saiba mais</2>",
+      "title": "Não há relatórios para este painel"
+    },
+    "error-form": {
+      "title": "Erro ao carregar relatório"
+    },
+    "error-list": {
+      "title": "Erro ao carregar relatórios"
+    },
+    "loading-form": "A carregar formulário...",
+    "loading-report": "A carregar relatório...",
+    "loading-report-form": "A carregar formulário de relatório...",
+    "loading-reports": "A carregar relatórios...",
+    "recipients": {
+      "field-label": "Destinatários",
+      "invalid-email": "E-mail inválido: {{email}}",
+      "invalid-emails": "E-mails inválidos: {{emails}}",
+      "placeholder": "Escreva os endereços de e-mail dos destinatários e prima Enter",
+      "recipients-required": "Os destinatários são obrigatórios",
+      "section-title": "Destinatários",
+      "tooltip": "Separe vários endereços de e-mail com uma vírgula ou ponto e vírgula"
+    },
+    "report-name": {
+      "label": "Nome do relatório",
+      "required": "O nome do relatório é obrigatório"
+    },
+    "save-draft": {
+      "button": "Guardar rascunho",
+      "saving-button": "A guardar rascunho..."
+    },
+    "schedule": {
+      "end-date": "Data de fim",
+      "end-date-invalid": "A data final deve ser posterior ou igual à data inicial",
+      "end-date-placeholder": "Não termina",
+      "end-time": "Hora de fim",
+      "frequency": "Frequência",
+      "interval-amount-min": "O valor do intervalo deve ser pelo menos 2",
+      "interval-amount-required": "O valor do intervalo é obrigatório",
+      "last-day-of-month": "Enviar no último dia do mês",
+      "monthly-schedule-alert-title": "Nota: os relatórios não serão enviados em meses que não tenham um dia {{ dayNumber }}. Escolha uma data anterior ou selecione \"Enviar no último dia do mês\" para enviar um relatório no final de cada mês.",
+      "repeat-every": "Repetir a cada",
+      "repeat-every-placeholder": "p. ex.: 2",
+      "repeat-interval-frequency-placeholder": "p. ex.:, horas",
+      "section-title": "Agendar ",
+      "send-time": "Agendar ",
+      "start-date": "Data de início",
+      "start-date-placeholder": "Selecionar a data",
+      "start-date-required": "A data de início é obrigatória",
+      "start-time": "Hora de início",
+      "time-zone": "Fuso horário",
+      "workdays-only": "Enviar apenas de segunda a sexta-feira"
+    },
+    "schedule-report": {
+      "button": "Agendar relatório",
+      "scheduling-button": "A agendar relatório..."
+    },
+    "see-all-reports": "Ver todos os relatórios",
+    "send-preview": {
+      "button": "Enviar pré-visualização",
+      "cancel": "Cancelar",
+      "email": "E-mail",
+      "email-description": "Separe vários endereços de e-mail com uma vírgula ou ponto e vírgula",
+      "email-required": "O e-mail é obrigatório",
+      "send": "Enviar",
+      "sending": "A enviar…",
+      "title": "Enviar pré-visualização",
+      "use-report-emails": "Utilizar e-mails do relatório"
+    },
+    "settings": {
+      "loading": "A carregar definições..."
+    },
+    "state": "Região:",
+    "unavailable-feature-info-box": {
+      "message": "A criação de novos relatórios não está disponível com uma licença expirada. Os relatórios existentes continuam a ser processados, mas precisa de atualizar a sua licença para criar um novo."
+    },
+    "update-report": {
+      "button": "Atualizar relatório",
+      "delete-button": "Eliminar",
+      "pause-button": "Pausar",
+      "pausing-button": "A pausar relatório...",
+      "resume-button": "Continuar",
+      "resuming-button": "A retomar relatório...",
+      "updating-button": "A atualizar relatório..."
+    }
+  },
+  "shared": {
+    "resource-picker": {
+      "placeholder-select-color": "Selecionar cor"
+    }
+  },
+  "team-lbac": {
+    "create-team-lbacform": {
+      "label-rule": "Regra",
+      "label-team": "Equipa",
+      "new-lbac-rule": "Nova regra LBAC",
+      "new-lbac-rule-example": "Exemplo:",
+      "save": "Guardar"
+    },
+    "editable-cell": {
+      "empty-rule": "Regra vazia"
+    },
+    "team-label": {
+      "placeholder": "Equipa com ID {{teamId}} não encontrada"
+    },
+    "team-lbaceditor-unconnected": {
+      "add-a-lbac-rule": "Adicionar uma regra LBAC",
+      "add-query-permissions": "<0>Adicionar permissões de consulta:</0> as seguintes equipas não têm permissões de consulta para a fonte de dados e, portanto, não podem consultar registos com as regras LBAC configuradas.",
+      "add-team-lbac-rules": "<0>Adicionar regras LBAC de equipa:</0> as seguintes equipas podem consultar todos os registos. Adicione regras LBAC de equipa para as mesmas:",
+      "clear-filter": "Limpar",
+      "clear-filter-aria-label": "Limpar o filtro",
+      "content-found-recommendation": "Recomendações encontradas",
+      "description-data-access": "Aqui, pode configurar o acesso a dados específicos na fonte de dados através dos seletores de etiquetas LogQL.",
+      "ensure-proper-access-control-please-follow": "Para garantir um controlo de acesso adequado, siga estas recomendações:",
+      "filter-results-single": "A mostrar 1 resultado",
+      "filter-teams-aria-label": "Filtrar regras LBAC por nome de equipa",
+      "filter-teams-placeholder": "Filtrar equipas",
+      "hide-access-control-recommendations": "Ocultar recomendações de controlo de acesso",
+      "hide-lbac-rule": "Ocultar regra LBAC",
+      "label-selector": "Seletor de etiquetas",
+      "lbac-description": "Configure regras LBAC para restringir o acesso a métricas/registos específicos.",
+      "lbac-labelbased-access-control": "LBAC (controlo de acesso baseado em etiquetas)",
+      "lbac-rules-note": "Nota:<1></1>- As regras LBAC NÃO serão aplicadas à consulta se o token autenticado de Política de Acesso à Nuvem tiver quaisquer seletores de etiqueta configurados no Grafana Cloud.<3></3>- Alterações às regras LBAC podem demorar até 5 minutos a produzir efeitos devido ao armazenamento em cache do caminho de consultas.",
+      "learn-more-about-lbac-rules": "Saiba mais sobre as regras LBAC",
+      "remove-unrestricted-access": "<0>Remover acesso ilimitado:</0> as seguintes funções têm atualmente acesso ilimitado aos registos.",
+      "role-warning-list": "Função: {{role}}",
+      "show-access-control-recommendations": "Mostrar recomendações de controlo de acesso",
+      "sort-teams-ascending": "Ordenar equipas de A a Z",
+      "sort-teams-descending": "Ordenar equipas de Z a A",
+      "team": "Equipa",
+      "title-access-control-recommendations": "Recomendações de controlo de acesso",
+      "title-data-access": "Acesso a dados",
+      "filter-results-multiple_one": "",
+      "filter-results-multiple_other": ""
+    },
+    "team-rules-row": {
+      "aria-label-add-team-rule": "adicionar regra de equipa",
+      "aria-label-delete-rule": "Eliminar regra",
+      "aria-label-edit-team-rule": "editar regra de equipa",
+      "cancel": "Cancelar",
+      "or": "OU",
+      "save": "Guardar",
+      "tooltip-add-new-rule": "Adicionar regra nova",
+      "tooltip-provisioned-rule": "Regra fornecida"
+    }
+  },
+  "teamLBAC": {
+    "create-team-lbacform": {
+      "message": {
+        "required": "Preenchimento obrigatório"
+      }
+    }
+  }
+}

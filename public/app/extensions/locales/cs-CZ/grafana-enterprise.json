@@ -1,0 +1,1477 @@
+{
+  "{{enricherType}} enricher does not require any configuration": {
+    " It will start enriching alerts as soon as it is enabled": "Rozšiřující modul {{enricherType}} nevyžaduje žádnou konfiguraci. Jakmile bude povolen, začne rozšiřovat výstrahy."
+  },
+  "access-control": {
+    "permissions": {
+      "lbac-warning-basic-role": "",
+      "lbac-warning-rule": "Varování: Tento tým nemusí mít oprávnění k dotazu na zdroj dat.",
+      "lbac-warning-team": "Varování: Tento tým má úplný přístup k datům, pokud nejsou nastavena žádná pravidla LBAC."
+    }
+  },
+  "admin": {
+    "role-filter": {
+      "admin-editor-option": "Správce/editor",
+      "multiselect-placeholder": "Filtrovat podle licencované role",
+      "server-admin-option": "Správce serveru",
+      "viewer-option": "Prohlížející"
+    }
+  },
+  "alert-enrichment": {
+    "error": "Nepodařilo se vytvořit rozšiřující modul výstrahy",
+    "metadata-error": "",
+    "success": "Rozšiřující modul výstrahy byl úspěšně vytvořen!",
+    "update-error": "Aktualizace rozšiřujícího modulu výstrahy se nezdařila",
+    "update-success": "Rozšiřující modul výstrahy byl úspěšně aktualizován!"
+  },
+  "alert-enrichment-form": {
+    "actions": {
+      "cancel": "Zrušit",
+      "save": "Uložit rozšiřující modul"
+    },
+    "assign-enricher": {
+      "add-annotation": "Přidat přiřazení vysvětlivky",
+      "annotation-name": "Klíč",
+      "annotation-name-placeholder": "klíč",
+      "annotation-value": "Hodnota",
+      "annotation-value-placeholder": "hodnota",
+      "remove-annotation-aria-label": "Odebrat vysvětlivku",
+      "remove-annotation-tooltip": "Odebrat vysvětlivku"
+    },
+    "basic-info": {
+      "description": "Popis (volitelný)",
+      "description-placeholder": "Popis rozšiřujícího modulu",
+      "name": "Název rozšiřujícího modulu",
+      "name-placeholder": "moje-rozšiřující-moduly",
+      "name-required": "Název je povinný",
+      "timeout": "Vypršel časový limit",
+      "timeout-description": "Maximální povolený čas pro tento rozšiřující modul (např. 30 s, 1 m)",
+      "timeout-placeholder": "30 s"
+    },
+    "ds-type": {
+      "logs": "Protokoly",
+      "raw": "Nezpracované"
+    },
+    "dsquery-enricher": {
+      "add-first-query": "Přidejte svůj první dotaz",
+      "add-query": "Přidat dotaz",
+      "no-datasource": "Chybí zdroj dat",
+      "no-datasource-description": "Nepodařilo se nám najít zdroj dat pro tento dotaz. Zdroj dat byl odstraněn nebo není k dispozici",
+      "no-queries": "Zatím nejsou definovány žádné dotazy",
+      "raw-queries-description": "Definujte dotazy, které budou provedeny za účelem rozšíření vašich výstrah. Výsledky budou k dispozici v kontextu rozšíření.",
+      "remove-query": "Odebrat dotaz"
+    },
+    "enricher-config": {
+      "llm-disabled": "LLM je deaktivováno",
+      "llm-disabled-description": "Vysvětlení rozšiřujícího modulu vyžaduje povolení pluginu Grafana LLM",
+      "type": "Typ rozšiřujícího modulu",
+      "type-placeholder": "Vyberte typ rozšiřujícího modulu",
+      "type-required": "Typ rozšiřujícího modulu je povinný"
+    },
+    "enricher-type": {
+      "asserts": "Tvrzení",
+      "assign": "Přiřadit",
+      "dsquery": "Dotaz na zdroj dat",
+      "explain": "Vysvětlit",
+      "external": "Externí",
+      "sift": "Sift"
+    },
+    "explain-enricher": {
+      "annotation-label": "Klíč vysvětlivky",
+      "annotation-placeholder": "vysvětlení",
+      "annotation-required": "Pro vysvětlení rozšiřujícího modulu je vyžadován klíč vysvětlivky",
+      "annotation-tooltip": "Klíč vysvětlivky, pod kterým bude uloženo vysvětlení generované LLM",
+      "description": "Vysvětlení rozšiřujícího modulu používá LLM ke generování vysvětlení pro výstrahy. Nakonfigurujte klíč vysvětlivky, kde bude vysvětlení uloženo."
+    },
+    "external-enricher": {
+      "url-label": "Adresa URL externí služby",
+      "url-placeholder": "https://api.example.com/enrich",
+      "url-required": "Pro externí obohacení je vyžadována adresa URL"
+    },
+    "matcher": {
+      "add-button": "Přidat",
+      "name-label": "Název",
+      "name-placeholder": "Název",
+      "remove-aria-label": "Odebrat modul pro porovnávání",
+      "remove-tooltip": "Odebrat modul pro porovnávání",
+      "type-label": "Typ",
+      "type-placeholder": "Typ",
+      "value-label": "Hodnota",
+      "value-placeholder": "Hodnota"
+    },
+    "matcher-type": {
+      "equals": "Rovná se (=)",
+      "not-equals": "Nerovná se (!=)",
+      "regex-match": "Shoda regulárního výrazu (=~)",
+      "regex-not-match": "Regulární výraz neodpovídá (!~)"
+    },
+    "scope": {
+      "all-alerts": "Všechny výstrahy",
+      "annotation-scoped": "Rozsah vysvětlivky",
+      "description": "Definujte, které výstrahy by měly být rozšířeny",
+      "label-scoped": "Štítek v rozsahu",
+      "title": "Rozsah"
+    }
+  },
+  "alerting": {
+    "ai-feedback": {
+      "comment-description": "Podělte se s námi o zpětnou vazbu a pomozte nám zlepšit se",
+      "comment-label": "Další zpětná vazba (nepovinné)",
+      "comment-placeholder": "Podělte se o svůj názor na odpověď AI…",
+      "comment-prompt": "Chcete nám říct víc o své zkušenosti?",
+      "helpful": "Ano, byla užitečná",
+      "not-helpful": "Ne, nebyla užitečná",
+      "question": "Byla tato odpověď AI užitečná?",
+      "skip": "Přeskočit",
+      "submit": "Odeslat zpětnou vazbu",
+      "thank-you": "Děkujeme za vaši zpětnou vazbu!"
+    },
+    "enrichment": {
+      "appliesTo": "Platí pro všechny výstrahy",
+      "delete": {
+        "body": "Opravdu chcete odstranit rozšiřující modul výstrahy <1>{{name}}</1>?",
+        "cancel": "Zrušit",
+        "confirm": "Odstranit",
+        "title": "Odstranit rozšiřující modul výstrahy"
+      },
+      "delete-enrichment": "Odstranit rozšiřující modul {{name}}",
+      "edit-button": "Upravit",
+      "edit-enrichment": "Upravit rozšiřující modul {{name}}",
+      "edit-title": "Upravit rozšiřující moduly",
+      "enrichments": "Rozšiřující moduly",
+      "expanded-row": {
+        "annotationMatchers": "<0>Porovnávače vysvětlivek:</0> {formatMatchers(annotationMatchers)}",
+        "asserts": "Byl nakonfigurován rozšiřující modul <0>Tvrzení</0>",
+        "assignments": "<0>Přiřazuje:</0> {assignments.map((a) => `${a.name}=${a.value}`).join(', ')}",
+        "datasource": "<0>Zdroj dat:</0> {details.join(', ')}",
+        "externalUrl": "<0>Adresa URL:</0> {step.enricher.external.url}",
+        "labelMatchers": "<0>Porovnávače štítků:</0> {formatMatchers(labelMatchers)}",
+        "sift": "Rozšiřující modul <0>Sift</0> je nakonfigurován",
+        "type": "Typ:"
+      },
+      "load-error": "Rozšiřující modul se nepodařilo načíst",
+      "loading": "Načítání rozšiřujících modulů…",
+      "loadMore": "Načíst další",
+      "new-alert": "Nový rozšiřující modul výstrahy",
+      "new-title": "Nový rozšiřující modul",
+      "noEnrichments": "Nejsou nakonfigurovány žádné rozšiřující moduly výstrah",
+      "tab": {
+        "description": "Zpřístupněte oznámení o výstrahách spuštěním předběžné analýzy a přidáním dalšího kontextu."
+      },
+      "table": {
+        "actions": "Akce",
+        "annotationMatchers": "Vysvětlivky",
+        "annotationMatchers-scoped": "Omezeno na ",
+        "enrichment": "Rozšiřující modul",
+        "labelMatchers": "Štítky"
+      },
+      "tooltip": {
+        "asserts": "Používá tvrzení k rozšíření výstrah",
+        "assign": {
+          "assignments": "Vysvětlivky:",
+          "default": "Přiřadí vysvětlivky k výstrahám",
+          "emptyValue": "(prázdné)",
+          "title": "Přiřadí vysvětlivky k výstrahám"
+        },
+        "default": "Rozšiřující modul výstrahy byl úspěšně nastaven",
+        "dsquery": {
+          "datasourceType": "Zdroj dat:",
+          "maxLines": "Max. počet řádků:",
+          "queries": "Dotazy:",
+          "query": "Dotaz:",
+          "rawRequest": "Žádost o vlastní zdroj dat byla nakonfigurována",
+          "refId": "Ref. ID:",
+          "title": "Dotazy na zdroj dat pro rozšíření",
+          "type": "Typ:"
+        },
+        "explain": {
+          "annotation": "Ukládá v:",
+          "default": "Používá LLM ke generování vysvětlení výstrah",
+          "title": "Používá LLM ke generování vysvětlení výstrah"
+        },
+        "external": {
+          "default": "Vyvolá externí službu pro rozšíření",
+          "title": "Vyvolá externí službu pro rozšíření",
+          "url": "Adresa URL:"
+        },
+        "sift": "Používá sift k rozšíření výstrah"
+      }
+    },
+    "generate-ai-rule": {
+      "button": "Generovat pomocí AI",
+      "modal": {
+        "error": "{stringifyErrorLike(error)}",
+        "error-title": "Chyba při generování pravidla výstrahy",
+        "generate": "Generovat pravidlo",
+        "generating": "Generování…",
+        "preview-contact-point": "Kontaktní bod:",
+        "preview-description": "Popis:",
+        "preview-name": "Název:",
+        "preview-queries": "Dotazy:",
+        "preview-title": "Generované pravidlo výstrahy",
+        "prompt-description": "Popište, co chcete sledovat a kdy chcete být upozorněni. Například: „Upozornit, když je využití CPU vyšší než 80 % po dobu delší než 5 minut“. Můžete se také zeptat na dostupné kontaktní body nebo zdroje dat.",
+        "prompt-label": "Popište pravidlo výstrahy, které chcete vytvořit",
+        "prompt-placeholder": "Upozornit, když využití disku překročí 90 % po dobu delší než 5 minut, a odeslat na kontaktní místo Slack…",
+        "title": "Generovat pravidlo výstrahy pomocí AI",
+        "use-rule": "Použít toto pravidlo"
+      }
+    },
+    "improve-ai-annotations": {
+      "button": "Zlepšete anotace pomocí AI",
+      "modal": {
+        "apply-improvements": "Použít vylepšení vysvětlivek",
+        "error": "{stringifyErrorLike(generationError)}",
+        "error-title": "Chyba",
+        "generate": "Vylepšit vysvětlivky",
+        "generating": "Generování…",
+        "preview-annotations": "Vylepšené vysvětlivky:",
+        "preview-title": "Náhled vylepšení AI vysvětlivek",
+        "prompt-description": "Popište, co chcete zlepšit na vysvětlivkách pravidel výstrah. Například: „Zpřesnit souhrn“, „Přidat kroky k řešení problémů do popisu“ nebo „Přidat odkazy na runbooky“.",
+        "prompt-label": "Jak byste chtěli zlepšit vysvětlivky?",
+        "prompt-placeholder": "Vytvořte podrobnější shrnutí a do popisu přidejte kroky pro řešení problémů…",
+        "title": "Vylepšete vysvětlivky pravidel výstrah pomocí AI"
+      }
+    },
+    "improve-ai-labels": {
+      "button": "Vylepšete štítky pomocí AI",
+      "modal": {
+        "cancel": "Zrušit",
+        "error": "{stringifyErrorLike(generationError)}",
+        "error-title": "Chyba",
+        "generate": "Generovat vylepšení",
+        "generating": "Generování…",
+        "prompt-description": "Popište, co chcete zlepšit na štítcích pravidel výstrah. Například: „Přidat dynamické štítky závažnosti“, „Zahrnout vlastnictví týmu“ nebo „Přidat štítky prostředí“.",
+        "prompt-label": "Jak byste chtěli štítky vylepšit?",
+        "prompt-placeholder": "Přidejte dynamické štítky závažnosti na základě prahových hodnot a zahrňte vlastnictví týmu…",
+        "title": "Vylepšete štítky pravidel výstrah pomocí AI"
+      },
+      "preview": {
+        "apply": "Použít vylepšení",
+        "cancel": "Zrušit",
+        "no-improvements": "Nebyla nalezena žádná vylepšení",
+        "no-improvements-message": "Umělá inteligence nenavrhla žádná vylepšení štítků pro tento požadavek.",
+        "title": "AI navrhla vylepšení štítků:"
+      }
+    },
+    "settings": {
+      "tabs": {
+        "enrichment": {
+          "title": "Rozšiřující modul výstrah"
+        }
+      }
+    },
+    "template-form": {
+      "genai": {
+        "modal": {
+          "error": "{stringifyErrorLike(generationError)}",
+          "error-title": "Chyba",
+          "generate": "Generovat šablonu",
+          "generating": "Generování…",
+          "prompt-description": "Popište formát a obsah, který chcete pro své oznámení. Například: „Zpráva na Slacku zobrazující název výstrahy, stav a shrnutí s indikátory emoji“ nebo „E-mail s tabulkou všech spouštěcích výstrah včetně jejich štítků a časů spuštění“.",
+          "prompt-label": "Popište, jak chcete, aby oznámení vypadalo",
+          "prompt-placeholder": "Zpráva na Slacku, která zobrazuje „🔥VÝSTRAHA: [AlertName] se spouští“ se shrnutím a odkazem pro zobrazení podrobností…",
+          "title": "Generovat šablonu pomocí AI"
+        }
+      }
+    },
+    "templates": {
+      "editor": {
+        "generate-with-ai": "Generovat pomocí AI"
+      }
+    },
+    "triage-ai": {
+      "button": "Analyzovat pomocí {{ provider }}",
+      "modal": {
+        "analysis-title": "Analýza třídění výstrah",
+        "analyze": "Analyzovat",
+        "analyzing": "🤖 Analýza {{logRecordsLength}} událostí výstrah…",
+        "custom-question": {
+          "help": "Nechte prázdné pro obecné třídění analýzy nebo zadejte konkrétní otázku týkající se výstražných událostí.",
+          "label": "Položte konkrétní otázku (volitelné)",
+          "placeholder": "např. „Co spouští výstrahy databáze? “ nebo „Souvisí tyto výstrahy s nedávným vydáním?“"
+        },
+        "description": "Analýza aktuálních výstražných událostí pomocí umělé inteligence, která pomáhá porozumět vzorcům, stanovit priority reakcí a identifikovat potenciální problémy.",
+        "error": "Chyba",
+        "title": "Analýza třídění výstrah"
+      }
+    }
+  },
+  "auth-config": {
+    "action-bar": {
+      "content-disable-button": "Zakázání zabrání Grafaně používat ověření SAML.",
+      "delete": "Odstranit",
+      "disable-button": "Zakázat",
+      "enabled-badge": "Povoleno",
+      "more-actions-button": "Další akce",
+      "not-enabled-badge": "Není povoleno",
+      "protocol": "Protokol",
+      "save-and-apply-button": "Uložit a použít",
+      "save-and-enable-button": "Uložit a povolit",
+      "save-button": "Uložit",
+      "status": "Stav"
+    },
+    "assertion-mapping-unconnected": {
+      "aria-label-name-id-format": "nameIdFormat",
+      "assertionAttributeEmail-label-email-attribute": "Atribut e-mailu",
+      "assertionAttributeEmail-placeholder-mail": "pošta",
+      "assertionAttributeExternalUid-label-external-uid": "Atribut externího UID",
+      "assertionAttributeExternalUid-tooltip-external-uid": "Mapování externího UID je bezpečnostní mechanismus, který zabraňuje vydávání se za jinou osobu a je vyžadován pouze v případě, že je povoleno zajištění SCIM. Zajištěné externí UID (identifikátor uživatele vygenerovaný poskytovatelem identity) musí být při přihlášení uživatele přítomno v tvrzení SAML. Výchozí hodnota pro toto pole je userUID.",
+      "assertionAttributeGroups-label-groups-attribute": "Atribut skupin",
+      "assertionAttributeLogin-label-login-attribute": "Atribut přihlášení",
+      "assertionAttributeLogin-placeholder-mail": "pošta",
+      "assertionAttributeName-label-name-attribute": "Název atributu",
+      "assertionAttributeName-placeholder-display-name": "displayName",
+      "assertionAttributeOrg-label-org-attribute": "Atribut organizace",
+      "assertionAttributeRole-label-role-attribute": "Atribut role",
+      "azure-ad-service-account-configuration": "Konfigurace účtu služby Azure AD",
+      "clientId-label-client-id": "ID klienta",
+      "clientSecret-label-client-secret": "Tajné heslo klienta",
+      "description-allowed-organizations": "Seznam názvů organizací SAML oddělených čárkou nebo mezerou. Uživatel musí být členem alespoň jedné organizace, aby se mohl přihlásit.",
+      "description-assertion-attributes-mapping": "Namapovat atributy tvrzení SAML na atributy uživatele Grafany. Atributy tvrzení podporují mapování šablon. Synchronizace týmu je k dispozici, pokud je nakonfigurován atribut skupin.",
+      "description-azure-ad-service-account-configuration": "Pokud máte uživatele, kteří patří do více než 150 skupin ve vaší organizaci Azure AD, musíte v Azure AD nastavit účet služby, abyste získali všechny skupiny prostřednictvím rozhraní Graph API. Tento účet služby bude použit k získání všech skupin pro uživatele. Další informace o konfiguraci účtu služby Azure AD najdete v <1>dokumentaci</1>.",
+      "description-force-use-graph-api": "Vynutit použití rozhraní Graph API pro získání všech skupin pro uživatele.",
+      "description-name-identifier-format": "Formáty identifikátorů názvů řídí, jak jsou uživatelé u poskytovatele identity mapováni na uživatele v Grafaně",
+      "description-prevent-synchronizing-users-organization-roles": "Zabraňte synchronizaci rolí organizace uživatelů SAML od vašeho poskytovatele identity.",
+      "label-allowed-organizations": "Povolené organizace",
+      "label-assertion-attributes-mapping": "Mapování atributů tvrzení",
+      "label-force-use-graph-api": "Vynutit použití rozhraní Graph API",
+      "label-name-identifier-format": "Formát identifikátoru názvu",
+      "label-org-mapping": "Mapování organizace",
+      "label-role-mapping": "Mapování role",
+      "label-skip-organization-role-sync": "Přeskočit synchronizaci rolí organizace",
+      "label-user-mapping": "Mapování uživatele",
+      "orgMapping-label-org-mapping": "Mapování organizace",
+      "roleValuesAdmin-label-admin": "Správce",
+      "roleValuesEditor-label-editor": "Editor",
+      "roleValuesGrafanaAdmin-label-grafana-admin": "Správce Grafana",
+      "roleValuesNone-label-none": "Žádné",
+      "roleValuesViewer-label-viewer": "Prohlížející",
+      "tokenUrl-label-access-token-url": "Adresa URL přístupového tokenu",
+      "tooltip-assertion-attributes-mapping": "Mapování atributů tvrzení v Grafaně přebírá informace o uživateli z odpovědi SAML a používá je k vytvoření nebo aktualizaci uživatele ve své databázi. Čte atributy – páry klíč/hodnota – v rámci tvrzení, jako je jméno, přihlašovací jméno a e-mail. Konfigurace umožňují úpravu výběru klíčů.",
+      "tooltip-org-mapping": "Mapování organizací umožňuje přiřadit uživatele ke konkrétní organizaci v Grafaně v závislosti na hodnotě atributu získané od poskytovatele identity. Pomocí konfigurace přiřaďte uživatele z vaší organizace k organizaci Grafana.",
+      "tooltip-role-mapping": "Mapování rolí synchronizuje uživatelské role od poskytovatele identity do Grafany konfigurací atributů rolí pro role Žádný, Prohlížející, Editor, Správce a Správce Grafany. V případě, že neexistuje žádná shoda, je výchozí rolí v Grafaně „Prohlížející“."
+    },
+    "config-action": {
+      "confirm-modal-body": "Opravdu chcete trvale odstranit tuto konfiguraci SAML? Všechny změny provedené v uživatelském rozhraní budou odebrány.",
+      "confirm-modal-confirm-text": "Smazat nastavení",
+      "confirm-modal-confirmation-text": "odstranit",
+      "confirm-modal-dismiss-text": "Zpět na úpravy",
+      "confirm-modal-title": "Smazat konfiguraci SAML"
+    },
+    "connect-to-idp-unconnected": {
+      "configure-assertions-group-mappings": "V dalším kroku nakonfigurujte tvrzení, skupinu a mapování skupin a organizací.",
+      "configure-idp-using-grafana-metadata": "Konfigurovat poskytovatele identity pomocí metadat Grafany",
+      "copy": "Kopírovat",
+      "description-assertion-consumer-service-url": "Adresa URL k propojení POST spotřebitelské služby pro tvrzení",
+      "description-idp-metadata": "Musí být stejná jako nastavení nebo požadovaná poskytovatelem identity.",
+      "description-metadata-url": "Adresa URL pro metadata poskytovatele identity",
+      "description-setup-idp": "Chcete-li nakonfigurovat poskytovatele identity (IdP), budete potřebovat adresu URL metadat Grafany. Všechny níže uvedené koncové body musí být dostupné vašemu poskytovateli identity (IdP).",
+      "description-setup-required": "Navštivte konfigurační panel svého poskytovatele identity, přidejte novou aplikaci a použijte metadata z prvního kroku pro připojení ke Grafaně. Budete muset zkopírovat metadata svého poskytovatele identity a poskytnout je níže. Otestujte připojení a zkopírujte štítky/hodnoty tvrzení.",
+      "description-slo-url": "Adresa URL pro propojení přesměrování služby odhlášení / adresa URL pro propojení POST služby odhlášení",
+      "description-sp-metadata-url-entity-id": "Adresa URL metadat SP / ID entity SP",
+      "description-test-connection": "Pokud chcete otestovat připojení z panelu svého poskytovatele identity, nezapomeňte povolit přihlášení iniciované poskytovatelem identity a poskytnout informace o stavu přenosu.",
+      "finish-configuring-grafana-using-idp-data": "Dokončit konfiguraci Grafany pomocí dat poskytovatele identity",
+      "label-assertion-consumer-service-url": "Adresa URL spotřebitelské služby tvrzení",
+      "label-baseencoded-idp-metadata": "Metadata poskytovatele identity kódovaná pomocí Base64",
+      "label-connect-grafana-with-identity-provider": "Propojit Grafanu s poskytovatelem identity",
+      "label-idp-metadata": "Metadata poskytovatele identity ",
+      "label-metadata-url": "Adresa URL metadat",
+      "label-path-to-idp-metadata-file": "Cesta k souboru metadat poskytovatele identity",
+      "label-slo-url": "Adresa URL SLO",
+      "label-sp-metadata-url-entity-id": "Adresa URL metadat",
+      "step-number-1": "1",
+      "step-number-2": "2",
+      "step-number-3": "3"
+    },
+    "general-unconnected": {
+      "description-allow-signup": "Zda povolit vytvoření nového uživatele Grafany prostřednictvím přihlášení SAML. Pokud není povoleno, mohou se pomocí SAML přihlásit pouze stávající uživatelé Grafany.",
+      "description-auto-login": "Pokusit se přihlásit pomocí SAML automaticky a přeskočit přihlašovací obrazovku.",
+      "description-display-name-for-this-saml-integration": "Užitečné, pokud používáte více než jednoho poskytovatele identity nebo protokol SSO IdP.",
+      "description-duration-grafana-metadata-valid": "Doba platnosti metadat Grafany.",
+      "description-entity-id": "ID subjektu je globální jedinečný identifikátor poskytovatele služeb. Používá se k identifikaci poskytovatele služeb poskytovateli identity. Výchozí nastavení je adresa URL instance Grafany.",
+      "description-identity-provider-initiated-login": "Umožňuje uživatelům přihlásit se do Grafany přímo od poskytovatele identity.",
+      "description-max-issue-delay": "Doba trvání, protože poskytovatel identity vydal odpověď a Grafana ji může zpracovat.",
+      "description-relay-state": "Povinné. Mělo by odpovídat stavu přenosu nakonfigurovanému v poskytovateli identity a je vyžadována koncová mezera.",
+      "description-single-logout": "Umožňuje uživatelům odhlásit se z relace poskytovatele identity a aplikací spojených s aktuální relací poskytovatele identity vytvořených prostřednictvím SAML.",
+      "displayName-placeholder-saml": "SAML",
+      "label-allow-signup": "Povolit registraci",
+      "label-auto-login": "Automatické přihlášení",
+      "label-display-name-for-this-saml-integration": "Zobrazit název pro tuto integraci SAML 2.0",
+      "label-entity-id": "ID subjektu",
+      "label-general-settings": "Obecná nastavení",
+      "label-identity-provider-initiated-login": "Přihlášení iniciované poskytovatelem identity",
+      "label-max-issue-delay": "Maximální zpoždění vydání",
+      "label-metadata-valid-duration": "Platné trvání metadat",
+      "label-relay-state": "Stav přenosu",
+      "label-single-logout": "Jednotné odhlášení"
+    },
+    "input-with-reset": {
+      "reset": "Obnovit"
+    },
+    "key-cert-drawer-unconnected": {
+      "close": "Zavřít",
+      "description-number-generated-certificate-valid": "Počet dní, po které je vygenerovaný certifikát platný.",
+      "generate": "Generovat",
+      "label-city": "Město",
+      "label-country-code": "Kód země",
+      "label-state": "Stav",
+      "label-validity-days": "Dny platnosti",
+      "label-your-organization": "Vaše organizace",
+      "subtitle-saml-key-and-certificate": "Do vygenerovaného certifikátu budou zahrnuty následující údaje",
+      "title-saml-key-and-certificate": "Klíč a certifikát SAML",
+      "tooltip-generate-the-certificate-and-private-key": "Generovat certifikát a soukromý klíč"
+    },
+    "key-cert-unconnected": {
+      "description-baseencoded-grafana-x-certificate": "Certifikát Grafana X.509 kódovaný pomocí Base64",
+      "description-baseencoded-private-key": "Soukromý klíč kódovaný pomocí Base64",
+      "description-path-to-the-grafana-private-key": "Cesta k soukromému klíči Grafany",
+      "description-path-to-the-grafana-x-certificate": "Cesta k certifikátu Grafana X.509",
+      "description-sign-outgoing-requests-to-id-p": "Podepsat odchozí požadavky na poskytovatele identity",
+      "description-signature-algorithm": "Algoritmus podpisu používaný pro podepisování požadavků na poskytovatele identity. Musí být stejný jako nastavení nebo požadovaný poskytovatelem identity.",
+      "description-signing-and-encryption-key-certificate": "Certifikát a soukromý klíč pro výměnu informací mezi Grafanou a poskytovatelem identity. Soukromý klíč musí být vydán ve formátu PKCS#8. Certifikát by měl být platný certifikát X.509.",
+      "generate-key-and-certificate": "Generovat klíč a certifikát",
+      "label-certificate": "Certifikát",
+      "label-private-key": "Soukromý klíč",
+      "label-sign-requests": "Podepsat požadavky",
+      "label-signature-algorithm": "Algoritmus podpisu",
+      "label-signing-and-encryption-key-certificate": "Klíč a certifikát pro podepisování a šifrování"
+    },
+    "page-banner": {
+      "aria-label-close-banner": "Zavřít banner",
+      "tooltip-close": "Zavřít"
+    },
+    "SAML": {
+      "button-row-next": "Další: {{name}}",
+      "button-row-previous": "Předchozí: {{name}}"
+    },
+    "samlform": {
+      "text-saved": "Uloženo"
+    },
+    "save-and-test-unconnected": {
+      "button-save-and-enable": "Uložit a povolit",
+      "label-test-and-enable": "Otestovat a povolit",
+      "text-save-and-enable": "Pokud jste připraveni použít konfiguraci SAML, použijte tlačítko „Uložit a povolit“. Konfiguraci budete moct zakázat."
+    },
+    "save-samlsettings": {
+      "message": {
+        "cannot-save-settings": "Nastavení nelze uložit"
+      }
+    },
+    "text-input-with-reset": {
+      "reset": "Obnovit"
+    }
+  },
+  "banner": {
+    "api": {
+      "result": {
+        "saved": "Nastavení banneru uloženo"
+      }
+    },
+    "form": {
+      "button-save": "Uložit",
+      "button-saving": "Ukládání…",
+      "enabled": {
+        "label": "Povoleno"
+      },
+      "end": {
+        "description": "Pokud není vybráno žádné datum ukončení, banner se zobrazí na neurčito.",
+        "error": "Čas ukončení musí být po čase začátku",
+        "label": "Končí v"
+      },
+      "message": {
+        "description": "Textový obsah banneru. Podporuje snížení.",
+        "label": "Zpráva"
+      },
+      "options": {
+        "error": "Chyba",
+        "info": "Info",
+        "warning": "Varování"
+      },
+      "select": {
+        "placeholder": "Vyberte typ banneru"
+      },
+      "start": {
+        "description": "Banner se bude zobrazovat počínaje tímto datem/časem.",
+        "label": "Začíná v"
+      },
+      "title": "Konfigurovat banner",
+      "variant": {
+        "label": "Varianta"
+      }
+    },
+    "preview": {
+      "message": {
+        "default": "Aktualizovat tento náhled úpravou pole zprávy."
+      },
+      "title": "Náhled"
+    }
+  },
+  "caching": {
+    "alert": {
+      "readonly": {
+        "message": "Tento zdroj dat byl přidán pomocí konfigurace a ukládání do mezipaměti nelze upravit pomocí uživatelského rozhraní. Chcete-li tento zdroj dat aktualizovat, obraťte se na správce serveru.",
+        "title": "Zajištěný zdroj dat"
+      }
+    },
+    "cache-clean": {
+      "body-clear-cache": "Varování: Tato akce ovlivní všechny zdroje dat s povolenou vyrovnávací pamětí. Pokud používáte Memcached, systém vymaže všechna data z instance Memcached. Chcete pokračovat?",
+      "clear-cache": "Vymazat vyrovnávací paměť",
+      "confirm-text-clear-cache": "Vymazat vyrovnávací paměť",
+      "title-clear-cache": "Vymazat vyrovnávací paměť"
+    },
+    "cache-cta": {
+      "enable-button-title": "Povolit",
+      "enable-button-tittle": "Povolit",
+      "protip-caching-cannot-enabled-source": "Konfigurace tohoto zdroje dat neumožňuje povolit ukládání do vyrovnávací paměti.",
+      "protip-caching-not-enabled": "Povolení ukládání do vyrovnávací paměti může snížit množství nadbytečných požadavků odesílaných do zdroje dat.",
+      "protip-link-caching-not-enabled": "Zjistěte víc",
+      "title-caching-cannot-enabled-source": "Pro tento zdroj dat nelze povolit ukládání do vyrovnávací paměti.",
+      "title-caching-not-enabled": "Pro tento zdroj dat není povoleno ukládání do vyrovnávací paměti."
+    },
+    "cache-settings-disable": {
+      "disable": "Zakázat"
+    },
+    "cache-settings-form": {
+      "description-query-ttl": "Doba životnosti dotazu ve vyrovnávací paměti v milisekundách. Příklad: 5 000",
+      "description-resource-ttl": "Zdroje jsou dynamické hodnoty, které pluginy zdrojů dat Grafana získávají ze zdrojů dat pro použití v editoru dotazů. Příkladem jsou jmenné prostory Splunk, štítky Prometheus a názvy metrik CloudWatch. Protože se tyto hodnoty aktualizují méně často, můžete upřednostnit delší TTL vyrovnávací paměti pro zdroje než dotazy. Další informace najdete v <2>dokumentaci</2>.",
+      "description-timetolive-resources-cache-items-milliseconds-example": "Doba životnosti zdrojů ve vyrovnávací paměti v milisekundách. Příklad: 5 000",
+      "description-use-default-ttl": "Povolte tuto možnost pro použití výchozího TTL nastaveného v konfiguraci Grafany ({{defaultTTLMs}} ms)",
+      "label-query-ttl": "TTL dotazu",
+      "label-use-default-ttl": "Použít výchozí TTL",
+      "resource-ttl": "TTL zdroje",
+      "save": "Uložit"
+    },
+    "caching": {
+      "content": {
+        "text": {
+          "enable-caching": "Povolit ukládání do mezipaměti"
+        }
+      }
+    },
+    "data-source-cache": {
+      "caching-heading": "Ukládání do vyrovnávací paměti",
+      "query-catching": "Povolte ukládání dotazů do vyrovnávací paměti zdarma během zkušební verze Grafana Pro.",
+      "upgrade-content-author-dashboards": "Vytvářejte nástěnky plynuleji ukládáním dat použitých k vytváření dotazů do vyrovnávací paměti, jako jsou pole v ServiceNow nebo metriky dostupné z Datadog",
+      "upgrade-content-description": "Díky ukládání dotazů do vyrovnávací paměti můžete rychleji načítat nástěnky a snížit nákladné dotazy na zdroje dat dočasným ukládáním výsledků dotazů do paměti, Redis nebo Memcached.",
+      "upgrade-content-load-dashboards": "Načtěte nástěnky za méně než sekundu z vyrovnávací paměti bez ohledu na počet dotazů nebo uživatelů, kteří si je prohlížejí",
+      "upgrade-content-save-money": "Ušetřete peníze a vyhněte se omezení rychlosti snížením počtu volání API do zdrojů dat, jako jsou Splunk, CloudWatch a Github"
+    }
+  },
+  "common": {
+    "cancel": "Zrušit",
+    "close": "Zavřít"
+  },
+  "explore": {
+    "query-library": {
+      "cancel": "Zrušit",
+      "default-title": "Nový dotaz",
+      "discard": "Zahodit",
+      "editing-title": "Úprava z uložených dotazů",
+      "explore": "Upravit v Prozkoumat",
+      "query-template-added": "Dotaz byl úspěšně uložen do knihovny",
+      "query-template-edit-error": "Při pokusu o úpravu tohoto dotazu došlo k chybě",
+      "query-template-edited": "Šablona dotazu byla úspěšně upravena",
+      "save": "Uložit",
+      "save-and-close": "",
+      "save-return": "Uložit a vrátit se k uloženým dotazům",
+      "saving": "Ukládání…"
+    }
+  },
+  "export": {
+    "pdf": {
+      "cancel-button": "Zrušit",
+      "download-button": "Vytvořit PDF",
+      "image-alt": "Náhled PDF",
+      "info-text": "Exportovat nástěnku jako dokument PDF",
+      "layout-label": "Rozvržení",
+      "orientation-label": "Orientace",
+      "title": "Exportovat PDF nástěnky",
+      "zoom-description": "Přiblížením zvětšíte text nebo oddálením zobrazíte více dat (například sloupce tabulky) na panel.",
+      "zoom-label": "Přiblížení"
+    }
+  },
+  "groupsync": {
+    "empty-state": {
+      "pro-tip": "Chcete spravovat přístup na Grafanu prostřednictvím skupin ve svém poskytovateli identity? Vytvořte mapování skupin na role RBAC v Grafaně. <2>Zjistěte víc</2>",
+      "title": "Dosud jste nevytvořili žádná mapování skupin"
+    },
+    "group-sync-editor": {
+      "body-delete-group-mappings": "Opravdu chcete odstranit všechna mapování pro tuto skupinu?",
+      "close-button-drawer": "Zavřít",
+      "confirm-text-delete-group-mappings": "Odstranit",
+      "delete-group-mapping": "Odstranit mapování skupiny",
+      "new-button-drawer": "Nové",
+      "new-group-mapping": "Nové mapování skupiny",
+      "placeholder-search-by-group-id": "Hledat podle ID skupiny",
+      "text-deprecated-feature": "Tato funkce je zastaralá a vaše pravidla přestanou fungovat v červnu 2025. Přejděte na externí synchronizaci skupin v nastavení požadovaného týmu a přiřaďte role týmům.",
+      "title-delete-group-mappings": "Odstranit mapování skupin",
+      "title-deprecated-feature": "Zastaralá funkce"
+    },
+    "new-mapping-form": {
+      "label-group-id": "ID skupiny",
+      "label-roles": "Role",
+      "save": "Uložit"
+    }
+  },
+  "licensing": {
+    "customer-support-button": {
+      "contact-customer-support": "Kontaktovat zákaznickou podporu"
+    },
+    "expires-soon": {
+      "title-grafana-enterprise-license-expire": "Platnost vaší licence Grafana Enterprise brzy vyprší",
+      "sub-title-license-expiration_one": "Zbývá {{count}} den, poté <3>budou funkce Enterprise zakázány.</3>",
+      "sub-title-license-expiration_few": "Zbývají {{count}} dny/dnů, poté <3>budou funkce Enterprise zakázány.</3>",
+      "sub-title-license-expiration_many": "Zbývají {{count}} dny/dnů, poté <3>budou funkce Enterprise zakázány.</3>",
+      "sub-title-license-expiration_other": "Zbývají {{count}} dny/dnů, poté <3>budou funkce Enterprise zakázány.</3>"
+    },
+    "get-token-status": {
+      "title": {
+        "token-expired": "Platnost tokenu vypršela",
+        "token-expires-soon": "Platnost tokenu brzy vyprší"
+      }
+    },
+    "get-trial-status": {
+      "title": {
+        "trial-active": "Zkušební verze je aktivní",
+        "trial-expired": "Zkušební verze vypršela"
+      }
+    },
+    "has-expired": {
+      "sub-title-licensing-reader": "<0>Některé funkce</0> byly zakázány.",
+      "title-your-grafana-enterprise-license-has-expired": "Platnost vaší licence Grafana Enterprise vypršela"
+    },
+    "is-invalid": {
+      "sub-title-licensing-reader": "<0>Některé funkce</0> byly zakázány.",
+      "title-your-grafana-enterprise-license-is-invalid": "Vaše licence Grafana Enterprise je neplatná"
+    },
+    "license-info": {
+      "aria-label-details-about-license-grafana-cloud": "Zobrazit podrobnosti o licenci v Grafana Cloud",
+      "card-content-account": "Účet AWS",
+      "card-content-active-licensed-users": "Aktivní licencovaní uživatelé",
+      "card-content-anonymous-users": "Anonymní uživatelé",
+      "card-content-authenticated-users": "Ověření uživatelé",
+      "card-content-company": "Společnost",
+      "card-content-license-expires": "Platnost licence vyprší",
+      "card-content-license-expires-tooltip": "Datum vypršení platnosti licence je datum, kdy aktuální licence již není aktivní. Na blížící se datum vypršení licence vás Grafana Enterprise upozorní bannerem.",
+      "card-content-lid": "ID licence",
+      "card-content-none": "Žádné",
+      "card-content-product": "Produkt",
+      "card-content-products": "Produkty",
+      "card-content-purchase-date": "Datum zakoupení",
+      "card-content-token-auto-update": "Grafana automaticky aktualizuje token před vypršením jeho platnosti. Pokud se váš token neaktualizuje, obraťte se na podporu.",
+      "card-content-token-expires": "Platnost tokenu vyprší",
+      "card-content-token-id": "ID tokenu",
+      "card-content-token-issued": "Token vydán",
+      "card-content-token-usage-billing-off": "Vypnuto",
+      "card-content-url-name": "URL",
+      "card-content-url-tooltip": "Adresa URL licence je kořenová adresa URL vaší instance Grafany. Licence nebude fungovat na instanci Grafany s jinou kořenovou adresou URL.",
+      "card-content-usage-billing": "Fakturace podle využití",
+      "card-content-usage-billing-on": "Zapnuto",
+      "card-content-usage-billing-tooltip": "Můžete požádat Grafana Labs o zapnutí fakturace za využití, abyste povolili neomezený počet aktivních uživatelů. Když je povolena fakturace za využití, Grafana nevynucuje limity aktivních uživatelů ani nezobrazuje varovné bannery. Místo toho vám budou účtováni aktivní uživatelé nad limit podle vaší zákaznické smlouvy.",
+      "edition-notice-licensing-info": "Používáte Grafana Enterprise bez licence. Funkce Enterprise jsou zakázány.",
+      "edition-notice-problem-licensing-info": "Došlo k problému s tokenem licence Enterprise. Funkce Enterprise jsou zakázány.",
+      "license-alert": "Licenční token byl nahrán. Aby se změny projevily, restartujte Grafanu.",
+      "license-details": "Podrobnosti o licenci",
+      "license-token-info": "Přečtěte si o <2>vypršení platnosti licence</2> a <6>aktivaci licence</6>.",
+      "renew-token": "Obnovit token",
+      "renewing": " (probíhá obnovení…)",
+      "text-loading-licensing-info": "Načítání licenčních informací…",
+      "title-contact-support-renew-token-visit-cloud": "Kontaktujte podporu pro obnovení tokenu nebo navštivte cloudový portál a zjistěte víc.",
+      "title-have-a-license": "Máte licenci?",
+      "title-license": "Licence",
+      "title-license-token-renewed": "Licenční token byl obnoven.",
+      "title-token": "Token",
+      "title-utilization": "Využití",
+      "utilization-footer": "Využití licencovaných uživatelů se určuje na základě aktivity přihlášených uživatelů za posledních 30 dní.",
+      "utilization-info": "Přečtěte si o <2>limitech aktivních uživatelů</2> a <6>limitech souběžných relací</6>.",
+      "card-content-anonymous-users-tooltip_one": "Za každé {{count}} anonymní zařízení Grafana počítá 1 uživatele.",
+      "card-content-anonymous-users-tooltip_few": "Za každé {{count}} a více anonymních zařízení Grafana počítá 1 uživatele.",
+      "card-content-anonymous-users-tooltip_many": "Za každé {{count}} a více anonymních zařízení Grafana počítá 1 uživatele.",
+      "card-content-anonymous-users-tooltip_other": "Za každé {{count}} a více anonymních zařízení Grafana počítá 1 uživatele."
+    },
+    "license-token-upload": {
+      "instance-url": "Adresa URL instance: <1>{{licensedUrl}}</1>",
+      "upload-a-new-token": "Nahrát nový token",
+      "uploading": "Nahrávání…"
+    },
+    "max-users-reached": {
+      "title-exceeded-included-number-active-users": "Překročili jste zahrnutý počet aktivních uživatelů",
+      "upgrade-your-license-link": "<2>Upgradujte svou licenci.</2>",
+      "upgrade-your-license-no-link": "Upgradujte svou licenci.",
+      "upgrade-your-license-subtitle_one": "Vaše licence Grafana Enterprise zahrnuje {{maxUsers}} aktivních uživatelů – aktuální počet vašich aktivních uživatelů je {{count}}. ",
+      "upgrade-your-license-subtitle_few": "Vaše licence Grafana Enterprise zahrnuje {{maxUsers}} aktivních uživatelů – aktuální počet vašich aktivních uživatelů je {{count}}. ",
+      "upgrade-your-license-subtitle_many": "Vaše licence Grafana Enterprise zahrnuje {{maxUsers}} aktivních uživatelů – aktuální počet vašich aktivních uživatelů je {{count}}. ",
+      "upgrade-your-license-subtitle_other": "Vaše licence Grafana Enterprise zahrnuje {{maxUsers}} aktivních uživatelů – aktuální počet vašich aktivních uživatelů je {{count}}. "
+    },
+    "page-alert": {
+      "learn-about-enterprise-licenses": "Zjistěte víc o licencích Enterprise"
+    },
+    "token-expires-soon": {
+      "title-grafana-enterprise-token-needs-renewed": "Váš token Grafana Enterprise musí být obnoven",
+      "sub-title-token-expiration_one": "Váš licenční token vyprší za {{count}} den, poté <4>budou funkce Enterprise zakázány.</4>",
+      "sub-title-token-expiration_few": "Váš licenční token vyprší za {{count}} dny/dnů, poté <4>budou funkce Enterprise zakázány.</4>",
+      "sub-title-token-expiration_many": "Váš licenční token vyprší za {{count}} dny/dnů, poté <4>budou funkce Enterprise zakázány.</4>",
+      "sub-title-token-expiration_other": "Váš licenční token vyprší za {{count}} dny/dnů, poté <4>budou funkce Enterprise zakázány.</4>"
+    }
+  },
+  "meta-analytics": {
+    "analytics-drawer": {
+      "public-dashboards-tab-label": "Veřejné nástěnky",
+      "shared-dashboards-tab-label": "Sdílené nástěnky",
+      "stats-tab-label": "Statistiky",
+      "text-access-usage-insights-during-trial-grafana": "Získejte plný přístup k poznatkům o využití zdarma během zkušební verze Grafana Pro.",
+      "title-dashboard-insights": "{{dashboardTitle}} – analytika",
+      "users-activity-tab-label": "Uživatelé a aktivita"
+    },
+    "analytics-public-dashboards-tab": {
+      "daily-query-count-cached-queries-label": "dotazy ve vyrovnávací paměti",
+      "daily-query-count-title": "Denní počet dotazů",
+      "errors-last-month-title": "Chyby za posledních 30 dní",
+      "no-data": "Žádná data.",
+      "views-last-month-title": "Zobrazení za posledních 30 dní"
+    },
+    "analytics-stats-tab": {
+      "daily-query-count-cached-queries-label": "dotazy ve vyrovnávací paměti",
+      "daily-query-count-title": "Denní počet dotazů",
+      "errors-last-month-title": "Chyby za posledních 30 dní",
+      "no-data": "Žádná data."
+    },
+    "analytics-toolbar-button": {
+      "tooltip-dashboard-insights": "Poznatky nástěnky"
+    },
+    "analytics-upgrade-drawer": {
+      "description-usage-insights-provide-detailed-information-about": "Poznatky o využití poskytují podrobné informace o používání nástěnky, jako je počet zobrazení, dotazů a chyb, které uživatelé zaznamenali. Můžete je použít ke zlepšení uživatelského prostředí a řešení problémů.",
+      "title-dashboard-insights": "{{dashboardTitle}} – analytika"
+    },
+    "analytics-users-tab": {
+      "aria-label-recent-users-table": "Tabulka nedávných uživatelů",
+      "aria-label-user-box-title": "Název uživatelského pole",
+      "aria-label-user-information-box": "Pole s údaji o uživateli",
+      "aria-label-version-history-button": "Tlačítko Historie verzí",
+      "created-user-box": "Vytvořeno",
+      "dashboard-version-history": "Historie verzí nástěnky",
+      "format-date-currently-viewing": "Aktuálně si prohlížíte",
+      "format-date-last-hour": "Poslední hodina",
+      "format-date-today": "Dnes",
+      "format-date-yesterday": "Včera",
+      "last-dashboard-viewers": "Posledních 30 prohlížejících nástěnky",
+      "last-edited-user-box": "Naposledy upraveno",
+      "last-viewed-user-box": "Naposledy zobrazeno",
+      "user-views-data-frame-user-field": "Uživatel",
+      "user-views-data-frame-when-field": "Kdy",
+      "views-last-month-title": "Zobrazení za posledních 30 dní"
+    },
+    "data-source-insights": {
+      "available-source": "Pro tento zdroj dat nejsou k dispozici žádná data.",
+      "average-load-duration-last-month-title": "Průměrná doba načítání za posledních 30 dní (ms)",
+      "errors-last-month-title": "Chyby za posledních 30 dní",
+      "queries-last-month-title": "Dotazy za posledních 30 dní",
+      "text-enable-source-usage-insights-during-trial": "Povolte poznatky o využití zdroje dat zdarma během zkušební verze Grafana Pro.",
+      "text-feature-not-available-expired-license": "Poznatky o zdroji dat nejsou k dispozici s vypršenou licencí. Data budou i nadále shromažďována, ale pro zobrazení této stránky musíte aktualizovat licenci.",
+      "title-feature-available-expired-license": "Funkce není k dispozici s vypršenou licencí",
+      "title-read-more-license-expiration": "Zjistěte víc o vypršení licence"
+    },
+    "data-source-insights-upgrade": {
+      "clean-instance-list-item": "Vyčistěte svou instanci nalezením a odstraněním nepoužívaných zdrojů dat",
+      "demonstrate-and-improve-list-item": "Předveďte a zlepšete hodnotu své služby pozorovatelnosti sledováním zapojení uživatelů",
+      "description-usage-insights-provide-detailed-information-about": "Poznatky o využití poskytují podrobné informace o používání zdroje dat, jako je počet zobrazení, dotazů a chyb, které uživatelé zaznamenali. Můžete je použít ke zlepšení uživatelského prostředí a řešení problémů",
+      "keep-performant-list-item": "Udržujte Grafanu v dobrém stavu tím, že identifikujete a opravíte pomalé zdroje dat náchylné k chybám",
+      "review-insights-list-item": "Projděte si poznatky o využití jednotlivých zdrojů dat v uživatelském rozhraní, seřaďte výsledky vyhledání podle využití a chyb nebo si prohlížejte podrobné protokoly o využití"
+    }
+  },
+  "permissions": {
+    "data-source-permissions": {
+      "text-enable-source-permissions-during-trial-grafana": "Povolte oprávnění zdroje dat zdarma během zkušební verze Grafana Pro."
+    },
+    "permissions-upgrade-content": {
+      "description-source-permissions-protect-sensitive-limiting-access": "Pomocí oprávnění pro zdroje dat můžete chránit citlivá data omezením přístupu k tomuto zdroji dat na konkrétní uživatele, týmy a role.",
+      "source-permissions-protect-clean-experience-list-item": "Zlepšete uživatelskou zkušenost skrytím nepotřebných zdrojů dat",
+      "source-permissions-protect-sensitive-data-list-item": "Chraňte citlivá data, jako jsou bezpečnostní protokoly, produkční databáze a osobní údaje",
+      "source-permissions-protect-share-access-list-item": "Sdílejte přístup ke Grafaně s vědomím, že uživatelé neuvidí citlivá data"
+    }
+  },
+  "plugins": {
+    "sandbox": {
+      "enable-sandbox-label": "Frontend Sandbox",
+      "enable-sandbox-tooltip": "Frontendový sandbox spouští frontendový kód izolovaně, čímž omezuje přístup ke globálnímu rozsahu prohlížeče a omezuje úpravy uživatelského rozhraní na oblast pluginu.",
+      "enable-sandbox-tooltip-link": "Zjistěte víc"
+    }
+  },
+  "public-dashboard": {
+    "email-sharing": {
+      "success-confirm-access": "Přístup potvrzen!",
+      "success-resend-recipient-invitation": "E-mailová pozvánka byla znovu odeslána.",
+      "success-revoke-access-description": "Úspěšně jste odvolali přístup pro {{recipientEmail}}.",
+      "success-revoke-access-title": "Přístup odvolán",
+      "success-revoke-all-accesses-description": "Přístup uživatele {{email}} ke všem veřejným nástěnkám byl úspěšně odebrán.",
+      "success-revoke-all-accesses-title": "Přístup odvolán",
+      "success-send-recipient-invitation": "E-mailová pozvánka byla odeslána."
+    }
+  },
+  "public-dashboards": {
+    "confirm-access-page": {
+      "confirm-access": "Potvrdit přístup",
+      "login-subtitle": "Získejte přístup k nástěnce na 30 dní. Po 30 dnech můžete znovu požádat o přístup, abyste mohli pokračovat v prohlížení nástěnky.",
+      "login-title": "Přístup k nástěnce"
+    },
+    "request-view-access-page": {
+      "access-requested": "Žádost o přístup odeslána",
+      "label-email": "E-mail",
+      "placeholder-email": "e-mail",
+      "register-pattern-invalid-email": "Neplatný e-mail",
+      "register-required-email": "E-mail je povinný",
+      "request-access": "Požádat o přístup"
+    }
+  },
+  "query-library": {
+    "actions": {
+      "delete-query-button": "Odstranit dotaz",
+      "duplicate-query-button": "Duplikovat dotaz",
+      "duplicate-query-title-copy": "Kopírovat",
+      "lock-query-button": "Zamknout dotaz",
+      "menu-button": "",
+      "save-history-query-button": "",
+      "select-query-button": "Vybrat dotaz",
+      "unlock-query-button": "Odemknout dotaz"
+    },
+    "delete-modal": {
+      "body-text": "Chystáte se odebrat tento uložený dotaz. Tuto akci nelze vrátit zpět. Chcete pokračovat?",
+      "confirm-button": "Odstranit dotaz",
+      "title": "Odstranit dotaz"
+    },
+    "discard-changes": {
+      "discard-button": "Zahodit",
+      "text": "Máte neuložené změny tohoto dotazu. Opravdu je chcete zahodit?",
+      "title": "Zahodit změny dotazu?"
+    },
+    "drawer": {
+      "title": "Uložené dotazy",
+      "tooltip": "V současné době může každá organizace uložit až 1 000 dotazů"
+    },
+    "empty-state": {
+      "message": "Začněte je přidávat z karty Prozkoumat nebo během úprav nástěnky",
+      "no-favorites": "",
+      "no-favorites-description": "",
+      "no-history": "",
+      "no-history-description": "",
+      "title": ""
+    },
+    "error-state": {
+      "title": "Něco se pokazilo."
+    },
+    "explore-modal": {
+      "cancel-button": "",
+      "confirm-button": "",
+      "title": "",
+      "warning": ""
+    },
+    "filters": {
+      "datasource-placeholder": "Filtrovat podle zdroje dat",
+      "datasource-user": "Filtrovat podle uživatelského jména",
+      "search-placeholder": "Hledat podle zdroje dat, obsahu dotazu, názvu nebo popisu",
+      "sort": {
+        "asc": "Abecedně (A–Z)",
+        "desc": "Abecedně (Z–A)",
+        "newest": "Seřadit od nejnovějších",
+        "oldest": "Seřadit od nejstarších"
+      },
+      "sort-placeholder": "Třídit"
+    },
+    "item": {
+      "add-to-library": "",
+      "favorite": "Oblíbené",
+      "new": "Nové",
+      "unfavorite": "Odstranit z oblíbených"
+    },
+    "not-found": {
+      "message": "Zkuste upravit kritéria vyhledávání nebo filtru",
+      "title": "Nebyly nalezeny žádné výsledky"
+    },
+    "notifications": {
+      "query-deleted": "Dotaz odstraněn"
+    },
+    "query-details": {
+      "author": "Autor",
+      "datasource": "Zdroj dat",
+      "date-added": "Datum přidání",
+      "description": "Popis",
+      "edit-button": "Upravit dotaz",
+      "edit-button-short": "Upravit",
+      "make-query-visible": "Sdílet dotaz se všemi uživateli",
+      "recent-description": "",
+      "recent-example": "",
+      "tags": "Štítky",
+      "title": "Název"
+    },
+    "tabs": {
+      "all": "Vše",
+      "favorites": "Oblíbené",
+      "recent": ""
+    },
+    "template-variables-warning": {
+      "message": "",
+      "message-explore": "",
+      "title": ""
+    },
+    "user-info": {
+      "error": "Při pokusu o získání informací o uživateli z knihovny došlo k chybě: {{error}}"
+    }
+  },
+  "query-operation": {
+    "header": {
+      "replace-query-from-library": "Nahradit uloženým dotazem",
+      "save-to-query-library": "Uložit dotaz"
+    }
+  },
+  "recorded-queries": {
+    "create-recorded-query-unconnected": {
+      "alert-severity-succesful": "Úspěch",
+      "alert-severity-test": "Otestovat tento zaznamenaný dotaz",
+      "aria-label-start-recording-query-button": "Tlačítko Spustit záznam dotazu",
+      "contact-support": "Chcete-li odeslat žádost o podporu společnosti Grafana Labs, vyplňte formulář <2>Kontaktovat Grafana Labs</2>",
+      "count-rows-returned": "Spočítat řádky vrácené z tohoto dotazu",
+      "description-decide-often-record-query": "Rozhodněte, jak často chcete tento dotaz zaznamenávat",
+      "description-give-this-query-a-name": "Pojmenujte tento dotaz",
+      "description-provide-a-description-for-this-query": "Zadejte popis tohoto dotazu",
+      "description-select-value-template-variable": "Vyberte hodnotu pro každou proměnnou šablony",
+      "done-button": {
+        "aria-label-cancel-recording-query-button": "Tlačítko Zrušit záznam dotazu",
+        "aria-label-close-recording-query-button": "Tlačítko Zavřít záznam dotazu",
+        "cancel": "Zrušit",
+        "close": "Zavřít"
+      },
+      "label": {
+        "relative-time-range": "Relativní časový rozsah"
+      },
+      "label-count-query-results": "Počet výsledků dotazu",
+      "label-description": "Popis",
+      "label-interval": "Interval",
+      "label-name": "Název",
+      "label-template-variables": "Proměnné šablony",
+      "message": {
+        "name-is-required": "Název je povinný"
+      },
+      "query-relative-time-range": "Vyberte relativní časový rozsah tohoto dotazu",
+      "results-alert-message": "Výsledky: ",
+      "start-recording-query": "Spustit záznam dotazu",
+      "success-alert-message": "Váš nový zaznamenaný dotaz se úspěšně zaznamenává!",
+      "sync-button": {
+        "aria-label-test-the-recorded-query": "Otestovat zaznamenaný dotaz"
+      },
+      "title-create-recorded-query": "Vytvořit zaznamenaný dotaz"
+    },
+    "data-source-filter": {
+      "button-clear-filter": "Vymazat filtr zdroje dat",
+      "filter-by-data-source": "Filtrovat podle zdroje dat",
+      "placeholder-select-a-data-source": "Vyberte zdroj dat"
+    },
+    "empty-recorded-query-list": {
+      "message": "Nejsou definovány žádné zaznamenané dotazy",
+      "pro-tip": "Pro tip: Dotazy můžete zaznamenat z editoru dotazů."
+    },
+    "query-card": {
+      "interval-content": "Interval: {{interval}}",
+      "interval-range": "Rozsah: Poslední {{range}}",
+      "query-expression": "Výraz dotazu:"
+    },
+    "recorded-queries-config-unconnected": {
+      "body-delete": "Opravdu chcete odstranit „{{name}}“?",
+      "confirm-text-delete": "Odstranit",
+      "edit-remote-write-target": "Upravit vzdálený cíl zápisu",
+      "queries-to-display": {
+        "buttons": {
+          "aria-label-delete-recorded-query": "Odstranit zaznamenaný dotaz",
+          "aria-label-pause-recorded-query": "Pozastavit záznam",
+          "aria-label-resume-recorded-query": "Pokračovat v záznamu",
+          "delete": "Odstranit"
+        }
+      },
+      "title-delete": "Odstranit"
+    },
+    "recorded-queries-deprecation-notice": {
+      "description": "Zaznamenané dotazy jsou zastaralé. Místo toho použijte nová <2>pravidla zaznamenávání spravovaná Grafanou</2>.",
+      "title-deprecation-notice": "Oznámení o zastaralosti"
+    },
+    "recorded-query-add-modal-unconnected": {
+      "add": "Přidat",
+      "cancel": "Zrušit",
+      "new-recorded-query-alert": "Chcete-li vytvořit nově zaznamenaný dotaz, vraťte se do editoru dotazů a použijte ikonu <2></2> na panelu řad.",
+      "no-queries-available": "Nejsou k dispozici žádné zaznamenané dotazy pro {{datasourceName}}",
+      "recorded-query": "Zaznamenaný dotaz",
+      "title-add-recorded-query": "Přidat zaznamenaný dotaz"
+    },
+    "write-target-config-unconnected": {
+      "label-remote-write-path": "Vzdálená cesta zápisu",
+      "placeholder-select-a-data-source": "Vyberte zdroj dat",
+      "save": "Uložit",
+      "select-data-source-label": "Vyberte zdroj dat, kam budou zapisovány metriky"
+    }
+  },
+  "report": {
+    "report-header": {
+      "time-range": "Časový rozsah dat:",
+      "title": "{{reportTitle}} – generováno {{generatedOnDate}}"
+    }
+  },
+  "reporting": {
+    "button-row": {
+      "next-step": "Další: {{nextName}}",
+      "previous-step": "Předchozí: {{prevName}}"
+    },
+    "create-report": {
+      "alert-title": "Při načítání zprávy došlo k chybě",
+      "loading-report": "Načítání zprávy…",
+      "title": "Vytvořit novou zprávu"
+    },
+    "errors": {
+      "action-message": "Chcete-li nainstalovat plugin, obraťte se na správce Grafany.",
+      "no-renderer-description": "Chcete-li generovat PDF zprávy, musíte si nainstalovat plugin <2>Grafana pro vykreslování obrázků</2>.",
+      "no-renderer-title": "Plugin pro renderování obrázků není nainstalován",
+      "old-renderer-description": "Chcete-li vygenerovat CSV soubory, musíte aktualizovat plugin <2>Grafana pro vykreslování obrázků</2>.",
+      "old-renderer-title": "Používáte starou verzi modulu vykreslování obrázků"
+    },
+    "image-preview": {
+      "invalid-image": "Neplatný obrázek"
+    },
+    "page": {
+      "empty-button": "Vytvořit zprávu",
+      "empty-pro-tip": "Vytvořit zprávu z jakýchkoli existujících nástěnek. <2>Zjistěte víc</2>",
+      "empty-title": "Dosud nejsou vytvořeny žádné zprávy",
+      "settings-button": "Nastavení zprávy"
+    },
+    "page-actions": {
+      "discard-button": "Zahodit",
+      "save-as-draft-button": "Uložit jako koncept",
+      "update-button": "Aktualizovat zprávu"
+    },
+    "report-footer": {
+      "page-pagination": "Stránka {{currentPage}}/{{totalPageCount}}"
+    },
+    "report-form": {
+      "edit-step": "5. Potvrdit"
+    },
+    "report-list": {
+      "confirmText-delete": "Odstranit",
+      "content-pause-report": "Pozastavit zprávu",
+      "content-resume-report": "Obnovit zprávu",
+      "delete-report": "Odstranit zprávu {{name}}"
+    },
+    "schedule": {
+      "frecuency-custom-input-label": "Opakovat každý",
+      "frecuency-custom-select-label": "Vlastní frekvence",
+      "frecuency-custom-select-placeholder": "hodiny",
+      "frecuency-date-picker-label": "Datum zahájení harmonogramu zprávy",
+      "frecuency-date-picker-placeholder": "Vybrat datum",
+      "frecuency-end-date-label": "Datum ukončení",
+      "frecuency-end-time-label": "Čas ukončení",
+      "frecuency-last-day-label": "Odeslat poslední den v měsíci",
+      "frecuency-last-day-warning": "Poznámka: Některé měsíce nemají {{warningDateText}}. den a zprávy nebudou v těchto měsících odesílány. Pokud chcete zprávu odeslat na konci každého měsíce, vyberte dřívější datum nebo možnost <3>„Odeslat poslední den v měsíci“</3>.",
+      "frecuency-send-later": "Odeslat později",
+      "frecuency-send-now": "Odeslat hned",
+      "frecuency-start-time-label": "Čas spuštění",
+      "frecuency-time-zone-label": "Časové pásmo",
+      "frecuency-workdays-label": "Odeslat pouze od pondělí do pátku",
+      "report-schedule-end-date-label": "Datum ukončení harmonogramu zprávy",
+      "report-schedule-end-date-placeholder": "Nekončí"
+    },
+    "settings": {
+      "attachment-settings-fieldset-label": "Nastavení příloh",
+      "drawer-title": "Nastavení šablony zprávy",
+      "email-branding-fieldset-label": "E-mailový branding",
+      "email-footer-field-label": "Zápatí e-mailu",
+      "email-logo-image-preview-altText": "Náhled loga společnosti",
+      "email-logo-url-field-description": "Logo se zobrazí v záhlaví e-mailu. Podporované formáty: png, jpg, gif.",
+      "email-logo-url-field-label": "Adresa URL loga společnosti",
+      "embedded-image-header": "Vložený obrázek",
+      "embedded-image-theme-picker-description": "Motiv bude použit na obrázek nástěnky vložený do e-mailu.",
+      "footer-link-field-label": "Text odkazu v zápatí",
+      "footer-link-url-field-label": "Adresa URL odkazu v zápatí",
+      "no-data": "Nejsou k dispozici žádná data nastavení",
+      "none-footer-label": "Žádné",
+      "pdf-header": "PDF",
+      "pdf-theme-picker-description": "Motiv bude použit na PDF přiložené ke zprávě.",
+      "report-logo-image-preview-altText": "Náhled loga společnosti",
+      "report-logo-url-field-description": "Logo se zobrazí v zápatí dokumentu. Podporované formáty: png, jpg, gif.",
+      "report-logo-url-field-label": "Adresa URL loga společnosti",
+      "save-button": "Uložit",
+      "saving-button": "Ukládání…",
+      "sent-by-footer-label": "Odeslal/a",
+      "settings-subtitle": "Spravovat nastavení šablony zprávy."
+    },
+    "update-report": {
+      "title": "Aktualizovat přehled"
+    }
+  },
+  "reports": {
+    "all-template-alert": {
+      "description-not-supported": "Hodnota Vše v proměnných šablony použitých v opakujících se řádcích nebo panelech není v PDF podporována",
+      "title-not-supported": "Nepodporováno"
+    },
+    "confirm": {
+      "edit": "Upravit",
+      "report-data": {
+        "title": {
+          "combine-all-pdfs-in-one-file": "Zkombinovat všechna PDF do jednoho souboru",
+          "dashboard-link": "Odkaz na nástěnku",
+          "email-subject": "Předmět e-mailu",
+          "end-date": "Datum ukončení",
+          "end-time": "Čas ukončení",
+          "format-report": "Formátovat přehled",
+          "message": "Zpráva",
+          "pdf-layout": "Rozvržení PDF",
+          "pdf-orientation": "Orientace PDF",
+          "pdf-show-template-variables": "Zobrazit proměnné šablony PDF",
+          "preferred-format": "Preferovaný formát*",
+          "recipients": "Příjemci*",
+          "recurrence": "Opakování",
+          "repeat-every": "Četnost opakování",
+          "replytoemail": "Odpověď na e-mail",
+          "report-name": "Název přehledu*",
+          "scale-factor": "Faktor měřítka",
+          "schedule": "Naplánovat",
+          "select-dashboard": "Vybrat nástěnku",
+          "send-monday-to-friday-only": "Odesílat pouze od pondělí do pátku",
+          "share": "Sdílet",
+          "start-date": "Datum zahájení",
+          "start-time": "Čas zahájení",
+          "template-variables": "Proměnné šablony",
+          "time-range": "Časový rozsah",
+          "time-zone": "Časové pásmo"
+        }
+      }
+    },
+    "create-report-tab": {
+      "create-report-using-this-dashboard": "Vytvořit zprávu pomocí této nástěnky",
+      "description-reporting-allows-automatically-generate-dashboards-grafana": "Vykazování umožňuje automaticky generovat soubory PDF z jakékoli z vašich nástěnek a odeslat je Grafanou podle plánu e-mailem zainteresovaným stranám.",
+      "get-started-with-reporting": "Začněte s vykazováním",
+      "learn-more": "Zjistěte víc",
+      "text-create-unlimited-reports-during-trial-grafana": "Vytvářejte neomezené zprávy během zkušební verze Grafana Pro."
+    },
+    "dashbord-report-renderer": {
+      "title-unsupported-dashboard-layout": "Nepodporované rozvržení nástěnky"
+    },
+    "edit-actions": {
+      "aria-label-delete-report": "Odstranit zprávu",
+      "body-are-you-sure": "Opravdu chcete odstranit tuto zprávu?",
+      "confirmText-delete": "Odstranit",
+      "edit-report": "Upravit zprávu",
+      "pause-button": "Pozastavit",
+      "resume-button": "Pokračovat",
+      "title-delete-report": "Odstranit zprávu",
+      "tooltip-delete": "Odstranit"
+    },
+    "format-report": {
+      "aria-label-zoom": "Přiblížení",
+      "description-enlarge-table-columns-panel": "Přiblížením zvětšíte text nebo oddálením zobrazíte více dat (například sloupce tabulky) na panel.",
+      "label-combine-dashboard": "Zkombinovat všechna PDF nástěnek do jednoho souboru",
+      "label-configure-multiple-pdfs": "Konfigurovat více souborů PDF",
+      "label-configure-report-header": "Konfigurovat záhlaví zprávy",
+      "label-format-report": "2. Formátovat zprávu",
+      "label-layout": "Rozvržení",
+      "label-orientation": "Orientace",
+      "label-show-template-variables": "Zobrazit proměnné šablony",
+      "label-style-the-pdf": "Upravit styl PDF",
+      "label-zoom": "Přiblížení",
+      "preview-pdf": "Náhled PDF",
+      "tooltip-download-table-panel": "Stáhnout data panelu tabulky jako CSV v souboru ZIP"
+    },
+    "highlight-trial-report": {
+      "get-started-with-reporting": "Začněte s vykazováním",
+      "get-started-with-reporting-text": "Vykazování umožňuje automaticky generovat soubory PDF z jakékoli z vašich nástěnek a odeslat je Grafanou podle plánu e-mailem zainteresovaným stranám.",
+      "learn-more": "Zjistěte víc",
+      "text-create-unlimited-reports-during-trial-grafana": "Vytvářejte neomezené zprávy během zkušební verze Grafana Pro."
+    },
+    "report-upgrade-content": {
+      "description-reporting-allows-automatically-generate-dashboards-grafana": "Vykazování umožňuje automaticky generovat soubory PDF z jakékoli z vašich nástěnek a odeslat je Grafanou podle plánu e-mailem zainteresovaným stranám."
+    },
+    "reports-list-page": {
+      "render-list": {
+        "create-a-new-report": "Vytvořit novou zprávu",
+        "placeholder-search-reports-report-dashboard-recipients": "Hledat zprávy podle názvu zprávy, názvu nástěnky nebo příjemců",
+        "text": {
+          "create-report": "Vytvořit zprávu"
+        },
+        "text-create-unlimited-reports-during-trial-grafana": "Vytvářejte neomezené zprávy během zkušební verze Grafana Pro."
+      }
+    },
+    "schedule": {
+      "label-frequency": "Frekvence",
+      "label-schedule": "3. Naplánovat",
+      "label-start-date": "Datum zahájení",
+      "label-time": "Čas"
+    },
+    "select-dashboard": {
+      "aria-label-source-dashboard": "Zdrojová nástěnka",
+      "description-time-range": "Vygenerujte zprávu s daty ze zadaného časového rozsahu. Pokud je vlastní časový rozsah prázdný, použije se časový rozsah z nástěnky zprávy.",
+      "label-source-dashboard": "Zdrojová nástěnka",
+      "label-template-variables": "Proměnné šablony",
+      "label-time-range": "Časový rozsah"
+    },
+    "select-dashboards": {
+      "add-another-dashboard": "Přidat další nástěnku",
+      "label-select-dashboard": "1. Vyberte nástěnku",
+      "remove-dashboard": "Odebrat nástěnku"
+    },
+    "send-test-email-modal": {
+      "cancel": "Zrušit",
+      "label-email": "E-mail",
+      "label-use-emails-from-report": "Použít e-maily ze zprávy",
+      "send": "Odeslat",
+      "title-send-test-email": "Odeslat testovací e-mail"
+    },
+    "share": {
+      "description-address-appear-reply-field-email": "Adresa, která se zobrazí v poli Odpovědět v e-mailu",
+      "description-separate-multiple-emails-comma-semicolon": "Jednotlivé e-mailové adresy oddělte čárkou nebo středníkem.",
+      "email-info-button": "Název zprávy bude použit jako předmět e-mailu, pokud toto pole zůstane prázdné",
+      "email-subject": "Předmět e-mailu",
+      "label-include-a-dashboard-link": "Zahrnout odkaz na nástěnku",
+      "label-message": "Zpráva",
+      "label-recipients": "Příjemci",
+      "label-replyto-email-address": "Odpověď na e-mailovou adresu",
+      "label-report-name": "Název zprávy",
+      "label-share": "4. Sdílet",
+      "name-placeholder-system-status-report": "Zpráva o stavu systému",
+      "recipients-placeholder-recipients-email-addresses-press-enter": "Zadejte e-mailové adresy příjemců a stiskněte klávesu Enter",
+      "send-test-email": "Odeslat testovací e-mail",
+      "subject-placeholder-email-subject": "Předmět e-mailu",
+      "title-sending-test-email": "Odesílání testovacího e-mailu…"
+    },
+    "share-pdfbase": {
+      "cancel": "Zrušit",
+      "save-as-pdf": "Uložit jako PDF"
+    },
+    "unavailable-feature-info-box": {
+      "title-feature-available-expired-license": "Funkce není k dispozici s vypršenou licencí"
+    },
+    "upgrade-report": {
+      "description-reporting-allows-automatically-generate-dashboards-grafana": "Vykazování umožňuje automaticky generovat soubory PDF z jakékoli z vašich nástěnek a odeslat je Grafanou podle plánu e-mailem zainteresovaným stranám."
+    },
+    "variables-preview": {
+      "none": "žádná"
+    }
+  },
+  "saml-connect-to-idp": {
+    "validate-idp-metadata": {
+      "require-one": "Měl by být definován jeden typ metadat"
+    }
+  },
+  "share-dashboard": {
+    "menu": {
+      "export-pdf-title": "Exportovat jako PDF",
+      "schedule-report-title": "Naplánovat zprávu"
+    }
+  },
+  "share-report": {
+    "actions": {
+      "aria-label-open-menu": "Otevřít nabídku akcí",
+      "download-csv-label": "Stáhnout CSV",
+      "downloading-label": "Stahování…",
+      "preview-pdf-label": "Náhled PDF",
+      "report-settings-label": "Nastavení zprávy"
+    },
+    "attachments": {
+      "combine-one-file": "Zkombinovat všechna PDF nástěnek do jednoho souboru",
+      "csv-tables": "Připojit soubor CSV dat panelu tabulky",
+      "layout": "Rozvržení",
+      "orientation": "Orientace",
+      "orientation-tooltip": "Výběr orientace bude použit na PDF nástěnky, data tabulky a dodatek PDF",
+      "pdf-format": "Formát PDF",
+      "pdf-report": "Připojit zprávu jako PDF",
+      "pdf-tables": "Připojit samostatné PDF dat tabulky",
+      "pdf-tables-appendix": "Zahrnout data tabulky jako dodatek PDF",
+      "section-title": "Přílohy",
+      "show-template-variables": "Zobrazit proměnné šablon v záhlaví",
+      "zoom": "Měřítko přiblížení"
+    },
+    "back-button-text": "Zpět na seznam zpráv",
+    "confirm-delete": {
+      "button": "Odstranit zprávu",
+      "description": "Opravdu chcete odstranit tuto zprávu?",
+      "title": "Odstranit zprávu"
+    },
+    "create-report": "Vytvořit novou zprávu",
+    "dashboard": {
+      "add-dashboard": "Přidat nástěnku",
+      "dashboard-required": "Nástěnka je povinná",
+      "delete-dashboard-tooltip": "Odstranit tuto nástěnku",
+      "repeated-template-variables-description": "Při přidávání stejné nástěnky vícekrát do jedné zprávy se proměnné hodnoty šablony, které jste vybrali jako první, použijí na všechny instance této nástěnky ve zprávě.",
+      "section-title": "Nástěnky",
+      "source-dashboard-label": "Zdrojová nástěnka",
+      "template-variables-title": "Přizpůsobit proměnné šablony",
+      "time-range-description": "Prázdný časový rozsah se změní zpět na časový rozsah z nástěnky přehledu. Absolutní časový rozsah je uveden v časovém pásmu vašeho prohlížeče.",
+      "time-range-label": "Časový rozsah",
+      "view-dashboard-tooltip": "Zobrazit nástěnku"
+    },
+    "discard-changes": {
+      "discard-button": "Zahodit",
+      "text": "Máte neuložené změny této zprávy o nástěnce. Opravdu je chcete zahodit?",
+      "title": "Zahodit změny zprávy?"
+    },
+    "email-configuration": {
+      "add-dashboard-image-label": "Vložit obrázek nástěnky",
+      "add-dashboard-url-label": "Zahrnout odkaz na nástěnku",
+      "dashboard-image-settings-description": "Nastavení obrázku nástěnky lze upravit v obecných <1>nastaveních zprávy</1>",
+      "invalid-email": "Neplatný e-mail",
+      "message-label": "Zpráva",
+      "message-placeholder": "Zadejte zprávu",
+      "reply-to-label": "Odpověď na e-mailovou adresu",
+      "section-title": "Nastavení e-mailu",
+      "subject-description": "Název zprávy bude použit jako předmět e-mailu, pokud toto pole zůstane prázdné",
+      "subject-label": "Předmět e-mailu"
+    },
+    "empty-list": {
+      "description": "Vytvořit zprávu z této nástěnky. <2>Zjistěte víc</2>",
+      "title": "Pro tuto nástěnku nejsou k dispozici žádné zprávy"
+    },
+    "error-form": {
+      "title": "Při načítání zprávy došlo k chybě"
+    },
+    "error-list": {
+      "title": "Při načítání zpráv došlo k chybě"
+    },
+    "loading-form": "Načítání formuláře…",
+    "loading-report": "Načítání zprávy…",
+    "loading-report-form": "Načítání formuláře zprávy…",
+    "loading-reports": "Načítání zpráv…",
+    "recipients": {
+      "field-label": "Příjemci",
+      "invalid-email": "Neplatný e-mail: {{email}}",
+      "invalid-emails": "Neplatné e-maily: {{emails}}",
+      "placeholder": "Zadejte e-mailové adresy příjemců a stiskněte klávesu Enter",
+      "recipients-required": "Příjemci jsou povinní",
+      "section-title": "Příjemci",
+      "tooltip": "Jednotlivé e-mailové adresy oddělte čárkou nebo středníkem"
+    },
+    "report-name": {
+      "label": "Název zprávy",
+      "required": "Název zprávy je povinný"
+    },
+    "save-draft": {
+      "button": "Uložit koncept",
+      "saving-button": "Ukládání konceptu…"
+    },
+    "schedule": {
+      "end-date": "Datum ukončení",
+      "end-date-invalid": "Datum ukončení musí být větší nebo rovno datu zahájení",
+      "end-date-placeholder": "Nekončí",
+      "end-time": "Čas ukončení",
+      "frequency": "Frekvence",
+      "interval-amount-min": "Velikost intervalu musí být alespoň 2",
+      "interval-amount-required": "Velikost intervalu je povinná",
+      "last-day-of-month": "Odeslat poslední den v měsíci",
+      "monthly-schedule-alert-title": "Poznámka: Reporty nebudou odeslány v měsících, které nemají {{ dayNumber }} den. Pokud chcete zprávu odeslat na konci každého měsíce, vyber dřívější datum nebo možnost „Odeslat poslední den v měsíci“.",
+      "repeat-every": "Opakovat každý",
+      "repeat-every-placeholder": "např. 2",
+      "repeat-interval-frequency-placeholder": "např. hod.",
+      "section-title": "Naplánovat",
+      "send-time": "Naplánovat",
+      "start-date": "Datum zahájení",
+      "start-date-placeholder": "Vybrat datum",
+      "start-date-required": "Datum zahájení je povinné",
+      "start-time": "Čas spuštění",
+      "time-zone": "Časové pásmo",
+      "workdays-only": "Odeslat pouze od pondělí do pátku"
+    },
+    "schedule-report": {
+      "button": "Naplánovat zprávu",
+      "scheduling-button": "Plánování zprávy…"
+    },
+    "see-all-reports": "Zobrazit všechny zprávy",
+    "send-preview": {
+      "button": "Odeslat náhled",
+      "cancel": "Zrušit",
+      "email": "E-mail",
+      "email-description": "Jednotlivé e-mailové adresy oddělte čárkou nebo středníkem",
+      "email-required": "E-mail je povinný",
+      "send": "Odeslat",
+      "sending": "Odesílání…",
+      "title": "Odeslat náhled",
+      "use-report-emails": "Použít e-maily ze zprávy"
+    },
+    "settings": {
+      "loading": "Načítání nastavení…"
+    },
+    "state": "Stav:",
+    "unavailable-feature-info-box": {
+      "message": "Vytváření nových přehledů není možné s vypršenou licencí. Stávající přehledy budou i nadále zpracovávány, ale pro vytvoření nového musíte aktualizovat licenci."
+    },
+    "update-report": {
+      "button": "Aktualizovat zprávu",
+      "delete-button": "Odstranit",
+      "pause-button": "Pozastavit",
+      "pausing-button": "Pozastavení zprávy…",
+      "resume-button": "Pokračovat",
+      "resuming-button": "Obnovení zprávy…",
+      "updating-button": "Aktualizace zprávy…"
+    }
+  },
+  "shared": {
+    "resource-picker": {
+      "placeholder-select-color": "Vyberte barvu"
+    }
+  },
+  "team-lbac": {
+    "create-team-lbacform": {
+      "label-rule": "Pravidlo",
+      "label-team": "Tým",
+      "new-lbac-rule": "Nové pravidlo LBAC",
+      "new-lbac-rule-example": "Příklad:",
+      "save": "Uložit"
+    },
+    "editable-cell": {
+      "empty-rule": "Prázdné pravidlo"
+    },
+    "team-label": {
+      "placeholder": "Tým s ID {{teamId}} nebyl nalezen"
+    },
+    "team-lbaceditor-unconnected": {
+      "add-a-lbac-rule": "Přidat pravidlo LBAC",
+      "add-query-permissions": "<0>Přidat oprávnění k dotazům:</0> Následující týmy nemají oprávnění k dotazům pro zdroj dat, a proto nemohou dotazovat protokoly s nakonfigurovanými pravidly LBAC.",
+      "add-team-lbac-rules": "<0>Přidat pravidla LBAC pro tým:</0> Následující týmy mohou dotazovat všechny protokoly. Přidejte jim týmová pravidla LBAC:",
+      "clear-filter": "Vymazat",
+      "clear-filter-aria-label": "Vymazat filtr",
+      "content-found-recommendation": "Nalezená doporučení",
+      "description-data-access": "Zde můžete nakonfigurovat přístup ke konkrétním datům v rámci zdroje dat pomocí selektorů štítků LogQL.",
+      "ensure-proper-access-control-please-follow": "Pro zajištění řádné kontroly přístupu postupujte podle následujících doporučení:",
+      "filter-results-single": "Zobrazuje se 1 výsledek",
+      "filter-teams-aria-label": "Filtrovat pravidla LBAC podle názvu týmu",
+      "filter-teams-placeholder": "Filtrovat týmy",
+      "hide-access-control-recommendations": "Skrýt doporučení pro řízení přístupu",
+      "hide-lbac-rule": "Skrýt pravidlo LBAC",
+      "label-selector": "Výběr štítku",
+      "lbac-description": "Nakonfigurujte pravidla LBAC tak, aby omezovala přístup pro konkrétní metriky/protokoly.",
+      "lbac-labelbased-access-control": "LBAC (řízení přístupu založené na štítcích)",
+      "lbac-rules-note": "Poznámka:<1></1>- Pravidla LBAC se NEBUDOU vztahovat na dotaz, pokud má ověřený token zásad přístupu ke cloudu nějaké selektory štítků nakonfigurované v Grafana Cloud.<3></3>- Změny pravidel LBAC se mohou projevit až za 5 minut kvůli ukládání cesty dotazu do vyrovnávací paměti.",
+      "learn-more-about-lbac-rules": "Zjistěte víc o pravidlech LBAC",
+      "remove-unrestricted-access": "<0>Odebrat neomezený přístup:</0> Následující role mají v současné době neomezený přístup k protokolům.",
+      "role-warning-list": "Role: {{role}}",
+      "show-access-control-recommendations": "Zobrazit doporučení pro řízení přístupu",
+      "sort-teams-ascending": "Seřadit týmy od A do Z",
+      "sort-teams-descending": "Seřadit týmy od Z do A",
+      "team": "Tým",
+      "title-access-control-recommendations": "Doporučení pro řízení přístupu",
+      "title-data-access": "Přístup k datům",
+      "filter-results-multiple_one": "",
+      "filter-results-multiple_few": "",
+      "filter-results-multiple_many": "",
+      "filter-results-multiple_other": ""
+    },
+    "team-rules-row": {
+      "aria-label-add-team-rule": "přidat týmové pravidlo",
+      "aria-label-delete-rule": "Odstranit pravidlo",
+      "aria-label-edit-team-rule": "upravit týmové pravidlo",
+      "cancel": "Zrušit",
+      "or": "NEBO",
+      "save": "Uložit",
+      "tooltip-add-new-rule": "Přidat nové pravidlo",
+      "tooltip-provisioned-rule": "Zajištěné pravidlo"
+    }
+  },
+  "teamLBAC": {
+    "create-team-lbacform": {
+      "message": {
+        "required": "Povinné"
+      }
+    }
+  }
+}

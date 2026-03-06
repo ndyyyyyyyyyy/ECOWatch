@@ -1,0 +1,1477 @@
+{
+  "{{enricherType}} enricher does not require any configuration": {
+    " It will start enriching alerts as soon as it is enabled": "Средство обогащения {{enricherType}} не требует настройки. Оно начнет обогащать оповещения, как только будет включено."
+  },
+  "access-control": {
+    "permissions": {
+      "lbac-warning-basic-role": "",
+      "lbac-warning-rule": "Предупреждение. У этой команды может не быть разрешения на запрос источника данных.",
+      "lbac-warning-team": "Предупреждение. Эта команда имеет полный доступ к данным, если не установлены правила LBAC."
+    }
+  },
+  "admin": {
+    "role-filter": {
+      "admin-editor-option": "Администратор/пользователь с правами редактирования",
+      "multiselect-placeholder": "Фильтр по лицензированной роли",
+      "server-admin-option": "Администратор сервера",
+      "viewer-option": "Пользователь с правами просмотра"
+    }
+  },
+  "alert-enrichment": {
+    "error": "Не удалось создать обогащение оповещений",
+    "metadata-error": "",
+    "success": "Обогащение оповещений создано",
+    "update-error": "Не удалось обновить обогащение оповещений",
+    "update-success": "Обогащение оповещений обновлено"
+  },
+  "alert-enrichment-form": {
+    "actions": {
+      "cancel": "Отмена",
+      "save": "Сохранить обогащение"
+    },
+    "assign-enricher": {
+      "add-annotation": "Добавить назначение аннотации",
+      "annotation-name": "Ключ",
+      "annotation-name-placeholder": "ключ",
+      "annotation-value": "Значение",
+      "annotation-value-placeholder": "значение",
+      "remove-annotation-aria-label": "Удалить аннотацию",
+      "remove-annotation-tooltip": "Удалить аннотацию"
+    },
+    "basic-info": {
+      "description": "Описание (необязательно)",
+      "description-placeholder": "Описание обогащения",
+      "name": "Имя обогащения",
+      "name-placeholder": "мое-обогащение",
+      "name-required": "Требуется ввести имя",
+      "timeout": "Время ожидания",
+      "timeout-description": "Максимальное время, разрешенное для этого обогащения (например, 30 с, 1 мин)",
+      "timeout-placeholder": "30 с"
+    },
+    "ds-type": {
+      "logs": "Журналы",
+      "raw": "Без обработки"
+    },
+    "dsquery-enricher": {
+      "add-first-query": "Добавьте свой первый запрос",
+      "add-query": "Добавить запрос",
+      "no-datasource": "Источник данных отсутствует",
+      "no-datasource-description": "Не удалось найти источник данных для этого запроса. Источник данных удален или недоступен",
+      "no-queries": "Запросы не были заданы",
+      "raw-queries-description": "Задайте запросы, которые будут выполняться для обогащения ваших оповещений. Результаты будут доступны в контексте обогащения.",
+      "remove-query": "Удалить запрос"
+    },
+    "enricher-config": {
+      "llm-disabled": "Модель LLM отключена",
+      "llm-disabled-description": "Средство обогащения объяснений требует включенного плагина Grafana LLM",
+      "type": "Тип средства обогащения",
+      "type-placeholder": "Выбрать тип средства обогащения",
+      "type-required": "Требуется указать тип средства обогащения"
+    },
+    "enricher-type": {
+      "asserts": "Asserts",
+      "assign": "Назначение",
+      "dsquery": "Запрос к источнику данных",
+      "explain": "Объяснение",
+      "external": "Внешний",
+      "sift": "Sift"
+    },
+    "explain-enricher": {
+      "annotation-label": "Ключ аннотации",
+      "annotation-placeholder": "объяснение",
+      "annotation-required": "Для средства обогащения объяснений требуется ключ аннотации",
+      "annotation-tooltip": "Ключ аннотации, в котором будет храниться объяснение, созданное моделью LLM",
+      "description": "Средство обогащения объяснений использует модель LLM для создания объяснений для оповещений. Настройте ключ аннотации, в котором будет храниться объяснение."
+    },
+    "external-enricher": {
+      "url-label": "URL-адрес внешней службы",
+      "url-placeholder": "https://api.example.com/enrich",
+      "url-required": "Для внешнего средства обогащения требуется URL-адрес"
+    },
+    "matcher": {
+      "add-button": "Добавить",
+      "name-label": "Имя",
+      "name-placeholder": "Имя",
+      "remove-aria-label": "Удалить средство сопоставления",
+      "remove-tooltip": "Удалить средство сопоставления",
+      "type-label": "Тип",
+      "type-placeholder": "Тип",
+      "value-label": "Значение",
+      "value-placeholder": "Значение"
+    },
+    "matcher-type": {
+      "equals": "Равно (=)",
+      "not-equals": "Не равно (!=)",
+      "regex-match": "Совпадение регулярного выражения (=~)",
+      "regex-not-match": "Несовпадение регулярного выражения (!~)"
+    },
+    "scope": {
+      "all-alerts": "Все оповещения",
+      "annotation-scoped": "Область действия аннотации задана",
+      "description": "Определите, какие оповещения следует обогащать",
+      "label-scoped": "Область действия метки",
+      "title": "Область действия"
+    }
+  },
+  "alerting": {
+    "ai-feedback": {
+      "comment-description": "Помогите нам стать лучше, рассказав, что работает хорошо и что можно улучшить",
+      "comment-label": "Дополнительный отзыв (необязательно)",
+      "comment-placeholder": "Поделитесь своим мнением об ответе ИИ...",
+      "comment-prompt": "Хотите рассказать нам подробнее о своих впечатлениях?",
+      "helpful": "Да, помог",
+      "not-helpful": "Нет, не помог",
+      "question": "Помог ли вам ответ ИИ?",
+      "skip": "Пропустить",
+      "submit": "Отправить отзыв",
+      "thank-you": "Спасибо за отзыв!"
+    },
+    "enrichment": {
+      "appliesTo": "Применяется ко всем оповещениям",
+      "delete": {
+        "body": "Действительно удалить обогащение оповещений <1>{{name}}</1>?",
+        "cancel": "Отмена",
+        "confirm": "Удалить",
+        "title": "Удалить обогащение оповещений"
+      },
+      "delete-enrichment": "Удалить обогащение {{name}}",
+      "edit-button": "Редактировать",
+      "edit-enrichment": "Редактировать обогащение {{name}}",
+      "edit-title": "Редактировать обогащение",
+      "enrichments": "Обогащения",
+      "expanded-row": {
+        "annotationMatchers": "<0>Средства сопоставления аннотаций:</0> {formatMatchers(annotationMatchers)}",
+        "asserts": "Обогащение <0>Asserts</0> настроено",
+        "assignments": "<0>Назначения:</0> {assignments.map((a) => `${a.name}=${a.value}`).join(', ')}",
+        "datasource": "<0>Источник данных:</0> {details.join(', ')}",
+        "externalUrl": "<0>URL-адрес:</0> {step.enricher.external.url}",
+        "labelMatchers": "<0>Средства сопоставления меток:</0> {formatMatchers(labelMatchers)}",
+        "sift": "Обогащение <0>Sift</0> настроено",
+        "type": "Тип:"
+      },
+      "load-error": "Не удалось загрузить обогащение",
+      "loading": "Загрузка обогащений...",
+      "loadMore": "Показать больше",
+      "new-alert": "Новое обогащение оповещений",
+      "new-title": "Новое обогащение",
+      "noEnrichments": "Обогащения оповещений не настроены",
+      "tab": {
+        "description": "Сделайте уведомления об оповещении более эффективными, выполнив предварительный анализ и добавив больше контекста."
+      },
+      "table": {
+        "actions": "Действия",
+        "annotationMatchers": "Аннотации",
+        "annotationMatchers-scoped": "Кем задана область действия ",
+        "enrichment": "Обогащение",
+        "labelMatchers": "Метки"
+      },
+      "tooltip": {
+        "asserts": "Использует Asserts для обогащения оповещений",
+        "assign": {
+          "assignments": "Аннотации:",
+          "default": "Назначает аннотации оповещениям",
+          "emptyValue": "(пусто)",
+          "title": "Назначает аннотации оповещениям"
+        },
+        "default": "Обогащение оповещений настроено",
+        "dsquery": {
+          "datasourceType": "Источник данных:",
+          "maxLines": "Макс. кол-во строк:",
+          "queries": "Запросы:",
+          "query": "Запрос:",
+          "rawRequest": "Запрос к пользовательскому источнику данных задан",
+          "refId": "Ссылочный идентификатор:",
+          "title": "Запросы к источнику данных для обогащения",
+          "type": "Тип:"
+        },
+        "explain": {
+          "annotation": "Хранится в:",
+          "default": "Использует модель LLM для создания объяснений к оповещениям",
+          "title": "Использует модель LLM для создания объяснений к оповещениям"
+        },
+        "external": {
+          "default": "Вызывает внешнюю службу для обогащения",
+          "title": "Вызывает внешнюю службу для обогащения",
+          "url": "URL-адрес:"
+        },
+        "sift": "Использует Sift для обогащения оповещений"
+      }
+    },
+    "generate-ai-rule": {
+      "button": "Создать с помощью ИИ",
+      "modal": {
+        "error": "{stringifyErrorLike(error)}",
+        "error-title": "Ошибка при создании правила оповещения",
+        "generate": "Создать правило",
+        "generating": "Создание...",
+        "preview-contact-point": "Точка контакта:",
+        "preview-description": "Описание:",
+        "preview-name": "Имя:",
+        "preview-queries": "Запросы:",
+        "preview-title": "Созданное правило оповещения",
+        "prompt-description": "Опишите, что вы хотите отслеживать и когда хотите получать оповещения. Например: «Оповещать, если загрузка ЦП превышает 80% более 5 минут». Вы также можете задать вопрос о доступных точках контакта или источниках данных.",
+        "prompt-label": "Опишите правило оповещения, которое вы хотите создать",
+        "prompt-placeholder": "Оповещать, если загрузка диска превышает 90% более 5 минут, и отправлять в точку контакта Slack...",
+        "title": "Создать правило оповещения с помощью ИИ",
+        "use-rule": "Использовать это правило"
+      }
+    },
+    "improve-ai-annotations": {
+      "button": "Улучшить аннотации с помощью ИИ",
+      "modal": {
+        "apply-improvements": "Применить улучшения аннотаций",
+        "error": "{stringifyErrorLike(generationError)}",
+        "error-title": "Ошибка",
+        "generate": "Улучшить аннотации",
+        "generating": "Создание...",
+        "preview-annotations": "Улучшенные аннотации:",
+        "preview-title": "Предварительный просмотр улучшений в аннотациях на основе ИИ",
+        "prompt-description": "Опишите, что вы хотите улучшить в аннотациях к правилам оповещения. Например: «Сделать сводку более описательной», «Добавить в описание шаги по устранению неполадок» или «Добавить ссылки на руководства».",
+        "prompt-label": "Как бы вы хотели улучшить аннотации?",
+        "prompt-placeholder": "Сделать сводку более описательной и добавить в описание шаги по устранению неполадок...",
+        "title": "Улучшить аннотации к правилам оповещения с помощью ИИ"
+      }
+    },
+    "improve-ai-labels": {
+      "button": "Улучшить метки с помощью ИИ",
+      "modal": {
+        "cancel": "Отмена",
+        "error": "{stringifyErrorLike(generationError)}",
+        "error-title": "Ошибка",
+        "generate": "Создать улучшения",
+        "generating": "Создание...",
+        "prompt-description": "Опишите, что вы хотите улучшить в метках правил оповещения. Например: «Добавить динамические метки степени серьезности», «Включить принадлежность к команде» или «Добавить метки среды».",
+        "prompt-label": "Как бы вы хотели улучшить метки?",
+        "prompt-placeholder": "Добавить динамические метки степени серьезности на основе пороговых значений и включить принадлежность к команде...",
+        "title": "Улучшить метки правил оповещения с помощью ИИ"
+      },
+      "preview": {
+        "apply": "Применить улучшения",
+        "cancel": "Отмена",
+        "no-improvements": "Улучшения не найдены",
+        "no-improvements-message": "ИИ не предложил никаких улучшений меток по этому запросу.",
+        "title": "ИИ предложил улучшения меток:"
+      }
+    },
+    "settings": {
+      "tabs": {
+        "enrichment": {
+          "title": "Обогащение оповещений"
+        }
+      }
+    },
+    "template-form": {
+      "genai": {
+        "modal": {
+          "error": "{stringifyErrorLike(generationError)}",
+          "error-title": "Ошибка",
+          "generate": "Создать шаблон",
+          "generating": "Создание...",
+          "prompt-description": "Опишите желаемый формат и содержание уведомления. Например: «Сообщение Slack, содержащее имя оповещения, его статус и сводку с эмодзи» или «Электронное письмо с таблицей всех активных оповещений, включая их метки и время начала».",
+          "prompt-label": "Опишите, как должно выглядеть ваше уведомление",
+          "prompt-placeholder": "Сообщение Slack, содержащее текст «🔥ОПОВЕЩЕНИЕ: [AlertName] активно» со сводкой и ссылкой для просмотра подробностей...",
+          "title": "Создать шаблон с помощью ИИ"
+        }
+      }
+    },
+    "templates": {
+      "editor": {
+        "generate-with-ai": "Создать с помощью ИИ"
+      }
+    },
+    "triage-ai": {
+      "button": "Анализировать с помощью {{ provider }}",
+      "modal": {
+        "analysis-title": "Анализ приоритизации оповещений",
+        "analyze": "Анализировать",
+        "analyzing": "🤖 Анализ {{logRecordsLength}} событий оповещения...",
+        "custom-question": {
+          "help": "Оставьте пустым для общего анализа приоритизации или задайте конкретный вопрос о событиях оповещения.",
+          "label": "Задать конкретный вопрос (необязательно)",
+          "placeholder": "Например: «Что вызывает оповещения базы данных?» или «Связаны ли эти оповещения с недавним развертыванием?»"
+        },
+        "description": "Анализ текущих событий оповещения на основе ИИ, чтобы помочь понять закономерности, расставить приоритеты реагирования и выявить потенциальные проблемы.",
+        "error": "Ошибка",
+        "title": "Анализ приоритизации оповещений"
+      }
+    }
+  },
+  "auth-config": {
+    "action-bar": {
+      "content-disable-button": "После отключения Grafana не сможет использовать аутентификацию SAML.",
+      "delete": "Удалить",
+      "disable-button": "Отключить",
+      "enabled-badge": "Включено",
+      "more-actions-button": "Другие действия",
+      "not-enabled-badge": "Не включена",
+      "protocol": "Протокол",
+      "save-and-apply-button": "Сохранить и применить",
+      "save-and-enable-button": "Сохранить и включить",
+      "save-button": "Сохранить",
+      "status": "Статус"
+    },
+    "assertion-mapping-unconnected": {
+      "aria-label-name-id-format": "формат идентификатора имени",
+      "assertionAttributeEmail-label-email-attribute": "Атрибут эл. почты",
+      "assertionAttributeEmail-placeholder-mail": "почта",
+      "assertionAttributeExternalUid-label-external-uid": "Атрибут внешнего UID",
+      "assertionAttributeExternalUid-tooltip-external-uid": "Сопоставление внешних UID — это механизм безопасности, который предотвращает подмену пользователя. Требуется только при включенной поддержке SCIM. Предоставленный внешний UID (идентификатор пользователя, созданный поставщиком удостоверений) должен присутствовать в утверждении SAML, когда пользователь входит в систему. Значение по умолчанию для этого поля — userUID.",
+      "assertionAttributeGroups-label-groups-attribute": "Атрибут групп",
+      "assertionAttributeLogin-label-login-attribute": "Атрибут логина",
+      "assertionAttributeLogin-placeholder-mail": "почта",
+      "assertionAttributeName-label-name-attribute": "Атрибут имени",
+      "assertionAttributeName-placeholder-display-name": "ОтображаемоеИмя",
+      "assertionAttributeOrg-label-org-attribute": "Атрибут организации",
+      "assertionAttributeRole-label-role-attribute": "Атрибут роли",
+      "azure-ad-service-account-configuration": "Настройка служебной учетной записи Azure AD",
+      "clientId-label-client-id": "Идентификатор клиента",
+      "clientSecret-label-client-secret": "Секрет клиента",
+      "description-allowed-organizations": "Список названий организаций в SAML, разделенных запятыми или пробелами. Чтобы иметь возможность войти в систему, пользователь должен быть участником хотя бы одной организации.",
+      "description-assertion-attributes-mapping": "Сопоставьте атрибуты утверждения SAML с атрибутами пользователя Grafana. Атрибуты утверждений поддерживают сопоставление шаблонов. Синхронизация команд доступна, если настроен атрибут групп.",
+      "description-azure-ad-service-account-configuration": "Если у вас есть пользователи, входящие более чем в 150 групп в вашей организации в Azure AD, необходимо настроить служебную учетную запись Azure AD для получения информации обо всех группах через API Graph. Эта служебная учетная запись будет использоваться для получения информации обо всех группах пользователя. Подробнее о настройке служебной учетной записи Azure AD см. в <1>документации</1>.",
+      "description-force-use-graph-api": "Принудительное использование API Graph для получения информации обо всех группах пользователя.",
+      "description-name-identifier-format": "Форматы идентификаторов имен определяют, как пользователи поставщика удостоверений сопоставляются с пользователями в Grafana.",
+      "description-prevent-synchronizing-users-organization-roles": "Запретите для пользователей SAML синхронизацию ролей организации из вашего IdP.",
+      "label-allowed-organizations": "Разрешенные организации",
+      "label-assertion-attributes-mapping": "Сопоставление атрибутов утверждений",
+      "label-force-use-graph-api": "Принудительное использование API Graph",
+      "label-name-identifier-format": "Формат идентификатора имени",
+      "label-org-mapping": "Сопоставление организаций",
+      "label-role-mapping": "Сопоставление ролей",
+      "label-skip-organization-role-sync": "Пропустить синхронизацию ролей организации",
+      "label-user-mapping": "Сопоставление пользователей",
+      "orgMapping-label-org-mapping": "Сопоставление организаций",
+      "roleValuesAdmin-label-admin": "Администратор",
+      "roleValuesEditor-label-editor": "Пользователь с правами редактирования",
+      "roleValuesGrafanaAdmin-label-grafana-admin": "Администратор Grafana",
+      "roleValuesNone-label-none": "Нет",
+      "roleValuesViewer-label-viewer": "Пользователь с правами просмотра",
+      "tokenUrl-label-access-token-url": "URL-адрес токена доступа",
+      "tooltip-assertion-attributes-mapping": "Функция сопоставления атрибутов утверждений в Grafana получает информацию о пользователе из ответа SAML и использует ее для создания или обновления сведений о пользователе в своей базе данных. В утверждении осуществляется считывание атрибутов (пар «ключ — значение»), таких как имя, идентфикатор логина и адрес эл. почты. Конфигурации позволяют изменять выбор ключа.",
+      "tooltip-org-mapping": "Функция сопоставления организаций позволяет назначать пользователей определенной организации в Grafana в зависимости от значения атрибута, полученного от поставщика удостоверений. Используйте конфигурацию, чтобы назначить в организации Grafana пользователей из вашей организации.",
+      "tooltip-role-mapping": "Функция сопоставления ролей синхронизирует роли пользователей, присвоенные вашим поставщиком удостоверений, с Grafana, настраивая атрибуты для ролей «Нет», «Пользователь с правами просмотра», «Пользователь с правами редактирования», «Администратор» и «Администратор Grafana». Если совпадений нет, в Grafana по умолчанию используется роль «Пользователь с правами просмотра»."
+    },
+    "config-action": {
+      "confirm-modal-body": "Вы действительно хотите безвозвратно удалить конфигурацию SAML? Все изменения, внесенные в пользовательский интерфейс, будут удалены.",
+      "confirm-modal-confirm-text": "Удалить конфигурацию",
+      "confirm-modal-confirmation-text": "удалить",
+      "confirm-modal-dismiss-text": "Вернуться к редактированию",
+      "confirm-modal-title": "Удаление конфигурации SAML"
+    },
+    "connect-to-idp-unconnected": {
+      "configure-assertions-group-mappings": "Настройте утверждения, группу, сопоставления групп и организаций на следующем этапе.",
+      "configure-idp-using-grafana-metadata": "Настроить IdP с помощью метаданных Grafana",
+      "copy": "Копировать",
+      "description-assertion-consumer-service-url": "URL-адрес Assertion Consumer Service POST Binding URL.",
+      "description-idp-metadata": "Должен совпадать с настройкой или требованиями IdP.",
+      "description-metadata-url": "URL-адрес для метаданных IdP.",
+      "description-setup-idp": "Чтобы настроить поставщика удостоверений (IdP), потребуется URL-адрес метаданных Grafana. Все перечисленные ниже конечные точки должны быть доступны вашему поставщику удостоверений (IdP).",
+      "description-setup-required": "Перейдите на панель конфигурации вашего IdP, добавьте новое приложение и используйте метаданные из первого шага для подключения к Grafana. Нужно будет скопировать метаданные IdP и указать их ниже. Проверьте соединение и скопируйте метки/значения утверждений.",
+      "description-slo-url": "URL-адрес Logout Service Redirect Binding URL / Logout Service POST Binding URL",
+      "description-sp-metadata-url-entity-id": "URL-адрес метаданных SP / идентификатор сущности SP",
+      "description-test-connection": "Если вы хотите протестировать соединение с панели IdP, разрешите вход, инициированный IdP, и предоставьте информацию о состоянии ретрансляции.",
+      "finish-configuring-grafana-using-idp-data": "Завершить настройку Grafana с помощью данных IdP",
+      "label-assertion-consumer-service-url": "URL-адрес Assertion Consumer Service",
+      "label-baseencoded-idp-metadata": "Метаданные IdP в кодировке Base64",
+      "label-connect-grafana-with-identity-provider": "Подключить Grafana к поставщику удостоверений",
+      "label-idp-metadata": "Метаданные IdP ",
+      "label-metadata-url": "URL-адрес метаданных",
+      "label-path-to-idp-metadata-file": "Путь к файлу метаданных IdP",
+      "label-slo-url": "URL-адрес целей уровня обслуживания",
+      "label-sp-metadata-url-entity-id": "URL-адрес метаданных",
+      "step-number-1": "1",
+      "step-number-2": "2",
+      "step-number-3": "3"
+    },
+    "general-unconnected": {
+      "description-allow-signup": "Следует ли разрешить создание нового пользователя Grafana через вход с помощью SAML. Если этот параметр не включен, только существующие пользователи Grafana могут входить в систему с помощью SAML.",
+      "description-auto-login": "Попытка выполнить автоматический вход с помощью SAML (с пропуском экрана входа).",
+      "description-display-name-for-this-saml-integration": "Параметр полезен, если вы используете несколько поставщиков удостоверений или протоколов единого входа.",
+      "description-duration-grafana-metadata-valid": "Продолжительность действия метаданных Grafana.",
+      "description-entity-id": "Идентификатор сущности — это глобальный уникальный идентификатор поставщика услуг. Он используется для идентификации поставщика услуг поставщиком удостоверений. По умолчанию используется URL-адрес экземпляра Grafana.",
+      "description-identity-provider-initiated-login": "Позволяет пользователям входить в Grafana напрямую через поставщика удостоверений.",
+      "description-max-issue-delay": "Время между отправкой ответа IdP и получением Grafana разрешения на его обработку.",
+      "description-relay-state": "Обязательно. Должно соответствовать состоянию ретрансляции, настроенному в IdP. Требуется конечный пробел.",
+      "description-single-logout": "Позволяет пользователям выходить из сеанса IdP и приложений, связанных с текущим сеансом IdP, который был установлен через SAML.",
+      "displayName-placeholder-saml": "SAML",
+      "label-allow-signup": "Разрешить регистрацию",
+      "label-auto-login": "Автоматический вход",
+      "label-display-name-for-this-saml-integration": "Отображаемое имя для интеграции SAML 2.0",
+      "label-entity-id": "Идентификатор сущности",
+      "label-general-settings": "Общие параметры",
+      "label-identity-provider-initiated-login": "Вход, инициированный поставщиком удостоверений",
+      "label-max-issue-delay": "Макс. задержка выдачи",
+      "label-metadata-valid-duration": "Срок действия метаданных",
+      "label-relay-state": "Состояние ретрансляции",
+      "label-single-logout": "Единый выход"
+    },
+    "input-with-reset": {
+      "reset": "Сброс"
+    },
+    "key-cert-drawer-unconnected": {
+      "close": "Закрыть",
+      "description-number-generated-certificate-valid": "Количество дней, в течение которых действует созданный сертификат.",
+      "generate": "Создать",
+      "label-city": "Город",
+      "label-country-code": "Код страны",
+      "label-state": "Состояние",
+      "label-validity-days": "Срок действия в днях",
+      "label-your-organization": "Ваша организация",
+      "subtitle-saml-key-and-certificate": "В созданный сертификат будут включены указанные ниже данные",
+      "title-saml-key-and-certificate": "Ключ и сертификат SAML",
+      "tooltip-generate-the-certificate-and-private-key": "Создайте сертификат и закрытый ключ"
+    },
+    "key-cert-unconnected": {
+      "description-baseencoded-grafana-x-certificate": "Сертификат Grafana X.509 в кодировке Base64.",
+      "description-baseencoded-private-key": "Закрытый ключ в кодировке Base64.",
+      "description-path-to-the-grafana-private-key": "Путь к закрытому ключу Grafana.",
+      "description-path-to-the-grafana-x-certificate": "Путь к сертификату Grafana X.509.",
+      "description-sign-outgoing-requests-to-id-p": "Подпишите исходящие запросы к IdP.",
+      "description-signature-algorithm": "Алгоритм подписи, используемый для подписания запросов к IdP. Должен совпадать с настройкой или требованиями IdP.",
+      "description-signing-and-encryption-key-certificate": "Сертификат и закрытый ключ для обмена информацией между Grafana и IdP. Закрытый ключ должен быть выпущен в формате PKCS#8. Сертификат должен быть действительным сертификатом X.509.",
+      "generate-key-and-certificate": "Создать ключ и сертификат",
+      "label-certificate": "Сертификат",
+      "label-private-key": "Закрытый ключ",
+      "label-sign-requests": "Подписать запросы",
+      "label-signature-algorithm": "Алгоритм подписи",
+      "label-signing-and-encryption-key-certificate": "Ключ и сертификат подписи и шифрования"
+    },
+    "page-banner": {
+      "aria-label-close-banner": "Закрыть баннер",
+      "tooltip-close": "Закрыть"
+    },
+    "SAML": {
+      "button-row-next": "Следующий: {{name}}",
+      "button-row-previous": "Предыдущий: {{name}}"
+    },
+    "samlform": {
+      "text-saved": "Сохранено"
+    },
+    "save-and-test-unconnected": {
+      "button-save-and-enable": "Сохранить и включить",
+      "label-test-and-enable": "Проверить и включить",
+      "text-save-and-enable": "Если вы готовы применить конфигурацию SAML, нажмите кнопку «Сохранить и включить». Конфигурацию можно отключить."
+    },
+    "save-samlsettings": {
+      "message": {
+        "cannot-save-settings": "Невозможно сохранить настройки"
+      }
+    },
+    "text-input-with-reset": {
+      "reset": "Сброс"
+    }
+  },
+  "banner": {
+    "api": {
+      "result": {
+        "saved": "Параметры баннера сохранены"
+      }
+    },
+    "form": {
+      "button-save": "Сохранить",
+      "button-saving": "Сохранение...",
+      "enabled": {
+        "label": "Включено"
+      },
+      "end": {
+        "description": "Если дата окончания не выбрана, баннер отображается бесконечно.",
+        "error": "Время окончания должно быть позже времени начала",
+        "label": "Окончание в"
+      },
+      "message": {
+        "description": "Текстовое содержимое баннера. Поддерживает разметку.",
+        "label": "Сообщение"
+      },
+      "options": {
+        "error": "Ошибка",
+        "info": "Информация",
+        "warning": "Предупреждение"
+      },
+      "select": {
+        "placeholder": "Выбрать тип баннера"
+      },
+      "start": {
+        "description": "Баннер будет отображаться начиная с этой даты/времени.",
+        "label": "Начало в"
+      },
+      "title": "Настроить баннер",
+      "variant": {
+        "label": "Вариант"
+      }
+    },
+    "preview": {
+      "message": {
+        "default": "Обновите предварительный просмотр, изменив поле сообщения."
+      },
+      "title": "Предварительный просмотр"
+    }
+  },
+  "caching": {
+    "alert": {
+      "readonly": {
+        "message": "Этот источник данных был добавлен с помощью конфигурации. Кэширование не может быть изменено с помощью пользовательского интерфейса. Чтобы обновить этот источник данных, обратитесь к администратору сервера.",
+        "title": "Подготовленный источник данных"
+      }
+    },
+    "cache-clean": {
+      "body-clear-cache": "Предупреждение. Это действие влияет на все источники данных с включенным кэшем. Если вы используете Memcached, система очистит все данные из экземпляра Memcached. Хотите продолжить?",
+      "clear-cache": "Очистить кэш",
+      "confirm-text-clear-cache": "Очистить кэш",
+      "title-clear-cache": "Очистка кэша"
+    },
+    "cache-cta": {
+      "enable-button-title": "Включить",
+      "enable-button-tittle": "Включить",
+      "protip-caching-cannot-enabled-source": "Конфигурация этого источника данных не позволяет включить кэширование.",
+      "protip-caching-not-enabled": "Включение кэширования может сократить количество избыточных запросов, отправляемых в источник данных.",
+      "protip-link-caching-not-enabled": "Подробнее",
+      "title-caching-cannot-enabled-source": "Невозможно включить кэширование для этого источника данных",
+      "title-caching-not-enabled": "Кэширование не включено для этого источника данных"
+    },
+    "cache-settings-disable": {
+      "disable": "Отключить"
+    },
+    "cache-settings-form": {
+      "description-query-ttl": "Время жизни элемента кэша запросов в миллисекундах. Пример: 5000",
+      "description-resource-ttl": "Ресурсы — это динамические значения, которые плагины источников данных Grafana получают из источников данных для использования в редакторе запросов. Примеры: пространства имен Splunk, метки Prometheus и имена метрик CloudWatch. Поскольку эти значения обновляются реже, для ресурсов можно установить более длительный срок хранения в кэше, чем для запросов. Подробнее — в <2>документации</2>.",
+      "description-timetolive-resources-cache-items-milliseconds-example": "Время жизни элементов кэша ресурсов в миллисекундах. Пример: 5000",
+      "description-use-default-ttl": "Включите этот параметр, чтобы использовать время жизни по умолчанию, установленное в конфигурации Grafana ({{defaultTTLMs}} мс).",
+      "label-query-ttl": "Время жизни запроса",
+      "label-use-default-ttl": "Использовать время жизни по умолчанию",
+      "resource-ttl": "Время жизни ресурса",
+      "save": "Сохранить"
+    },
+    "caching": {
+      "content": {
+        "text": {
+          "enable-caching": "Включить кеширование"
+        }
+      }
+    },
+    "data-source-cache": {
+      "caching-heading": "Кэширование",
+      "query-catching": "Включите бесплатное кэширование запросов во время использования пробной версии Grafana Pro.",
+      "upgrade-content-author-dashboards": "Упростите создание дашбордов за счет кэширования данных, используемых для построения запросов: например, полей в ServiceNow или метрик, доступных в Datadog",
+      "upgrade-content-description": "Функция кэширования позволяет вам быстрее загружать дашборды и сокращать количество дорогостоящих запросов к источникам данных за счет временного хранения результатов запросов в памяти, Redis или Memcached.",
+      "upgrade-content-load-dashboards": "Загружайте дашборды из кэша менее чем за секунду, даже если они содержат большие запросы и их просматривает множество пользователей одновременно",
+      "upgrade-content-save-money": "Экономьте деньги и избегайте ограничений скорости, сокращая количество вызовов API к таким источникам данных, как Splunk, CloudWatch и Github"
+    }
+  },
+  "common": {
+    "cancel": "Отмена",
+    "close": "Закрыть"
+  },
+  "explore": {
+    "query-library": {
+      "cancel": "Отмена",
+      "default-title": "Новый запрос",
+      "discard": "Отменить",
+      "editing-title": "Редактирование данных из сохраненных запросов",
+      "explore": "Редактировать в Explore",
+      "query-template-added": "Запрос сохранен в библиотеке",
+      "query-template-edit-error": "Ошибка при попытке изменить этот запрос",
+      "query-template-edited": "Шаблон запроса изменен",
+      "save": "Сохранить",
+      "save-and-close": "",
+      "save-return": "Сохранить и вернуться к сохраненным запросам",
+      "saving": "Сохранение..."
+    }
+  },
+  "export": {
+    "pdf": {
+      "cancel-button": "Отмена",
+      "download-button": "Создать PDF",
+      "image-alt": "Предварительный просмотр PDF",
+      "info-text": "Экспорт дашборда в виде документа PDF",
+      "layout-label": "Расположение",
+      "orientation-label": "Ориентация",
+      "title": "Экспорт документа PDF дашборда",
+      "zoom-description": "Увеличьте масштаб, чтобы увеличить текст, или уменьшите масштаб, чтобы увидеть больше данных (например, столбцы таблицы) на панели.",
+      "zoom-label": "Масштаб"
+    }
+  },
+  "groupsync": {
+    "empty-state": {
+      "pro-tip": "Хотите управлять доступом к Grafana через группы в вашем поставщике идентификации? Создайте сопоставления групп с ролями RBAC в Grafana. <2>Подробнее</2>",
+      "title": "Вы еще не создали ни одного сопоставления групп"
+    },
+    "group-sync-editor": {
+      "body-delete-group-mappings": "Вы действительно хотите удалить все сопоставления для этой группы?",
+      "close-button-drawer": "Закрыть",
+      "confirm-text-delete-group-mappings": "Удалить",
+      "delete-group-mapping": "Удалить сопоставление для группы",
+      "new-button-drawer": "Новое",
+      "new-group-mapping": "Новое сопоставление для группы",
+      "placeholder-search-by-group-id": "Поиск по идентификатору группы",
+      "text-deprecated-feature": "Эта функция устарела, и ваши правила перестанут действовать в июне 2025 года. Перейдите на внешнюю синхронизацию группы в настройках нужной команды и назначьте роли командам.",
+      "title-delete-group-mappings": "Удаление сопоставлений для группы",
+      "title-deprecated-feature": "Устаревшая функция"
+    },
+    "new-mapping-form": {
+      "label-group-id": "Идентификатор группы",
+      "label-roles": "Роли",
+      "save": "Сохранить"
+    }
+  },
+  "licensing": {
+    "customer-support-button": {
+      "contact-customer-support": "Связаться со службой поддержки"
+    },
+    "expires-soon": {
+      "title-grafana-enterprise-license-expire": "Срок действия лицензии Grafana Enterprise скоро истечет",
+      "sub-title-license-expiration_one": "Остался {{count}} день до <3>отключения функций Enterprise.</3>",
+      "sub-title-license-expiration_few": "Осталось {{count}} дня до <3>отключения функций Enterprise.</3>",
+      "sub-title-license-expiration_many": "Осталось {{count}} дней до <3>отключения функций Enterprise.</3>",
+      "sub-title-license-expiration_other": "Осталось {{count}} дня до <3>отключения функций Enterprise.</3>"
+    },
+    "get-token-status": {
+      "title": {
+        "token-expired": "Срок действия токена истек",
+        "token-expires-soon": "Срок действия токена истекает"
+      }
+    },
+    "get-trial-status": {
+      "title": {
+        "trial-active": "Пробная версия активна",
+        "trial-expired": "Срок действия пробной версии истек"
+      }
+    },
+    "has-expired": {
+      "sub-title-licensing-reader": "<0>Некоторые функции</0> отключены",
+      "title-your-grafana-enterprise-license-has-expired": "Срок действия лицензии Grafana Enterprise истек"
+    },
+    "is-invalid": {
+      "sub-title-licensing-reader": "<0>Некоторые функции</0> отключены",
+      "title-your-grafana-enterprise-license-is-invalid": "Лицензия Grafana Enterprise недействительна"
+    },
+    "license-info": {
+      "aria-label-details-about-license-grafana-cloud": "Просмотр сведений о лицензии в Grafana Cloud",
+      "card-content-account": "Учетная запись AWS",
+      "card-content-active-licensed-users": "Активные лицензированные пользователи",
+      "card-content-anonymous-users": "Анонимные пользователи",
+      "card-content-authenticated-users": "Аутентифицированные пользователи",
+      "card-content-company": "Компания",
+      "card-content-license-expires": "Срок действия лицензии истекает",
+      "card-content-license-expires-tooltip": "Датой истечения срока действия лицензии является дата, когда текущая лицензия перестает быть активной. Когда эта дата приближается, в Grafana Enterprise отображается соответствующий баннер.",
+      "card-content-lid": "Идентификатор лицензии",
+      "card-content-none": "Нет",
+      "card-content-product": "Продукт",
+      "card-content-products": "Продукты",
+      "card-content-purchase-date": "Дата покупки",
+      "card-content-token-auto-update": "Grafana автоматически обновляет токен до истечения срока его действия. Если токен не обновится, обратитесь в службу поддержки.",
+      "card-content-token-expires": "Срок действия токена истекает",
+      "card-content-token-id": "Идентификатор токена",
+      "card-content-token-issued": "Токен выдан",
+      "card-content-token-usage-billing-off": "Выкл.",
+      "card-content-url-name": "URL",
+      "card-content-url-tooltip": "URL-адрес лицензии — это корневой URL-адрес вашего экземпляра Grafana. Лицензия не будет работать на экземпляре Grafana с другим корневым URL-адресом.",
+      "card-content-usage-billing": "Выставление счетов за использование",
+      "card-content-usage-billing-on": "Вкл.",
+      "card-content-usage-billing-tooltip": "Вы можете включить выставление счетов за использование в Grafana Labs, чтобы разрешить неограниченное количество активных пользователей. Если эта функция включена, Grafana не ограничивает количество активных пользователей и не отображает предупреждающие баннеры. Вместо этого с вас взимается плата за активных пользователей сверх установленного лимита в соответствии с вашим договором.",
+      "edition-notice-licensing-info": "Вы используете Grafana Enterprise без лицензии. Функции Enterprise отключены.",
+      "edition-notice-problem-licensing-info": "Возникла проблема с токеном лицензии Enterprise. Функции Enterprise отключены.",
+      "license-alert": "Токен лицензии добавлен. Чтобы изменения вступили в силу, перезапустите Grafana.",
+      "license-details": "Сведения о лицензии",
+      "license-token-info": "Подробнее об <2>истечении срока действия</2> и <6>активации лицензии</6>.",
+      "renew-token": "Обновить токен",
+      "renewing": " (Обновление...)",
+      "text-loading-licensing-info": "Загрузка информации о лицензии...",
+      "title-contact-support-renew-token-visit-cloud": "Чтобы обновить токен, обратитесь в службу поддержки или посетите портал Cloud для получения более подробной информации.",
+      "title-have-a-license": "У вас есть лицензия?",
+      "title-license": "Лицензия",
+      "title-license-token-renewed": "Токен лицензии обновлен.",
+      "title-token": "Токен",
+      "title-utilization": "Использование",
+      "utilization-footer": "Использование Grafana лицензированными пользователями определяется на основе активности вошедших в систему пользователей за последние 30 дней.",
+      "utilization-info": "Подробнее о <2>лимитах активных пользователей</2> и <6>лимитах одновременных сеансов</6>.",
+      "card-content-anonymous-users-tooltip_one": "На каждое {{count}} анонимное устройство Grafana учитывает 1 пользователя.",
+      "card-content-anonymous-users-tooltip_few": "На каждые {{count}} анонимных устройства Grafana учитывает 1 пользователя.",
+      "card-content-anonymous-users-tooltip_many": "На каждые {{count}} анонимных устройств Grafana учитывает 1 пользователя.",
+      "card-content-anonymous-users-tooltip_other": "На каждые {{count}} анонимного устройства Grafana учитывает 1 пользователя."
+    },
+    "license-token-upload": {
+      "instance-url": "URL-адрес экземпляра: <1>{{licensedUrl}}</1>",
+      "upload-a-new-token": "Добавить новый токен",
+      "uploading": "Добавление..."
+    },
+    "max-users-reached": {
+      "title-exceeded-included-number-active-users": "Превышено количество активных пользователей, предусмотренное лицензией",
+      "upgrade-your-license-link": "<2>Обновите лицензию.</2>",
+      "upgrade-your-license-no-link": "Обновите лицензию.",
+      "upgrade-your-license-subtitle_one": "Ваша лицензия Grafana Enterprise включает {{maxUsers}} активного пользователя. В настоящее время у вас {{count}} активный пользователь. ",
+      "upgrade-your-license-subtitle_few": "Ваша лицензия Grafana Enterprise включает {{maxUsers}} активных пользователя. В настоящее время у вас {{count}} активных пользователя. ",
+      "upgrade-your-license-subtitle_many": "Ваша лицензия Grafana Enterprise включает {{maxUsers}} активных пользователей. В настоящее время у вас {{count}} активных пользователей. ",
+      "upgrade-your-license-subtitle_other": "Ваша лицензия Grafana Enterprise включает {{maxUsers}} активного пользователя. В настоящее время у вас {{count}} активного пользователя. "
+    },
+    "page-alert": {
+      "learn-about-enterprise-licenses": "Подробнее о лицензиях Enterprise"
+    },
+    "token-expires-soon": {
+      "title-grafana-enterprise-token-needs-renewed": "Необходимо обновить токен Grafana Enterprise",
+      "sub-title-token-expiration_one": "Срок действия вашего токена лицензии истекает через {{count}} день, после чего <4>функции Enterprise будут отключены.</4>",
+      "sub-title-token-expiration_few": "Срок действия вашего токена лицензии истекает через {{count}} дня, после чего <4>функции Enterprise будут отключены.</4>",
+      "sub-title-token-expiration_many": "Срок действия вашего токена лицензии истекает через {{count}} дней, после чего <4>функции Enterprise будут отключены.</4>",
+      "sub-title-token-expiration_other": "Срок действия вашего токена лицензии истекает через {{count}} дня, после чего <4>функции Enterprise будут отключены.</4>"
+    }
+  },
+  "meta-analytics": {
+    "analytics-drawer": {
+      "public-dashboards-tab-label": "Общедоступные дашборды",
+      "shared-dashboards-tab-label": "Совместно используемые дашборды",
+      "stats-tab-label": "Статистика",
+      "text-access-usage-insights-during-trial-grafana": "Получите полный доступ к бесплатной аналитике использования в период действия пробной версии Grafana Pro.",
+      "title-dashboard-insights": "{{dashboardTitle}}: аналитика",
+      "users-activity-tab-label": "Пользователи и активность"
+    },
+    "analytics-public-dashboards-tab": {
+      "daily-query-count-cached-queries-label": "кэшированные запросы",
+      "daily-query-count-title": "Количество запросов в день",
+      "errors-last-month-title": "Ошибки за последние 30 дней",
+      "no-data": "Нет данных.",
+      "views-last-month-title": "Просмотры за последние 30 дней"
+    },
+    "analytics-stats-tab": {
+      "daily-query-count-cached-queries-label": "кэшированные запросы",
+      "daily-query-count-title": "Количество запросов в день",
+      "errors-last-month-title": "Ошибки за последние 30 дней",
+      "no-data": "Нет данных."
+    },
+    "analytics-toolbar-button": {
+      "tooltip-dashboard-insights": "Аналитика дашбордов"
+    },
+    "analytics-upgrade-drawer": {
+      "description-usage-insights-provide-detailed-information-about": "Аналитика использования предоставляет подробную информацию об использовании дашборда: например, количество просмотров и запросов, а также ошибки, с которыми столкнулись пользователи. Эту информацию можно использовать для улучшения взаимодействия с пользователями и устранения проблем.",
+      "title-dashboard-insights": "{{dashboardTitle}}: аналитика"
+    },
+    "analytics-users-tab": {
+      "aria-label-recent-users-table": "Таблица последних пользователей",
+      "aria-label-user-box-title": "Заголовок ячейки пользователя",
+      "aria-label-user-information-box": "Ячейка информации о пользователе",
+      "aria-label-version-history-button": "Кнопка истории версий",
+      "created-user-box": "Создан",
+      "dashboard-version-history": "История версий дашборда",
+      "format-date-currently-viewing": "Просматривает в данный момент",
+      "format-date-last-hour": "В пределах последнего часа",
+      "format-date-today": "Сегодня",
+      "format-date-yesterday": "Вчера",
+      "last-dashboard-viewers": "Последние 30 пользователей, просмотревших дашборд",
+      "last-edited-user-box": "Кто последний редактировал",
+      "last-viewed-user-box": "Кто последний просматривал",
+      "user-views-data-frame-user-field": "Пользователь",
+      "user-views-data-frame-when-field": "Когда",
+      "views-last-month-title": "Просмотры за последние 30 дней"
+    },
+    "data-source-insights": {
+      "available-source": "Нет доступных данных для этого источника.",
+      "average-load-duration-last-month-title": "Средняя продолжительность загрузки за последние 30 дней (мс)",
+      "errors-last-month-title": "Ошибки за последние 30 дней",
+      "queries-last-month-title": "Запросы за последние 30 дней",
+      "text-enable-source-usage-insights-during-trial": "Включите бесплатную аналитику использования источников данных во время действия пробной версии Grafana Pro.",
+      "text-feature-not-available-expired-license": "Срок действия лицензии истек, поэтому аналитика источников данных недоступна. Сбор данных продолжится, но для просмотра этой страницы необходимо обновить лицензию.",
+      "title-feature-available-expired-license": "Функция недоступна, поскольку истек срок действия лицензии",
+      "title-read-more-license-expiration": "Подробнее об истечении срока действия лицензии"
+    },
+    "data-source-insights-upgrade": {
+      "clean-instance-list-item": "Очистите свой экземпляр путем поиска и удаления неиспользуемых источников данных",
+      "demonstrate-and-improve-list-item": "Демонстрируйте эффективность своей службы наблюдения и повышайте её, отслеживая взаимодействие с пользователями",
+      "description-usage-insights-provide-detailed-information-about": "Аналитика использования предоставляет подробную информацию об использовании источника данных: например, количество просмотров и запросов, а также ошибки, с которыми столкнулись пользователи. Эту информацию можно использовать для улучшения взаимодействия с пользователями и устранения проблем",
+      "keep-performant-list-item": "Получайте максимальную отдачу от Grafana, выявляя и исправляя медленные и подверженные ошибкам источники данных",
+      "review-insights-list-item": "Просматривайте аналитику использования отдельных источников данных в пользовательском интерфейсе, сортируйте результаты поиска по использованию и ошибкам или изучайте подробные журналы использования"
+    }
+  },
+  "permissions": {
+    "data-source-permissions": {
+      "text-enable-source-permissions-during-trial-grafana": "Бесплатно включите разрешения для источников данных во время действия пробной версии Grafana Pro."
+    },
+    "permissions-upgrade-content": {
+      "description-source-permissions-protect-sensitive-limiting-access": "Разрешения помогут вам защитить конфиденциальную информацию, предоставив доступ к источнику данных только определенному кругу пользователей, команд и ролей.",
+      "source-permissions-protect-clean-experience-list-item": "Оптимизируйте взаимодействие с пользователями, скрывая источники данных, которые они не используют",
+      "source-permissions-protect-sensitive-data-list-item": "Защитите конфиденциальные данные, например журналы безопасности, рабочие базы данных и личную информацию",
+      "source-permissions-protect-share-access-list-item": "Предоставляйте доступ к Grafana более свободно, зная, что пользователи не увидят не предназначенные для них конфиденциальные данные"
+    }
+  },
+  "plugins": {
+    "sandbox": {
+      "enable-sandbox-label": "«Песочница» фронтенда",
+      "enable-sandbox-tooltip": "«Песочница» фронтенда выполняет клиентский код изолированно, ограничивая доступ к глобальной области браузера и изменения в пользовательском интерфейсе областью плагинов.",
+      "enable-sandbox-tooltip-link": "Узнать больше"
+    }
+  },
+  "public-dashboard": {
+    "email-sharing": {
+      "success-confirm-access": "Доступ подтвержден",
+      "success-resend-recipient-invitation": "Приглашение по электронной почте отправлено повторно.",
+      "success-revoke-access-description": "Вы отозвали доступ для {{recipientEmail}}.",
+      "success-revoke-access-title": "Доступ отозван",
+      "success-revoke-all-accesses-description": "Доступ {{email}} ко всем общедоступным дашбордам закрыт.",
+      "success-revoke-all-accesses-title": "Доступ отозван",
+      "success-send-recipient-invitation": "Приглашение по электронной почте отправлено."
+    }
+  },
+  "public-dashboards": {
+    "confirm-access-page": {
+      "confirm-access": "Подтвердить доступ",
+      "login-subtitle": "Пользуйтесь дашбордом в течение 30 дней. По истечении этого срока можно запросить повторный доступ.",
+      "login-title": "Доступ к дашборду"
+    },
+    "request-view-access-page": {
+      "access-requested": "Доступ запрошен",
+      "label-email": "Адрес электронной почты",
+      "placeholder-email": "адрес электронной почты",
+      "register-pattern-invalid-email": "Недопустимый адрес электронной почты",
+      "register-required-email": "Введите адрес электронной почты",
+      "request-access": "Запросить доступ"
+    }
+  },
+  "query-library": {
+    "actions": {
+      "delete-query-button": "Удалить запрос",
+      "duplicate-query-button": "Дублировать запрос",
+      "duplicate-query-title-copy": "Копировать",
+      "lock-query-button": "Заблокировать запрос",
+      "menu-button": "",
+      "save-history-query-button": "",
+      "select-query-button": "Выбрать запрос",
+      "unlock-query-button": "Разблокировать запрос"
+    },
+    "delete-modal": {
+      "body-text": "Вы собираетесь удалить сохраненный запрос. Это действие невозможно отменить. Продолжить?",
+      "confirm-button": "Удалить запрос",
+      "title": "Удалить запрос"
+    },
+    "discard-changes": {
+      "discard-button": "Отменить",
+      "text": "В запросе есть несохраненные изменения. Вы действительно хотите их отменить?",
+      "title": "Отменить изменения в запросе?"
+    },
+    "drawer": {
+      "title": "Сохраненные запросы",
+      "tooltip": "В настоящее время каждая организация может хранить до 1000 запросов"
+    },
+    "empty-state": {
+      "message": "Начните добавлять их из Explore или при редактировании дашборда",
+      "no-favorites": "",
+      "no-favorites-description": "",
+      "no-history": "",
+      "no-history-description": "",
+      "title": ""
+    },
+    "error-state": {
+      "title": "Неизвестная ошибка"
+    },
+    "explore-modal": {
+      "cancel-button": "",
+      "confirm-button": "",
+      "title": "",
+      "warning": ""
+    },
+    "filters": {
+      "datasource-placeholder": "Фильтр по источнику данных",
+      "datasource-user": "Фильтрация по имени пользователя",
+      "search-placeholder": "Поиск по источнику данных, содержимому запроса, заголовку или описанию",
+      "sort": {
+        "asc": "В алфавитном порядке (прямом)",
+        "desc": "В алфавитном порядке (обратном)",
+        "newest": "Сначала новые",
+        "oldest": "Сначала старые"
+      },
+      "sort-placeholder": "Сортировать"
+    },
+    "item": {
+      "add-to-library": "",
+      "favorite": "Добавить в избранное",
+      "new": "Новый",
+      "unfavorite": "Удалить из избранного"
+    },
+    "not-found": {
+      "message": "Попробуйте изменить критерии поиска или фильтра",
+      "title": "Результаты не найдены"
+    },
+    "notifications": {
+      "query-deleted": "Запрос удален"
+    },
+    "query-details": {
+      "author": "Автор",
+      "datasource": "Источник данных",
+      "date-added": "Дата добавления",
+      "description": "Описание",
+      "edit-button": "Редактировать запрос",
+      "edit-button-short": "Редактировать",
+      "make-query-visible": "Поделиться запросом со всеми пользователями",
+      "recent-description": "",
+      "recent-example": "",
+      "tags": "Теги",
+      "title": "Заголовок"
+    },
+    "tabs": {
+      "all": "Все",
+      "favorites": "Избранное",
+      "recent": ""
+    },
+    "template-variables-warning": {
+      "message": "",
+      "message-explore": "",
+      "title": ""
+    },
+    "user-info": {
+      "error": "Ошибка при попытке получить информацию о пользователе из библиотеки: {{error}}"
+    }
+  },
+  "query-operation": {
+    "header": {
+      "replace-query-from-library": "Заменить на сохраненный запрос",
+      "save-to-query-library": "Сохранить запрос"
+    }
+  },
+  "recorded-queries": {
+    "create-recorded-query-unconnected": {
+      "alert-severity-succesful": "Выполнено",
+      "alert-severity-test": "Проверить записанный запрос",
+      "aria-label-start-recording-query-button": "Кнопка начала записи запроса",
+      "contact-support": "Чтобы отправить запрос в службу поддержки Grafana Labs, заполните форму <2>Связаться с Grafana Labs</2>",
+      "count-rows-returned": "Подсчет количества строк, возвращенных в результате запроса",
+      "description-decide-often-record-query": "Задайте, как часто записывать этот запрос.",
+      "description-give-this-query-a-name": "Присвойте запросу имя.",
+      "description-provide-a-description-for-this-query": "Предоставьте описание для этого запроса.",
+      "description-select-value-template-variable": "Выберите значение для каждой переменной шаблона.",
+      "done-button": {
+        "aria-label-cancel-recording-query-button": "Кнопка отмены записи запроса",
+        "aria-label-close-recording-query-button": "Кнопка закрытия записи запроса",
+        "cancel": "Отмена",
+        "close": "Закрыть"
+      },
+      "label": {
+        "relative-time-range": "Относительный временной диапазон"
+      },
+      "label-count-query-results": "Подсчет результатов запроса",
+      "label-description": "Описание",
+      "label-interval": "Интервал",
+      "label-name": "Имя",
+      "label-template-variables": "Переменные шаблона",
+      "message": {
+        "name-is-required": "Требуется ввести имя"
+      },
+      "query-relative-time-range": "Выберите относительный временной диапазон запроса",
+      "results-alert-message": "Результаты: ",
+      "start-recording-query": "Начать запись запроса",
+      "success-alert-message": "Выполняется запись нового запроса",
+      "sync-button": {
+        "aria-label-test-the-recorded-query": "Проверить записанный запрос"
+      },
+      "title-create-recorded-query": "Создать записанный запрос"
+    },
+    "data-source-filter": {
+      "button-clear-filter": "Очистить фильтр по источнику данных",
+      "filter-by-data-source": "Фильтр по источнику данных",
+      "placeholder-select-a-data-source": "Выбрать источник данных"
+    },
+    "empty-recorded-query-list": {
+      "message": "Записанные запросы не определены",
+      "pro-tip": "Совет. Вы можете записывать запросы из редактора запросов."
+    },
+    "query-card": {
+      "interval-content": "Интервал: {{interval}}",
+      "interval-range": "Диапазон: последние {{range}}",
+      "query-expression": "Выражение запроса:"
+    },
+    "recorded-queries-config-unconnected": {
+      "body-delete": "Вы действительно хотите удалить «{{name}}»?",
+      "confirm-text-delete": "Удалить",
+      "edit-remote-write-target": "Редактировать объект удаленной записи",
+      "queries-to-display": {
+        "buttons": {
+          "aria-label-delete-recorded-query": "Удалить записанный запрос",
+          "aria-label-pause-recorded-query": "Приостановить запись",
+          "aria-label-resume-recorded-query": "Возобновить запись",
+          "delete": "Удалить"
+        }
+      },
+      "title-delete": "Удалить"
+    },
+    "recorded-queries-deprecation-notice": {
+      "description": "Записанные запросы устарели. Используйте новые <2>правила записи, управляемые Grafana</2>.",
+      "title-deprecation-notice": "Уведомление об устаревании"
+    },
+    "recorded-query-add-modal-unconnected": {
+      "add": "Добавить",
+      "cancel": "Отмена",
+      "new-recorded-query-alert": "Чтобы создать новый записанный запрос, вернитесь в редактор запросов и используйте значок <2></2> на панели рядов.",
+      "no-queries-available": "Нет записанных запросов для {{datasourceName}}",
+      "recorded-query": "Записанный запрос",
+      "title-add-recorded-query": "Добавьте записанный запрос"
+    },
+    "write-target-config-unconnected": {
+      "label-remote-write-path": "Путь удаленной записи",
+      "placeholder-select-a-data-source": "Выбрать источник данных",
+      "save": "Сохранить",
+      "select-data-source-label": "Выберите источник данных, куда будут записываться метрики"
+    }
+  },
+  "report": {
+    "report-header": {
+      "time-range": "Временной диапазон данных:",
+      "title": "{{reportTitle}} — создан {{generatedOnDate}}"
+    }
+  },
+  "reporting": {
+    "button-row": {
+      "next-step": "Следующий: {{nextName}}",
+      "previous-step": "Предыдущий: {{prevName}}"
+    },
+    "create-report": {
+      "alert-title": "Ошибка при загрузке отчета",
+      "loading-report": "Загрузка отчета...",
+      "title": "Создание нового отчета"
+    },
+    "errors": {
+      "action-message": "Чтобы установить плагин, обратитесь к администратору Grafana.",
+      "no-renderer-description": "Чтобы создавать отчеты PDF, необходимо установить плагин визуализации изображений <2>Grafana Image Renderer</2>.",
+      "no-renderer-title": "Плагин визуализации изображений не установлен",
+      "old-renderer-description": "Чтобы создавать файлы CSV, необходимо обновить плагин визуализации изображений <2>Grafana Image Renderer</2>.",
+      "old-renderer-title": "Вы используете старую версию плагина визуализации изображений"
+    },
+    "image-preview": {
+      "invalid-image": "Недопустимое изображение"
+    },
+    "page": {
+      "empty-button": "Создать отчет",
+      "empty-pro-tip": "Создайте отчет на основе любых существующих дашбордов. <2>Подробнее</2>",
+      "empty-title": "Отчеты еще не созданы",
+      "settings-button": "Параметры отчета"
+    },
+    "page-actions": {
+      "discard-button": "Отменить",
+      "save-as-draft-button": "Сохранить как черновик",
+      "update-button": "Обновить отчет"
+    },
+    "report-footer": {
+      "page-pagination": "Страница {{currentPage}}/{{totalPageCount}}"
+    },
+    "report-form": {
+      "edit-step": "5. Подтверждение"
+    },
+    "report-list": {
+      "confirmText-delete": "Удалить",
+      "content-pause-report": "Приостановить отчет",
+      "content-resume-report": "Возобновить отчет",
+      "delete-report": "Удалить отчет {{name}}"
+    },
+    "schedule": {
+      "frecuency-custom-input-label": "Повторять каждые",
+      "frecuency-custom-select-label": "Пользовательская частота",
+      "frecuency-custom-select-placeholder": "ч.",
+      "frecuency-date-picker-label": "Дата начала отправки отчетов",
+      "frecuency-date-picker-placeholder": "Выбрать дату",
+      "frecuency-end-date-label": "Дата окончания",
+      "frecuency-end-time-label": "Время окончания",
+      "frecuency-last-day-label": "Отправить в последний день месяца",
+      "frecuency-last-day-warning": "Примечание. В некоторых месяцах количество дней не достигает {{warningDateText}}. Отчеты за эти месяцы отправляться не будут. Выберите более раннюю дату или установите параметр <3>«Отправить в последний день месяца»</3>, чтобы отправлять отчеты в конце каждого месяца.",
+      "frecuency-send-later": "Отправить позже",
+      "frecuency-send-now": "Отправить сейчас",
+      "frecuency-start-time-label": "Время начала",
+      "frecuency-time-zone-label": "Часовой пояс",
+      "frecuency-workdays-label": "Отправлять только с понедельника по пятницу",
+      "report-schedule-end-date-label": "Дата окончания отправки отчетов",
+      "report-schedule-end-date-placeholder": "Не заканчивается"
+    },
+    "settings": {
+      "attachment-settings-fieldset-label": "Параметры вложений",
+      "drawer-title": "Параметры шаблона отчета",
+      "email-branding-fieldset-label": "Брендинг электронной почты",
+      "email-footer-field-label": "Нижний колонтитул электронной почты",
+      "email-logo-image-preview-altText": "Предварительный просмотр логотипа компании",
+      "email-logo-url-field-description": "Логотип будет отображаться в заголовке электронного письма. Поддерживаемые форматы: png, jpg, gif.",
+      "email-logo-url-field-label": "URL-адрес логотипа компании",
+      "embedded-image-header": "Встроенное изображение",
+      "embedded-image-theme-picker-description": "Тема будет применена к изображению дашборда, встроенному в электронное письмо.",
+      "footer-link-field-label": "Текст ссылки нижнего колонтитула",
+      "footer-link-url-field-label": "URL-адрес ссылки нижнего колонтитула",
+      "no-data": "Данные настроек отсутствуют",
+      "none-footer-label": "Нет",
+      "pdf-header": "PDF",
+      "pdf-theme-picker-description": "Тема будет применена к PDF-файлу, прикрепленному к отчету.",
+      "report-logo-image-preview-altText": "Предварительный просмотр логотипа компании",
+      "report-logo-url-field-description": "Логотип будет отображаться в нижнем колонтитуле документа. Поддерживаемые форматы: png, jpg, gif.",
+      "report-logo-url-field-label": "URL-адрес логотипа компании",
+      "save-button": "Сохранить",
+      "saving-button": "Сохранение...",
+      "sent-by-footer-label": "Отправлено",
+      "settings-subtitle": "Управление параметрами шаблона отчета"
+    },
+    "update-report": {
+      "title": "Обновить отчет"
+    }
+  },
+  "reports": {
+    "all-template-alert": {
+      "description-not-supported": "Значение All в переменных шаблона, используемых в повторяющихся строках или панелях, не поддерживается в PDF.",
+      "title-not-supported": "Не поддерживается"
+    },
+    "confirm": {
+      "edit": "Редактировать",
+      "report-data": {
+        "title": {
+          "combine-all-pdfs-in-one-file": "Объединить все файлы PDF дашборда в один",
+          "dashboard-link": "Ссылка на дашборд",
+          "email-subject": "Тема электронного письма",
+          "end-date": "Дата окончания",
+          "end-time": "Время окончания",
+          "format-report": "Формат отчета",
+          "message": "Сообщение",
+          "pdf-layout": "Макет PDF",
+          "pdf-orientation": "Ориентация PDF",
+          "pdf-show-template-variables": "Показать переменные шаблона в PDF",
+          "preferred-format": "Предпочтительный формат*",
+          "recipients": "Получатели*",
+          "recurrence": "Повторение",
+          "repeat-every": "Повторять каждые",
+          "replytoemail": "Ответить на электронное письмо",
+          "report-name": "Имя отчета*",
+          "scale-factor": "Коэффициент масштабирования",
+          "schedule": "График",
+          "select-dashboard": "Выбрать дашборд",
+          "send-monday-to-friday-only": "Отправлять только с понедельника по пятницу",
+          "share": "Поделиться",
+          "start-date": "Дата начала",
+          "start-time": "Время начала",
+          "template-variables": "Переменные шаблона",
+          "time-range": "Временной диапазон",
+          "time-zone": "Часовой пояс"
+        }
+      }
+    },
+    "create-report-tab": {
+      "create-report-using-this-dashboard": "Создать отчет с помощью этого дашборда",
+      "description-reporting-allows-automatically-generate-dashboards-grafana": "Функция позволяет автоматически создавать PDF-файлы из любого из ваших дашбордов и отправлять их по электронной почте заинтересованным сторонам согласно графику.",
+      "get-started-with-reporting": "Начало работы с отчетами",
+      "learn-more": "Подробнее",
+      "text-create-unlimited-reports-during-trial-grafana": "Создавайте неограниченное количество отчетов во время действия пробной версии Grafana Pro."
+    },
+    "dashbord-report-renderer": {
+      "title-unsupported-dashboard-layout": "Неподдерживаемый макет дашборда"
+    },
+    "edit-actions": {
+      "aria-label-delete-report": "Удалить отчет",
+      "body-are-you-sure": "Действительно удалить отчет?",
+      "confirmText-delete": "Удалить",
+      "edit-report": "Редактировать отчет",
+      "pause-button": "Пауза",
+      "resume-button": "Возобновить",
+      "title-delete-report": "Удаление отчета",
+      "tooltip-delete": "Удалить"
+    },
+    "format-report": {
+      "aria-label-zoom": "Масштаб",
+      "description-enlarge-table-columns-panel": "Увеличьте масштаб, чтобы увеличить текст, или уменьшите масштаб, чтобы увидеть больше данных (например, столбцы таблицы) на панели.",
+      "label-combine-dashboard": "Объединить все PDF-файлы дашборда в один",
+      "label-configure-multiple-pdfs": "Настроить несколько PDF-файлов",
+      "label-configure-report-header": "Установить заголовок отчета",
+      "label-format-report": "2. Форматирование отчета",
+      "label-layout": "Макет",
+      "label-orientation": "Ориентация",
+      "label-show-template-variables": "Показать переменные шаблона",
+      "label-style-the-pdf": "Настроить стиль PDF",
+      "label-zoom": "Масштаб",
+      "preview-pdf": "Предварительный просмотр PDF",
+      "tooltip-download-table-panel": "Загрузите табличные данные панели в формате CSV в ZIP-архиве"
+    },
+    "highlight-trial-report": {
+      "get-started-with-reporting": "Начало работы с отчетами",
+      "get-started-with-reporting-text": "Функция позволяет автоматически создавать PDF-файлы из любого из ваших дашбордов и отправлять их по электронной почте заинтересованным сторонам согласно графику.",
+      "learn-more": "Подробнее",
+      "text-create-unlimited-reports-during-trial-grafana": "Создавайте неограниченное количество отчетов во время действия пробной версии Grafana Pro."
+    },
+    "report-upgrade-content": {
+      "description-reporting-allows-automatically-generate-dashboards-grafana": "Функция позволяет автоматически создавать PDF-файлы из любого из ваших дашбордов и отправлять их по электронной почте заинтересованным сторонам согласно графику."
+    },
+    "reports-list-page": {
+      "render-list": {
+        "create-a-new-report": "Создать новый отчет",
+        "placeholder-search-reports-report-dashboard-recipients": "Поиск отчетов по названию отчета, имени дашборда или получателям",
+        "text": {
+          "create-report": "Создать отчет"
+        },
+        "text-create-unlimited-reports-during-trial-grafana": "Создавайте неограниченное количество отчетов во время действия пробной версии Grafana Pro."
+      }
+    },
+    "schedule": {
+      "label-frequency": "Частота",
+      "label-schedule": "3. Составление графика",
+      "label-start-date": "Дата начала",
+      "label-time": "Время"
+    },
+    "select-dashboard": {
+      "aria-label-source-dashboard": "Исходный дашборд",
+      "description-time-range": "Создайте отчет с данными за указанный временной диапазон. Если пользовательский временной диапазон является пустым, используется временной диапазон из дашборда, на основе которого создается отчет.",
+      "label-source-dashboard": "Исходный дашборд",
+      "label-template-variables": "Переменные шаблона",
+      "label-time-range": "Временной диапазон"
+    },
+    "select-dashboards": {
+      "add-another-dashboard": "Добавить другой дашборд",
+      "label-select-dashboard": "1. Выбор дашборда",
+      "remove-dashboard": "Удалить дашборд"
+    },
+    "send-test-email-modal": {
+      "cancel": "Отмена",
+      "label-email": "Адрес электронной почты",
+      "label-use-emails-from-report": "Использовать адреса эл. почты из отчета",
+      "send": "Отправить",
+      "title-send-test-email": "Отправка тестового электронного письма"
+    },
+    "share": {
+      "description-address-appear-reply-field-email": "Адрес, который будет отображаться в поле «Ответить» в электронном письме.",
+      "description-separate-multiple-emails-comma-semicolon": "Разделите несколько адресов электронной почты запятой или точкой с запятой.",
+      "email-info-button": "Если это поле оставить пустым, в качестве темы электронного письма будет использоваться имя отчета.",
+      "email-subject": "Тема электронного письма",
+      "label-include-a-dashboard-link": "Включить ссылку на дашборд",
+      "label-message": "Сообщение",
+      "label-recipients": "Получатели",
+      "label-replyto-email-address": "Адрес эл. почты для ответа",
+      "label-report-name": "Имя отчета",
+      "label-share": "4. Предоставление общего доступа",
+      "name-placeholder-system-status-report": "Отчет о состоянии системы",
+      "recipients-placeholder-recipients-email-addresses-press-enter": "Введите адреса электронной почты получателей и нажмите клавишу Enter",
+      "send-test-email": "Отправить тестовое эл. письмо",
+      "subject-placeholder-email-subject": "Тема электронного письма",
+      "title-sending-test-email": "Отправка тестового электронного письма..."
+    },
+    "share-pdfbase": {
+      "cancel": "Отмена",
+      "save-as-pdf": "Сохранить как PDF"
+    },
+    "unavailable-feature-info-box": {
+      "title-feature-available-expired-license": "Функция недоступна, поскольку истек срок действия лицензии"
+    },
+    "upgrade-report": {
+      "description-reporting-allows-automatically-generate-dashboards-grafana": "Функция позволяет автоматически создавать PDF-файлы из любого из ваших дашбордов и отправлять их по электронной почте заинтересованным сторонам согласно графику."
+    },
+    "variables-preview": {
+      "none": "нет"
+    }
+  },
+  "saml-connect-to-idp": {
+    "validate-idp-metadata": {
+      "require-one": "Необходимо задать тип метаданных"
+    }
+  },
+  "share-dashboard": {
+    "menu": {
+      "export-pdf-title": "Экспорт в формате PDF",
+      "schedule-report-title": "Запланировать отчет"
+    }
+  },
+  "share-report": {
+    "actions": {
+      "aria-label-open-menu": "Открыть меню действий",
+      "download-csv-label": "Загрузить CSV",
+      "downloading-label": "Загружается...",
+      "preview-pdf-label": "Предварительный просмотр PDF",
+      "report-settings-label": "Параметры отчета"
+    },
+    "attachments": {
+      "combine-one-file": "Объединить все PDF-файлы дашбордов в один файл",
+      "csv-tables": "Прикрепить CSV-файл с данными табличной панели",
+      "layout": "Макет",
+      "orientation": "Ориентация",
+      "orientation-tooltip": "Выбранная ориентация будет применена к PDF-файлу дашборда, данным таблицы и приложению в формате PDF",
+      "pdf-format": "Формат PDF",
+      "pdf-report": "Прикрепить отчет в формате PDF",
+      "pdf-tables": "Прикрепить отдельный PDF-файл с данными таблицы",
+      "pdf-tables-appendix": "Включить данные таблицы в виде приложения в формате PDF",
+      "section-title": "Вложения",
+      "show-template-variables": "Показать переменные шаблона в заголовке",
+      "zoom": "Масштаб"
+    },
+    "back-button-text": "Назад к списку отчетов",
+    "confirm-delete": {
+      "button": "Удалить отчет",
+      "description": "Вы действительно хотите удалить отчет?",
+      "title": "Удаление отчета"
+    },
+    "create-report": "Создать новый отчет",
+    "dashboard": {
+      "add-dashboard": "Добавить дашборд",
+      "dashboard-required": "Укажите дашборд",
+      "delete-dashboard-tooltip": "Удалить этот дашборд",
+      "repeated-template-variables-description": "Когда один и тот же дашборд несколько раз добавляется в один отчет, переменные шаблона, которые вы выбрали первыми, применяются ко всем экземплярам этого дашборда в отчете.",
+      "section-title": "Дашборды",
+      "source-dashboard-label": "Исходный дашборд",
+      "template-variables-title": "Настроить переменные шаблона",
+      "time-range-description": "Вместо пустого временного диапазона будет использоваться временной диапазон из дашборда, на основе которого создается отчет. Абсолютный временной диапазон отображается в часовом поясе вашего браузера.",
+      "time-range-label": "Временной диапазон",
+      "view-dashboard-tooltip": "Просмотр дашборда"
+    },
+    "discard-changes": {
+      "discard-button": "Отменить",
+      "text": "В отчете по дашборду есть несохраненные изменения. Вы действительно хотите их отменить?",
+      "title": "Отменить изменения в отчете?"
+    },
+    "email-configuration": {
+      "add-dashboard-image-label": "Встроить изображение дашборда",
+      "add-dashboard-url-label": "Включить ссылку на дашборд",
+      "dashboard-image-settings-description": "Настройки изображения дашборда можно изменить в общих <1>параметрах отчета</1>",
+      "invalid-email": "Недопустимый адрес электронной почты",
+      "message-label": "Сообщение",
+      "message-placeholder": "Ввести сообщение",
+      "reply-to-label": "Адрес электронной почты для ответа",
+      "section-title": "Настройки электронной почты",
+      "subject-description": "Если это поле оставить пустым, в качестве темы электронного письма будет использоваться имя отчета.",
+      "subject-label": "Тема электронного письма"
+    },
+    "empty-list": {
+      "description": "Создайте отчет на основе этого дашборда. <2>Подробнее</2>",
+      "title": "Нет отчетов для этого дашборда"
+    },
+    "error-form": {
+      "title": "Ошибка при загрузке отчета"
+    },
+    "error-list": {
+      "title": "Ошибка при загрузке отчетов"
+    },
+    "loading-form": "Загрузка формы...",
+    "loading-report": "Загрузка отчета...",
+    "loading-report-form": "Загрузка формы отчета...",
+    "loading-reports": "Загрузка отчетов...",
+    "recipients": {
+      "field-label": "Получатели",
+      "invalid-email": "Недопустимый адрес электронной почты: {{email}}",
+      "invalid-emails": "Недопустимые адреса электронной почты: {{emails}}",
+      "placeholder": "Введите адреса электронной почты получателей и нажмите клавишу Enter",
+      "recipients-required": "Укажите получателей",
+      "section-title": "Получатели",
+      "tooltip": "Разделите несколько адресов электронной почты запятой или точкой с запятой"
+    },
+    "report-name": {
+      "label": "Имя отчета",
+      "required": "Требуется указать имя отчета"
+    },
+    "save-draft": {
+      "button": "Сохранить черновик",
+      "saving-button": "Сохранение черновика…"
+    },
+    "schedule": {
+      "end-date": "Дата окончания",
+      "end-date-invalid": "Дата окончания должна быть позднее даты начала или совпадать с ней",
+      "end-date-placeholder": "Не заканчивается",
+      "end-time": "Время окончания",
+      "frequency": "Частота",
+      "interval-amount-min": "Интервал должен быть не менее 2",
+      "interval-amount-required": "Укажите интервал",
+      "last-day-of-month": "Отправить в последний день месяца",
+      "monthly-schedule-alert-title": "Примечание. Отчеты не будут отправляться за месяцы, в которых количество дней не достигает {{ dayNumber }}. Выберите более раннюю дату или установите параметр «Отправить в последний день месяца», чтобы отправлять отчеты в конце каждого месяца.",
+      "repeat-every": "Повторять каждые",
+      "repeat-every-placeholder": "например 2",
+      "repeat-interval-frequency-placeholder": "например ч",
+      "section-title": "График",
+      "send-time": "График",
+      "start-date": "Дата начала",
+      "start-date-placeholder": "Выбрать дату",
+      "start-date-required": "Укажите дату начала",
+      "start-time": "Время начала",
+      "time-zone": "Часовой пояс",
+      "workdays-only": "Отправлять только с понедельника по пятницу"
+    },
+    "schedule-report": {
+      "button": "Запланировать отчет",
+      "scheduling-button": "Планирование отчета..."
+    },
+    "see-all-reports": "Посмотреть все отчеты",
+    "send-preview": {
+      "button": "Отправить предварительный просмотр",
+      "cancel": "Отмена",
+      "email": "Адрес электронной почты",
+      "email-description": "Разделите несколько адресов электронной почты запятой или точкой с запятой",
+      "email-required": "Введите адрес электронной почты",
+      "send": "Отправить",
+      "sending": "Отправка…",
+      "title": "Отправить предварительный просмотр",
+      "use-report-emails": "Использовать адреса эл. почты из отчета"
+    },
+    "settings": {
+      "loading": "Загрузка параметров..."
+    },
+    "state": "Состояние:",
+    "unavailable-feature-info-box": {
+      "message": "Срок действия лицензии истек, поэтому создание новых отчетов невозможно. Существующие отчеты будут обрабатываться, но для создания нового необходимо обновить лицензию."
+    },
+    "update-report": {
+      "button": "Обновить отчет",
+      "delete-button": "Удалить",
+      "pause-button": "Пауза",
+      "pausing-button": "Приостановка отчета...",
+      "resume-button": "Возобновить",
+      "resuming-button": "Возобновление отчета...",
+      "updating-button": "Обновление отчета..."
+    }
+  },
+  "shared": {
+    "resource-picker": {
+      "placeholder-select-color": "Выбрать цвет"
+    }
+  },
+  "team-lbac": {
+    "create-team-lbacform": {
+      "label-rule": "Правило",
+      "label-team": "Команда",
+      "new-lbac-rule": "Новое правило LBAC",
+      "new-lbac-rule-example": "Пример:",
+      "save": "Сохранить"
+    },
+    "editable-cell": {
+      "empty-rule": "Пустое правило"
+    },
+    "team-label": {
+      "placeholder": "Команда с идентификатором {{teamId}} не найдена"
+    },
+    "team-lbaceditor-unconnected": {
+      "add-a-lbac-rule": "Добавить правило LBAC",
+      "add-query-permissions": "<0>Добавление разрешений на отправку запросов.</0> Следующие команды не имеют разрешений на отправку запросов для этого источника данных и поэтому не могут запрашивать журналы с установленными правилами LBAC.",
+      "add-team-lbac-rules": "<0>Добавление правил LBAC для команд.</0> Следующие команды могут запрашивать все журналы. Добавьте для них правила LBAC для команд:",
+      "clear-filter": "Очистить",
+      "clear-filter-aria-label": "Очистить фильтр",
+      "content-found-recommendation": "Найденные рекомендации",
+      "description-data-access": "Здесь можно настроить доступ к определенной информации в источнике данных с помощью селекторов меток LogQL.",
+      "ensure-proper-access-control-please-follow": "Чтобы обеспечить надлежащий контроль доступа, следуйте приведенным ниже рекомендациям.",
+      "filter-results-single": "Показан 1 результат",
+      "filter-teams-aria-label": "Фильтр правил LBAC по имени команды",
+      "filter-teams-placeholder": "Фильтровать команды",
+      "hide-access-control-recommendations": "Скрыть рекомендации по контролю доступа",
+      "hide-lbac-rule": "Скрыть правило LBAC",
+      "label-selector": "Селектор меток",
+      "lbac-description": "Установите правила LBAC, чтобы ограничить доступ для определенных метрик/журналов.",
+      "lbac-labelbased-access-control": "LBAC (контроль доступа на основе меток)",
+      "lbac-rules-note": "Примечание.<1></1>- Правила LBAC НЕ будут применяться к запросу, если аутентифицированный токен политики доступа к облаку имеет селекторы меток, настроенные в Grafana Cloud.<3></3>- Из-за кэширования пути запроса отображение изменений в правилах LBAC может занять до 5 минут.",
+      "learn-more-about-lbac-rules": "Подробнее о правилах LBAC",
+      "remove-unrestricted-access": "<0>Отмена неограниченного доступа.</0> Следующие роли в настоящее время имеют неограниченный доступ к журналам.",
+      "role-warning-list": "Роль: {{role}}",
+      "show-access-control-recommendations": "Показать рекомендации по контролю доступа",
+      "sort-teams-ascending": "Сортировать команды (A–Z)",
+      "sort-teams-descending": "Сортировать команды (Z–A)",
+      "team": "Команда",
+      "title-access-control-recommendations": "Рекомендации по контролю доступа",
+      "title-data-access": "Доступ к данным",
+      "filter-results-multiple_one": "",
+      "filter-results-multiple_few": "",
+      "filter-results-multiple_many": "",
+      "filter-results-multiple_other": ""
+    },
+    "team-rules-row": {
+      "aria-label-add-team-rule": "добавить правило для команд",
+      "aria-label-delete-rule": "Удаление правила",
+      "aria-label-edit-team-rule": "редактировать правило для команд",
+      "cancel": "Отмена",
+      "or": "ИЛИ",
+      "save": "Сохранить",
+      "tooltip-add-new-rule": "Добавьте новое правило",
+      "tooltip-provisioned-rule": "Подготовленное правило"
+    }
+  },
+  "teamLBAC": {
+    "create-team-lbacform": {
+      "message": {
+        "required": " Обязательно"
+      }
+    }
+  }
+}

@@ -1,0 +1,1462 @@
+{
+  "{{enricherType}} enricher does not require any configuration": {
+    " It will start enriching alerts as soon as it is enabled": "{{enricherType}} 보강기는 구성이 필요하지 않습니다. 활성화되는 즉시 경고 보강이 시작됩니다."
+  },
+  "access-control": {
+    "permissions": {
+      "lbac-warning-basic-role": "",
+      "lbac-warning-rule": "경고: 이 팀은 데이터 소스를 쿼리할 수 있는 권한이 없을 수 있습니다.",
+      "lbac-warning-team": "경고: LBAC 규칙이 설정되어 있지 않은 경우 이 팀이 전체 데이터 액세스 권한을 가집니다."
+    }
+  },
+  "admin": {
+    "role-filter": {
+      "admin-editor-option": "관리자/편집자",
+      "multiselect-placeholder": "라이선스가 부여된 역할로 필터링",
+      "server-admin-option": "서버 관리자",
+      "viewer-option": "조회자"
+    }
+  },
+  "alert-enrichment": {
+    "error": "경고 보강을 생성하지 못했습니다",
+    "metadata-error": "",
+    "success": "경보 보강이 성공적으로 생성되었습니다!",
+    "update-error": "경보 보강을 업데이트하지 못했습니다",
+    "update-success": "경고 보강이 성공적으로 업데이트되었습니다!"
+  },
+  "alert-enrichment-form": {
+    "actions": {
+      "cancel": "취소",
+      "save": "보강 저장"
+    },
+    "assign-enricher": {
+      "add-annotation": "주석 할당 추가",
+      "annotation-name": "키",
+      "annotation-name-placeholder": "키",
+      "annotation-value": "값",
+      "annotation-value-placeholder": "값",
+      "remove-annotation-aria-label": "주석 제거",
+      "remove-annotation-tooltip": "주석 제거"
+    },
+    "basic-info": {
+      "description": "설명(선택 사항)",
+      "description-placeholder": "보강에 대한 설명",
+      "name": "보강 이름",
+      "name-placeholder": "내 보강",
+      "name-required": "이름은 필수 입력 항목입니다",
+      "timeout": "타임아웃",
+      "timeout-description": "이 보강에 허용되는 최대 시간(예: 30초, 1분)",
+      "timeout-placeholder": "30초"
+    },
+    "ds-type": {
+      "logs": "로그",
+      "raw": "Raw"
+    },
+    "dsquery-enricher": {
+      "add-first-query": "첫 쿼리 추가",
+      "add-query": "쿼리 추가",
+      "no-datasource": "데이터 소스가 누락되었습니다",
+      "no-datasource-description": "이 쿼리의 데이터 소스를 찾을 수 없습니다. 데이터 소스가 제거되었거나 사용할 수 없는 상태입니다",
+      "no-queries": "아직 정의된 쿼리가 없습니다",
+      "raw-queries-description": "경보를 보강하기 위해 실행할 쿼리를 정의합니다. 결과는 보강 컨텍스트에서 사용할 수 있습니다.",
+      "remove-query": "쿼리 제거"
+    },
+    "enricher-config": {
+      "llm-disabled": "LLM이 비활성화되었습니다",
+      "llm-disabled-description": "보강 설명을 위해서는 Grafana LLM 플러그인을 활성화해야 합니다",
+      "type": "보강 유형",
+      "type-placeholder": "보강 유형 선택",
+      "type-required": "보강기 유형은 필수 항목입니다"
+    },
+    "enricher-type": {
+      "asserts": "Asserts",
+      "assign": "할당",
+      "dsquery": "데이터 소스 쿼리",
+      "explain": "설명",
+      "external": "외부",
+      "sift": "Sift"
+    },
+    "explain-enricher": {
+      "annotation-label": "주석 키",
+      "annotation-placeholder": "설명",
+      "annotation-required": "설명 보강기에는 주석 키가 필요합니다",
+      "annotation-tooltip": "LLM으로 생성한 설명이 저장될 주석 키",
+      "description": "설명 보강기는 LLM을 사용하여 경고에 대한 설명을 생성합니다. 설명이 저장될 주석 키를 구성합니다."
+    },
+    "external-enricher": {
+      "url-label": "외부 서비스 URL",
+      "url-placeholder": "https://api.example.com/enrich",
+      "url-required": "외부 보강기에는 URL이 필요합니다"
+    },
+    "matcher": {
+      "add-button": "추가",
+      "name-label": "이름",
+      "name-placeholder": "이름",
+      "remove-aria-label": "일치 조건 제거",
+      "remove-tooltip": "일치 조건 제거",
+      "type-label": "유형",
+      "type-placeholder": "유형",
+      "value-label": "값",
+      "value-placeholder": "값"
+    },
+    "matcher-type": {
+      "equals": "같음(=)",
+      "not-equals": "같지 않음(!=)",
+      "regex-match": "정규식 일치(=~)",
+      "regex-not-match": "정규식 불일치(!~)"
+    },
+    "scope": {
+      "all-alerts": "모든 경고",
+      "annotation-scoped": "주석 범위 지정됨",
+      "description": "보강해야 하는 경고 정의",
+      "label-scoped": "레이블 범위 지정됨",
+      "title": "범위"
+    }
+  },
+  "alerting": {
+    "ai-feedback": {
+      "comment-description": "잘된 점이나 개선할 점을 공유해 주시면 서비스를 개선하는 데 큰 도움이 됩니다",
+      "comment-label": "추가 피드백(선택 사항)",
+      "comment-placeholder": "AI 응답에 대한 의견을 공유해 주세요.",
+      "comment-prompt": "이용하신 기능이 어땠는지 더 자세히 알려주시겠어요?",
+      "helpful": "네, 도움이 되었습니다",
+      "not-helpful": "아니요, 도움이 되지 않았습니다",
+      "question": "이 AI 응답이 도움이 되었나요?",
+      "skip": "건너뛰기",
+      "submit": "피드백 제출",
+      "thank-you": "피드백을 남겨주셔서 감사합니다!"
+    },
+    "enrichment": {
+      "appliesTo": "모든 경고에 적용",
+      "delete": {
+        "body": "정말 <1>{{name}}</1> 경고 보강을 삭제하시겠어요?",
+        "cancel": "취소",
+        "confirm": "삭제",
+        "title": "경고 보강 삭제"
+      },
+      "delete-enrichment": "{{name}} 보강 삭제",
+      "edit-button": "편집",
+      "edit-enrichment": "{{name}} 보강 편집",
+      "edit-title": "보강 편집",
+      "enrichments": "보강",
+      "expanded-row": {
+        "annotationMatchers": "<0>주석 일치 조건:</0> {formatMatchers(annotationMatchers)}",
+        "asserts": "<0>Asserts</0> 보강이 구성되었습니다",
+        "assignments": "<0>할당:</0> {assignments.map((a) => '${a.name}=${a.value}').join(', ')}",
+        "datasource": "<0>데이터 소스:</0> {details.join(', ')}",
+        "externalUrl": "<0>URL:</0> {step.enricher.external.url}",
+        "labelMatchers": "<0>레이블 일치 조건:</0> {formatMatchers(labelMatchers)}",
+        "sift": "<0>Sift</0> 보강이 구성되었습니다",
+        "type": "유형:"
+      },
+      "load-error": "보강을 로드하지 못했습니다",
+      "loading": "보강 로딩 중...",
+      "loadMore": "더 보기",
+      "new-alert": "새로운 경고 보강",
+      "new-title": "새로운 보강",
+      "noEnrichments": "구성된 경고 보강이 없습니다",
+      "tab": {
+        "description": "예비 분석을 실행하고 더 많은 맥락을 추가하여 경고 알림을 보다 실행 가능하게 만드세요."
+      },
+      "table": {
+        "actions": "작업",
+        "annotationMatchers": "주석",
+        "annotationMatchers-scoped": "범위 지정 기준 ",
+        "enrichment": "보충 과목",
+        "labelMatchers": "레이블"
+      },
+      "tooltip": {
+        "asserts": "Asserts를 사용하여 경고를 보강합니다",
+        "assign": {
+          "assignments": "주석:",
+          "default": "경고에 주석을 할당합니다",
+          "emptyValue": "(비어 있음)",
+          "title": "경고에 주석을 할당합니다"
+        },
+        "default": "경고 보강이 구성되었습니다",
+        "dsquery": {
+          "datasourceType": "데이터 소스:",
+          "maxLines": "최대 줄 수:",
+          "queries": "쿼리:",
+          "query": "쿼리:",
+          "rawRequest": "사용자 지정 데이터 소스 요청이 구성되었습니다",
+          "refId": "참조 ID:",
+          "title": "보강에 사용할 데이터 소스 쿼리",
+          "type": "유형:"
+        },
+        "explain": {
+          "annotation": "저장 위치:",
+          "default": "LLM을 사용하여 경고 설명을 생성합니다",
+          "title": "LLM을 사용하여 경고 설명을 생성합니다"
+        },
+        "external": {
+          "default": "보강을 위해 외부 서비스를 호출합니다",
+          "title": "보강을 위해 외부 서비스를 호출합니다",
+          "url": "URL:"
+        },
+        "sift": "Sift를 사용하여 경고를 보강합니다"
+      }
+    },
+    "generate-ai-rule": {
+      "button": "AI로 생성",
+      "modal": {
+        "error": "{stringifyErrorLike(error)}",
+        "error-title": "경고 규칙 생성 중 오류 발생",
+        "generate": "규칙 생성",
+        "generating": "생성 중...",
+        "preview-contact-point": "연락처:",
+        "preview-description": "설명:",
+        "preview-name": "이름:",
+        "preview-queries": "쿼리:",
+        "preview-title": "생성된 경고 규칙",
+        "prompt-description": "모니터링할 항목과 경고를 받을 시기에 대해 설명합니다(예: \"CPU 사용량이 5분 넘게 80%를 초과할 때 경고\"). 사용 가능한 연락처나 데이터 소스에 대해 문의할 수도 있습니다.",
+        "prompt-label": "생성하려는 경고 규칙에 대해 설명하세요",
+        "prompt-placeholder": "디스크 사용량이 5분 넘게 90%를 초과할 때 경고하고 Slack 연락처로 전송...",
+        "title": "AI로 경고 규칙 생성",
+        "use-rule": "이 규칙 사용"
+      }
+    },
+    "improve-ai-annotations": {
+      "button": "AI로 주석 개선",
+      "modal": {
+        "apply-improvements": "주석 개선 사항 적용",
+        "error": "{stringifyErrorLike(generationError)}",
+        "error-title": "오류",
+        "generate": "주석 개선",
+        "generating": "생성 중...",
+        "preview-annotations": "개선된 주석:",
+        "preview-title": "AI 주석 개선 사항 미리 보기",
+        "prompt-description": "경고 규칙 주석에 대해 개선하고 싶은 사항을 설명합니다(예: \"요약을 더 구체적으로 작성\", \"설명에 문제 해결 단계 추가\" 또는 \"런북 링크 추가\").",
+        "prompt-label": "주석을 어떻게 개선하고 싶으신가요?",
+        "prompt-placeholder": "요약을 더 구체적으로 작성하고 설명에 문제 해결 단계를 추가합니다...",
+        "title": "AI로 경고 규칙 주석 개선"
+      }
+    },
+    "improve-ai-labels": {
+      "button": "AI로 레이블 개선",
+      "modal": {
+        "cancel": "취소",
+        "error": "{stringifyErrorLike(generationError)}",
+        "error-title": "오류",
+        "generate": "개선 사항 생성",
+        "generating": "생성 중...",
+        "prompt-description": "경고 규칙 레이블에 대해 개선하고 싶은 사항을 설명합니다(예: \"동적 심각도 레이블 추가\", \"팀 소유권 포함\" 또는 \"환경 레이블 추가\").",
+        "prompt-label": "레이블을 어떻게 개선하고 싶으신가요?",
+        "prompt-placeholder": "임계값을 기준으로 동적 심각도 레이블을 추가하고 팀 소유권을 포함합니다...",
+        "title": "AI로 경고 규칙 레이블 개선"
+      },
+      "preview": {
+        "apply": "개선 사항 적용",
+        "cancel": "취소",
+        "no-improvements": "개선 사항을 찾을 수 없습니다",
+        "no-improvements-message": "AI가 이 요청에 대한 레이블 개선 사항을 제안하지 않았습니다.",
+        "title": "AI가 제안한 레이블 개선 사항:"
+      }
+    },
+    "settings": {
+      "tabs": {
+        "enrichment": {
+          "title": "경고 보강"
+        }
+      }
+    },
+    "template-form": {
+      "genai": {
+        "modal": {
+          "error": "{stringifyErrorLike(generationError)}",
+          "error-title": "오류",
+          "generate": "템플릿 생성",
+          "generating": "생성 중...",
+          "prompt-description": "원하는 알림 형식과 알림 내용에 대해 설명합니다(예: \"경고 이름과 상태, 이모티콘 표시가 있는 요약을 보여주는 Slack 메시지\" 또는 \"레이블과 시작 시간을 포함하여 경고 발생 이력이 모두 기재된 표가 담긴 이메일\").",
+          "prompt-label": "알림을 어떻게 표시할지 설명하세요",
+          "prompt-placeholder": "\"🔥 경고: [AlertName] 발생 중\"이라는 메시지와 함께 요약 및 세부 정보를 볼 수 있는 링크가 포함된 Slack 메시지...",
+          "title": "AI로 템플릿 생성"
+        }
+      }
+    },
+    "templates": {
+      "editor": {
+        "generate-with-ai": "AI로 생성"
+      }
+    },
+    "triage-ai": {
+      "button": "{{ provider }}(으)로 분석",
+      "modal": {
+        "analysis-title": "경고 분류 분석",
+        "analyze": "분석",
+        "analyzing": "🤖 경고 상황 {{logRecordsLength}}건 분석 중...",
+        "custom-question": {
+          "help": "일반 분류 분석을 위해 비워 두거나 경고 상황에 대해 구체적으로 질문하세요.",
+          "label": "구체적으로 질문하기(선택 사항)",
+          "placeholder": "예: \"어떤 이유로 데이터베이스 경고가 발생했나요?\" 또는 \"이 경고가 최근의 배포와 관련이 있나요?\""
+        },
+        "description": "현재 경고 상황에 대한 AI 분석을 통해 패턴을 파악하고, 응답의 우선순위를 지정하고, 잠재적인 문제를 식별할 수 있습니다.",
+        "error": "오류",
+        "title": "경고 분류 분석"
+      }
+    }
+  },
+  "auth-config": {
+    "action-bar": {
+      "content-disable-button": "비활성화하면 Grafana가 SAML 인증을 사용하지 않도록 비활성화됩니다.",
+      "delete": "삭제",
+      "disable-button": "비활성화",
+      "enabled-badge": "활성화됨",
+      "more-actions-button": "추가 동작",
+      "not-enabled-badge": "활성화되지 않음",
+      "protocol": "프로토콜",
+      "save-and-apply-button": "저장 및 적용",
+      "save-and-enable-button": "저장 및 활성화",
+      "save-button": "저장",
+      "status": "상태"
+    },
+    "assertion-mapping-unconnected": {
+      "aria-label-name-id-format": "nameIdFormat",
+      "assertionAttributeEmail-label-email-attribute": "이메일 속성",
+      "assertionAttributeEmail-placeholder-mail": "메일",
+      "assertionAttributeExternalUid-label-external-uid": "외부 UID 속성",
+      "assertionAttributeExternalUid-tooltip-external-uid": "외부 UID 매핑은 사칭을 방지하는 보안 메커니즘이며 SCIM 프로비저닝이 활성화된 경우에만 필요합니다. 프로비저닝된 외부 UID(ID 제공자가 생성한 사용자 ID)는 사용자가 로그인할 때 SAML 어설션에 있어야 합니다. 이 필드의 기본값은 userUID입니다.",
+      "assertionAttributeGroups-label-groups-attribute": "그룹 속성",
+      "assertionAttributeLogin-label-login-attribute": "로그인 속성",
+      "assertionAttributeLogin-placeholder-mail": "메일",
+      "assertionAttributeName-label-name-attribute": "이름 속성",
+      "assertionAttributeName-placeholder-display-name": "표시 이름",
+      "assertionAttributeOrg-label-org-attribute": "조직 속성",
+      "assertionAttributeRole-label-role-attribute": "역할 속성",
+      "azure-ad-service-account-configuration": "Azure AD 서비스 계정 구성",
+      "clientId-label-client-id": "클라이언트 ID",
+      "clientSecret-label-client-secret": "클라이언트 시크릿",
+      "description-allowed-organizations": "쉼표 또는 공백으로 구분된 SAML 조직 이름 목록입니다. 사용자가 로그인하려면 하나 이상의 조직의 멤버여야 합니다.",
+      "description-assertion-attributes-mapping": "SAML 어설션 속성을 Grafana 사용자 속성에 매핑합니다. 어설션 속성은 템플릿 매핑을 지원합니다. 그룹 속성이 구성된 경우 팀 동기화를 사용할 수 있습니다.",
+      "description-azure-ad-service-account-configuration": "Azure AD 조직에서 150개 이상의 그룹에 속한 사용자가 있는 경우 Graph API를 통해 모든 그룹을 가져오려면 Azure AD에서 서비스 계정을 설정해야 합니다. 이 서비스 계정은 사용자의 모든 그룹을 가져오는 데 사용됩니다. <1>문서</1>에서 Azure AD 서비스 계정 구성에 대해 자세히 알아보세요.",
+      "description-force-use-graph-api": "Graph API를 강제로 사용하여 사용자의 모든 그룹을 가져옵니다.",
+      "description-name-identifier-format": "이름 식별자 형식은 ID 제공자의 사용자가 Grafana의 사용자에게 매핑되는 방식을 제어합니다",
+      "description-prevent-synchronizing-users-organization-roles": "SAML 사용자의 조직 역할이 IdP에서 동기화되는 것을 방지합니다.",
+      "label-allowed-organizations": "허용된 조직",
+      "label-assertion-attributes-mapping": "어설션 속성 매핑",
+      "label-force-use-graph-api": "Graph API 강제 사용",
+      "label-name-identifier-format": "이름 식별자 형식",
+      "label-org-mapping": "조직 매핑",
+      "label-role-mapping": "역할 매핑",
+      "label-skip-organization-role-sync": "조직 역할 동기화 건너뛰기",
+      "label-user-mapping": "사용자 매핑",
+      "orgMapping-label-org-mapping": "조직 매핑",
+      "roleValuesAdmin-label-admin": "관리자",
+      "roleValuesEditor-label-editor": "편집자",
+      "roleValuesGrafanaAdmin-label-grafana-admin": "Grafana 관리자",
+      "roleValuesNone-label-none": "없음",
+      "roleValuesViewer-label-viewer": "조회자",
+      "tokenUrl-label-access-token-url": "액세스 토큰 URL",
+      "tooltip-assertion-attributes-mapping": "Grafana의 어설션 속성 매핑은 SAML 응답에서 사용자 정보를 가져오고, 이를 사용하여 데이터베이스에서 사용자를 생성하거나 업데이트합니다. 이름, 로그인 핸들, 이메일 등 어설션 내에서 속성(키/값 쌍)을 읽습니다. 구성을 통해 키 선택을 수정할 수 있습니다.",
+      "tooltip-org-mapping": "조직 매핑을 사용하면 ID 제공자로부터 얻은 속성 값에 따라 Grafana의 특정 조직에 사용자를 할당할 수 있습니다. 구성을 사용하여 조직의 사용자를 Grafana 조직에 할당합니다.",
+      "tooltip-role-mapping": "역할 매핑은 없음, 조회자, 편집자, 관리자, Grafana 관리자 역할에 대한 역할 속성을 구성하여 ID 제공자의 사용자 역할을 Grafana와 동기화합니다. 일치하는 항목이 없는 경우 Grafana에서의 기본 역할은 조회자입니다."
+    },
+    "config-action": {
+      "confirm-modal-body": "이 SAML 구성을 영구적으로 삭제하시겠어요? UI에서 변경한 모든 내용이 제거됩니다.",
+      "confirm-modal-confirm-text": "구성 삭제",
+      "confirm-modal-confirmation-text": "삭제",
+      "confirm-modal-dismiss-text": "편집으로 돌아가기",
+      "confirm-modal-title": "SAML 구성 삭제"
+    },
+    "connect-to-idp-unconnected": {
+      "configure-assertions-group-mappings": "다음 단계에서 어설션, 그룹, 그룹 및 조직 매핑을 구성합니다.",
+      "configure-idp-using-grafana-metadata": "Grafana 메타데이터를 사용하여 IdP 구성",
+      "copy": "복사",
+      "description-assertion-consumer-service-url": "어설션 소비자 서비스 POST 바인딩 URL",
+      "description-idp-metadata": "설정과 동일하거나 IdP에서 요구하는 것과 동일해야 합니다.",
+      "description-metadata-url": "IdP 메타데이터의 URL",
+      "description-setup-idp": "ID 제공자(IdP)를 구성하려면 Grafana 메타데이터 URL이 필요합니다. 아래 모든 엔드포인트는 ID 제공자(IdP)에서 연결할 수 있어야 합니다.",
+      "description-setup-required": "IdP의 구성 패널을 방문하여 새 앱을 추가하고 1단계의 메타데이터를 사용하여 Grafana에 연결합니다. IdP의 메타데이터를 복사하여 아래에 제공해야 합니다. 연결을 테스트하고 어설션 라벨/값을 복사합니다.",
+      "description-slo-url": "로그아웃 서비스 리디렉션 바인딩 URL/로그아웃 서비스 POST 바인딩 URL",
+      "description-sp-metadata-url-entity-id": "SP 메타데이터 URL/SP 엔터티 ID",
+      "description-test-connection": "IdP의 패널에서 연결을 테스트하려면 IdP에서 시작한 로그인을 허용하고 릴레이 상태 정보를 제공해야 합니다.",
+      "finish-configuring-grafana-using-idp-data": "IdP 데이터를 사용하여 Grafana 구성 완료",
+      "label-assertion-consumer-service-url": "어설션 소비자 서비스 URL",
+      "label-baseencoded-idp-metadata": "Base64로 인코딩된 IdP 메타데이터",
+      "label-connect-grafana-with-identity-provider": "Grafana를 ID 제공자와 연결",
+      "label-idp-metadata": "IdP의 메타데이터 ",
+      "label-metadata-url": "메타데이터 URL",
+      "label-path-to-idp-metadata-file": "IdP 메타데이터 파일 경로",
+      "label-slo-url": "SLO URL",
+      "label-sp-metadata-url-entity-id": "메타데이터 URL",
+      "step-number-1": "1",
+      "step-number-2": "2",
+      "step-number-3": "3"
+    },
+    "general-unconnected": {
+      "description-allow-signup": "SAML 로그인을 통해 새 Grafana 사용자 생성을 허용할지 여부입니다. 활성화하지 않으면 기존의 Grafana 사용자만 SAML을 사용하여 로그인할 수 있습니다.",
+      "description-auto-login": "로그인 화면을 건너뛰고 SAML로 자동으로 로그인하려고 합니다.",
+      "description-display-name-for-this-saml-integration": "두 개 이상의 SSO IdP 제공자 또는 프로토콜을 사용하는 경우 유용합니다.",
+      "description-duration-grafana-metadata-valid": "Grafana 메타데이터가 유효한 기간입니다.",
+      "description-entity-id": "엔터티 ID는 서비스 제공자의 전역적으로 고유한 식별자입니다. 이는 ID 제공자에게 서비스 제공자를 식별하는 데 사용됩니다. Grafana 인스턴스의 URL로 기본 설정됩니다.",
+      "description-identity-provider-initiated-login": "사용자가 ID 제공자에서 직접 Grafana에 로그인할 수 있도록 허용합니다.",
+      "description-max-issue-delay": "IdP가 응답을 발행한 후 Grafana가 처리할 수 있도록 허용된 기간입니다.",
+      "description-relay-state": "필수 사항입니다. IdP에서 구성된 릴레이 상태와 일치해야 하며 뒤에 공백이 있어야 합니다.",
+      "description-single-logout": "사용자가 SAML을 통해 설정된 IdP 세션 및 현재 IdP 세션과 관련된 애플리케이션에서 로그아웃할 수 있도록 허용합니다.",
+      "displayName-placeholder-saml": "SAML",
+      "label-allow-signup": "가입 허용",
+      "label-auto-login": "자동 로그인",
+      "label-display-name-for-this-saml-integration": "이 SAML 2.0 통합의 표시 이름",
+      "label-entity-id": "엔터티 ID",
+      "label-general-settings": "일반 설정",
+      "label-identity-provider-initiated-login": "ID 제공자가 로그인을 시작했습니다",
+      "label-max-issue-delay": "최대 발행 지연 시간",
+      "label-metadata-valid-duration": "메타데이터 유효 기간",
+      "label-relay-state": "릴레이 상태",
+      "label-single-logout": "싱글 로그아웃"
+    },
+    "input-with-reset": {
+      "reset": "재설정"
+    },
+    "key-cert-drawer-unconnected": {
+      "close": "닫기",
+      "description-number-generated-certificate-valid": "생성된 인증서가 유효한 기간(일)입니다.",
+      "generate": "생성",
+      "label-city": "도시",
+      "label-country-code": "국가 코드",
+      "label-state": "상태",
+      "label-validity-days": "유효 일수",
+      "label-your-organization": "내 조직",
+      "subtitle-saml-key-and-certificate": "생성된 인증서에 다음 데이터가 포함됩니다",
+      "title-saml-key-and-certificate": "SAML 키 및 인증서",
+      "tooltip-generate-the-certificate-and-private-key": "인증서 및 개인 키 생성"
+    },
+    "key-cert-unconnected": {
+      "description-baseencoded-grafana-x-certificate": "Base64로 인코딩된 Grafana X.509 인증서",
+      "description-baseencoded-private-key": "Base64로 인코딩된 개인 키",
+      "description-path-to-the-grafana-private-key": "Grafana 개인 키 경로",
+      "description-path-to-the-grafana-x-certificate": "Grafana X.509 인증서 경로",
+      "description-sign-outgoing-requests-to-id-p": "IdP에 전송하는 요청에 서명",
+      "description-signature-algorithm": "IdP에 전송되는 요청에 서명하는 데 사용되는 서명 알고리즘입니다. 설정과 동일하거나 IdP에서 요구하는 것과 동일해야 합니다.",
+      "description-signing-and-encryption-key-certificate": "Grafana와 IdP 사이에 정보를 교환하기 위한 인증서 및 개인 키입니다. 개인 키는 PKCS#8 형식으로 발행되어야 합니다. 인증서는 유효한 X.509 인증서여야 합니다.",
+      "generate-key-and-certificate": "키 및 인증서 생성",
+      "label-certificate": "인증서",
+      "label-private-key": "개인 키",
+      "label-sign-requests": "요청에 서명",
+      "label-signature-algorithm": "서명 알고리즘",
+      "label-signing-and-encryption-key-certificate": "서명 및 암호화 키 및 인증서"
+    },
+    "page-banner": {
+      "aria-label-close-banner": "배너 닫기",
+      "tooltip-close": "닫기"
+    },
+    "SAML": {
+      "button-row-next": "다음: {{name}}",
+      "button-row-previous": "이전: {{name}}"
+    },
+    "samlform": {
+      "text-saved": "저장됨"
+    },
+    "save-and-test-unconnected": {
+      "button-save-and-enable": "저장 및 활성화",
+      "label-test-and-enable": "테스트 및 활성화",
+      "text-save-and-enable": "SAML 구성을 적용할 준비가 되었다면 '저장 및 활성화' 버튼을 사용하세요. 구성을 비활성화할 수 있습니다."
+    },
+    "save-samlsettings": {
+      "message": {
+        "cannot-save-settings": "설정을 저장할 수 없습니다"
+      }
+    },
+    "text-input-with-reset": {
+      "reset": "재설정"
+    }
+  },
+  "banner": {
+    "api": {
+      "result": {
+        "saved": "배너 설정 저장됨"
+      }
+    },
+    "form": {
+      "button-save": "저장",
+      "button-saving": "저장 중...",
+      "enabled": {
+        "label": "활성화됨"
+      },
+      "end": {
+        "description": "종료 날짜를 선택하지 않으면 배너가 무기한으로 표시됩니다.",
+        "error": "종료 시간은 시작 시간 이후여야 합니다.",
+        "label": "종료 시간:"
+      },
+      "message": {
+        "description": "배너의 텍스트 콘텐츠입니다. 마크다운을 지원합니다.",
+        "label": "메시지"
+      },
+      "options": {
+        "error": "오류",
+        "info": "정보",
+        "warning": "경고"
+      },
+      "select": {
+        "placeholder": "배너 유형 선택"
+      },
+      "start": {
+        "description": "배너가 이 날짜/시간부터 표시됩니다.",
+        "label": "시작 시점: "
+      },
+      "title": "배너 구성",
+      "variant": {
+        "label": "변형"
+      }
+    },
+    "preview": {
+      "message": {
+        "default": "메시지 필드를 수정하여 이 미리보기를 업데이트하세요."
+      },
+      "title": "미리보기"
+    }
+  },
+  "caching": {
+    "alert": {
+      "readonly": {
+        "message": "이 데이터 소스는 구성에 의해 추가되었으며 UI를 사용하여 캐싱을 수정할 수 없습니다. 이 데이터 소스를 업데이트하려면 서버 관리자에게 문의하세요.",
+        "title": "프로비저닝된 데이터 소스"
+      }
+    },
+    "cache-clean": {
+      "body-clear-cache": "경고: 이 작업은 캐시가 활성화되어 있는 모든 데이터 소스에 영향을 미칩니다. Memcached를 사용하는 경우 시스템은 Memcached 인스턴스에서 모든 데이터를 지웁니다. 계속하시겠어요?",
+      "clear-cache": "캐시 지우기",
+      "confirm-text-clear-cache": "캐시 지우기",
+      "title-clear-cache": "캐시 지우기"
+    },
+    "cache-cta": {
+      "enable-button-title": "활성화",
+      "enable-button-tittle": "활성화",
+      "protip-caching-cannot-enabled-source": "이 데이터 소스의 구성이 캐싱을 허용하지 않습니다.",
+      "protip-caching-not-enabled": "캐싱을 활성화하면 데이터 소스로 전송되는 중복 요청의 수를 줄일 수 있습니다.",
+      "protip-link-caching-not-enabled": "자세히 알아보기",
+      "title-caching-cannot-enabled-source": "이 데이터 소스에 대해 캐싱을 활성화할 수 없습니다.",
+      "title-caching-not-enabled": "이 데이터 소스에 대해 캐싱이 활성화되지 않았습니다."
+    },
+    "cache-settings-disable": {
+      "disable": "비활성화"
+    },
+    "cache-settings-form": {
+      "description-query-ttl": "쿼리 캐시 항목의 TTL(밀리초)입니다. 예: 5000",
+      "description-resource-ttl": "리소스는 Grafana 데이터 소스 플러그인이 데이터 소스에서 가져와 쿼리 편집기에서 사용하는 동적 값입니다. 예: Splunk 네임스페이스, Prometheus 라벨, CloudWatch 메트릭 이름. 이러한 값은 자주 업데이트되지 않으므로 리소스에 대한 캐시 TTL이 쿼리보다 길어야 할 수 있습니다. 자세한 내용은 <2>문서</2>를 참고하세요.",
+      "description-timetolive-resources-cache-items-milliseconds-example": "리소스 캐시 항목의 TTL(밀리초)입니다. 예: 5000",
+      "description-use-default-ttl": "Grafana 구성에 설정되어 있는 기본 TTL({{defaultTTLMs}}ms)을 사용하려면 이 기능을 활성화합니다",
+      "label-query-ttl": "쿼리 TTL",
+      "label-use-default-ttl": "기본 TTL 사용",
+      "resource-ttl": "리소스 TTL",
+      "save": "저장"
+    },
+    "caching": {
+      "content": {
+        "text": {
+          "enable-caching": "캐싱 활성화"
+        }
+      }
+    },
+    "data-source-cache": {
+      "caching-heading": "캐싱",
+      "query-catching": "Grafana Pro 체험 기간 동안 무료로 쿼리 캐싱을 사용하세요.",
+      "upgrade-content-author-dashboards": "ServiceNow의 필드 또는 Datadog에서 사용할 수 있는 메트릭과 같이 쿼리를 구성하는 데 사용되는 데이터를 캐싱하여 대시보드를 더 원활하게 작성합니다",
+      "upgrade-content-description": "쿼리 캐싱을 사용하면 쿼리 결과를 메모리, Redis 또는 Memcached에 일시적으로 저장하여 대시보드를 더 빠르게 불러오고 데이터 소스에 대한 값비싼 쿼리를 줄일 수 있습니다.",
+      "upgrade-content-load-dashboards": "많은 리소스를 필요로 하는 쿼리가 포함되어 있고 많은 사용자가 한꺼번에 접속 중인 경우에도 캐시에서 1초 안에 대시보드를 불러옵니다",
+      "upgrade-content-save-money": "Splunk, CloudWatch, Github와 같은 데이터 소스에 대한 API 호출 횟수를 줄여 비용을 절약하고 요청 제한을 방지합니다"
+    }
+  },
+  "common": {
+    "cancel": "취소",
+    "close": "닫기"
+  },
+  "explore": {
+    "query-library": {
+      "cancel": "취소",
+      "default-title": "새 쿼리",
+      "discard": "무시",
+      "editing-title": "저장된 쿼리에서 편집",
+      "explore": "탐색에서 편집",
+      "query-template-added": "라이브러리에 쿼리 저장됨",
+      "query-template-edit-error": "이 쿼리를 편집하는 중 오류 발생",
+      "query-template-edited": "쿼리 템플릿 편집 완료",
+      "save": "저장",
+      "save-and-close": "",
+      "save-return": "저장하고 저장된 쿼리로 돌아가기",
+      "saving": "저장 중..."
+    }
+  },
+  "export": {
+    "pdf": {
+      "cancel-button": "취소",
+      "download-button": "PDF 생성",
+      "image-alt": "PDF 미리보기",
+      "info-text": "대시보드를 PDF 문서로 내보내기",
+      "layout-label": "레이아웃",
+      "orientation-label": "방향",
+      "title": "대시보드 PDF 내보내기",
+      "zoom-description": "확대하여 텍스트를 크게 보거나 축소하여 패널당 더 많은 데이터(예: 표 열)를 볼 수 있습니다.",
+      "zoom-label": "확대/축소"
+    }
+  },
+  "groupsync": {
+    "empty-state": {
+      "pro-tip": "ID 공급자의 그룹을 통해 Grafana 액세스 권한을 관리하시겠어요? Grafana RBAC 역할에 대한 그룹 매핑을 생성하세요. <2>자세히 알아보기</2>",
+      "title": "그룹 매핑 생성 전"
+    },
+    "group-sync-editor": {
+      "body-delete-group-mappings": "정말 이 그룹의 모든 매핑을 삭제하시겠어요?",
+      "close-button-drawer": "닫기",
+      "confirm-text-delete-group-mappings": "삭제",
+      "delete-group-mapping": "그룹 매핑 삭제",
+      "new-button-drawer": "신규",
+      "new-group-mapping": "새 그룹 매핑",
+      "placeholder-search-by-group-id": "그룹 ID로 검색",
+      "text-deprecated-feature": "이 기능은 사용 중단되어 2025년 6월에 규칙이 작동 중지됩니다. 원하는 팀의 설정에서 외부 그룹 동기화로 마이그레이션하고 팀에 역할을 할당하세요.",
+      "title-delete-group-mappings": "그룹 매핑 삭제",
+      "title-deprecated-feature": "사용 중단된 기능"
+    },
+    "new-mapping-form": {
+      "label-group-id": "그룹 ID",
+      "label-roles": "역할",
+      "save": "저장"
+    }
+  },
+  "licensing": {
+    "customer-support-button": {
+      "contact-customer-support": "고객 지원에 문의"
+    },
+    "expires-soon": {
+      "title-grafana-enterprise-license-expire": "Grafana Enterprise 라이선스가 곧 만료됩니다",
+      "sub-title-license-expiration_other": "{{count}}일 남았습니다. 이후에는 <3>Enterprise 기능이 비활성화됩니다.</3>"
+    },
+    "get-token-status": {
+      "title": {
+        "token-expired": "토큰이 만료되었습니다",
+        "token-expires-soon": "토큰이 곧 만료됩니다"
+      }
+    },
+    "get-trial-status": {
+      "title": {
+        "trial-active": "체험판 사용 중",
+        "trial-expired": "체험판 만료됨"
+      }
+    },
+    "has-expired": {
+      "sub-title-licensing-reader": "<0>일부 기능</0>이 비활성화되었습니다.",
+      "title-your-grafana-enterprise-license-has-expired": "Grafana Enterprise 라이선스가 만료되었습니다"
+    },
+    "is-invalid": {
+      "sub-title-licensing-reader": "<0>일부 기능</0>이 비활성화되었습니다.",
+      "title-your-grafana-enterprise-license-is-invalid": "Grafana Enterprise 라이선스가 유효하지 않습니다"
+    },
+    "license-info": {
+      "aria-label-details-about-license-grafana-cloud": "Grafana Cloud에서 라이선스에 대한 세부 정보 보기",
+      "card-content-account": "AWS 계정",
+      "card-content-active-licensed-users": "활성 라이선스 사용자",
+      "card-content-anonymous-users": "익명 사용자",
+      "card-content-authenticated-users": "인증된 사용자",
+      "card-content-company": "회사",
+      "card-content-license-expires": "라이선스 만료",
+      "card-content-license-expires-tooltip": "라이선스 만료일은 현재 라이선스가 더 이상 활성화되지 않는 일자입니다. 라이선스 만료일이 다가오면 Grafana Enterprise에 배너가 표시됩니다.",
+      "card-content-lid": "라이선스 ID",
+      "card-content-none": "없음",
+      "card-content-product": "제품",
+      "card-content-products": "제품",
+      "card-content-purchase-date": "구매일",
+      "card-content-token-auto-update": "Grafana는 토큰이 만료되기 전에 자동으로 업데이트합니다. 토큰이 업데이트되지 않는 경우 지원팀에 문의하세요.",
+      "card-content-token-expires": "토큰 만료",
+      "card-content-token-id": "토큰 ID",
+      "card-content-token-issued": "토큰 발급됨",
+      "card-content-token-usage-billing-off": "끄기",
+      "card-content-url-name": "URL",
+      "card-content-url-tooltip": "라이선스 URL은 Grafana 인스턴스의 루트 URL입니다. 라이선스는 다른 루트 URL을 사용하는 Grafana 인스턴스에서는 작동하지 않습니다.",
+      "card-content-usage-billing": "사용량 기반 청구",
+      "card-content-usage-billing-on": "켜기",
+      "card-content-usage-billing-tooltip": "Grafana Labs에 사용량 청구를 켜도록 요청하여 활성 사용자 수를 무제한으로 허용할 수 있습니다. 사용량 기반 청구가 활성화되면 Grafana는 활성 사용자 제한을 적용하거나 경고 배너를 표시하지 않습니다. 대신 고객 계약에 따라 한도를 초과하는 활성 사용자에 대해 요금을 부과합니다.",
+      "edition-notice-licensing-info": "현재 라이선스 없이 Grafana Enterprise를 실행하고 계십니다. Enterprise 기능이 비활성화됩니다.",
+      "edition-notice-problem-licensing-info": "Enterprise 라이선스 토큰에 문제가 있습니다. Enterprise 기능이 비활성화됩니다.",
+      "license-alert": "라이선스 토큰이 업로드되었습니다. 변경 사항을 적용하려면 Grafana를 다시 시작하세요.",
+      "license-details": "라이센스 세부 정보",
+      "license-token-info": "<2>라이선스 만료</2> 및 <6>라이선스 활성화</6>에 대해 읽어보세요.",
+      "renew-token": "토큰 갱신",
+      "renewing": " (갱신 중...)",
+      "text-loading-licensing-info": "라이선스 정보 불러오는 중...",
+      "title-contact-support-renew-token-visit-cloud": "토큰을 갱신하려면 지원팀에 문의하거나 클라우드 포털에서 자세한 내용을 확인하세요.",
+      "title-have-a-license": "라이선스가 있나요?",
+      "title-license": "라이선스",
+      "title-license-token-renewed": "라이선스 토큰이 갱신되었습니다.",
+      "title-token": "토큰",
+      "title-utilization": "사용률",
+      "utilization-footer": "라이선스가 있는 사용자의 사용률은 지난 30일 동안 로그인한 사용자의 활동을 기준으로 결정됩니다.",
+      "utilization-info": "<2>활성 사용자 한도</2> 및 <6>동시 세션 한도</6>에 대해 읽어보세요.",
+      "card-content-anonymous-users-tooltip_other": "Grafana는 익명 장치의 경우 {{count}}개당 사용자 1명으로 계산합니다."
+    },
+    "license-token-upload": {
+      "instance-url": "인스턴스 URL: <1>{{licensedUrl}}</1>",
+      "upload-a-new-token": "새 토큰 업로드",
+      "uploading": "업로드 중..."
+    },
+    "max-users-reached": {
+      "title-exceeded-included-number-active-users": "포함된 활성 사용자 수를 초과했습니다",
+      "upgrade-your-license-link": "<2>라이선스를 업그레이드하세요.</2>",
+      "upgrade-your-license-no-link": "라이선스를 업그레이드하세요.",
+      "upgrade-your-license-subtitle_other": "Grafana Enterprise 라이선스에는 활성 사용자 {{maxUsers}}명이 포함되어 있습니다. 현재 {{count}}명의 활성 사용자가 이용 중입니다. "
+    },
+    "page-alert": {
+      "learn-about-enterprise-licenses": "Enterprise 라이선스에 대해 알아보기"
+    },
+    "token-expires-soon": {
+      "title-grafana-enterprise-token-needs-renewed": "Grafana Enterprise 토큰을 갱신해야 합니다",
+      "sub-title-token-expiration_other": "라이선스 토큰이 {{count}}일 남았습니다. 이후에는 <4>Enterprise 기능이 비활성화됩니다.</4>"
+    }
+  },
+  "meta-analytics": {
+    "analytics-drawer": {
+      "public-dashboards-tab-label": "공개 대시보드",
+      "shared-dashboards-tab-label": "공유된 대시보드",
+      "stats-tab-label": "통계",
+      "text-access-usage-insights-during-trial-grafana": "Grafana Pro 체험 기간 동안 무료로 사용량 인사이트에 대한 모든 이용 권한을 얻으세요.",
+      "title-dashboard-insights": "{{dashboardTitle}} - 분석",
+      "users-activity-tab-label": "사용자 및 활동"
+    },
+    "analytics-public-dashboards-tab": {
+      "daily-query-count-cached-queries-label": "캐시된 쿼리",
+      "daily-query-count-title": "일일 쿼리 수",
+      "errors-last-month-title": "최근 30일간의 오류",
+      "no-data": "데이터가 없습니다.",
+      "views-last-month-title": "최근 30일간의 조회수"
+    },
+    "analytics-stats-tab": {
+      "daily-query-count-cached-queries-label": "캐시된 쿼리",
+      "daily-query-count-title": "일일 쿼리 수",
+      "errors-last-month-title": "최근 30일간의 오류",
+      "no-data": "데이터가 없습니다."
+    },
+    "analytics-toolbar-button": {
+      "tooltip-dashboard-insights": "대시보드 인사이트"
+    },
+    "analytics-upgrade-drawer": {
+      "description-usage-insights-provide-detailed-information-about": "사용량 인사이트는 사용자가 경험한 조회수, 쿼리 및 오류 수와 같이 대시보드 사용과 관련된 자세한 정보를 제공합니다. 이를 사용하여 사용자 환경을 개선하고 문제를 해결할 수 있습니다.",
+      "title-dashboard-insights": "{{dashboardTitle}} - 분석"
+    },
+    "analytics-users-tab": {
+      "aria-label-recent-users-table": "최근 사용자 테이블",
+      "aria-label-user-box-title": "사용자 상자 제목",
+      "aria-label-user-information-box": "사용자 정보 상자",
+      "aria-label-version-history-button": "버전 이력 버튼",
+      "created-user-box": "생성됨",
+      "dashboard-version-history": "대시보드 버전 이력",
+      "format-date-currently-viewing": "현재 조회 중",
+      "format-date-last-hour": "최근 1시간",
+      "format-date-today": "오늘",
+      "format-date-yesterday": "어제",
+      "last-dashboard-viewers": "최근 대시보드 조회자 30명",
+      "last-edited-user-box": "마지막 편집",
+      "last-viewed-user-box": "마지막 조회",
+      "user-views-data-frame-user-field": "사용자",
+      "user-views-data-frame-when-field": "일시",
+      "views-last-month-title": "최근 30일간의 조회수"
+    },
+    "data-source-insights": {
+      "available-source": "이 데이터 소스에 사용할 수 있는 데이터가 없습니다.",
+      "average-load-duration-last-month-title": "최근 30일간의 평균 불러오기 시간(ms)",
+      "errors-last-month-title": "최근 30일간의 오류",
+      "queries-last-month-title": "최근 30일간의 쿼리",
+      "text-enable-source-usage-insights-during-trial": "Grafana Pro 체험 기간 동안 데이터 소스 사용량 인사이트를 무료로 사용하세요.",
+      "text-feature-not-available-expired-license": "라이선스가 만료된 경우 데이터 소스 인사이트를 사용할 수 없습니다. 데이터는 계속 수집되지만 이 페이지를 보려면 라이선스를 업데이트해야 합니다.",
+      "title-feature-available-expired-license": "라이선스가 만료된 경우 기능을 사용할 수 없습니다",
+      "title-read-more-license-expiration": "라이선스 만료에 대해 자세히 알아보기"
+    },
+    "data-source-insights-upgrade": {
+      "clean-instance-list-item": "사용하지 않는 데이터 소스를 찾아내고 제거하여 인스턴스를 정리합니다",
+      "demonstrate-and-improve-list-item": "사용자 참여를 추적하여 옵저버빌리티 서비스의 가치를 입증하고 개선합니다",
+      "description-usage-insights-provide-detailed-information-about": "사용량 인사이트는 사용자가 경험한 조회수, 쿼리 및 오류 수와 같이 데이터 소스 사용과 관련된 자세한 정보를 제공합니다. 이를 사용하여 사용자 환경을 개선하고 문제를 해결할 수 있습니다",
+      "keep-performant-list-item": "느리고 오류가 발생하기 쉬운 데이터 소스를 식별하고 수정하여 Grafana의 성능을 유지합니다",
+      "review-insights-list-item": "UI에서 개별 데이터 소스 사용량 인사이트를 한눈에 검토하거나, 사용량 및 오류별로 검색 결과를 정렬하거나, 자세한 사용 로그를 살펴봅니다"
+    }
+  },
+  "permissions": {
+    "data-source-permissions": {
+      "text-enable-source-permissions-during-trial-grafana": "Grafana Pro 체험 기간 동안 무료로 데이터 소스 권한을 사용하세요."
+    },
+    "permissions-upgrade-content": {
+      "description-source-permissions-protect-sensitive-limiting-access": "데이터 소스 권한을 사용하면 이 데이터 소스에 대한 액세스를 특정 사용자, 팀, 역할로 제한하여 민감한 데이터를 보호할 수 있습니다.",
+      "source-permissions-protect-clean-experience-list-item": "사용할 필요 없는 데이터 소스를 숨겨 사용자 경험을 개선합니다",
+      "source-permissions-protect-sensitive-data-list-item": "보안 로그, 프로덕션 데이터베이스, 개인 식별 정보와 같은 민감한 데이터를 보호합니다",
+      "source-permissions-protect-share-access-list-item": "사용자가 부지불식간에 민감한 데이터를 보게 되는 일은 없기 때문에 안심하고 Grafana 액세스를 더 자유롭게 공유할 수 있습니다"
+    }
+  },
+  "plugins": {
+    "sandbox": {
+      "enable-sandbox-label": "프런트엔드 샌드박스",
+      "enable-sandbox-tooltip": "프런트엔드 샌드박스는 고립 상태에서 프런트엔드 코드를 실행하여 전역 브라우저 범위에 대한 액세스를 제한하고 플러그인 영역에 대한 UI 수정을 제한합니다.",
+      "enable-sandbox-tooltip-link": "더 읽어보기"
+    }
+  },
+  "public-dashboard": {
+    "email-sharing": {
+      "success-confirm-access": "액세스 권한이 확인되었습니다!",
+      "success-resend-recipient-invitation": "이메일 초대장이 다시 전송되었습니다.",
+      "success-revoke-access-description": "{{recipientEmail}}의 액세스 권한을 성공적으로 철회했습니다.",
+      "success-revoke-access-title": "액세스 권한 철회됨",
+      "success-revoke-all-accesses-description": "모든 공개 대시보드에 대한 {{email}}의 액세스 권한이 성공적으로 제거되었습니다.",
+      "success-revoke-all-accesses-title": "액세스 권한 철회됨",
+      "success-send-recipient-invitation": "이메일 초대장이 전송되었습니다."
+    }
+  },
+  "public-dashboards": {
+    "confirm-access-page": {
+      "confirm-access": "액세스 확인",
+      "login-subtitle": "30일간 대시보드에 액세스하세요. 30일 후에 다시 액세스를 요청하여 대시보드를 계속 볼 수 있습니다.",
+      "login-title": "대시보드 액세스"
+    },
+    "request-view-access-page": {
+      "access-requested": "액세스 요청됨",
+      "label-email": "이메일",
+      "placeholder-email": "이메일",
+      "register-pattern-invalid-email": "유효하지 않은 이메일",
+      "register-required-email": "이메일은 필수 입력 사항입니다.",
+      "request-access": "액세스 요청"
+    }
+  },
+  "query-library": {
+    "actions": {
+      "delete-query-button": "쿼리 삭제",
+      "duplicate-query-button": "쿼리 복제",
+      "duplicate-query-title-copy": "복사",
+      "lock-query-button": "쿼리 잠그기",
+      "menu-button": "",
+      "save-history-query-button": "",
+      "select-query-button": "쿼리 선택",
+      "unlock-query-button": "쿼리 잠금 해제"
+    },
+    "delete-modal": {
+      "body-text": "이 저장된 쿼리를 제거하려고 합니다. 이 작업은 취소할 수 없습니다. 계속하시겠어요?",
+      "confirm-button": "쿼리 삭제",
+      "title": "쿼리 삭제"
+    },
+    "discard-changes": {
+      "discard-button": "무시",
+      "text": "이 쿼리에 저장되지 않은 변경 사항이 있습니다. 정말 이 변경 사항을 삭제하시겠어요?",
+      "title": "쿼리의 변경 사항을 삭제하시겠어요?"
+    },
+    "drawer": {
+      "title": "저장된 쿼리",
+      "tooltip": "현재 각 조직은 최대 1000개의 쿼리를 저장할 수 있습니다"
+    },
+    "empty-state": {
+      "message": "탐색에서 추가하거나 대시보드를 편집할 때 추가하",
+      "no-favorites": "",
+      "no-favorites-description": "",
+      "no-history": "",
+      "no-history-description": "",
+      "title": ""
+    },
+    "error-state": {
+      "title": "오류 발생!"
+    },
+    "explore-modal": {
+      "cancel-button": "",
+      "confirm-button": "",
+      "title": "",
+      "warning": ""
+    },
+    "filters": {
+      "datasource-placeholder": "데이터 소스로 필터링",
+      "datasource-user": "사용자 이름으로 필터링",
+      "search-placeholder": "데이터 소스, 쿼리 내용, 제목 또는 설명으로 검색",
+      "sort": {
+        "asc": "알파벳순(A~Z)",
+        "desc": "알파벳순(Z~A)",
+        "newest": "최신순",
+        "oldest": "오래된 순"
+      },
+      "sort-placeholder": "정렬"
+    },
+    "item": {
+      "add-to-library": "",
+      "favorite": "즐겨찾기",
+      "new": "신규",
+      "unfavorite": "즐겨찾기 해제"
+    },
+    "not-found": {
+      "message": "검색 또는 필터 기준을 조정해 보세요.",
+      "title": "찾은 결과 없음"
+    },
+    "notifications": {
+      "query-deleted": "쿼리 삭제됨"
+    },
+    "query-details": {
+      "author": "작성자",
+      "datasource": "데이터 소스",
+      "date-added": "날짜 추가됨",
+      "description": "설명",
+      "edit-button": "쿼리 편집",
+      "edit-button-short": "편집",
+      "make-query-visible": "모든 사용자와 쿼리 공유",
+      "recent-description": "",
+      "recent-example": "",
+      "tags": "태그",
+      "title": "제목"
+    },
+    "tabs": {
+      "all": "전체",
+      "favorites": "즐겨찾기",
+      "recent": ""
+    },
+    "template-variables-warning": {
+      "message": "",
+      "message-explore": "",
+      "title": ""
+    },
+    "user-info": {
+      "error": "라이브러리에서 사용자 정보 가져오기 시도 중 오류 발생: {{error}}"
+    }
+  },
+  "query-operation": {
+    "header": {
+      "replace-query-from-library": "저장된 쿼리로 교체",
+      "save-to-query-library": "쿼리 저장"
+    }
+  },
+  "recorded-queries": {
+    "create-recorded-query-unconnected": {
+      "alert-severity-succesful": "성공",
+      "alert-severity-test": "이 기록된 쿼리 테스트",
+      "aria-label-start-recording-query-button": "쿼리 기록 시작 버튼",
+      "contact-support": "Grafana Labs에 지원 티켓을 제출하려면, <1>Grafana Labs에 문의</1>를 작성하세요.",
+      "count-rows-returned": "이 쿼리에서 반환된 행 수 계산",
+      "description-decide-often-record-query": "이 쿼리를 기록할 빈도를 결정합니다",
+      "description-give-this-query-a-name": "이 쿼리의 이름을 지정합니다",
+      "description-provide-a-description-for-this-query": "이 쿼리에 대한 설명을 작성합니다",
+      "description-select-value-template-variable": "각 템플릿 변수에 대한 값을 선택합니다",
+      "done-button": {
+        "aria-label-cancel-recording-query-button": "쿼리 기록 취소 버튼",
+        "aria-label-close-recording-query-button": "쿼리 기록 닫기 버튼",
+        "cancel": "취소",
+        "close": "닫기"
+      },
+      "label": {
+        "relative-time-range": "상대적 시간 범위"
+      },
+      "label-count-query-results": "쿼리 결과 개수",
+      "label-description": "설명",
+      "label-interval": "간격",
+      "label-name": "이름",
+      "label-template-variables": "템플릿 변수",
+      "message": {
+        "name-is-required": "이름은 필수 입력 항목입니다"
+      },
+      "query-relative-time-range": "이 쿼리의 상대적 시간 범위를 선택합니다",
+      "results-alert-message": "결과: ",
+      "start-recording-query": "쿼리 기록 시작",
+      "success-alert-message": "새로 기록된 쿼리가 성공적으로 기록되었습니다!",
+      "sync-button": {
+        "aria-label-test-the-recorded-query": "기록된 쿼리 테스트"
+      },
+      "title-create-recorded-query": "기록된 쿼리 생성"
+    },
+    "data-source-filter": {
+      "button-clear-filter": "데이터 소스 필터 지우기",
+      "filter-by-data-source": "데이터 소스로 필터링",
+      "placeholder-select-a-data-source": "데이터 소스 선택"
+    },
+    "empty-recorded-query-list": {
+      "message": "기록된 쿼리가 정의되지 않음",
+      "pro-tip": "전문가 팁: 쿼리 편집기에서 쿼리를 기록할 수 있습니다."
+    },
+    "query-card": {
+      "interval-content": "간격: {{interval}}",
+      "interval-range": "범위: 마지막 {{range}}",
+      "query-expression": "쿼리 표현식:"
+    },
+    "recorded-queries-config-unconnected": {
+      "body-delete": "'{{name}}'을(를) 삭제하시겠어요?",
+      "confirm-text-delete": "삭제",
+      "edit-remote-write-target": "원격 쓰기 대상 편집",
+      "queries-to-display": {
+        "buttons": {
+          "aria-label-delete-recorded-query": "기록된 쿼리 삭제",
+          "aria-label-pause-recorded-query": "기록 일시 중지",
+          "aria-label-resume-recorded-query": "기록 재개",
+          "delete": "삭제"
+        }
+      },
+      "title-delete": "삭제"
+    },
+    "recorded-queries-deprecation-notice": {
+      "description": "기록된 쿼리는 사용 중단됩니다. 대신 새로운 <2>Grafana 관리 기록 규칙</2>을 사용하세요.",
+      "title-deprecation-notice": "사용 중단 공지"
+    },
+    "recorded-query-add-modal-unconnected": {
+      "add": "추가",
+      "cancel": "취소",
+      "new-recorded-query-alert": "새 기록된 쿼리를 생성하려면 쿼리 편집기로 돌아가서 시리즈 바의 <2></2> 아이콘을 사용하세요.",
+      "no-queries-available": "{{datasourceName}}에 대해 이용 가능한 기록된 쿼리가 없습니다",
+      "recorded-query": "기록된 쿼리",
+      "title-add-recorded-query": "기록된 쿼리 추가"
+    },
+    "write-target-config-unconnected": {
+      "label-remote-write-path": "원격 쓰기 경로",
+      "placeholder-select-a-data-source": "데이터 소스 선택",
+      "save": "저장",
+      "select-data-source-label": "메트릭을 작성할 데이터 소스를 선택하세요"
+    }
+  },
+  "report": {
+    "report-header": {
+      "time-range": "데이터 시간 범위:",
+      "title": "{{reportTitle}} - {{generatedOnDate}}에 생성됨"
+    }
+  },
+  "reporting": {
+    "button-row": {
+      "next-step": "다음: {{nextName}}",
+      "previous-step": "이전: {{prevName}}"
+    },
+    "create-report": {
+      "alert-title": "보고서 불러오는 중 오류",
+      "loading-report": "보고서 불러오는 중...",
+      "title": "새 보고서 생성"
+    },
+    "errors": {
+      "action-message": "플러그인을 설치하려면 Grafana 관리자에게 문의하세요.",
+      "no-renderer-description": "PDF 보고서를 생성하려면 <2>Grafana Image Renderer</2> 플러그인을 설치해야 합니다.",
+      "no-renderer-title": "이미지 렌더러 플러그인 미설치",
+      "old-renderer-description": "CSV 파일을 생성하려면 <2>Grafana Image Renderer</2> 플러그인을 업데이트해야 합니다.",
+      "old-renderer-title": "이전 버전의 이미지 렌더러 플러그인 사용 중"
+    },
+    "image-preview": {
+      "invalid-image": "유효하지 않은 이미지"
+    },
+    "page": {
+      "empty-button": "보고서 생성",
+      "empty-pro-tip": "기존 대시보드에서 보고서를 생성합니다. <2>자세히 알아보기</2>",
+      "empty-title": "아직 생성된 보고서가 없습니다",
+      "settings-button": "보고서 설정"
+    },
+    "page-actions": {
+      "discard-button": "무시",
+      "save-as-draft-button": "임시로 저장",
+      "update-button": "보고서 업데이트"
+    },
+    "report-footer": {
+      "page-pagination": "{{currentPage}}/{{totalPageCount}}페이지"
+    },
+    "report-form": {
+      "edit-step": "5. 확인"
+    },
+    "report-list": {
+      "confirmText-delete": "삭제",
+      "content-pause-report": "보고서 일시 중지",
+      "content-resume-report": "보고서 재개",
+      "delete-report": "{{name}} 보고서 삭제"
+    },
+    "schedule": {
+      "frecuency-custom-input-label": "다음 간격으로 반복",
+      "frecuency-custom-select-label": "사용자 지정 빈도",
+      "frecuency-custom-select-placeholder": "시간",
+      "frecuency-date-picker-label": "보고서 일정 시작일",
+      "frecuency-date-picker-placeholder": "날짜 선택",
+      "frecuency-end-date-label": "종료일",
+      "frecuency-end-time-label": "종료 시간",
+      "frecuency-last-day-label": "매월 마지막 날에 전송",
+      "frecuency-last-day-warning": "참고: {{warningDateText}}일이 없는 달이 있으며 그러한 달에는 보고서가 전송되지 않습니다. 이전 날짜를 선택하거나 <3>'매월 마지막 날에 전송'</3>을 선택하여 매월 말에 보고서가 전송되도록 하세요.",
+      "frecuency-send-later": "나중에 전송",
+      "frecuency-send-now": "지금 전송",
+      "frecuency-start-time-label": "시작 시간",
+      "frecuency-time-zone-label": "시간대",
+      "frecuency-workdays-label": "월요일부터 금요일까지만 전송",
+      "report-schedule-end-date-label": "보고서 일정 종료일",
+      "report-schedule-end-date-placeholder": "종료일 없음"
+    },
+    "settings": {
+      "attachment-settings-fieldset-label": "첨부 파일 설정",
+      "drawer-title": "보고서 템플릿 설정",
+      "email-branding-fieldset-label": "이메일 브랜딩",
+      "email-footer-field-label": "이메일 푸터",
+      "email-logo-image-preview-altText": "회사 로고 미리보기",
+      "email-logo-url-field-description": "해당 로고는 이메일 헤더에 표시됩니다. 지원되는 형식: png, jpg, gif",
+      "email-logo-url-field-label": "회사 로고 URL",
+      "embedded-image-header": "임베드된 이미지",
+      "embedded-image-theme-picker-description": "이 테마를 이메일에 임베드된 대시보드 이미지에 적용합니다.",
+      "footer-link-field-label": "푸터 링크 텍스트",
+      "footer-link-url-field-label": "푸터 링크 URL",
+      "no-data": "사용 가능한 설정 데이터 없음",
+      "none-footer-label": "없음",
+      "pdf-header": "PDF",
+      "pdf-theme-picker-description": "보고서에 첨부된 PDF에 테마를 적용합니다.",
+      "report-logo-image-preview-altText": "회사 로고 미리보기",
+      "report-logo-url-field-description": "문서 푸터에 로고가 표시됩니다. 지원되는 형식: png, jpg, gif",
+      "report-logo-url-field-label": "회사 로고 URL",
+      "save-button": "저장",
+      "saving-button": "저장 중...",
+      "sent-by-footer-label": "발송인",
+      "settings-subtitle": "보고서 템플릿 설정을 관리합니다."
+    },
+    "update-report": {
+      "title": "보고서 업데이트"
+    }
+  },
+  "reports": {
+    "all-template-alert": {
+      "description-not-supported": "반복되는 행 또는 패널에 사용되는 템플릿 변수의 '모두' 값은 PDF에서 지원되지 않습니다",
+      "title-not-supported": "지원되지 않음"
+    },
+    "confirm": {
+      "edit": "편집",
+      "report-data": {
+        "title": {
+          "combine-all-pdfs-in-one-file": "모든 PDF를 하나의 파일로 결합",
+          "dashboard-link": "대시보드 링크",
+          "email-subject": "이메일 제목",
+          "end-date": "종료일",
+          "end-time": "종료 시간",
+          "format-report": "보고서 형식 지정",
+          "message": "메시지",
+          "pdf-layout": "PDF 레이아웃",
+          "pdf-orientation": "PDF 방향",
+          "pdf-show-template-variables": "PDF에 템플릿 변수 표시",
+          "preferred-format": "선호하는 형식*",
+          "recipients": "수신인*",
+          "recurrence": "반복 주기",
+          "repeat-every": "다음 간격으로 반복",
+          "replytoemail": "회신받을 이메일",
+          "report-name": "보고서 이름*",
+          "scale-factor": "배율",
+          "schedule": "일정 예약",
+          "select-dashboard": "대시보드 선택",
+          "send-monday-to-friday-only": "월요일부터 금요일까지만 전송",
+          "share": "공유",
+          "start-date": "시작일",
+          "start-time": "시작 시간",
+          "template-variables": "템플릿 변수",
+          "time-range": "시간 범위",
+          "time-zone": "시간대"
+        }
+      }
+    },
+    "create-report-tab": {
+      "create-report-using-this-dashboard": "이 대시보드를 사용하여 보고서 생성",
+      "description-reporting-allows-automatically-generate-dashboards-grafana": "보고를 사용하면 어떤 대시보드에서든 PDF를 자동으로 생성하고 Grafana가 일정에 맞춰 이해 당사자들에게 이메일을 보내도록 할 수 있습니다.",
+      "get-started-with-reporting": "보고 시작하기",
+      "learn-more": "자세히 알아보기",
+      "text-create-unlimited-reports-during-trial-grafana": "Grafana Pro 체험 기간 동안 무제한으로 보고서를 생성하세요."
+    },
+    "dashbord-report-renderer": {
+      "title-unsupported-dashboard-layout": "지원되지 않는 대시보드 레이아웃"
+    },
+    "edit-actions": {
+      "aria-label-delete-report": "보고서 삭제",
+      "body-are-you-sure": "이 보고서를 정말로 삭제하시겠어요?",
+      "confirmText-delete": "삭제",
+      "edit-report": "보고서 편집",
+      "pause-button": "일시 중지",
+      "resume-button": "재개",
+      "title-delete-report": "보고서 삭제",
+      "tooltip-delete": "삭제"
+    },
+    "format-report": {
+      "aria-label-zoom": "확대/축소",
+      "description-enlarge-table-columns-panel": "확대하여 텍스트를 크게 보거나 축소하여 패널당 더 많은 데이터(예: 표 열)를 볼 수 있습니다.",
+      "label-combine-dashboard": "모든 대시보드 PDF를 하나의 파일로 결합",
+      "label-configure-multiple-pdfs": "여러 PDF 구성",
+      "label-configure-report-header": "보고서 헤더 구성",
+      "label-format-report": "2. 보고서 형식",
+      "label-layout": "레이아웃",
+      "label-orientation": "방향",
+      "label-show-template-variables": "템플릿 변수 보기",
+      "label-style-the-pdf": "PDF 스타일 지정",
+      "label-zoom": "확대/축소",
+      "preview-pdf": "PDF 미리보기",
+      "tooltip-download-table-panel": "테이블 패널 데이터를 CSV로 변환하여 ZIP 파일로 다운로드"
+    },
+    "highlight-trial-report": {
+      "get-started-with-reporting": "보고 시작하기",
+      "get-started-with-reporting-text": "보고를 사용하면 어떤 대시보드에서든 PDF를 자동으로 생성하고 Grafana가 일정에 맞춰 이해 당사자들에게 이메일을 보내도록 할 수 있습니다.",
+      "learn-more": "자세히 알아보기",
+      "text-create-unlimited-reports-during-trial-grafana": "Grafana Pro 체험 기간 동안 무제한으로 보고서를 생성하세요."
+    },
+    "report-upgrade-content": {
+      "description-reporting-allows-automatically-generate-dashboards-grafana": "보고를 사용하면 어떤 대시보드에서든 PDF를 자동으로 생성하고 Grafana가 일정에 맞춰 이해 당사자들에게 이메일을 보내도록 할 수 있습니다."
+    },
+    "reports-list-page": {
+      "render-list": {
+        "create-a-new-report": "새 보고서 생성",
+        "placeholder-search-reports-report-dashboard-recipients": "보고서 이름, 대시보드 이름 또는 수신자로 보고서 검색",
+        "text": {
+          "create-report": "보고서 생성"
+        },
+        "text-create-unlimited-reports-during-trial-grafana": "Grafana Pro 체험 기간 동안 무제한으로 보고서를 생성하세요."
+      }
+    },
+    "schedule": {
+      "label-frequency": "빈도",
+      "label-schedule": "3. 일정",
+      "label-start-date": "시작일",
+      "label-time": "시간"
+    },
+    "select-dashboard": {
+      "aria-label-source-dashboard": "소스 대시보드",
+      "description-time-range": "지정된 시간 범위의 데이터로 보고서를 생성합니다. 사용자 지정 시간 범위가 비어 있으면 보고서 대시보드의 시간 범위가 사용됩니다.",
+      "label-source-dashboard": "소스 대시보드",
+      "label-template-variables": "템플릿 변수",
+      "label-time-range": "시간 범위"
+    },
+    "select-dashboards": {
+      "add-another-dashboard": "다른 대시보드 추가",
+      "label-select-dashboard": "1. 대시보드 선택",
+      "remove-dashboard": "대시보드 제거"
+    },
+    "send-test-email-modal": {
+      "cancel": "취소",
+      "label-email": "이메일",
+      "label-use-emails-from-report": "보고서의 이메일 사용",
+      "send": "전송",
+      "title-send-test-email": "테스트 이메일 전송"
+    },
+    "share": {
+      "description-address-appear-reply-field-email": "이메일의 회신 필드에 표시되는 주소",
+      "description-separate-multiple-emails-comma-semicolon": "이메일이 여러 개인 경우 쉼표나 세미콜론으로 구분하세요.",
+      "email-info-button": "이 필드를 비워두면 보고서 이름이 이메일 제목으로 사용됩니다.",
+      "email-subject": "이메일 제목",
+      "label-include-a-dashboard-link": "대시보드 링크 포함",
+      "label-message": "메시지",
+      "label-recipients": "수신인",
+      "label-replyto-email-address": "회신 이메일 주소",
+      "label-report-name": "보고서 이름",
+      "label-share": "4. 공유",
+      "name-placeholder-system-status-report": "시스템 상태 보고서",
+      "recipients-placeholder-recipients-email-addresses-press-enter": "수신인 이메일 주소를 입력하고 엔터 키를 누르세요.",
+      "send-test-email": "테스트 이메일 전송",
+      "subject-placeholder-email-subject": "이메일 제목",
+      "title-sending-test-email": "테스트 이메일 전송 중..."
+    },
+    "share-pdfbase": {
+      "cancel": "취소",
+      "save-as-pdf": "PDF로 저장"
+    },
+    "unavailable-feature-info-box": {
+      "title-feature-available-expired-license": "라이선스가 만료된 경우 기능을 사용할 수 없습니다"
+    },
+    "upgrade-report": {
+      "description-reporting-allows-automatically-generate-dashboards-grafana": "보고를 사용하면 어떤 대시보드에서든 PDF를 자동으로 생성하고 Grafana가 일정에 맞춰 이해 당사자들에게 이메일을 보내도록 할 수 있습니다."
+    },
+    "variables-preview": {
+      "none": "없음"
+    }
+  },
+  "saml-connect-to-idp": {
+    "validate-idp-metadata": {
+      "require-one": "하나의 메타데이터 유형을 정의해야 합니다."
+    }
+  },
+  "share-dashboard": {
+    "menu": {
+      "export-pdf-title": "PDF로 내보내기",
+      "schedule-report-title": "보고 일정 예약"
+    }
+  },
+  "share-report": {
+    "actions": {
+      "aria-label-open-menu": "작업 메뉴 열기",
+      "download-csv-label": "CSV 다운로드",
+      "downloading-label": "다운로드 중...",
+      "preview-pdf-label": "PDF 미리보기",
+      "report-settings-label": "보고서 설정"
+    },
+    "attachments": {
+      "combine-one-file": "모든 대시보드 PDF를 하나의 파일로 결합",
+      "csv-tables": "표 패널 데이터의 CSV 파일 첨부",
+      "layout": "레이아웃",
+      "orientation": "방향",
+      "orientation-tooltip": "선택하신 방향이 대시보드 PDF, 표 데이터 및 PDF 부록에 적용됩니다",
+      "pdf-format": "PDF 형식",
+      "pdf-report": "보고서를 PDF로 첨부",
+      "pdf-tables": "표 데이터의 별도 PDF 첨부",
+      "pdf-tables-appendix": "표 데이터를 PDF 부록으로 포함",
+      "section-title": "첨부 파일",
+      "show-template-variables": "헤더에 템플릿 변수 표시",
+      "zoom": "확대/축소 배율"
+    },
+    "back-button-text": "보고서 목록으로 돌아가기",
+    "confirm-delete": {
+      "button": "보고서 삭제",
+      "description": "이 보고서를 정말로 삭제하시겠어요?",
+      "title": "보고서 삭제"
+    },
+    "create-report": "새 보고서 생성",
+    "dashboard": {
+      "add-dashboard": "대시보드 추가",
+      "dashboard-required": "대시보드는 필수 항목입니다",
+      "delete-dashboard-tooltip": "이 대시보드 삭제",
+      "repeated-template-variables-description": "하나의 보고서에 동일한 대시보드를 여러 번 추가할 경우, 처음에 선택한 템플릿 변수가 보고서 내 해당 대시보드의 모든 인스턴스에 적용됩니다.",
+      "section-title": "대시보드",
+      "source-dashboard-label": "소스 대시보드",
+      "template-variables-title": "템플릿 변수 사용자 지정",
+      "time-range-description": "시간 범위를 비워 두면 보고서 대시보드의 시간 범위로 대체됩니다. 절대 시간 범위는 브라우저의 시간대로 표시됩니다.",
+      "time-range-label": "시간 범위",
+      "view-dashboard-tooltip": "대시보드 보기"
+    },
+    "discard-changes": {
+      "discard-button": "무시",
+      "text": "이 대시보드 보고서에 대한 변경 사항이 저장되지 않았습니다. 정말 변경 사항을 삭제하시겠어요?",
+      "title": "보고서에 대한 변경 사항을 삭제하시겠습니까?"
+    },
+    "email-configuration": {
+      "add-dashboard-image-label": "대시보드 이미지 임베드",
+      "add-dashboard-url-label": "대시보드 링크 포함",
+      "dashboard-image-settings-description": "대시보드 이미지 설정은 일반 <1>보고서 설정</1>에서 조정할 수 있습니다.",
+      "invalid-email": "유효하지 않은 이메일",
+      "message-label": "메시지",
+      "message-placeholder": "메시지 입력",
+      "reply-to-label": "회신할 이메일 주소",
+      "section-title": "이메일 설정",
+      "subject-description": "이 필드를 비워두면 보고서 이름이 이메일 제목으로 사용됩니다.",
+      "subject-label": "이메일 제목"
+    },
+    "empty-list": {
+      "description": "이 대시보드에서 보고서를 생성합니다. <2>자세히 알아보기</2>",
+      "title": "이 대시보드에 대한 보고서가 없습니다"
+    },
+    "error-form": {
+      "title": "보고서 불러오는 중 오류"
+    },
+    "error-list": {
+      "title": "보고서 불러오는 중 오류"
+    },
+    "loading-form": "양식 불러오는 중...",
+    "loading-report": "보고서 불러오는 중...",
+    "loading-report-form": "보고서 양식 불러오는 중...",
+    "loading-reports": "보고서 불러오는 중...",
+    "recipients": {
+      "field-label": "수신인",
+      "invalid-email": "유효하지 않은 이메일: {{email}}",
+      "invalid-emails": "유효하지 않은 이메일: {{emails}}",
+      "placeholder": "수신인 이메일 주소를 입력하고 엔터 키를 누르세요",
+      "recipients-required": "수신자는 필수 항목입니다",
+      "section-title": "수신인",
+      "tooltip": "이메일 주소가 여러 개인 경우 쉼표나 세미콜론으로 구분하세요."
+    },
+    "report-name": {
+      "label": "보고서 이름",
+      "required": "보고서 이름은 필수 입력 항목입니다."
+    },
+    "save-draft": {
+      "button": "초안 저장",
+      "saving-button": "초안 저장 중..."
+    },
+    "schedule": {
+      "end-date": "종료일",
+      "end-date-invalid": "종료일은 시작일과 같거나 이후여야 합니다",
+      "end-date-placeholder": "종료일 없음",
+      "end-time": "종료 시간",
+      "frequency": "빈도",
+      "interval-amount-min": "간격 값은 2 이상이어야 합니다",
+      "interval-amount-required": "간격 값은 필수 입력 항목입니다",
+      "last-day-of-month": "매월 마지막 날에 전송",
+      "monthly-schedule-alert-title": "참고: {{ dayNumber }}일이 없는 달에는 보고서가 전송되지 않습니다. 이전 날짜를 선택하거나 '매월 마지막 날에 전송'을 선택하여 매월 말에 보고서가 전송되도록 하세요.",
+      "repeat-every": "다음 간격으로 반복",
+      "repeat-every-placeholder": "예: 2",
+      "repeat-interval-frequency-placeholder": "예: 시간",
+      "section-title": "일정 예약",
+      "send-time": "일정 예약",
+      "start-date": "시작일",
+      "start-date-placeholder": "날짜 선택",
+      "start-date-required": "시작일은 필수 입력 항목입니다",
+      "start-time": "시작 시간",
+      "time-zone": "시간대",
+      "workdays-only": "월요일부터 금요일까지만 전송"
+    },
+    "schedule-report": {
+      "button": "보고 일정 예약",
+      "scheduling-button": "보고서 예약 중..."
+    },
+    "see-all-reports": "모든 보고서 보기",
+    "send-preview": {
+      "button": "미리 보기 전송",
+      "cancel": "취소",
+      "email": "이메일",
+      "email-description": "이메일 주소가 여러 개인 경우 쉼표나 세미콜론으로 구분하세요.",
+      "email-required": "이메일은 필수 입력 사항입니다.",
+      "send": "전송",
+      "sending": "전송 중...",
+      "title": "미리 보기 전송",
+      "use-report-emails": "보고서의 이메일 사용"
+    },
+    "settings": {
+      "loading": "설정 불러오는 중..."
+    },
+    "state": "상태:",
+    "unavailable-feature-info-box": {
+      "message": "라이선스가 만료된 경우 새 보고서를 생성할 수 없습니다. 기존 보고서는 계속 처리되지만 새 보고서를 생성하려면 라이선스를 업데이트해야 합니다."
+    },
+    "update-report": {
+      "button": "보고서 업데이트",
+      "delete-button": "삭제",
+      "pause-button": "일시 중지",
+      "pausing-button": "보고서 일시 중지 중...",
+      "resume-button": "재개",
+      "resuming-button": "보고서 재개 중...",
+      "updating-button": "보고서 업데이트 중..."
+    }
+  },
+  "shared": {
+    "resource-picker": {
+      "placeholder-select-color": "색상 선택"
+    }
+  },
+  "team-lbac": {
+    "create-team-lbacform": {
+      "label-rule": "규칙",
+      "label-team": "팀",
+      "new-lbac-rule": "새 LBAC 규칙",
+      "new-lbac-rule-example": "예시:",
+      "save": "저장"
+    },
+    "editable-cell": {
+      "empty-rule": "빈 규칙"
+    },
+    "team-label": {
+      "placeholder": "ID가 {{teamId}}인 팀을 찾을 수 없음"
+    },
+    "team-lbaceditor-unconnected": {
+      "add-a-lbac-rule": "LBAC 규칙 추가",
+      "add-query-permissions": "<0>쿼리 권한 추가:</0> 다음 팀에는 데이터 소스에 대한 쿼리 권한이 없으므로 구성된 LBAC 규칙으로 로그를 쿼리할 수 없습니다.",
+      "add-team-lbac-rules": "<0>팀 LBAC 규칙 추가:</0> 다음 팀은 모든 로그를 쿼리할 수 있습니다. 팀 LBAC 규칙을 추가하세요.",
+      "clear-filter": "초기화",
+      "clear-filter-aria-label": "필터 초기화",
+      "content-found-recommendation": "발견한 권장 사항",
+      "description-data-access": "여기에서 LogQL 라벨 선택기를 사용하여 데이터 소스 내의 특정 데이터에 대한 액세스를 구성할 수 있습니다.",
+      "ensure-proper-access-control-please-follow": "적절한 액세스 제어를 보장할 수 있도록 다음 권장 사항을 따르세요.",
+      "filter-results-single": "1개의 결과 표시 중",
+      "filter-teams-aria-label": "팀 이름으로 LBAC 규칙 필터링",
+      "filter-teams-placeholder": "팀 필터링",
+      "hide-access-control-recommendations": "액세스 제어 권장 사항 숨기기",
+      "hide-lbac-rule": "LBAC 규칙 숨기기",
+      "label-selector": "라벨 선택기",
+      "lbac-description": "특정 메트릭/로그에 대한 액세스를 제한하도록 LBAC 규칙을 구성합니다.",
+      "lbac-labelbased-access-control": "LBAC(라벨 기반 액세스 제어)",
+      "lbac-rules-note": "참고:<1></1>- 인증된 클라우드 액세스 정책 토큰에 Grafana Cloud에서 구성된 라벨 선택기가 있는 경우 LBAC 규칙이 쿼리에 적용되지 않습니다.<3></3>- 쿼리 경로 캐싱으로 인해 LBAC 규칙의 변경 사항이 반영되는 데 최대 5분이 소요될 수 있습니다.",
+      "learn-more-about-lbac-rules": "LBAC 규칙에 대해 자세히 알아보기",
+      "remove-unrestricted-access": "<0>무제한 액세스 제거:</0> 다음 역할은 현재 로그에 대한 무제한 액세스 권한을 보유하고 있습니다.",
+      "role-warning-list": "역할: {{role}}",
+      "show-access-control-recommendations": "액세스 제어 권장 사항 표시",
+      "sort-teams-ascending": "A-Z순으로 팀 정렬",
+      "sort-teams-descending": "Z-A순으로 팀 정렬",
+      "team": "팀",
+      "title-access-control-recommendations": "액세스 제어 권장 사항",
+      "title-data-access": "데이터 액세스",
+      "filter-results-multiple_other": ""
+    },
+    "team-rules-row": {
+      "aria-label-add-team-rule": "팀 규칙 추가",
+      "aria-label-delete-rule": "규칙 삭제",
+      "aria-label-edit-team-rule": "팀 규칙 편집",
+      "cancel": "취소",
+      "or": "또는",
+      "save": "저장",
+      "tooltip-add-new-rule": "새 규칙 추가",
+      "tooltip-provisioned-rule": "프로비저닝된 규칙"
+    }
+  },
+  "teamLBAC": {
+    "create-team-lbacform": {
+      "message": {
+        "required": "필수 항목"
+      }
+    }
+  }
+}

@@ -1,0 +1,1467 @@
+{
+  "{{enricherType}} enricher does not require any configuration": {
+    " It will start enriching alerts as soon as it is enabled": "{{enricherType}}-verrijker heeft geen configuratie nodig. Het begint met het verrijken van waarschuwingen zodra het is ingeschakeld."
+  },
+  "access-control": {
+    "permissions": {
+      "lbac-warning-basic-role": "",
+      "lbac-warning-rule": "Waarschuwing: dit team heeft mogelijk geen toestemming om de gegevensbron te bevragen.",
+      "lbac-warning-team": "Waarschuwing: dit team heeft volledige gegevenstoegang als er geen LBAC-regels zijn ingesteld."
+    }
+  },
+  "admin": {
+    "role-filter": {
+      "admin-editor-option": "Beheerder/bewerker",
+      "multiselect-placeholder": "Filteren op gelicentieerde rol",
+      "server-admin-option": "Serverbeheerder",
+      "viewer-option": "Lezer"
+    }
+  },
+  "alert-enrichment": {
+    "error": "Kan waarschuwingsverrijking niet maken",
+    "metadata-error": "",
+    "success": "Waarschuwingsverrijking is gemaakt.",
+    "update-error": "Kan waarschuwingsverrijking niet bijwerken",
+    "update-success": "Waarschuwingsverrijking is bijgewerkt."
+  },
+  "alert-enrichment-form": {
+    "actions": {
+      "cancel": "Annuleren",
+      "save": "Verrijking opslaan"
+    },
+    "assign-enricher": {
+      "add-annotation": "Annotatietoewijzing toevoegen",
+      "annotation-name": "Sleutel",
+      "annotation-name-placeholder": "sleutel",
+      "annotation-value": "Waarde",
+      "annotation-value-placeholder": "waarde",
+      "remove-annotation-aria-label": "Annotatie verwijderen",
+      "remove-annotation-tooltip": "Annotatie verwijderen"
+    },
+    "basic-info": {
+      "description": "Beschrijving (optioneel)",
+      "description-placeholder": "Beschrijving van de verrijking",
+      "name": "Naam van verrijking",
+      "name-placeholder": "mijn-verrijking",
+      "name-required": "Naam is vereist",
+      "timeout": "Time-out",
+      "timeout-description": "Maximale toegestane tijd voor deze verrijking (bijv. 30 sec, 1 min)",
+      "timeout-placeholder": "30s"
+    },
+    "ds-type": {
+      "logs": "Logs",
+      "raw": "Ruw"
+    },
+    "dsquery-enricher": {
+      "add-first-query": "Voeg je eerste query toe",
+      "add-query": "Query toevoegen",
+      "no-datasource": "Gegevensbron ontbreekt",
+      "no-datasource-description": "We konden geen gegevensbron vinden voor deze query. De gegevensbron is verwijderd of is niet beschikbaar",
+      "no-queries": "Nog geen query's gedefinieerd",
+      "raw-queries-description": "Definieer query's die worden uitgevoerd om uw waarschuwingen te verrijken. De resultaten zijn beschikbaar in de verrijkingscontext.",
+      "remove-query": "Query verwijderen"
+    },
+    "enricher-config": {
+      "llm-disabled": "LLM is uitgeschakeld",
+      "llm-disabled-description": "Uitleg verrijker vereist dat de Grafana LLM-plug-in is ingeschakeld",
+      "type": "Verrijkertype",
+      "type-placeholder": "Selecteer verrijkerstype",
+      "type-required": "Verrijkertype is vereist"
+    },
+    "enricher-type": {
+      "asserts": "Asserts",
+      "assign": "Toewijzen",
+      "dsquery": "Gegevensbronquery",
+      "explain": "Leg uit",
+      "external": "Extern",
+      "sift": "Sift"
+    },
+    "explain-enricher": {
+      "annotation-label": "Annotatiesleutel",
+      "annotation-placeholder": "verklaring",
+      "annotation-required": "Annotatiesleutel is vereist voor uitlegverrijker",
+      "annotation-tooltip": "De annotatiesleutel waar de door LLM gegenereerde verklaring wordt opgeslagen",
+      "description": "Uitlegverrijker gebruikt LLM om uitleg voor waarschuwingen te genereren. Configureer de annotatiesleutel waar de uitleg wordt opgeslagen."
+    },
+    "external-enricher": {
+      "url-label": "Externe service-URL",
+      "url-placeholder": "https://api.example.com/enrich",
+      "url-required": "URL is vereist voor externe verrijker"
+    },
+    "matcher": {
+      "add-button": "Toevoegen",
+      "name-label": "Naam",
+      "name-placeholder": "Naam",
+      "remove-aria-label": "Matcher verwijderen",
+      "remove-tooltip": "Matcher verwijderen",
+      "type-label": "Type",
+      "type-placeholder": "Type",
+      "value-label": "Waarde",
+      "value-placeholder": "Waarde"
+    },
+    "matcher-type": {
+      "equals": "Gelijk aan (=)",
+      "not-equals": "Niet gelijk aan (!=)",
+      "regex-match": "Overeenkomende regex (=~)",
+      "regex-not-match": "Regex komt niet overeen (!~)"
+    },
+    "scope": {
+      "all-alerts": "Alle waarschuwingen",
+      "annotation-scoped": "Annotatiebereik",
+      "description": "Definieer welke waarschuwingen moeten worden verrijkt",
+      "label-scoped": "Labelbereik",
+      "title": "Bereik"
+    }
+  },
+  "alerting": {
+    "ai-feedback": {
+      "comment-description": "Help ons te verbeteren door te delen wat goed werkte of wat beter kan",
+      "comment-label": "Aanvullende feedback (optioneel)",
+      "comment-placeholder": "Deel je mening over de AI-reactie...",
+      "comment-prompt": "Kun je ons meer informatie geven over je ervaring?",
+      "helpful": "Ja, nuttig",
+      "not-helpful": "Nee, niet nuttig",
+      "question": "Was deze AI-reactie nuttig?",
+      "skip": "Overslaan",
+      "submit": "Feedback indienen",
+      "thank-you": "Bedankt voor je feedback!"
+    },
+    "enrichment": {
+      "appliesTo": "Geldt voor alle waarschuwingen",
+      "delete": {
+        "body": "Weet je zeker dat je de waarschuwingsverrijking <1>{{name}}</1> wilt verwijderen?",
+        "cancel": "Annuleren",
+        "confirm": "Verwijderen",
+        "title": "Waarschuwingsverrijking verwijderen"
+      },
+      "delete-enrichment": "Verrijking {{name}} verwijderen",
+      "edit-button": "Bewerken",
+      "edit-enrichment": "Verrijking {{name}} bewerken",
+      "edit-title": "Verrijking bewerken",
+      "enrichments": "Verrijkingen",
+      "expanded-row": {
+        "annotationMatchers": "<0>Aantekeningmatchers:</0> {formatMatchers(annotationMatchers)}",
+        "asserts": "<0>Asserts</0> verrijking geconfigureerd",
+        "assignments": "<0>Toewijzingen:</0> {assignments.map((a) => `${a.name}=${a.value}`).join(', ')}",
+        "datasource": "<0>Gegevensbron:</0> {details.join(', ')}",
+        "externalUrl": "<0>URL:</0> {step.enricher.external.url}",
+        "labelMatchers": "<0>Labelmatchers:</0> {formatMatchers(labelMatchers)}",
+        "sift": "<0>Sift</0> verrijking geconfigureerd",
+        "type": "Type:"
+      },
+      "load-error": "Kan verrijking niet laden",
+      "loading": "Verrijkingen laden...",
+      "loadMore": "Meer laden",
+      "new-alert": "Nieuwe waarschuwingsverrijking",
+      "new-title": "Nieuwe verrijking",
+      "noEnrichments": "Geen waarschuwingsverrijkingen geconfigureerd",
+      "tab": {
+        "description": "Maak je waarschuwingsmeldingen beter uitvoerbaar door een voorlopige analyse uit te voeren en meer context toe te voegen."
+      },
+      "table": {
+        "actions": "Acties",
+        "annotationMatchers": "Annotaties",
+        "annotationMatchers-scoped": "Bereik bepaald door ",
+        "enrichment": "Verrijking",
+        "labelMatchers": "Labels"
+      },
+      "tooltip": {
+        "asserts": "Gebruikt bevestigingen om waarschuwingen te verrijken",
+        "assign": {
+          "assignments": "Annotaties:",
+          "default": "Wijst annotaties toe aan waarschuwingen",
+          "emptyValue": "(leeg)",
+          "title": "Wijst annotaties toe aan waarschuwingen"
+        },
+        "default": "Waarschuwingsverrijking geconfigureerd",
+        "dsquery": {
+          "datasourceType": "Gegevensbron:",
+          "maxLines": "Max. regels:",
+          "queries": "Query's:",
+          "query": "Query:",
+          "rawRequest": "Aangepast gegevensbronverzoek geconfigureerd",
+          "refId": "Referentie-id:",
+          "title": "Gegevensbronquery's voor verrijking",
+          "type": "Type:"
+        },
+        "explain": {
+          "annotation": "Wordt opgeslagen in:",
+          "default": "Gebruikt LLM om waarschuwingsverklaringen te genereren",
+          "title": "Gebruikt LLM om waarschuwingsverklaringen te genereren"
+        },
+        "external": {
+          "default": "Roept externe service op voor verrijking",
+          "title": "Roept externe service op voor verrijking",
+          "url": "URL:"
+        },
+        "sift": "Gebruikt sift om waarschuwingen te verrijken"
+      }
+    },
+    "generate-ai-rule": {
+      "button": "Genereren met AI",
+      "modal": {
+        "error": "{stringifyErrorLike(fout)}",
+        "error-title": "Fout bij het genereren van waarschuwingsregel",
+        "generate": "Regel genereren",
+        "generating": "Bezig met genereren...",
+        "preview-contact-point": "Contactpunt:",
+        "preview-description": "Beschrijving:",
+        "preview-name": "Naam:\n",
+        "preview-queries": "Query's:",
+        "preview-title": "Gegenereerde waarschuwingsregel",
+        "prompt-description": "Beschrijf wat je wilt monitoren en wanneer je gewaarschuwd wilt worden. Bijvoorbeeld: \"Waarschuwen wanneer het CPU-gebruik langer dan 5 minuten hoger is dan 80%\". Je kunt ook vragen naar beschikbare contactpunten of gegevensbronnen.",
+        "prompt-label": "Beschrijf de waarschuwingsregel die je wilt maken",
+        "prompt-placeholder": "Waarschuwen wanneer het schijfgebruik langer dan 5 minuten hoger is dan 90% en verzenden naar Slack-contactpunt...",
+        "title": "Waarschuwingsregel genereren met AI",
+        "use-rule": "Deze regel gebruiken"
+      }
+    },
+    "improve-ai-annotations": {
+      "button": "Annotaties verbeteren met AI",
+      "modal": {
+        "apply-improvements": "Annotatieverbeteringen toepassen",
+        "error": "{stringifyErrorLike(generatieFout)}",
+        "error-title": "Fout",
+        "generate": "Annotaties verbeteren",
+        "generating": "Bezig met genereren...",
+        "preview-annotations": "Verbeterde annotaties:",
+        "preview-title": "Voorbeeld van AI-annotatieverbeteringen",
+        "prompt-description": "Beschrijf wat je wilt verbeteren aan de annotaties van de waarschuwingsregels. Bijvoorbeeld: \"Maak de samenvatting beschrijvender\", \"Voeg stappen voor probleemoplossing toe aan de beschrijving\" of \"Voeg runbook-links toe\".",
+        "prompt-label": "Hoe wil je de annotaties verbeteren?",
+        "prompt-placeholder": "Maak de samenvatting beschrijvender en voeg stappen voor probleemoplossing toe aan de beschrijving...",
+        "title": "Annotaties van waarschuwingsregels verbeteren met AI"
+      }
+    },
+    "improve-ai-labels": {
+      "button": "Labels verbeteren met AI",
+      "modal": {
+        "cancel": "Annuleren",
+        "error": "{stringifyErrorLike(generatieFout)}",
+        "error-title": "Fout",
+        "generate": "Verbeteringen genereren",
+        "generating": "Bezig met genereren...",
+        "prompt-description": "Beschrijf wat je wilt verbeteren aan de labels van de waarschuwingsregels. Bijvoorbeeld: \"Voeg dynamische ernstlabels toe\", \"Voeg teameigendom toe\" of \"Voeg omgevingslabels toe\".",
+        "prompt-label": "Hoe wil je de labels verbeteren?",
+        "prompt-placeholder": "Voeg dynamische ernstlabels toe op basis van de drempelwaarden en voeg teameigendom toe...",
+        "title": "Labels van waarschuwingsregels verbeteren met AI"
+      },
+      "preview": {
+        "apply": "Verbeteringen toepassen",
+        "cancel": "Annuleren",
+        "no-improvements": "Geen verbeteringen gevonden",
+        "no-improvements-message": "De AI stelde geen labelverbeteringen voor voor dit verzoek.",
+        "title": "Door AI voorgestelde labelverbeteringen:"
+      }
+    },
+    "settings": {
+      "tabs": {
+        "enrichment": {
+          "title": "Waarschuwingsverrijking"
+        }
+      }
+    },
+    "template-form": {
+      "genai": {
+        "modal": {
+          "error": "{stringifyErrorLike(generatieFout)}",
+          "error-title": "Fout",
+          "generate": "Genereer sjabloon",
+          "generating": "Bezig met genereren...",
+          "prompt-description": "Beschrijf de indeling en inhoud die je wilt voor je melding. Bijvoorbeeld: \"Een Slack-bericht met de naam, status en een samenvatting van de waarschuwing met emoji-indicatoren\" of \"Een e-mail met een tabel met alle actieve waarschuwingen, inclusief hun labels en starttijden\".",
+          "prompt-label": "Beschrijf hoe je wilt dat je melding eruitziet",
+          "prompt-placeholder": "Een Slack-bericht dat \"🔥WAARSCHUWING: [AlertName] is actief\" weergeeft met een samenvatting en link om details te bekijken...",
+          "title": "Genereer sjabloon met AI"
+        }
+      }
+    },
+    "templates": {
+      "editor": {
+        "generate-with-ai": "Genereren met AI"
+      }
+    },
+    "triage-ai": {
+      "button": "Analyseren met {{ provider }}",
+      "modal": {
+        "analysis-title": "Waarschuwingstriage-analyse",
+        "analyze": "Analyseren",
+        "analyzing": "🤖 {{logRecordsLength}} waarschuwingsgebeurtenissen analyseren ...",
+        "custom-question": {
+          "help": "Laat leeg voor algemene triage-analyse, of stel een specifieke vraag over de waarschuwingsgebeurtenissen.",
+          "label": "Stel een specifieke vraag (optioneel)",
+          "placeholder": "bijv. \"Wat veroorzaakt de databasewaarschuwingen?\" of \"Zijn deze waarschuwingen gerelateerd aan de recente implementatie?\""
+        },
+        "description": "AI-analyse van huidige waarschuwingsgebeurtenissen om patronen te begrijpen, reacties te prioriteren en potentiële problemen te identificeren.",
+        "error": "Fout",
+        "title": "Waarschuwingstriage-analyse"
+      }
+    }
+  },
+  "auth-config": {
+    "action-bar": {
+      "content-disable-button": "Dit uitschakelen zal Grafana beletten om SAML-authenticatie te gebruiken.",
+      "delete": "Verwijderen",
+      "disable-button": "Uitschakelen",
+      "enabled-badge": "Ingeschakeld",
+      "more-actions-button": "Meer acties",
+      "not-enabled-badge": "Niet ingeschakeld",
+      "protocol": "Protocol",
+      "save-and-apply-button": "Opslaan en toepassen",
+      "save-and-enable-button": "Opslaan en inschakelen",
+      "save-button": "Opslaan",
+      "status": "Status"
+    },
+    "assertion-mapping-unconnected": {
+      "aria-label-name-id-format": "nameIdFormat",
+      "assertionAttributeEmail-label-email-attribute": "E-mailattribuut",
+      "assertionAttributeEmail-placeholder-mail": "e-mail",
+      "assertionAttributeExternalUid-label-external-uid": "Extern UID-attribuut",
+      "assertionAttributeExternalUid-tooltip-external-uid": "Externe UID-toewijzing is een beveiligingsmechanisme dat imitatie voorkomt en het is alleen vereist wanneer SCIM-provisioning is ingeschakeld. De verstrekte externe UID (de door de identiteitsprovider gegenereerde gebruikers-ID) moet aanwezig zijn in de SAML-assertie wanneer de gebruiker inlogt. De standaardwaarde voor dit veld is userUID.",
+      "assertionAttributeGroups-label-groups-attribute": "Groepsattribuut",
+      "assertionAttributeLogin-label-login-attribute": "Inlogattribuut",
+      "assertionAttributeLogin-placeholder-mail": "e-mail",
+      "assertionAttributeName-label-name-attribute": "Attribuutnaam",
+      "assertionAttributeName-placeholder-display-name": "displayName",
+      "assertionAttributeOrg-label-org-attribute": "Organisatieattribuut",
+      "assertionAttributeRole-label-role-attribute": "Rolattribuut",
+      "azure-ad-service-account-configuration": "Configuratie van Azure AD-serviceaccount",
+      "clientId-label-client-id": "Klantnummer",
+      "clientSecret-label-client-secret": "Gebruikerssleutel",
+      "description-allowed-organizations": "Lijst van door komma's of spaties gescheiden SAML-organisatienamen. De gebruiker moet lid zijn van ten minste één organisatie om in te loggen.",
+      "description-assertion-attributes-mapping": "Wijs SAML-assertieattributen toe aan de Grafana-gebruikersattributen. Assertie-attributen ondersteunen sjabloontoewijzingen. Teamsynchronisatie is beschikbaar als het groepsattribuut is geconfigureerd.",
+      "description-azure-ad-service-account-configuration": "Als je gebruikers hebt die tot meer dan 150 groepen in je Azure AD-organisatie behoren, moet je een serviceaccount in Azure AD instellen om alle groepen via Graph API te krijgen. Dit serviceaccount wordt gebruikt om alle groepen voor de gebruiker op te halen. Lees meer over de configuratie van Azure AD-serviceaccounts in de <1>documentatie</1>.",
+      "description-force-use-graph-api": "Forceer het gebruik van Graph API om alle groepen voor de gebruiker op te halen.",
+      "description-name-identifier-format": "Naam-id-formaten bepalen hoe de gebruikers bij de identiteitsprovider worden toegewezen aan gebruikers in Grafana",
+      "description-prevent-synchronizing-users-organization-roles": "Voorkom synchronisatie van organisatierollen van gebruikers vanuit je IdP.",
+      "label-allowed-organizations": "Toegestane organisaties",
+      "label-assertion-attributes-mapping": "Toewijzingen van assertie-attributen",
+      "label-force-use-graph-api": "Gebruik van Graph API forceren",
+      "label-name-identifier-format": "Naam id-indeling",
+      "label-org-mapping": "Organisatietoewijzing",
+      "label-role-mapping": "Roltoewijzing",
+      "label-skip-organization-role-sync": "Synchronisatie organisatierollen overslaan",
+      "label-user-mapping": "Gebruikerstoewijzing",
+      "orgMapping-label-org-mapping": "Organisatietoewijzing",
+      "roleValuesAdmin-label-admin": "Beheerder",
+      "roleValuesEditor-label-editor": "Bewerker",
+      "roleValuesGrafanaAdmin-label-grafana-admin": "Grafana-beheerder",
+      "roleValuesNone-label-none": "Geen",
+      "roleValuesViewer-label-viewer": "Lezer",
+      "tokenUrl-label-access-token-url": "Toegangstoken-Url",
+      "tooltip-assertion-attributes-mapping": "Assertie-attributen die in Grafana worden toegewezen, nemen gebruikersinformatie over van een SAML-reactie en gebruiken deze om een gebruiker in de database aan te maken of bij te werken. Het leest attributen - sleutel/waarde-paren - binnen de assertie, zoals naam, inlognaam en e-mail. Configuraties maken het mogelijk om de sleutelselectie te wijzigen.",
+      "tooltip-org-mapping": "Met organisatietoewijzing kun je gebruikers toewijzen aan een bepaalde organisatie in Grafana, afhankelijk van de attribuutwaarde die is verkregen van de identiteitsprovider. Gebruik de configuratie om gebruikers uit je organisatie toe te wijzen aan de Grafana-organisatie.",
+      "tooltip-role-mapping": "Roltoewijzing synchroniseert gebruikersrollen van je identiteitsprovider naar Grafana door rolattributen te configureren voor de rollen Geen, Lezer, Bewerker, Beheerder en Grafana-beheerder. Als er geen overeenkomst is, is de standaardrol in Grafana Lezer."
+    },
+    "config-action": {
+      "confirm-modal-body": "Weet je zeker dat je deze SAML-configuratie permanent wilt verwijderen? Alle wijzigingen die in de gebruikersinterface zijn aangebracht, worden verwijderd.",
+      "confirm-modal-confirm-text": "Configuratie verwijderen",
+      "confirm-modal-confirmation-text": "verwijderen",
+      "confirm-modal-dismiss-text": "Terug naar bewerken",
+      "confirm-modal-title": "SAML-configuratie verwijderen"
+    },
+    "connect-to-idp-unconnected": {
+      "configure-assertions-group-mappings": "Configureer asserties, groep, groeps- en organisatietoewijzingen in de volgende stap.",
+      "configure-idp-using-grafana-metadata": "IdP configureren met behulp van Grafana-metadata",
+      "copy": "Kopiëren",
+      "description-assertion-consumer-service-url": "POST bindende URL voor Assertion Consumer Service",
+      "description-idp-metadata": "Moet hetzelfde zijn als de instelling of vereist door IdP.",
+      "description-metadata-url": "URL voor IdP-metadata",
+      "description-setup-idp": "Om je identiteitsprovider (IdP) te configureren, heb je de Grafana-metadata-URL nodig. Alle onderstaande eindpunten moeten bereikbaar zijn voor je identiteitsprovider (IdP).",
+      "description-setup-required": "Ga naar het configuratiepaneel van je IdP, voeg een nieuwe app toe en gebruik metagegevens uit stap één om verbinding te maken met Grafana. Je moet de metagegevens van je IdP kopiëren en hieronder verstrekken. Test de verbinding en kopieer de assertielabels/-waarden.",
+      "description-slo-url": "Omleidingsbindende URL voor uitlogservice / POST bindende URL voor uitlogservice",
+      "description-sp-metadata-url-entity-id": "Metadata-URL voor SP / entiteits-id van SP",
+      "description-test-connection": "Als je de verbinding vanuit het paneel van je IdP wilt testen, zorg er dan voor dat je de door IdP geïnitieerde aanmelding toestaat en de informatie over de relaisstatus verstrekt.",
+      "finish-configuring-grafana-using-idp-data": "Voltooi het configureren van Grafana met behulp van IdP-gegevens",
+      "label-assertion-consumer-service-url": "URL voor Assertion Consumer Service",
+      "label-baseencoded-idp-metadata": "Base64-gecodeerde IdP-metadata",
+      "label-connect-grafana-with-identity-provider": "Grafana met de identiteitsprovider verbinden",
+      "label-idp-metadata": "IdP-metadata ",
+      "label-metadata-url": "URL voor metagegevens",
+      "label-path-to-idp-metadata-file": "Pad naar IdP-metadata-bestand",
+      "label-slo-url": "SLO-URL",
+      "label-sp-metadata-url-entity-id": "URL voor metagegevens",
+      "step-number-1": "1",
+      "step-number-2": "2",
+      "step-number-3": "3"
+    },
+    "general-unconnected": {
+      "description-allow-signup": "Of het maken van nieuwe Grafana-gebruikers via SAML-login moet worden toegestaan. Indien niet ingeschakeld, kunnen alleen bestaande Grafana-gebruikers inloggen met SAML.",
+      "description-auto-login": "Poging tot automatisch inloggen met SAML waarbij het inlogscherm wordt overgeslagen.",
+      "description-display-name-for-this-saml-integration": "Handig als je meer dan één SSO IdP-provider of -protocol gebruikt.",
+      "description-duration-grafana-metadata-valid": "Duur van de geldigheid van de Grafana-metadata.",
+      "description-entity-id": "De entiteits-id is een wereldwijd unieke identificatie voor de serviceprovider. Het wordt gebruikt om de serviceprovider te identificeren bij de identiteitsprovider. Gaat standaard naar de URL van de Grafana-instantie.",
+      "description-identity-provider-initiated-login": "Hiermee kunnen gebruikers rechtstreeks inloggen op Grafana vanaf de identiteitsprovider.",
+      "description-max-issue-delay": "Duur vanaf dat de IdP een reactie heeft gegeven en Grafana deze mag verwerken.",
+      "description-relay-state": "Vereist. Moet overeenkomen met de relaisstatus die is geconfigureerd in IdP en achtervolgende ruimte is vereist.",
+      "description-single-logout": "Hiermee kunnen gebruikers uitloggen bij de IdP-sessie en toepassingen die zijn gekoppeld aan de huidige IdP-sessie die is vastgesteld via SAML.",
+      "displayName-placeholder-saml": "SAML",
+      "label-allow-signup": "Registratie toestaan",
+      "label-auto-login": "Automatisch inloggen",
+      "label-display-name-for-this-saml-integration": "Weergavenaam voor deze SAML 2.0-integratie",
+      "label-entity-id": "Entiteit-id",
+      "label-general-settings": "Algemene instellingen",
+      "label-identity-provider-initiated-login": "Identiteitsprovider heeft inloggen geïnitieerd",
+      "label-max-issue-delay": "Maximale uitgiftevertraging",
+      "label-metadata-valid-duration": "Geldige duur van de metagegevens",
+      "label-relay-state": "Relaisstatus",
+      "label-single-logout": "Eenmalig uitloggen"
+    },
+    "input-with-reset": {
+      "reset": "Resetten"
+    },
+    "key-cert-drawer-unconnected": {
+      "close": "Sluiten",
+      "description-number-generated-certificate-valid": "Aantal dagen dat het gegenereerde certificaat geldig is.",
+      "generate": "Genereren",
+      "label-city": "Stad",
+      "label-country-code": "Landcode",
+      "label-state": "Status",
+      "label-validity-days": "Geldige dagen",
+      "label-your-organization": "Je organisatie",
+      "subtitle-saml-key-and-certificate": "De volgende gegevens worden opgenomen in het gegenereerde certificaat",
+      "title-saml-key-and-certificate": "SAML-sleutel en certificaat",
+      "tooltip-generate-the-certificate-and-private-key": "Genereer het certificaat en de privésleutel"
+    },
+    "key-cert-unconnected": {
+      "description-baseencoded-grafana-x-certificate": "Base64-gecodeerd Grafana X.509-certificaat",
+      "description-baseencoded-private-key": "Base64-gecodeerde privésleutel",
+      "description-path-to-the-grafana-private-key": "Pad naar de privésleutel van Grafana",
+      "description-path-to-the-grafana-x-certificate": "Pad naar het Grafana X.509-certificaat",
+      "description-sign-outgoing-requests-to-id-p": "Uitgaande verzoeken aan IdP ondertekenen",
+      "description-signature-algorithm": "Handtekeningalgoritme dat wordt gebruikt voor het ondertekenen van verzoeken aan de IdP. Moet hetzelfde zijn als de instelling of vereist door IdP.",
+      "description-signing-and-encryption-key-certificate": "Certificaat en privésleutel voor het uitwisselen van informatie tussen de Grafana en de IdP. De privésleutel moet worden uitgegeven in een PKCS#8-indeling. Certificaat moet een geldig X.509-certificaat zijn.",
+      "generate-key-and-certificate": "Sleutel en certificaat genereren",
+      "label-certificate": "Certificaat",
+      "label-private-key": "Persoonlijke sleutel",
+      "label-sign-requests": "Verzoeken ondertekenen",
+      "label-signature-algorithm": "Algoritme van de handtekening",
+      "label-signing-and-encryption-key-certificate": "Ondertekenings- en encryptiesleutel en certificaat"
+    },
+    "page-banner": {
+      "aria-label-close-banner": "Banner sluiten",
+      "tooltip-close": "Sluiten"
+    },
+    "SAML": {
+      "button-row-next": "Volgende: {{name}}",
+      "button-row-previous": "Vorige: {{name}}"
+    },
+    "samlform": {
+      "text-saved": "Opgeslagen"
+    },
+    "save-and-test-unconnected": {
+      "button-save-and-enable": "Opslaan en inschakelen",
+      "label-test-and-enable": "Testen en inschakelen",
+      "text-save-and-enable": "Als je klaar bent om je SAML-configuratie toe te passen, gebruik je de knop 'Opslaan en inschakelen'. Je kunt de configuratie uitschakelen."
+    },
+    "save-samlsettings": {
+      "message": {
+        "cannot-save-settings": "Kan de instellingen niet opslaan"
+      }
+    },
+    "text-input-with-reset": {
+      "reset": "Resetten"
+    }
+  },
+  "banner": {
+    "api": {
+      "result": {
+        "saved": "Bannerinstellingen zijn opgeslagen"
+      }
+    },
+    "form": {
+      "button-save": "Opslaan",
+      "button-saving": "Aan het opslaan ...",
+      "enabled": {
+        "label": "Ingeschakeld"
+      },
+      "end": {
+        "description": "Als er geen einddatum is geselecteerd, wordt de banner voor onbepaalde tijd weergegeven.",
+        "error": "Eindtijd moet na starttijd zijn",
+        "label": "Eindigt op"
+      },
+      "message": {
+        "description": "Tekstinhoud van de banner. Ondersteunt markdown.",
+        "label": "Bericht"
+      },
+      "options": {
+        "error": "Fout",
+        "info": "Info",
+        "warning": "Waarschuwing"
+      },
+      "select": {
+        "placeholder": "Selecteer bannertype"
+      },
+      "start": {
+        "description": "De banner wordt weergegeven vanaf deze datum/tijd.",
+        "label": "Start om"
+      },
+      "title": "Banner configureren",
+      "variant": {
+        "label": "Variant"
+      }
+    },
+    "preview": {
+      "message": {
+        "default": "Werk dit voorbeeld bij door het berichtveld aan te passen."
+      },
+      "title": "Voorbeeld"
+    }
+  },
+  "caching": {
+    "alert": {
+      "readonly": {
+        "message": "Deze gegevensbron is toegevoegd door config en caching kan niet worden gewijzigd met behulp van de gebruikersinterface. Neem contact op met je serverbeheerder om deze gegevensbron bij te werken.",
+        "title": "Voorziene gegevensbron"
+      }
+    },
+    "cache-clean": {
+      "body-clear-cache": "Waarschuwing: deze actie heeft invloed op alle cache-geactiveerde gegevensbronnen. Als je Memcached gebruikt, wist het systeem alle gegevens van de Memcached-instantie. Wil je doorgaan?",
+      "clear-cache": "Cache leegmaken",
+      "confirm-text-clear-cache": "Cache leegmaken",
+      "title-clear-cache": "Cache leegmaken"
+    },
+    "cache-cta": {
+      "enable-button-title": "Inschakelen",
+      "enable-button-tittle": "Inschakelen",
+      "protip-caching-cannot-enabled-source": "De configuratie van deze gegevensbron staat niet toe dat caching wordt ingeschakeld.",
+      "protip-caching-not-enabled": "Het inschakelen van caching kan het aantal redundante verzoeken verminderen dat naar de gegevensbron wordt verzonden.",
+      "protip-link-caching-not-enabled": "Meer informatie",
+      "title-caching-cannot-enabled-source": "Caching kan niet worden ingeschakeld voor deze gegevensbron.",
+      "title-caching-not-enabled": "Caching is niet ingeschakeld voor deze gegevensbron."
+    },
+    "cache-settings-disable": {
+      "disable": "Uitschakelen"
+    },
+    "cache-settings-form": {
+      "description-query-ttl": "De time-to-live voor een querycache-item in milliseconden. Voorbeeld: 5000",
+      "description-resource-ttl": "Bronnen zijn dynamische waarden die Grafana-gegevensbronplug-ins ophalen uit gegevensbronnen voor gebruik in de querybewerker. Voorbeelden zijn Splunk-namespaces, Prometheus-labels en CloudWatch-metrieknamen. Aangezien deze waarden minder vaak worden bijgewerkt, geef je misschien de voorkeur aan een langere cache-TTL voor bronnen dan query's. Zie de <2>documentatie</2> voor meer informatie.",
+      "description-timetolive-resources-cache-items-milliseconds-example": "De time-to-live voor items in de bronnencache in milliseconden. Voorbeeld: 5000",
+      "description-use-default-ttl": "Schakel dit in om de standaard TTL te gebruiken die is ingesteld in de configuratie van Grafana ({{defaultTTLMs}} ms)",
+      "label-query-ttl": "Query-TTL",
+      "label-use-default-ttl": "Standaard TTL gebruiken",
+      "resource-ttl": "Bron-TTL",
+      "save": "Opslaan"
+    },
+    "caching": {
+      "content": {
+        "text": {
+          "enable-caching": "Caching inschakelen"
+        }
+      }
+    },
+    "data-source-cache": {
+      "caching-heading": "Caching",
+      "query-catching": "Schakel querycaching gratis in tijdens je proefperiode van Grafana Pro.",
+      "upgrade-content-author-dashboards": "Maak dashboards soepeler door de gegevens in cache op te slaan die worden gebruikt om query's te maken, zoals velden in ServiceNow of statistieken die beschikbaar zijn via Datadog",
+      "upgrade-content-description": "Met querycaching kun je dashboards sneller laden en kostbare query's naar gegevensbronnen verminderen door queryresultaten tijdelijk op te slaan in het geheugen, Redis of Memcached.",
+      "upgrade-content-load-dashboards": "Laad dashboards in minder dan een seconde vanuit de cache, zelfs als ze grote query's bevatten en veel gebruikers tegelijk kijken",
+      "upgrade-content-save-money": "Bespaar geld en vermijd snelheidsbeperking door het aantal API-aanroepen te verminderen dat je naar gegevensbronnen maakt zoals Splunk, CloudWatch en Github"
+    }
+  },
+  "common": {
+    "cancel": "Annuleren",
+    "close": "Sluiten"
+  },
+  "explore": {
+    "query-library": {
+      "cancel": "Annuleren",
+      "default-title": "Nieuwe query",
+      "discard": "Negeren",
+      "editing-title": "Bewerken vanuit opgeslagen query's",
+      "explore": "Bewerken in Verkennen",
+      "query-template-added": "Query is opgeslagen in de bibliotheek",
+      "query-template-edit-error": "Fout bij het bewerken van deze query",
+      "query-template-edited": "Querysjabloon is bewerkt",
+      "save": "Opslaan",
+      "save-and-close": "",
+      "save-return": "Opslaan en terugkeren naar opgeslagen query's",
+      "saving": "Aan het opslaan ..."
+    }
+  },
+  "export": {
+    "pdf": {
+      "cancel-button": "Annuleren",
+      "download-button": "Pdf genereren",
+      "image-alt": "Voorbeeldweergave pdf",
+      "info-text": "Exporteer het dashboard als een pdf-document",
+      "layout-label": "Indeling",
+      "orientation-label": "Oriëntatie",
+      "title": "Dashboard-pdf exporteren",
+      "zoom-description": "Zoom in om de tekst te vergroten of zoom uit om meer gegevens (zoals tabelkolommen) per paneel te zien.",
+      "zoom-label": "Inzoomen"
+    }
+  },
+  "groupsync": {
+    "empty-state": {
+      "pro-tip": "Wil je Grafana-toegang beheren via groepen in je identiteitsprovider? Groepstoewijzingen maken voor Grafana RBAC-rollen. <2>Meer informatie</2>",
+      "title": "Je hebt nog geen groepstoewijzingen gemaakt"
+    },
+    "group-sync-editor": {
+      "body-delete-group-mappings": "Weet je zeker dat je alle toewijzingen voor deze groep wilt verwijderen?",
+      "close-button-drawer": "Sluiten",
+      "confirm-text-delete-group-mappings": "Verwijderen",
+      "delete-group-mapping": "Groepstoewijzing verwijderen",
+      "new-button-drawer": "Nieuw",
+      "new-group-mapping": "Nieuwe groepstoewijzing",
+      "placeholder-search-by-group-id": "Zoeken op groeps-id",
+      "text-deprecated-feature": "Deze functie is verouderd en je regels werken niet meer vanaf juni 2025. Migreer naar externe groepssynchronisatie in de instellingen van het gewenste team en wijs rollen toe aan teams.",
+      "title-delete-group-mappings": "Groepstoewijzingen verwijderen",
+      "title-deprecated-feature": "Verouderde functie"
+    },
+    "new-mapping-form": {
+      "label-group-id": "Groep-ID",
+      "label-roles": "Rollen",
+      "save": "Opslaan"
+    }
+  },
+  "licensing": {
+    "customer-support-button": {
+      "contact-customer-support": "Contact opnemen met de klantenservice"
+    },
+    "expires-soon": {
+      "title-grafana-enterprise-license-expire": "Je Grafana Enterprise-licentie verloopt binnenkort",
+      "sub-title-license-expiration_one": "{{count}} dag resterend, waarna <3>Enterprise-functies worden uitgeschakeld.</3>",
+      "sub-title-license-expiration_other": "{{count}} dagen resterend, waarna <3>Enterprise-functies worden uitgeschakeld.</3>"
+    },
+    "get-token-status": {
+      "title": {
+        "token-expired": "Het token is verlopen",
+        "token-expires-soon": "Token verloopt binnenkort"
+      }
+    },
+    "get-trial-status": {
+      "title": {
+        "trial-active": "Proefperiode is actief",
+        "trial-expired": "Proefperiode is verlopen"
+      }
+    },
+    "has-expired": {
+      "sub-title-licensing-reader": "<0>Sommige functies</0> zijn uitgeschakeld.",
+      "title-your-grafana-enterprise-license-has-expired": "Je Grafana Enterprise-licentie is verlopen"
+    },
+    "is-invalid": {
+      "sub-title-licensing-reader": "<0>Sommige functies</0> zijn uitgeschakeld.",
+      "title-your-grafana-enterprise-license-is-invalid": "Je Grafana Enterprise-licentie is ongeldig"
+    },
+    "license-info": {
+      "aria-label-details-about-license-grafana-cloud": "Bekijk details over je licentie in Grafana Cloud",
+      "card-content-account": "AWS-account",
+      "card-content-active-licensed-users": "Actieve gelicentieerde gebruikers",
+      "card-content-anonymous-users": "Anonieme gebruikers",
+      "card-content-authenticated-users": "Geauthentiseerde gebruikers",
+      "card-content-company": "Bedrijf",
+      "card-content-license-expires": "Licentie verloopt",
+      "card-content-license-expires-tooltip": "De vervaldatum van de licentie is de datum waarop de huidige licentie niet meer actief is. Naarmate de vervaldatum van de licentie nadert, geeft Grafana Enterprise een banner weer.",
+      "card-content-lid": "Licentie-id",
+      "card-content-none": "Geen",
+      "card-content-product": "Product",
+      "card-content-products": "Producten",
+      "card-content-purchase-date": "Aankoopdatum",
+      "card-content-token-auto-update": "Grafana werkt het token automatisch bij voordat het verloopt. Neem contact op met ondersteuning als je token niet wordt bijgewerkt.",
+      "card-content-token-expires": "Token verloopt",
+      "card-content-token-id": "Token-id",
+      "card-content-token-issued": "Token uitgegeven",
+      "card-content-token-usage-billing-off": "Uit",
+      "card-content-url-name": "URL",
+      "card-content-url-tooltip": "Licentie-URL is de hoofd-URL van je Grafana-instantie. De licentie werkt niet op een exemplaar van Grafana met een andere root-URL.",
+      "card-content-usage-billing": "Gebruiksfacturering",
+      "card-content-usage-billing-on": "Aan",
+      "card-content-usage-billing-tooltip": "Je kunt Grafana Labs vragen om gebruiksfacturering in te schakelen om een onbeperkt aantal actieve gebruikers toe te staan. Wanneer gebruiksfacturering is ingeschakeld, dwingt Grafana geen actieve gebruikerslimieten af of geeft het geen waarschuwingsbanners weer. In plaats daarvan worden er kosten in rekening gebracht voor actieve gebruikers boven de limiet, volgens je klantcontract.",
+      "edition-notice-licensing-info": "Je gebruikt Grafana Enterprise zonder licentie. De Enterprise-functies zijn uitgeschakeld.",
+      "edition-notice-problem-licensing-info": "Er is een probleem met je Enterprise-licentietoken. De Enterprise-functies zijn uitgeschakeld.",
+      "license-alert": "Licentietoken geüpload. Herstart Grafana om de wijzigingen door te voeren.",
+      "license-details": "Licentiedetails",
+      "license-token-info": "Lees meer over <2>licentieverval</2> en <6>licentieactivering</6>.",
+      "renew-token": "Token vernieuwen",
+      "renewing": "(verlengen...)",
+      "text-loading-licensing-info": "Licentiegegevens laden...",
+      "title-contact-support-renew-token-visit-cloud": "Neem contact op met ondersteuning om je token te verlengen of bezoek het Cloud-portaal voor meer informatie.",
+      "title-have-a-license": "Heb je een licentie?",
+      "title-license": "Licentie",
+      "title-license-token-renewed": "Licentietoken is vernieuwd.",
+      "title-token": "Token",
+      "title-utilization": "Gebruikmaking",
+      "utilization-footer": "Het gebruikmaken van gelicentieerde gebruikers wordt bepaald op basis van de activiteit van aangemelde gebruikers in de afgelopen 30 dagen.",
+      "utilization-info": "Lees meer over <2>actieve gebruikerslimieten</2> en <6>gelijktijdige sessielimieten</6>.",
+      "card-content-anonymous-users-tooltip_one": "Voor elk {{count}} anoniem apparaat telt Grafana 1 gebruiker.",
+      "card-content-anonymous-users-tooltip_other": "Voor elke {{count}} anonieme apparaten telt Grafana 1 gebruiker."
+    },
+    "license-token-upload": {
+      "instance-url": "Instantie-URL: <1>{{licensedUrl}} </1>",
+      "upload-a-new-token": "Een nieuw token uploaden",
+      "uploading": "Uploaden…"
+    },
+    "max-users-reached": {
+      "title-exceeded-included-number-active-users": "Je hebt het opgenomen aantal actieve gebruikers overschreden",
+      "upgrade-your-license-link": "<2>Upgrade je licentie.</2>",
+      "upgrade-your-license-no-link": "Upgrade je licentie.",
+      "upgrade-your-license-subtitle_one": "Je Grafana Enterprise-licentie omvat {{maxUsers}} actieve gebruikers; je hebt momenteel {{count}} actieve gebruiker. ",
+      "upgrade-your-license-subtitle_other": "Je Grafana Enterprise-licentie omvat {{maxUsers}} actieve gebruikers; je hebt momenteel {{count}} actieve gebruikers. "
+    },
+    "page-alert": {
+      "learn-about-enterprise-licenses": "Meer informatie over Enterprise-licenties"
+    },
+    "token-expires-soon": {
+      "title-grafana-enterprise-token-needs-renewed": "Je Grafana Enterprise-token moet worden verlengd",
+      "sub-title-token-expiration_one": "Je licentietoken is nog {{count}} dag geldig, waarna de <4>Enterprise-functies worden uitgeschakeld.</4>",
+      "sub-title-token-expiration_other": "Je licentietoken is nog {{count}} dagen geldig, waarna de <4>Enterprise-functies worden uitgeschakeld.</4>"
+    }
+  },
+  "meta-analytics": {
+    "analytics-drawer": {
+      "public-dashboards-tab-label": "Openbare dashboards",
+      "shared-dashboards-tab-label": "Gedeelde dashboards",
+      "stats-tab-label": "Statistieken",
+      "text-access-usage-insights-during-trial-grafana": "Krijg gratis volledige toegang tot gebruiksinzichten tijdens je proefperiode van Grafana Pro.",
+      "title-dashboard-insights": "{{dashboardTitle}} - analyses",
+      "users-activity-tab-label": "Gebruikers en activiteit"
+    },
+    "analytics-public-dashboards-tab": {
+      "daily-query-count-cached-queries-label": "query's in cache",
+      "daily-query-count-title": "Dagelijkse aantal query's",
+      "errors-last-month-title": "Fouten in de afgelopen 30 dagen",
+      "no-data": "Geen gegevens.",
+      "views-last-month-title": "Weergaven in de afgelopen 30 dagen"
+    },
+    "analytics-stats-tab": {
+      "daily-query-count-cached-queries-label": "query's in cache",
+      "daily-query-count-title": "Dagelijkse aantal query's",
+      "errors-last-month-title": "Fouten in de afgelopen 30 dagen",
+      "no-data": "Geen gegevens."
+    },
+    "analytics-toolbar-button": {
+      "tooltip-dashboard-insights": "Dashboardinzichten"
+    },
+    "analytics-upgrade-drawer": {
+      "description-usage-insights-provide-detailed-information-about": "Gebruiksinzichten bieden gedetailleerde informatie over het gebruik van het dashboard, zoals het aantal weergaven, query's en fouten die gebruikers hebben ervaren. Je kunt dit gebruiken om de gebruikerservaring te verbeteren en problemen op te lossen.",
+      "title-dashboard-insights": "{{dashboardTitle}} - analyses"
+    },
+    "analytics-users-tab": {
+      "aria-label-recent-users-table": "Tabel met recente gebruikers",
+      "aria-label-user-box-title": "Titel gebruikersvak",
+      "aria-label-user-information-box": "Veld voor gebruikersinformatie",
+      "aria-label-version-history-button": "Knop Versiegeschiedenis",
+      "created-user-box": "Gemaakt",
+      "dashboard-version-history": "Versiegeschiedenis van dashboard",
+      "format-date-currently-viewing": "Momenteel aan het bekijken",
+      "format-date-last-hour": "Laatste uur",
+      "format-date-today": "Vandaag",
+      "format-date-yesterday": "Gisteren",
+      "last-dashboard-viewers": "Laatste 30 dashboardkijkers",
+      "last-edited-user-box": "Laatst bewerkt",
+      "last-viewed-user-box": "Laatst bekeken op ",
+      "user-views-data-frame-user-field": "Gebruiker",
+      "user-views-data-frame-when-field": "Wanneer",
+      "views-last-month-title": "Weergaven in de afgelopen 30 dagen"
+    },
+    "data-source-insights": {
+      "available-source": "Geen beschikbare gegevens voor deze gegevensbron.",
+      "average-load-duration-last-month-title": "Gemiddelde laadduur afgelopen 30 dagen (ms)",
+      "errors-last-month-title": "Fouten in de afgelopen 30 dagen",
+      "queries-last-month-title": "Query's in de afgelopen 30 dagen",
+      "text-enable-source-usage-insights-during-trial": "Schakel gratis gebruiksinzichten voor gegevensbronnen in tijdens je proefperiode van Grafana Pro.",
+      "text-feature-not-available-expired-license": "Inzichten in gegevensbronnen zijn niet beschikbaar met een verlopen licentie. Gegevens worden nog steeds verzameld, maar je moet je licentie bijwerken om deze pagina te zien.",
+      "title-feature-available-expired-license": "Functie niet beschikbaar met een verlopen licentie",
+      "title-read-more-license-expiration": "Lees meer over het verlopen van licenties"
+    },
+    "data-source-insights-upgrade": {
+      "clean-instance-list-item": "Ruim je instantie op door ongebruikte gegevensbronnen te vinden en te verwijderen",
+      "demonstrate-and-improve-list-item": "Demonstreer en verbeter de waarde van je waarneembaarheidsservice door gebruikersbetrokkenheid bij te houden",
+      "description-usage-insights-provide-detailed-information-about": "Gebruiksinzichten bieden gedetailleerde informatie over het gebruik van het dashboard, zoals het aantal weergaven, query's en fouten die gebruikers hebben ervaren. Je kunt dit gebruiken om de gebruikerservaring te verbeteren en problemen op te lossen",
+      "keep-performant-list-item": "Houd Grafana performant door langzame, foutgevoelige gegevensbronnen te identificeren en te repareren",
+      "review-insights-list-item": "Bekijk in één oogopslag gebruiksinzichten van individuele gegevensbronnen in de gebruikersinterface, sorteer zoekresultaten op gebruik en fouten of duik in gedetailleerde gebruikslogboeken"
+    }
+  },
+  "permissions": {
+    "data-source-permissions": {
+      "text-enable-source-permissions-during-trial-grafana": "Schakel gratis gegevensbronmachtigingen in tijdens je proefperiode van Grafana Pro."
+    },
+    "permissions-upgrade-content": {
+      "description-source-permissions-protect-sensitive-limiting-access": "Met gegevensbronmachtigingen kun je gevoelige gegevens beschermen door de toegang tot deze gegevensbron te beperken tot specifieke gebruikers, teams en rollen.",
+      "source-permissions-protect-clean-experience-list-item": "Verbeter de gebruikerservaring door overbodige gegevensbronnen te verbergen",
+      "source-permissions-protect-sensitive-data-list-item": "Bescherm gevoelige gegevens, zoals beveiligingslogboeken, productiedatabases en persoonlijk identificeerbare informatie",
+      "source-permissions-protect-share-access-list-item": "Deel Grafana-toegang vrijer, wetende dat gebruikers niet onbewust gevoelige gegevens zullen zien"
+    }
+  },
+  "plugins": {
+    "sandbox": {
+      "enable-sandbox-label": "Frontend Sandbox",
+      "enable-sandbox-tooltip": "De frontend sandbox voert frontendcode geïsoleerd uit, waardoor de toegang tot het wereldwijde browsercope wordt beperkt en UI-aanpassingen tot het plug-ingebied worden beperkt.",
+      "enable-sandbox-tooltip-link": "Lees verder"
+    }
+  },
+  "public-dashboard": {
+    "email-sharing": {
+      "success-confirm-access": "Toegang bevestigd!",
+      "success-resend-recipient-invitation": "De e-mailuitnodiging is opnieuw verzonden.",
+      "success-revoke-access-description": "Je hebt de toegang van {{recipientEmail}} ingetrokken.",
+      "success-revoke-access-title": "Toegang ingetrokken",
+      "success-revoke-all-accesses-description": "De toegang van {{email}} tot alle openbare dashboards is met succes verwijderd.",
+      "success-revoke-all-accesses-title": "Toegang ingetrokken",
+      "success-send-recipient-invitation": "De e-mailuitnodiging is verzonden."
+    }
+  },
+  "public-dashboards": {
+    "confirm-access-page": {
+      "confirm-access": "Toegang bevestigen",
+      "login-subtitle": "Krijg 30 dagen toegang tot het dashboard. Na 30 dagen kun je opnieuw toegang vragen om het dashboard te blijven bekijken.",
+      "login-title": "Toegang dashboard"
+    },
+    "request-view-access-page": {
+      "access-requested": "Toegang aangevraagd",
+      "label-email": "E-mailadres",
+      "placeholder-email": "emailadres",
+      "register-pattern-invalid-email": "Ongeldig e-mailadres",
+      "register-required-email": "E-mailadres is vereist",
+      "request-access": "Toegang aanvragen"
+    }
+  },
+  "query-library": {
+    "actions": {
+      "delete-query-button": "Query verwijderen",
+      "duplicate-query-button": "Query dupliceren",
+      "duplicate-query-title-copy": "Kopiëren",
+      "lock-query-button": "Query vergrendelen",
+      "menu-button": "",
+      "save-history-query-button": "",
+      "select-query-button": "Query selecteren",
+      "unlock-query-button": "Query ontgrendelen"
+    },
+    "delete-modal": {
+      "body-text": "Je staat op het punt deze opgeslagen query te verwijderen. Deze actie kan niet ongedaan worden gemaakt. Wil je doorgaan?",
+      "confirm-button": "Query verwijderen",
+      "title": "Query verwijderen"
+    },
+    "discard-changes": {
+      "discard-button": "Negeren",
+      "text": "Je hebt niet-opgeslagen wijzigingen in deze query. Weet je zeker dat je ze wilt negeren?",
+      "title": "Wijzigingen in query verwerpen?"
+    },
+    "drawer": {
+      "title": "Opgeslagen query's",
+      "tooltip": "Op dit moment kan elke organisatie tot 1000 query's opslaan"
+    },
+    "empty-state": {
+      "message": "Begin ze toe te voegen vanuit Verkennen of bij het bewerken van een dashboard",
+      "no-favorites": "",
+      "no-favorites-description": "",
+      "no-history": "",
+      "no-history-description": "",
+      "title": ""
+    },
+    "error-state": {
+      "title": "Er is iets misgegaan!"
+    },
+    "explore-modal": {
+      "cancel-button": "",
+      "confirm-button": "",
+      "title": "",
+      "warning": ""
+    },
+    "filters": {
+      "datasource-placeholder": "Filteren op gegevensbron",
+      "datasource-user": "Filteren op gebruikersnaam",
+      "search-placeholder": "Zoeken op gegevensbron, query-inhoud of beschrijving",
+      "sort": {
+        "asc": "Alfabetisch (a-z)",
+        "desc": "Alfabetisch (z-a)",
+        "newest": "Nieuwste eerst",
+        "oldest": "Oudste eerst"
+      },
+      "sort-placeholder": "Sorteren"
+    },
+    "item": {
+      "add-to-library": "",
+      "favorite": "Favoriet",
+      "new": "Nieuw",
+      "unfavorite": "Maak los van favorieten"
+    },
+    "not-found": {
+      "message": "Pas je zoek- of filtercriteria aan",
+      "title": "Geen resultaten gevonden"
+    },
+    "notifications": {
+      "query-deleted": "Query verwijderd"
+    },
+    "query-details": {
+      "author": "Auteur",
+      "datasource": "Gegevensbron",
+      "date-added": "Datum toegevoegd",
+      "description": "Beschrijving",
+      "edit-button": "Query bewerken",
+      "edit-button-short": "Bewerken",
+      "make-query-visible": "Query delen met alle gebruikers",
+      "recent-description": "",
+      "recent-example": "",
+      "tags": "Labels",
+      "title": "Titel"
+    },
+    "tabs": {
+      "all": "Alle",
+      "favorites": "Favorieten",
+      "recent": ""
+    },
+    "template-variables-warning": {
+      "message": "",
+      "message-explore": "",
+      "title": ""
+    },
+    "user-info": {
+      "error": "Fout bij het ophalen van gebruikersinformatie uit de bibliotheek: {{error}}"
+    }
+  },
+  "query-operation": {
+    "header": {
+      "replace-query-from-library": "Vervangen door opgeslagen query",
+      "save-to-query-library": "Query opslaan"
+    }
+  },
+  "recorded-queries": {
+    "create-recorded-query-unconnected": {
+      "alert-severity-succesful": "Succesvol",
+      "alert-severity-test": "Deze opgenomen query testen",
+      "aria-label-start-recording-query-button": "Knop Start opname van query",
+      "contact-support": "Om een supportticket in te dienen bij Grafana Labs, vul je het formulier <2>Contact Grafana Labs</2> in.",
+      "count-rows-returned": "Tel de rijen die zijn geretourneerd uit deze query",
+      "description-decide-often-record-query": "Bepaal hoe vaak je deze query wilt opnemen",
+      "description-give-this-query-a-name": "Geef deze query een naam",
+      "description-provide-a-description-for-this-query": "Geef een beschrijving voor deze query",
+      "description-select-value-template-variable": "Selecteer een waarde voor elke sjabloonvariabele",
+      "done-button": {
+        "aria-label-cancel-recording-query-button": "Knop Annuleer opname van query",
+        "aria-label-close-recording-query-button": "Knop Sluit opname van query",
+        "cancel": "Annuleren",
+        "close": "Sluiten"
+      },
+      "label": {
+        "relative-time-range": "Relatief tijdbereik"
+      },
+      "label-count-query-results": "Queryresultaten tellen",
+      "label-description": "Beschrijving",
+      "label-interval": "Interval",
+      "label-name": "Naam",
+      "label-template-variables": "Sjabloonvariabelen",
+      "message": {
+        "name-is-required": "Naam is vereist"
+      },
+      "query-relative-time-range": "Selecteer het relatieve tijdsbereik van deze query",
+      "results-alert-message": "Resultaten: ",
+      "start-recording-query": "Start de opname van de query",
+      "success-alert-message": "Je nieuwe opgenomen query wordt opgenomen.",
+      "sync-button": {
+        "aria-label-test-the-recorded-query": "De opgenomen query testen"
+      },
+      "title-create-recorded-query": "Opgenomen query maken"
+    },
+    "data-source-filter": {
+      "button-clear-filter": "Gegevensbronfilter wissen",
+      "filter-by-data-source": "Filter op gegevensbron",
+      "placeholder-select-a-data-source": "Selecteer een gegevensbron"
+    },
+    "empty-recorded-query-list": {
+      "message": "Geen opgenomen query's gedefinieerd",
+      "pro-tip": "ProTip: je kunt query's opnemen vanuit de querybewerker."
+    },
+    "query-card": {
+      "interval-content": "Interval: {{interval}}",
+      "interval-range": "Bereik: laatste {{range}}",
+      "query-expression": "Queryexpressie:"
+    },
+    "recorded-queries-config-unconnected": {
+      "body-delete": "Weet je zeker dat je '{{name}}' wilt verwijderen?",
+      "confirm-text-delete": "Verwijderen",
+      "edit-remote-write-target": "Extern schrijfdoel bewerken",
+      "queries-to-display": {
+        "buttons": {
+          "aria-label-delete-recorded-query": "Opgenomen query verwijderen",
+          "aria-label-pause-recorded-query": "Opname pauzeren",
+          "aria-label-resume-recorded-query": "Opname hervatten",
+          "delete": "Verwijderen"
+        }
+      },
+      "title-delete": "Verwijderen"
+    },
+    "recorded-queries-deprecation-notice": {
+      "description": "Opgenomen query's zijn verouderd. Gebruik in plaats daarvan de nieuwe <2>Beheerde opnameregels van Grafana</2>.",
+      "title-deprecation-notice": "Uitfaseringsmelding"
+    },
+    "recorded-query-add-modal-unconnected": {
+      "add": "Toevoegen",
+      "cancel": "Annuleren",
+      "new-recorded-query-alert": "Om een nieuwe opgenomen query te maken, gaat je terug naar de querybewerker en gebruik je het pictogram <2></2> in de reeksbalk.",
+      "no-queries-available": "Geen opgenomen query's beschikbaar voor {{datasourceName}}",
+      "recorded-query": "Opgenomen query",
+      "title-add-recorded-query": "Opgenomen query toevoegen"
+    },
+    "write-target-config-unconnected": {
+      "label-remote-write-path": "Extern schrijfpad",
+      "placeholder-select-a-data-source": "Selecteer een gegevensbron",
+      "save": "Opslaan",
+      "select-data-source-label": "Selecteer de gegevensbron waar statistieken worden geschreven"
+    }
+  },
+  "report": {
+    "report-header": {
+      "time-range": "Tijdsbereik van gegevens:",
+      "title": "{{reportTitle}} - gegenereerd op {{generatedOnDate}}"
+    }
+  },
+  "reporting": {
+    "button-row": {
+      "next-step": "Volgende: {{nextName}}",
+      "previous-step": "Vorige: {{prevName}}"
+    },
+    "create-report": {
+      "alert-title": "Er is een fout opgetreden bij het laden van het rapport",
+      "loading-report": "Rapport laden...",
+      "title": "Nieuw rapport aanmaken"
+    },
+    "errors": {
+      "action-message": "Neem contact op met je Grafana-beheerder om de plug-in te installeren.",
+      "no-renderer-description": "Om pdf-rapporten te genereren, moet je de <2>Grafana Image Renderer</2> plug-in installeren.",
+      "no-renderer-title": "Afbeeldingweergave-plug-in niet geïnstalleerd",
+      "old-renderer-description": "Om csv-bestanden te genereren, moet je de <2>Grafana Image Renderer</2> plug-in bijwerken.",
+      "old-renderer-title": "Je gebruikt een oude versie van de afbeeldingsweergave-plugin"
+    },
+    "image-preview": {
+      "invalid-image": "Ongeldig afbeelding"
+    },
+    "page": {
+      "empty-button": "Rapport maken",
+      "empty-pro-tip": "Maak een rapport van bestaande dashboards. <2>Meer informatie</2>",
+      "empty-title": "Er zijn geen rapporten aangemaakt",
+      "settings-button": "Rapportinstellingen"
+    },
+    "page-actions": {
+      "discard-button": "Negeren",
+      "save-as-draft-button": "Als concept opslaan",
+      "update-button": "Rapport bijwerken"
+    },
+    "report-footer": {
+      "page-pagination": "Pagina {{currentPage}}/{{totalPageCount}}"
+    },
+    "report-form": {
+      "edit-step": "5. Bevestigen"
+    },
+    "report-list": {
+      "confirmText-delete": "Verwijderen",
+      "content-pause-report": "Rapport pauzeren",
+      "content-resume-report": "Rapport hervatten",
+      "delete-report": "Rapport {{name}} verwijderen"
+    },
+    "schedule": {
+      "frecuency-custom-input-label": "Herhaal elke",
+      "frecuency-custom-select-label": "Aangepaste frequentie",
+      "frecuency-custom-select-placeholder": "uur",
+      "frecuency-date-picker-label": "Begindatum rapportplanning",
+      "frecuency-date-picker-placeholder": "Selecteer de datum",
+      "frecuency-end-date-label": "Einddatum",
+      "frecuency-end-time-label": "Eindtijd",
+      "frecuency-last-day-label": "Verzenden op de laatste dag van de maand",
+      "frecuency-last-day-warning": "Opmerking: sommige maanden hebben geen {{warningDateText}} dag en rapporten worden niet verzonden voor die maanden. Kies een eerdere datum of <3>'Verzenden op de laatste dag van de maand'</3> om aan het einde van elke maand een rapport te verzenden.",
+      "frecuency-send-later": "Later verzenden",
+      "frecuency-send-now": "Nu verzenden",
+      "frecuency-start-time-label": "Begintijd",
+      "frecuency-time-zone-label": "Tijdzone",
+      "frecuency-workdays-label": "Alleen verzenden van maandag tot vrijdag",
+      "report-schedule-end-date-label": "Einddatum rapportplanning",
+      "report-schedule-end-date-placeholder": "Eindigt niet"
+    },
+    "settings": {
+      "attachment-settings-fieldset-label": "Instellingen voor bijlagen",
+      "drawer-title": "Instellingen voor rapportagesjablonen",
+      "email-branding-fieldset-label": "E-mailbranding",
+      "email-footer-field-label": "Voettekst e-mail",
+      "email-logo-image-preview-altText": "Voorbeeldweergave van bedrijfslogo",
+      "email-logo-url-field-description": "Het logo wordt weergegeven in de koptekst van de e-mail. Ondersteunde formaten: png, jpg, gif.",
+      "email-logo-url-field-label": "Bedrijfslogo-URL",
+      "embedded-image-header": "Ingesloten afbeelding",
+      "embedded-image-theme-picker-description": "Het thema zal worden toegepast op de dashboardafbeelding die is ingesloten in de e-mail.",
+      "footer-link-field-label": "Voettekstlink",
+      "footer-link-url-field-label": "Voettekstlink-URL",
+      "no-data": "Geen instellingengegevens beschikbaar",
+      "none-footer-label": "Geen",
+      "pdf-header": "pdf",
+      "pdf-theme-picker-description": "Het thema zal worden toegepast op de pdf die aan het rapport is gehecht.",
+      "report-logo-image-preview-altText": "Voorbeeldweergave van bedrijfslogo",
+      "report-logo-url-field-description": "Het logo wordt weergegeven in de voettekst van het document. Ondersteunde formaten: png, jpg, gif.",
+      "report-logo-url-field-label": "Bedrijfslogo-URL",
+      "save-button": "Opslaan",
+      "saving-button": "Aan het opslaan ...",
+      "sent-by-footer-label": "Verzonden door",
+      "settings-subtitle": "Instellingen voor rapportagesjablonen beheren."
+    },
+    "update-report": {
+      "title": "Rapport bijwerken"
+    }
+  },
+  "reports": {
+    "all-template-alert": {
+      "description-not-supported": "De waarde Alles in sjabloonvariabelen die worden gebruikt in herhalende rijen of panelen wordt niet ondersteund in pdf",
+      "title-not-supported": "Niet ondersteund"
+    },
+    "confirm": {
+      "edit": "Bewerken",
+      "report-data": {
+        "title": {
+          "combine-all-pdfs-in-one-file": "Alle dashboard-pdf's in één bestand combineren",
+          "dashboard-link": "Dashboard-link",
+          "email-subject": "Onderwerp e-mail",
+          "end-date": "Einddatum",
+          "end-time": "Eindtijd",
+          "format-report": "Verslag opmaken",
+          "message": "Bericht",
+          "pdf-layout": "Pdf-indeling",
+          "pdf-orientation": "Pdf-oriëntatie",
+          "pdf-show-template-variables": "Sjabloonvariabelen weergeven in pdf",
+          "preferred-format": "Gewenst formaat*",
+          "recipients": "Ontvangers*",
+          "recurrence": "Herhaling",
+          "repeat-every": "Herhaal elke",
+          "replytoemail": "'Antwoord aan'-e-mailadres",
+          "report-name": "Rapportnaam*",
+          "scale-factor": "Schaalfactor",
+          "schedule": "Plannen",
+          "select-dashboard": "Selecteer dashboard",
+          "send-monday-to-friday-only": "Alleen verzenden van maandag tot vrijdag",
+          "share": "Delen",
+          "start-date": "Begindatum",
+          "start-time": "Begintijd",
+          "template-variables": "Sjabloonvariabelen",
+          "time-range": "Tijdsbereik",
+          "time-zone": "Tijdzone"
+        }
+      }
+    },
+    "create-report-tab": {
+      "create-report-using-this-dashboard": "Rapport maken met dit dashboard",
+      "description-reporting-allows-automatically-generate-dashboards-grafana": "Met rapportage kun je automatisch pdf's genereren vanuit een van je dashboards en Grafana ze volgens een schema naar geïnteresseerde partijen laten e-mailen.",
+      "get-started-with-reporting": "Aan de slag met rapportage",
+      "learn-more": "Meer informatie",
+      "text-create-unlimited-reports-during-trial-grafana": "Maak onbeperkte rapporten tijdens je proefperiode van Grafana Pro."
+    },
+    "dashbord-report-renderer": {
+      "title-unsupported-dashboard-layout": "Niet-ondersteunde dashboardindeling"
+    },
+    "edit-actions": {
+      "aria-label-delete-report": "Rapport verwijderen",
+      "body-are-you-sure": "Weet je zeker dat je dit rapport wilt verwijderen?",
+      "confirmText-delete": "Verwijderen",
+      "edit-report": "Rapport bewerken",
+      "pause-button": "Pauzeren",
+      "resume-button": "Hervatten",
+      "title-delete-report": "Rapport verwijderen",
+      "tooltip-delete": "Verwijderen"
+    },
+    "format-report": {
+      "aria-label-zoom": "Inzoomen",
+      "description-enlarge-table-columns-panel": "Zoom in om de tekst te vergroten of zoom uit om meer gegevens (zoals tabelkolommen) per paneel te zien.",
+      "label-combine-dashboard": "Alle dashboard-pdf's in één bestand combineren",
+      "label-configure-multiple-pdfs": "Meerdere pdf's configureren",
+      "label-configure-report-header": "Rapportkoptekst configureren",
+      "label-format-report": "2. Rapport opmaken",
+      "label-layout": "Indeling",
+      "label-orientation": "Oriëntatie",
+      "label-show-template-variables": "Sjabloonvariabelen weergeven",
+      "label-style-the-pdf": "De pdf opmaken",
+      "label-zoom": "Inzoomen",
+      "preview-pdf": "Voorbeeldweergave pdf",
+      "tooltip-download-table-panel": "Tabelpaneelgegevens downloaden als CSV's in een ZIP-bestand"
+    },
+    "highlight-trial-report": {
+      "get-started-with-reporting": "Aan de slag met rapportage",
+      "get-started-with-reporting-text": "Met rapportage kun je automatisch pdf's genereren vanuit een van je dashboards en Grafana ze volgens een schema naar geïnteresseerde partijen laten e-mailen.",
+      "learn-more": "Meer informatie",
+      "text-create-unlimited-reports-during-trial-grafana": "Maak onbeperkte rapporten tijdens je proefperiode van Grafana Pro."
+    },
+    "report-upgrade-content": {
+      "description-reporting-allows-automatically-generate-dashboards-grafana": "Met rapportage kun je automatisch pdf's genereren vanuit een van je dashboards en Grafana ze volgens een schema naar geïnteresseerde partijen laten e-mailen."
+    },
+    "reports-list-page": {
+      "render-list": {
+        "create-a-new-report": "Een nieuw rapport creëren",
+        "placeholder-search-reports-report-dashboard-recipients": "Rapporten zoeken op rapportnaam, dashboardnaam of ontvangers",
+        "text": {
+          "create-report": "Rapport maken"
+        },
+        "text-create-unlimited-reports-during-trial-grafana": "Maak onbeperkte rapporten tijdens je proefperiode van Grafana Pro."
+      }
+    },
+    "schedule": {
+      "label-frequency": "Frequentie",
+      "label-schedule": "3. Planning",
+      "label-start-date": "Begindatum",
+      "label-time": "Tijd"
+    },
+    "select-dashboard": {
+      "aria-label-source-dashboard": "Brondashboard",
+      "description-time-range": "Genereer een rapport met de gegevens uit het opgegeven tijdsbereik. Als het aangepaste tijdsbereik leeg is, wordt het tijdsbereik van het dashboard van het rapport gebruikt.",
+      "label-source-dashboard": "Brondashboard",
+      "label-template-variables": "Sjabloonvariabelen",
+      "label-time-range": "Tijdsbereik"
+    },
+    "select-dashboards": {
+      "add-another-dashboard": "Nog een dashboard toevoegen",
+      "label-select-dashboard": "1. Dashboard selecteren",
+      "remove-dashboard": "Dashboard verwijderen"
+    },
+    "send-test-email-modal": {
+      "cancel": "Annuleren",
+      "label-email": "E-mailadres",
+      "label-use-emails-from-report": "E-mails uit rapport gebruiken",
+      "send": "Verzenden",
+      "title-send-test-email": "Test-e-mail verzenden"
+    },
+    "share": {
+      "description-address-appear-reply-field-email": "Het adres dat wordt weergegeven in het veld Beantwoorden van de e-mail",
+      "description-separate-multiple-emails-comma-semicolon": "Meerdere adressen scheiden met een komma of puntkomma.",
+      "email-info-button": "De rapportnaam wordt gebruikt als e-mailonderwerp als dit veld leeg wordt gelaten",
+      "email-subject": "Onderwerp e-mail",
+      "label-include-a-dashboard-link": "Dashboardlink opnemen",
+      "label-message": "Bericht",
+      "label-recipients": "Ontvangers",
+      "label-replyto-email-address": "Antwoord-e-mailadres",
+      "label-report-name": "Rapportnaam",
+      "label-share": "4. Delen",
+      "name-placeholder-system-status-report": "Rapport systeemstatus",
+      "recipients-placeholder-recipients-email-addresses-press-enter": "Typ de e-mailadressen van de ontvangers in en druk op Enter",
+      "send-test-email": "Test-e-mail verzenden",
+      "subject-placeholder-email-subject": "Onderwerp e-mail",
+      "title-sending-test-email": "Test-e-mail verzenden..."
+    },
+    "share-pdfbase": {
+      "cancel": "Annuleren",
+      "save-as-pdf": "Opslaan als pdf"
+    },
+    "unavailable-feature-info-box": {
+      "title-feature-available-expired-license": "Functie niet beschikbaar met een verlopen licentie"
+    },
+    "upgrade-report": {
+      "description-reporting-allows-automatically-generate-dashboards-grafana": "Met rapportage kun je automatisch pdf's genereren vanuit een van je dashboards en Grafana ze volgens een schema naar geïnteresseerde partijen laten e-mailen."
+    },
+    "variables-preview": {
+      "none": "geen"
+    }
+  },
+  "saml-connect-to-idp": {
+    "validate-idp-metadata": {
+      "require-one": "Er moet één metagegevenstype worden gedefinieerd"
+    }
+  },
+  "share-dashboard": {
+    "menu": {
+      "export-pdf-title": "Exporteren als pdf",
+      "schedule-report-title": "Rapportage plannen"
+    }
+  },
+  "share-report": {
+    "actions": {
+      "aria-label-open-menu": "Het actie-menu openen",
+      "download-csv-label": "Csv uploaden",
+      "downloading-label": "Bezig met downloaden...",
+      "preview-pdf-label": "Voorbeeldweergave pdf",
+      "report-settings-label": "Rapportinstellingen"
+    },
+    "attachments": {
+      "combine-one-file": "Alle dashboards-pdf's in één bestand combineren",
+      "csv-tables": "Voeg een CSV-bestand met tabelpaneelgegevens toe",
+      "layout": "Indeling",
+      "orientation": "Oriëntatie",
+      "orientation-tooltip": "De oriëntatieselectie zal worden toegepast op het dashboard-pdf, tabelgegevens en de pdf-bijlage",
+      "pdf-format": "Pdf-formaat",
+      "pdf-report": "Voeg het rapport toe als een pdf",
+      "pdf-tables": "Voeg een aparte pdf met tabelgegevens toe",
+      "pdf-tables-appendix": "Tabelgegevens opnemen als pdf-bijlage",
+      "section-title": "Bijlagen",
+      "show-template-variables": "Sjabloonvariabelen weergeven in de koptekst",
+      "zoom": "Zoomschaal"
+    },
+    "back-button-text": "Ga terug naar rapportenlijst",
+    "confirm-delete": {
+      "button": "Rapport verwijderen",
+      "description": "Weet je zeker dat je dit rapport wilt verwijderen?",
+      "title": "Rapport verwijderen"
+    },
+    "create-report": "Een nieuw rapport creëren",
+    "dashboard": {
+      "add-dashboard": "Dashboard toevoegen",
+      "dashboard-required": "Dashboard is vereist",
+      "delete-dashboard-tooltip": "Dit dashboard verwijderen",
+      "repeated-template-variables-description": "Wanneer je hetzelfde dashboard meerdere keren aan één rapport toevoegt, worden sjabloonvariabelen die je als eerste hebt geselecteerd, toegepast op alle exemplaren van dat dashboard in het rapport.",
+      "section-title": "Dashboards",
+      "source-dashboard-label": "Brondashboard",
+      "template-variables-title": "Sjabloonvariabelen aanpassen",
+      "time-range-description": "Een leeg tijdsbereik zorgt voor fallback naar het tijdsbereik van het dashboard van het rapport. Het absolute tijdsbereik wordt weergegeven in de tijdzone van je browser.",
+      "time-range-label": "Tijdsbereik",
+      "view-dashboard-tooltip": "Dashboard bekijken"
+    },
+    "discard-changes": {
+      "discard-button": "Negeren",
+      "text": "Je hebt niet-opgeslagen wijzigingen in dit dashboard. Weet je zeker dat je ze wilt negeren?",
+      "title": "Wijzigingen in rapport negeren?"
+    },
+    "email-configuration": {
+      "add-dashboard-image-label": "Dashboardafbeelding insluiten",
+      "add-dashboard-url-label": "Dashboardlink opnemen",
+      "dashboard-image-settings-description": "De instellingen van de dashboardafbeelding kunnen worden aangepast in de algemene<1>rapportinstellingen</1>",
+      "invalid-email": "Ongeldig e-mailadres",
+      "message-label": "Bericht",
+      "message-placeholder": "Voer een bericht in",
+      "reply-to-label": "E-mailadres waarop geantwoord wordt",
+      "section-title": "E-mailinstellingen",
+      "subject-description": "De rapportnaam wordt gebruikt als e-mailonderwerp als dit veld leeg wordt gelaten",
+      "subject-label": "Onderwerp e-mail"
+    },
+    "empty-list": {
+      "description": "Maak een rapport van dit dashboard. <2>Meer informatie</2>",
+      "title": "Er zijn geen rapporten voor dit dashboard"
+    },
+    "error-form": {
+      "title": "Er is een fout opgetreden bij het laden van het rapport"
+    },
+    "error-list": {
+      "title": "Er is een fout opgetreden bij het laden van de rapporten"
+    },
+    "loading-form": "Formulier laden...",
+    "loading-report": "Rapport laden...",
+    "loading-report-form": "Rapportformulier laden...",
+    "loading-reports": "Rapporten laden...",
+    "recipients": {
+      "field-label": "Ontvangers",
+      "invalid-email": "Ongeldig e-mailadres: {{email}}",
+      "invalid-emails": "Ongeldige e-mailadressen: {{emails}}",
+      "placeholder": "Typ de e-mailadressen van de ontvangers in en druk op Enter",
+      "recipients-required": "Ontvangers zijn verplicht",
+      "section-title": "Ontvangers",
+      "tooltip": "Meerdere adressen scheiden met een komma of puntkomma"
+    },
+    "report-name": {
+      "label": "Rapportnaam",
+      "required": "Rapportnaam is vereist"
+    },
+    "save-draft": {
+      "button": "Concept opslaan",
+      "saving-button": "Concept opslaan..."
+    },
+    "schedule": {
+      "end-date": "Einddatum",
+      "end-date-invalid": "Einddatum moet later of gelijk zijn aan startdatum",
+      "end-date-placeholder": "Eindigt niet",
+      "end-time": "Eindtijd",
+      "frequency": "Frequentie",
+      "interval-amount-min": "Hoeveelheid interval moet minimaal 2 zijn",
+      "interval-amount-required": "Hoeveelheid interval is vereist",
+      "last-day-of-month": "Verzenden op de laatste dag van de maand",
+      "monthly-schedule-alert-title": "Opmerking: rapporten worden niet verzonden voor maanden zonder {{ dayNumber }} dag. Kies een eerdere datum of selecteer 'Verzenden op de laatste dag van de maand' om aan het einde van elke maand een rapport te verzenden.",
+      "repeat-every": "Herhaal elke",
+      "repeat-every-placeholder": "bijv. 2",
+      "repeat-interval-frequency-placeholder": "bijv. uur",
+      "section-title": "Plannen",
+      "send-time": "Plannen",
+      "start-date": "Begindatum",
+      "start-date-placeholder": "Selecteer de datum",
+      "start-date-required": "Startdatum is vereist",
+      "start-time": "Begintijd",
+      "time-zone": "Tijdzone",
+      "workdays-only": "Alleen verzenden van maandag tot vrijdag"
+    },
+    "schedule-report": {
+      "button": "Rapportage plannen",
+      "scheduling-button": "Rapport plannen..."
+    },
+    "see-all-reports": "Alle rapporten bekijken",
+    "send-preview": {
+      "button": "Voorbeeld verzenden",
+      "cancel": "Annuleren",
+      "email": "E-mailadres",
+      "email-description": "Meerdere adressen scheiden met een komma of puntkomma",
+      "email-required": "E-mailadres is vereist",
+      "send": "Verzenden",
+      "sending": "Bezig met verzenden...",
+      "title": "Voorbeeld verzenden",
+      "use-report-emails": "E-mails uit rapport gebruiken"
+    },
+    "settings": {
+      "loading": "Instellingen laden..."
+    },
+    "state": "Staat:",
+    "unavailable-feature-info-box": {
+      "message": "Het maken van nieuwe rapporten is niet beschikbaar met een verlopen licentie. Bestaande rapporten worden nog steeds verwerkt, maar je moet je licentie bijwerken om een nieuw rapport te maken."
+    },
+    "update-report": {
+      "button": "Rapport bijwerken",
+      "delete-button": "Verwijderen",
+      "pause-button": "Pauzeren",
+      "pausing-button": "Rapport pauzeren...",
+      "resume-button": "Hervatten",
+      "resuming-button": "Rapport hervatten...",
+      "updating-button": "Rapport bijwerken..."
+    }
+  },
+  "shared": {
+    "resource-picker": {
+      "placeholder-select-color": "Kleur selecteren"
+    }
+  },
+  "team-lbac": {
+    "create-team-lbacform": {
+      "label-rule": "Regel",
+      "label-team": "Team",
+      "new-lbac-rule": "Nieuwe LBAC-regel",
+      "new-lbac-rule-example": "Voorbeeld:",
+      "save": "Opslaan"
+    },
+    "editable-cell": {
+      "empty-rule": "Lege regel"
+    },
+    "team-label": {
+      "placeholder": "Team met id {{teamId}} niet gevonden"
+    },
+    "team-lbaceditor-unconnected": {
+      "add-a-lbac-rule": "Een LBAC-regel toevoegen",
+      "add-query-permissions": "<0>Querymachtigingen toevoegen:</0> de volgende teams hebben geen querymachtigingen voor de gegevensbron en kunnen daarom geen logboeken opvragen met de geconfigureerde LBAC-regels.",
+      "add-team-lbac-rules": "<0>Team-LBAC-regels toevoegen:</0> de volgende teams kunnen alle logboeken opvragen. Voeg Team LBAC-regels voor hen toe:",
+      "clear-filter": "Wissen",
+      "clear-filter-aria-label": "Filter wissen",
+      "content-found-recommendation": "Gevonden aanbevelingen",
+      "description-data-access": "Hier kun je de toegang tot specifieke gegevens binnen de gegevensbron configureren met behulp van LogQL-labelkiezers.",
+      "ensure-proper-access-control-please-follow": "Volg deze aanbevelingen om een goede toegangscontrole te garanderen:",
+      "filter-results-single": "1 resultaat weergeven",
+      "filter-teams-aria-label": "LBAC-regels filteren op teamnaam",
+      "filter-teams-placeholder": "Teams filteren",
+      "hide-access-control-recommendations": "Aanbevelingen voor toegangscontrole verbergen",
+      "hide-lbac-rule": "LBAC-regel verbergen",
+      "label-selector": "Labelkiezer",
+      "lbac-description": "Configureer LBAC-regels om de toegang voor specifieke statistieken/logboeken te beperken.",
+      "lbac-labelbased-access-control": "LBAC (op labels gebaseerde toegangscontrole)",
+      "lbac-rules-note": "Opmerking:<1></1>- LBAC-regels zijn NIET van toepassing op de query als het geverifieerde Cloud Access Policy-token labelkiezers heeft geconfigureerd in Grafana Cloud.<3></3>- Wijzigingen in LBAC-regels kunnen tot 5 minuten in beslag nemen voordat ze worden doorgevoerd vanwege het cachen van het querypad.",
+      "learn-more-about-lbac-rules": "Meer informatie over LBAC-regels",
+      "remove-unrestricted-access": "<0>Onbeperkte toegang verwijderen:</0> de volgende rollen hebben momenteel onbeperkte toegang tot logboeken.",
+      "role-warning-list": "Rol: {{role}}",
+      "show-access-control-recommendations": "Aanbevelingen voor toegangscontrole weergeven",
+      "sort-teams-ascending": "Teams sorteren A-Z",
+      "sort-teams-descending": "Teams sorteren Z-A",
+      "team": "Team",
+      "title-access-control-recommendations": "Aanbevelingen voor toegangscontrole",
+      "title-data-access": "Gegevenstoegang",
+      "filter-results-multiple_one": "",
+      "filter-results-multiple_other": ""
+    },
+    "team-rules-row": {
+      "aria-label-add-team-rule": "teamregel toevoegen",
+      "aria-label-delete-rule": "Regel verwijderen",
+      "aria-label-edit-team-rule": "teamregel bewerken",
+      "cancel": "Annuleren",
+      "or": "OF",
+      "save": "Opslaan",
+      "tooltip-add-new-rule": "Nieuwe regel toevoegen",
+      "tooltip-provisioned-rule": "Geprovisioneerde regel"
+    }
+  },
+  "teamLBAC": {
+    "create-team-lbacform": {
+      "message": {
+        "required": "Vereist"
+      }
+    }
+  }
+}

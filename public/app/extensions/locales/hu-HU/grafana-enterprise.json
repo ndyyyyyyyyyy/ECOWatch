@@ -1,0 +1,1467 @@
+{
+  "{{enricherType}} enricher does not require any configuration": {
+    " It will start enriching alerts as soon as it is enabled": "A(z) {{enricherType}} bővítő nem igényel semmilyen konfigurációt. Amint engedélyezve van, elkezdi bővíteni a riasztásokat."
+  },
+  "access-control": {
+    "permissions": {
+      "lbac-warning-basic-role": "",
+      "lbac-warning-rule": "FIGYELMEZTETÉS: Előfordulhat, hogy ennek a csapatnak nincs engedélye az adatforrás lekérdezésére.",
+      "lbac-warning-team": "FIGYELMEZTETÉS: Ez a csapat teljes hozzáféréssel rendelkezik az adatokhoz, ha nincsenek beállítva LBAC-szabályok."
+    }
+  },
+  "admin": {
+    "role-filter": {
+      "admin-editor-option": "Rendszergazda/szerkesztő",
+      "multiselect-placeholder": "Szűrés licencelt szerepkör alapján",
+      "server-admin-option": "Kiszolgálói rendszergazda",
+      "viewer-option": "Megtekintő"
+    }
+  },
+  "alert-enrichment": {
+    "error": "A riasztásbővítmény létrehozása nem sikerült",
+    "metadata-error": "",
+    "success": "Riasztásbővítés sikeresen létrehozva!",
+    "update-error": "A riasztásbővítmény frissítése sikertelen volt",
+    "update-success": "Riasztásbővítés sikeresen frissítve!"
+  },
+  "alert-enrichment-form": {
+    "actions": {
+      "cancel": "Mégse",
+      "save": "Bővítés mentése"
+    },
+    "assign-enricher": {
+      "add-annotation": "Jegyzet-hozzárendelés hozzáadása",
+      "annotation-name": "Kulcs",
+      "annotation-name-placeholder": "kulcs",
+      "annotation-value": "Érték",
+      "annotation-value-placeholder": "érték",
+      "remove-annotation-aria-label": "Jegyzet eltávolítása",
+      "remove-annotation-tooltip": "Jegyzet eltávolítása"
+    },
+    "basic-info": {
+      "description": "Leírás (opcionális)",
+      "description-placeholder": "Bővítés leírása",
+      "name": "Bővítés neve",
+      "name-placeholder": "bővítésem",
+      "name-required": "A név megadása kötelező",
+      "timeout": "Időtúllépés",
+      "timeout-description": "A bővítéshez megengedett maximális idő (pl. 30 mp, 1 perc)",
+      "timeout-placeholder": "30 mp"
+    },
+    "ds-type": {
+      "logs": "Naplók",
+      "raw": "Nyers"
+    },
+    "dsquery-enricher": {
+      "add-first-query": "Adja hozzá az első lekérdezését",
+      "add-query": "Lekérdezés hozzáadása",
+      "no-datasource": "Az adatforrás hiányzik",
+      "no-datasource-description": "Nem találtunk adatforrást ehhez a lekérdezéshez. Az adatforrás el lett távolítva, vagy nem érhető el",
+      "no-queries": "Még nincsenek meghatározva lekérdezések",
+      "raw-queries-description": "Határozza meg a lekérdezéseket, amelyek végrehajtásra kerülnek az értesítések bővítése érdekében. Az eredmények a bővítési kontextusban lesznek elérhetők.",
+      "remove-query": "Lekérdezés eltávolítása"
+    },
+    "enricher-config": {
+      "llm-disabled": "Az LLM le van tiltva",
+      "llm-disabled-description": "A magyarázatbővítéshez engedélyezni kell a Grafana LLM bővítményt",
+      "type": "Bővítés típusa",
+      "type-placeholder": "Bővítés típusának kiválasztása",
+      "type-required": "A bővítés típusának megadása kötelező"
+    },
+    "enricher-type": {
+      "asserts": "Állítások",
+      "assign": "Hozzárendelés",
+      "dsquery": "Adatforrás-lekérdezés",
+      "explain": "Magyarázat",
+      "external": "Külső",
+      "sift": "Szűrő"
+    },
+    "explain-enricher": {
+      "annotation-label": "Jegyzetkulcs",
+      "annotation-placeholder": "magyarázat",
+      "annotation-required": "A magyarázatbővítéshez jegyzetkulcs szükséges",
+      "annotation-tooltip": "A jegyzetkulcs, ahol az LLM által generált magyarázat tárolásra kerül",
+      "description": "A magyarázatjavító LLM-et használ a riasztások magyarázatának generálásához. Konfigurálja a magyarázat tárolására szolgáló jegyzetkulcsot."
+    },
+    "external-enricher": {
+      "url-label": "Külső szolgáltatás URL-címe",
+      "url-placeholder": "https://api.pelda.com/bovites",
+      "url-required": "A külső bővítéshez URL-cím szükséges"
+    },
+    "matcher": {
+      "add-button": "Hozzáadás",
+      "name-label": "Név",
+      "name-placeholder": "Név",
+      "remove-aria-label": "Egyezések eltávolítása",
+      "remove-tooltip": "Egyezések eltávolítása",
+      "type-label": "Típus",
+      "type-placeholder": "Típus",
+      "value-label": "Érték",
+      "value-placeholder": "Érték"
+    },
+    "matcher-type": {
+      "equals": "Egyenlő (=)",
+      "not-equals": "Nem egyenlő (!=)",
+      "regex-match": "Reguláris kifejezésbeli egyezés (=~)",
+      "regex-not-match": "A reguláris kifejezés nem egyezik (!~)"
+    },
+    "scope": {
+      "all-alerts": "Összes riasztás",
+      "annotation-scoped": "Jegyzet hatókörrel",
+      "description": "Határozza meg, hogy mely riasztásokat kell bővíteni",
+      "label-scoped": "Címke hatókörrel",
+      "title": "Hatókör"
+    }
+  },
+  "alerting": {
+    "ai-feedback": {
+      "comment-description": "Segítsen nekünk fejlődni azáltal, hogy megosztja, mi működött jól, vagy mi lehetne jobb",
+      "comment-label": "További visszajelzés (opcionális)",
+      "comment-placeholder": "Ossza meg gondolatait az AI válaszáról...",
+      "comment-prompt": "Szeretne többet megosztani a tapasztalatairól?",
+      "helpful": "Igen, hasznos volt",
+      "not-helpful": "Nem volt hasznos",
+      "question": "Hasznos volt ez az AI-válasz?",
+      "skip": "Kihagyás",
+      "submit": "Küldés",
+      "thank-you": "Köszönjük visszajelzését!"
+    },
+    "enrichment": {
+      "appliesTo": "Minden riasztásra vonatkozik",
+      "delete": {
+        "body": "Biztosan törli a(z) <1>{{name}}</1> riasztásbővítést?",
+        "cancel": "Mégse",
+        "confirm": "Törlés",
+        "title": "Riasztásbővítés törlése"
+      },
+      "delete-enrichment": "{{name}} bővítés törlése",
+      "edit-button": "Szerkesztés",
+      "edit-enrichment": "{{name}} bővítés szerkesztése",
+      "edit-title": "Bővítés szerkesztése",
+      "enrichments": "Bővítések",
+      "expanded-row": {
+        "annotationMatchers": "<0>Jegyzetegyeztetők:</0> {formatMatchers(annotationMatchers)}",
+        "asserts": "<0>Állítások</0> bővítése konfigurálva",
+        "assignments": "<0>Hozzárendelések:</0> {assignments.map((a) => `${a.name}=${a.value}`).join(', ')}",
+        "datasource": "<0>Adatforrás:</0> {details.join(', ')}",
+        "externalUrl": "<0>URL:</0> {step.enricher.external.url}",
+        "labelMatchers": "<0>Címkeegyeztetők:</0> {formatMatchers(labelMatchers)}",
+        "sift": "<0>Szűrés</0> bővítése konfigurálva",
+        "type": "Típus:"
+      },
+      "load-error": "A bővítés betöltése sikertelen",
+      "loading": "Bővítések betöltése...",
+      "loadMore": "Továbbiak betöltése",
+      "new-alert": "Új riasztásbővítés",
+      "new-title": "Új bővítés",
+      "noEnrichments": "Nincs konfigurálva riasztásbővítés",
+      "tab": {
+        "description": "Tegye a riasztási értesítéseket használhatóbbá előzetes elemzés futtatásával és további kontextus hozzáadásával."
+      },
+      "table": {
+        "actions": "Műveletek",
+        "annotationMatchers": "Jegyzetek",
+        "annotationMatchers-scoped": "Hatály: ",
+        "enrichment": "Bővítés",
+        "labelMatchers": "Címkék"
+      },
+      "tooltip": {
+        "asserts": "Állításokat használ a riasztások bővítéséhez",
+        "assign": {
+          "assignments": "Jegyzetek:",
+          "default": "Jegyzeteket rendel a riasztásokhoz",
+          "emptyValue": "(üres)",
+          "title": "Jegyzeteket rendel a riasztásokhoz"
+        },
+        "default": "Riasztásbővítés konfigurálva",
+        "dsquery": {
+          "datasourceType": "Adatforrás:",
+          "maxLines": "Max. sorok:",
+          "queries": "Lekérdezések:",
+          "query": "Lekérdezés: ",
+          "rawRequest": "Egyéni adatforráskérés konfigurálva",
+          "refId": "Referenciaazonosító:",
+          "title": "Adatforrás-lekérdezések a bővítéshez",
+          "type": "Típus:"
+        },
+        "explain": {
+          "annotation": "Tárolás helye:",
+          "default": "LLM-et használ a riasztások magyarázatának generálásához",
+          "title": "LLM-et használ a riasztások magyarázatának generálásához"
+        },
+        "external": {
+          "default": "Külső szolgáltatást vesz igénybe a bővítéshez",
+          "title": "Külső szolgáltatást vesz igénybe a bővítéshez",
+          "url": "URL:"
+        },
+        "sift": "Szűrőt használ a riasztások bővítésére"
+      }
+    },
+    "generate-ai-rule": {
+      "button": "AI-alapú generálás",
+      "modal": {
+        "error": "{stringifyErrorLike(error)}",
+        "error-title": "Hiba történt a riasztási szabály generálásakor",
+        "generate": "Szabály generálása",
+        "generating": "Generálás….",
+        "preview-contact-point": "Kapcsolattartási pont:",
+        "preview-description": "Leírás:",
+        "preview-name": "Név:",
+        "preview-queries": "Lekérdezések:",
+        "preview-title": "Generált riasztási szabály",
+        "prompt-description": "Írja le, hogy mit szeretne figyelni, és mikor szeretne értesítést kapni. Például: „Értesítés, ha a CPU használata 5 percnél hosszabb ideig 80% felett van”. Kérdezhet a rendelkezésre álló kapcsolattartási pontokról vagy adatforrásokról is.",
+        "prompt-label": "Írja le a létrehozni kívánt értesítési szabályt",
+        "prompt-placeholder": "Riasztás, ha a lemezhasználat 5 percnél hosszabb ideig meghaladja a 90%-ot, és küldés a Slack kapcsolattartási pontra...",
+        "title": "Riasztási szabály AI-alapú létrehozása",
+        "use-rule": "Használja ezt a szabályt"
+      }
+    },
+    "improve-ai-annotations": {
+      "button": "Javítsa a jelöléseket az AI segítségével",
+      "modal": {
+        "apply-improvements": "Javítások alkalmazása a jegyzetekre",
+        "error": "{stringifyErrorLike(generationError)}",
+        "error-title": "Hiba",
+        "generate": "Jegyzetek javítása",
+        "generating": "Generálás….",
+        "preview-annotations": "Javított jegyzetek:",
+        "preview-title": "AI-alapú jegyzetjavítások előnézete",
+        "prompt-description": "Írja le, hogy mit szeretne javítani a riasztási szabályok jegyzeteiben. Például: „Tedd az összefoglalót részletesebbé”, „Adj hozzá hibaelhárítási lépéseket a leíráshoz” vagy „Adj hozzá Runbook-hivatkozásokat”.",
+        "prompt-label": "Hogyan szeretné javítani a jegyzeteket?",
+        "prompt-placeholder": "Tedd az összefoglalót részletesebbé, és adj hozzá hibaelhárítási lépéseket a leíráshoz...",
+        "title": "A riasztási szabályok jegyzeteinek AI-alapú javítása"
+      }
+    },
+    "improve-ai-labels": {
+      "button": "Címkék AI-alapú javítása",
+      "modal": {
+        "cancel": "Mégse",
+        "error": "{stringifyErrorLike(generationError)}",
+        "error-title": "Hiba",
+        "generate": "Javítások generálása",
+        "generating": "Generálás….",
+        "prompt-description": "Írja le, hogy mit szeretne javítani a riasztási szabály címkéiben. Például: „Adj hozzá dinamikus súlyossági címkéket”, „Add hozzá a csapat tulajdonjogát” vagy „Adj hozzá környezeti címkéket”.",
+        "prompt-label": "Hogyan szeretné javítani a címkéket?",
+        "prompt-placeholder": "Adj hozzá dinamikus súlyossági címkéket a küszöbértékek alapján, és tüntesd fel a csapat tulajdonjogát...",
+        "title": "Riasztási szabálycímkék AI-alapú javítása"
+      },
+      "preview": {
+        "apply": "Javítások alkalmazása",
+        "cancel": "Mégse",
+        "no-improvements": "Nem található javítás",
+        "no-improvements-message": "Az AI nem javasolt címkejavításokat ehhez a kéréshez.",
+        "title": "Az AI által javasolt címkejavítások:"
+      }
+    },
+    "settings": {
+      "tabs": {
+        "enrichment": {
+          "title": "Riasztásbővítés"
+        }
+      }
+    },
+    "template-form": {
+      "genai": {
+        "modal": {
+          "error": "{stringifyErrorLike(generationError)}",
+          "error-title": "Hiba",
+          "generate": "Sablon generálása",
+          "generating": "Generálás….",
+          "prompt-description": "Írja le az értesítés kívánt formátumát és tartalmát. Például: „Egy Slack-üzenet, amely a riasztás nevét, állapotát és egy hangulatjelekkel ellátott összefoglalót tartalmaz” vagy „Egy e-mail az összes riasztást tartalmazó táblázattal, beleértve a címkéket és a kezdési időpontokat is”.",
+          "prompt-label": "Írja le, hogyan szeretné, hogy az értesítése kinézzen",
+          "prompt-placeholder": "Egy Slack-üzenet, amely a következőt jeleníti meg: „🔥RIASZTÁS: [AlertName] aktiválódik”, egy összefoglalóval és egy hivatkozással a részletek megtekintéséhez...",
+          "title": "Sablon AI-alapú generálása"
+        }
+      }
+    },
+    "templates": {
+      "editor": {
+        "generate-with-ai": "AI-alapú generálás"
+      }
+    },
+    "triage-ai": {
+      "button": "Elemzés ezzel: {{ provider }}",
+      "modal": {
+        "analysis-title": "Riasztás prioritási sorrendjének elemzése",
+        "analyze": "Elemzés",
+        "analyzing": "🤖 {{logRecordsLength}} riasztási esemény elemzése...",
+        "custom-question": {
+          "help": "Hagyja üresen az általános prioritási sorrend elemzéséhez, vagy tegyen fel egy konkrét kérdést a riasztási eseményekkel kapcsolatban.",
+          "label": "Tegyen fel egy konkrét kérdést (opcionális)",
+          "placeholder": "pl. „Mi okozza az adatbázisriasztásokat?” vagy „Ezek a riasztások a legutóbbi telepítéshez kapcsolódnak?”"
+        },
+        "description": "Az aktuális riasztási események AI-elemzése a minták megértésének, a válaszok rangsorolásának és a potenciális problémák azonosításának elősegítése érdekében.",
+        "error": "Hiba",
+        "title": "Riasztás prioritási sorrendjének elemzése"
+      }
+    }
+  },
+  "auth-config": {
+    "action-bar": {
+      "content-disable-button": "A letiltás letiltja a Grafana számára a SAML-hitelesítés használatát.",
+      "delete": "Törlés",
+      "disable-button": "Letiltás",
+      "enabled-badge": "Engedélyezve",
+      "more-actions-button": "További műveletek",
+      "not-enabled-badge": "Nem engedélyezett",
+      "protocol": "Protokoll",
+      "save-and-apply-button": "Mentés és alkalmazás",
+      "save-and-enable-button": "Mentés és engedélyezés",
+      "save-button": "Mentés",
+      "status": "Állapot"
+    },
+    "assertion-mapping-unconnected": {
+      "aria-label-name-id-format": "nameIdFormat",
+      "assertionAttributeEmail-label-email-attribute": "E-mail-attribútum",
+      "assertionAttributeEmail-placeholder-mail": "levél",
+      "assertionAttributeExternalUid-label-external-uid": "Külső UID attribútum",
+      "assertionAttributeExternalUid-tooltip-external-uid": "A külső UID-hozzárendelés egy biztonsági mechanizmus, amely megakadályozza a megszemélyesítést, és csak akkor szükséges, ha az SCIM-kiépítés engedélyezett. A kiépített külső UID-nek (az identitásszolgáltató által generált felhasználói azonosítónak) jelen kell lennie az SAML-állításban, amikor a felhasználó bejelentkezik. A mező alapértelmezett értéke a userUID.",
+      "assertionAttributeGroups-label-groups-attribute": "Csoportok attribútum",
+      "assertionAttributeLogin-label-login-attribute": "Bejelentkezés attribútum",
+      "assertionAttributeLogin-placeholder-mail": "levél",
+      "assertionAttributeName-label-name-attribute": "Névattribútum",
+      "assertionAttributeName-placeholder-display-name": "Megjelenített név",
+      "assertionAttributeOrg-label-org-attribute": "Szervezeti attribútum",
+      "assertionAttributeRole-label-role-attribute": "Szerepkör-attribútum",
+      "azure-ad-service-account-configuration": "Azure AD szolgáltatási fiók konfigurálása",
+      "clientId-label-client-id": "Kliensazonosító",
+      "clientSecret-label-client-secret": "Klienstitok",
+      "description-allowed-organizations": "Vesszővel vagy szóközzel elválasztott SAML-szervezetnevek listája. A bejelentkezéshez a felhasználónak legalább egy szervezet tagjának kell lennie.",
+      "description-assertion-attributes-mapping": "SAML-állításattribútumok hozzárendelése a Grafana felhasználói attribútumaihoz. Az állításattribútumok támogatják a sablon-hozzárendeléseket. A csapat szinkronizálása akkor érhető el, ha a csoportok attribútum konfigurálva van.",
+      "description-azure-ad-service-account-configuration": "Ha vannak olyan felhasználói, akik több mint 150 csoport tagjai az Ön Azure AD-szervezetében, akkor be kell állítania egy szolgáltatási fiókot az Azure AD-ben, hogy az összes csoportot lekérdezze a Graph API-n keresztül. A rendszer ezt a szolgáltatási fiókot fogja használnia a felhasználó összes csoportjának lekérdezéséhez. Az Azure AD szolgáltatási fiók konfigurálásáról a <1>dokumentációban</1> olvashat bővebben.",
+      "description-force-use-graph-api": "A Graph API használatának kényszerítése a felhasználó összes csoportjának lekéréséhez.",
+      "description-name-identifier-format": "A névazonosítói formátumok szabályozzák, hogy az identitásszolgáltató felhasználói hogyan legyenek hozzárendelve a Grafana-felhasználókhoz",
+      "description-prevent-synchronizing-users-organization-roles": "Annak megakadályozása, hogy a SAML-felhasználók szervezeti szerepkörei szinkronizálva legyenek az identitásszolgáltatóból.",
+      "label-allowed-organizations": "Engedélyezett szervezetek",
+      "label-assertion-attributes-mapping": "Állításattribútum-hozzárendelések",
+      "label-force-use-graph-api": "Graph API használatának kényszerítése",
+      "label-name-identifier-format": "Névazonosító formátuma",
+      "label-org-mapping": "Szervezeti hozzárendelés",
+      "label-role-mapping": "Szerepkör-hozzárendelés",
+      "label-skip-organization-role-sync": "Szervezeti szerepkör-szinkronizálás kihagyása",
+      "label-user-mapping": "Felhasználói hozzárendelés",
+      "orgMapping-label-org-mapping": "Szervezeti hozzárendelés",
+      "roleValuesAdmin-label-admin": "Rendszergazda",
+      "roleValuesEditor-label-editor": "Szerkesztő",
+      "roleValuesGrafanaAdmin-label-grafana-admin": "Grafana-rendszergazda",
+      "roleValuesNone-label-none": "Nincs",
+      "roleValuesViewer-label-viewer": "Megtekintő",
+      "tokenUrl-label-access-token-url": "Hozzáférési token URL-címe",
+      "tooltip-assertion-attributes-mapping": "A Grafana állításattribútum-hozzárendelése a felhasználói információkat egy SAML-válaszból veszi, és egy felhasználó létrehozására vagy frissítésére használja fel az adatbázisában. Olvassa az attribútumokat (kulcs/érték párokat) az állításon belül, például a nevet, a bejelentkezési azonosítót és az e-mail-címet. A konfigurációk lehetővé teszik a kulcsválasztás módosítását.",
+      "tooltip-org-mapping": "A szervezeti hozzárendelés lehetővé teszi, hogy a felhasználókat az identitásszolgáltatótól kapott attribútumérték alapján hozzárendelje a Grafana egy adott szervezetéhez. A konfiguráció segítségével rendelheti hozzá a szervezet felhasználóit a Grafana-szervezethez.",
+      "tooltip-role-mapping": "A szerepkör-hozzárendelés szinkronizálja a felhasználói szerepköröket az identitásszolgáltatóból a Grafanába a szerepkör-attribútumok a Nincs, Megtekintő, Szerkesztő, Rendszergazda és Grafana-rendszergazda esetében történő konfigurálásával. Ha nincs egyezés, a Grafana alapértelmezett szerepköre a Megtekintő."
+    },
+    "config-action": {
+      "confirm-modal-body": "Biztosan véglegesen törli ezt a SAML-konfigurációt? A felhasználói felületen végzett összes módosítás el lesz távolítva.",
+      "confirm-modal-confirm-text": "Konfiguráció törlése",
+      "confirm-modal-confirmation-text": "törlés",
+      "confirm-modal-dismiss-text": "Vissza a szerkesztéshez",
+      "confirm-modal-title": "SAML-konfiguráció törlése"
+    },
+    "connect-to-idp-unconnected": {
+      "configure-assertions-group-mappings": "Konfigurálja az állításokat, a csoportot, valamint a csoport- és szervezeti hozzárendeléseket a következő lépésben.",
+      "configure-idp-using-grafana-metadata": "Identitásszolgáltató konfigurálása Grafana-metaadatokkal",
+      "copy": "Másolás",
+      "description-assertion-consumer-service-url": "Állításfeldolgozó szolgáltatás POST-továbbítási URL-címe",
+      "description-idp-metadata": "Meg kell egyeznie a környezettel vagy az identitásszolgáltató által megkövetelt értékkel.",
+      "description-metadata-url": "Identitásszolgáltató metaadatainak URL-címe",
+      "description-setup-idp": "Az identitásszolgáltató konfigurálásához szüksége lesz a Grafana-metaadatok URL-címére. Az alábbi végpontoknak elérhetőknek kell lenniük az identitásszolgáltató (IdP) számára.",
+      "description-setup-required": "Látogasson el az identitásszolgáltató konfigurációs paneljére, adjon hozzá új alkalmazást, és használja az első lépésben szereplő metaadatokat, hogy kapcsolódjon a Grafanához. Másolja ki az identitásszolgáltató metaadatait, és adja meg őket alább. Tesztelje a kapcsolatot, és másolja az állításcímkéket/-értékeket.",
+      "description-slo-url": "Kijelentkezési szolgáltatás átirányítástovábbítási URL-címe/Kijelentkezési szolgáltatás POST-továbbítási URL-címe",
+      "description-sp-metadata-url-entity-id": "SP-metaadatok URL-címe/SP-entitásazonosító",
+      "description-test-connection": "Ha tesztelni szeretné a kapcsolatot az identitásszolgáltató paneljéről, győződjön meg róla, hogy engedélyezi az identitásszolgáltató által kezdeményezett bejelentkezést, és adja meg a továbbításiállapot-információkat.",
+      "finish-configuring-grafana-using-idp-data": "A Grafana konfigurálásának befejezése az identitásszolgáltató adataival",
+      "label-assertion-consumer-service-url": "Állításfeldolgozói szolgáltatás URL-címe",
+      "label-baseencoded-idp-metadata": "Base64 kódolású IdP-metaadatok",
+      "label-connect-grafana-with-identity-provider": "A Grafana csatlakoztatása az identitásszolgáltatóhoz",
+      "label-idp-metadata": "Identitásszolgáltató metaadatai ",
+      "label-metadata-url": "Metaadatok URL-címe",
+      "label-path-to-idp-metadata-file": "Az IdP-metaadatfájl elérési útja",
+      "label-slo-url": "SLO URL-címe",
+      "label-sp-metadata-url-entity-id": "Metaadatok URL-címe",
+      "step-number-1": "1",
+      "step-number-2": "2",
+      "step-number-3": "3"
+    },
+    "general-unconnected": {
+      "description-allow-signup": "Engedélyezi-e új Grafana-felhasználó létrehozását SAML-bejelentkezéssel. Ha nem engedélyezett, akkor csak a meglévő Grafana-felhasználók jelentkezhetnek be SAML használatával.",
+      "description-auto-login": "Megpróbálkozás az automatikus SAML-bejelentkezéssel, kihagyva a bejelentkezési képernyőt.",
+      "description-display-name-for-this-saml-integration": "Hasznos, ha egynél több SSO IdP-szolgáltatót vagy -protokollt használ.",
+      "description-duration-grafana-metadata-valid": "A Grafana-metaadatok érvényességének időtartama.",
+      "description-entity-id": "Az entitásazonosító a szolgáltató globálisan egyedi azonosítója. A szolgáltató azonosítására szolgál az identitásszolgáltatónál. Alapértelmezés szerint a Grafana-példány URL-címére mutat.",
+      "description-identity-provider-initiated-login": "Lehetővé teszi a felhasználók számára, hogy közvetlenül az identitásszolgáltatótól jelentkezzenek be a Grafanába.",
+      "description-max-issue-delay": "Az identitásszolgáltató általi válaszadástól addig tartó időtartam, ameddig a Grafana feldolgozhatja azt.",
+      "description-relay-state": "Szükséges. Meg kell egyeznie az identitásszolgáltatóban konfigurált továbbítási állapottal, és szóközt kell használnia utolsó karakterként.",
+      "description-single-logout": "Lehetővé teszi a felhasználók számára, hogy kijelentkezzenek az IdP-munkamenetből és a SAML-en keresztül létrehozott aktuális IdP-munkamenethez társított alkalmazásokból.",
+      "displayName-placeholder-saml": "SAML",
+      "label-allow-signup": "Regisztráció engedélyezése",
+      "label-auto-login": "Automatikus bejelentkezés",
+      "label-display-name-for-this-saml-integration": "A SAML 2.0-integráció megjelenített neve",
+      "label-entity-id": "Entitásazonosító",
+      "label-general-settings": "Általános beállítások",
+      "label-identity-provider-initiated-login": "Az identitásszolgáltató által kezdeményezett bejelentkezés",
+      "label-max-issue-delay": "Max. kibocsátási késleltetés",
+      "label-metadata-valid-duration": "Metaadatok érvényességi ideje",
+      "label-relay-state": "Továbbítási állapot",
+      "label-single-logout": "Egyetlen kijelentkezés"
+    },
+    "input-with-reset": {
+      "reset": "Visszaállítás"
+    },
+    "key-cert-drawer-unconnected": {
+      "close": "Bezárás",
+      "description-number-generated-certificate-valid": "Azon napok száma, ameddig a létrehozott tanúsítvány érvényes.",
+      "generate": "Létrehozás",
+      "label-city": "Település",
+      "label-country-code": "Országkód",
+      "label-state": "Állapot",
+      "label-validity-days": "Érvényesség napjainak száma",
+      "label-your-organization": "Az Ön szervezete",
+      "subtitle-saml-key-and-certificate": "A következő adatok szerepelnek a létrehozott tanúsítványban",
+      "title-saml-key-and-certificate": "SAML-kulcs és -tanúsítvány",
+      "tooltip-generate-the-certificate-and-private-key": "Tanúsítvány és privát kulcs létrehozása"
+    },
+    "key-cert-unconnected": {
+      "description-baseencoded-grafana-x-certificate": "Base64 kódolású Grafana X.509-tanúsítvány",
+      "description-baseencoded-private-key": "Base64 kódolású privát kulcs",
+      "description-path-to-the-grafana-private-key": "A Grafana privát kulcs elérési útja",
+      "description-path-to-the-grafana-x-certificate": "A Grafana X.509-tanúsítvány elérési útja",
+      "description-sign-outgoing-requests-to-id-p": "Kimenő kérelmek aláírása az identitásszolgáltató felé",
+      "description-signature-algorithm": "Az identitásszolgáltatóhoz küldött kérések aláírásához használt aláírási algoritmus. Meg kell egyeznie a környezettel vagy az identitásszolgáltató által megkövetelt értékkel.",
+      "description-signing-and-encryption-key-certificate": "Tanúsítvány és privát kulcs a Grafana és az identitásszolgáltató közötti információcseréhez. A privát kulcsot PKCS#8 formátumban kell kiadni. A tanúsítványnak érvényes X.509-tanúsítványnak kell lennie.",
+      "generate-key-and-certificate": "Kulcs és tanúsítvány létrehozása",
+      "label-certificate": "Tanúsítvány",
+      "label-private-key": "Privát kulcs",
+      "label-sign-requests": "Aláírási kérések",
+      "label-signature-algorithm": "Aláírási algoritmus",
+      "label-signing-and-encryption-key-certificate": "Aláírási és titkosítási kulcs és tanúsítvány"
+    },
+    "page-banner": {
+      "aria-label-close-banner": "Értesítésszalag bezárása",
+      "tooltip-close": "Bezárás"
+    },
+    "SAML": {
+      "button-row-next": "Következő: {{name}}",
+      "button-row-previous": "Előző: {{name}}"
+    },
+    "samlform": {
+      "text-saved": "Mentve"
+    },
+    "save-and-test-unconnected": {
+      "button-save-and-enable": "Mentés és engedélyezés",
+      "label-test-and-enable": "Tesztelés és engedélyezés",
+      "text-save-and-enable": "Ha készen áll a SAML-konfiguráció alkalmazására, kattintson a „Mentés és engedélyezés” gombra. Lehetősége lesz a konfiguráció letiltására is."
+    },
+    "save-samlsettings": {
+      "message": {
+        "cannot-save-settings": "A beállítások mentése sikertelen"
+      }
+    },
+    "text-input-with-reset": {
+      "reset": "Visszaállítás"
+    }
+  },
+  "banner": {
+    "api": {
+      "result": {
+        "saved": "Banner beállításai mentve"
+      }
+    },
+    "form": {
+      "button-save": "Mentés",
+      "button-saving": "Mentés...",
+      "enabled": {
+        "label": "Engedélyezve"
+      },
+      "end": {
+        "description": "Ha nincs kijelölve befejezési dátum, a banner határozatlan ideig jelenik meg.",
+        "error": "A leállítás idejének a kezdési időnél későbbinek kell lennie",
+        "label": "Ekkor ér véget:"
+      },
+      "message": {
+        "description": "A banner szöveges tartalma. Támogatja a Markdownt.",
+        "label": "Üzenet"
+      },
+      "options": {
+        "error": "Hiba",
+        "info": "Információ",
+        "warning": "Figyelmeztetés"
+      },
+      "select": {
+        "placeholder": "Értesítésszalag típusának kiválasztása"
+      },
+      "start": {
+        "description": "A banner ettől a dátumtól és időponttól kezdve jelenik meg.",
+        "label": "Ekkor indul:"
+      },
+      "title": "Banner konfigurálása",
+      "variant": {
+        "label": "Változat"
+      }
+    },
+    "preview": {
+      "message": {
+        "default": "Frissítse ezt az előnézetet az üzenetmező módosításával."
+      },
+      "title": "Előnézet"
+    }
+  },
+  "caching": {
+    "alert": {
+      "readonly": {
+        "message": "Ezt az adatforrást a konfiguráció adta hozzá, és a gyorsítótárazás nem módosítható a felhasználói felület használatával. Az adatforrás frissítéséhez forduljon a kiszolgáló rendszergazdájához.",
+        "title": "Kiépített adatforrás"
+      }
+    },
+    "cache-clean": {
+      "body-clear-cache": "Figyelmeztetés: Ez a művelet minden gyorsítótárazott adatforrást érint. Memcached használata esetén a rendszer törli az összes adatot a Memcached-példányból. Folytatja?",
+      "clear-cache": "Gyorsítótár törlése",
+      "confirm-text-clear-cache": "Gyorsítótár törlése",
+      "title-clear-cache": "Gyorsítótár törlése"
+    },
+    "cache-cta": {
+      "enable-button-title": "Engedélyezés",
+      "enable-button-tittle": "Engedélyezés",
+      "protip-caching-cannot-enabled-source": "Ennek az adatforrásnak a konfigurációja nem teszi lehetővé a gyorsítótár engedélyezését.",
+      "protip-caching-not-enabled": "A gyorsítótár engedélyezése csökkentheti az adatforráshoz küldött redundáns kérések mennyiségét.",
+      "protip-link-caching-not-enabled": "További információk",
+      "title-caching-cannot-enabled-source": "A gyorsítótár nem engedélyezhető ennél az adatforrásnál.",
+      "title-caching-not-enabled": "A gyorsítótár nem engedélyezett ennél az adatforrásnál."
+    },
+    "cache-settings-disable": {
+      "disable": "Letiltás"
+    },
+    "cache-settings-form": {
+      "description-query-ttl": "Egy lekérdezési gyorsítótárelem élettartama ezredmásodpercben. Példa: 5000",
+      "description-resource-ttl": "Az erőforrások olyan dinamikus értékek, amelyeket a Grafana adatforrás-bővítményei lekérdeznek az adatforrásokból a lekérdezésszerkesztőben való használatra. Ilyenek például a Splunk-névterek, a Prometheus-címkék és a CloudWatch-metrikanevek. Mivel ezek az értékek ritkábban frissülnek, előfordulhat, hogy hosszabb gyorsítótár-TTL-t szeretne az erőforrásokhoz, mint a lekérdezésekhez. További információért tekintse meg a <2>dokumentációt</2>.",
+      "description-timetolive-resources-cache-items-milliseconds-example": "Az erőforrások gyorsítótárelemeinek élettartama ezredmásodpercben. Példa: 5000",
+      "description-use-default-ttl": "Engedélyezze ezt a Grafana konfigurációjában beállított alapértelmezett TTL használatához ({{defaultTTLMs}} ms)",
+      "label-query-ttl": "Lekérdezési TTL",
+      "label-use-default-ttl": "Alapértelmezett TTL használata",
+      "resource-ttl": "Erőforrás-TTL",
+      "save": "Mentés"
+    },
+    "caching": {
+      "content": {
+        "text": {
+          "enable-caching": "Gyorsítótár engedélyezése"
+        }
+      }
+    },
+    "data-source-cache": {
+      "caching-heading": "Gyorsítótárazás",
+      "query-catching": "Ingyenesen engedélyezheti a lekérdezés gyorsítótárazását a Grafana Pro próbaidőszaka alatt.",
+      "upgrade-content-author-dashboards": "A lekérdezések létrehozásához használt adatok, például a ServiceNow-mezők vagy a Datadogból elérhető metrikák gyorsítótárazásával gördülékenyebben hozhat létre irányítópultokat",
+      "upgrade-content-description": "A lekérdezés gyorsítótárazásával gyorsabban töltheti be az irányítópultokat, és csökkentheti a költséges adatforrás-lekérdezéseket azáltal, hogy ideiglenesen a memóriában, a Redisben vagy a Memcachedben tárolja a lekérdezési eredményeket.",
+      "upgrade-content-load-dashboards": "A gyorsítótárból kevesebb mint egy másodperc alatt betöltheti az irányítópultokat, még akkor is, ha nagy lekérdezéseket tartalmaznak, és sok felhasználó tekinti meg egyszerre",
+      "upgrade-content-save-money": "Spóroljon pénzt, és kerülje el a sebességkorlátozást azáltal, hogy csökkenti az olyan adatforrásokhoz intézett API-hívások számát, mint a Splunk, a CloudWatch és a Github"
+    }
+  },
+  "common": {
+    "cancel": "Mégse",
+    "close": "Bezárás"
+  },
+  "explore": {
+    "query-library": {
+      "cancel": "Mégse",
+      "default-title": "Új lekérdezés",
+      "discard": "Elvetés",
+      "editing-title": "Szerkesztés mentett lekérdezésekből",
+      "explore": "Szerkesztés az Explore-ban",
+      "query-template-added": "Lekérdezés sikeresen mentve a könyvtárba",
+      "query-template-edit-error": "Hiba történt a lekérdezés szerkesztésekor",
+      "query-template-edited": "A lekérdezési sablon szerkesztése sikerült",
+      "save": "Mentés",
+      "save-and-close": "",
+      "save-return": "Mentés, és visszatérés a mentett lekérdezésekhez",
+      "saving": "Mentés..."
+    }
+  },
+  "export": {
+    "pdf": {
+      "cancel-button": "Mégse",
+      "download-button": "PDF létrehozása",
+      "image-alt": "PDF előnézete",
+      "info-text": "Exportálja az irányítópultot PDF-dokumentumként",
+      "layout-label": "Elrendezés",
+      "orientation-label": "Tájolás",
+      "title": "Irányítópulti PDF exportálása",
+      "zoom-description": "Nagyítson a szöveg nagyításához, vagy kicsinyítsen, hogy panelenként több adatot (például táblázatoszlopokat) lásson.",
+      "zoom-label": "Nagyítás"
+    }
+  },
+  "groupsync": {
+    "empty-state": {
+      "pro-tip": "Szeretné a Grafana-hozzáférést az identitásszolgáltatóban található csoportokon keresztül kezelni? Hozzon létre csoportos hozzárendeléseket a Grafana RBAC-szerepköreihez. <2>További információ</2>",
+      "title": "Még nem hozott létre csoportleképezéseket"
+    },
+    "group-sync-editor": {
+      "body-delete-group-mappings": "Biztosan törli a csoport összes hozzárendelését?",
+      "close-button-drawer": "Bezárás",
+      "confirm-text-delete-group-mappings": "Törlés",
+      "delete-group-mapping": "Csoport-hozzárendelés törlése",
+      "new-button-drawer": "Új",
+      "new-group-mapping": "Új csoport-hozzárendelés",
+      "placeholder-search-by-group-id": "Keresés csoportazonosító alapján",
+      "text-deprecated-feature": "Ez a funkció elavult, és a szabályai 2025 júniusától nem működnek tovább. Váltson a kívánt csapat beállításaiban a külső csoportszinkronizálásra, és rendeljen szerepköröket a csapatokhoz.",
+      "title-delete-group-mappings": "Csoport-hozzárendelések törlése",
+      "title-deprecated-feature": "Elavult funkció"
+    },
+    "new-mapping-form": {
+      "label-group-id": "Csoportazonosító",
+      "label-roles": "Szerepkörök",
+      "save": "Mentés"
+    }
+  },
+  "licensing": {
+    "customer-support-button": {
+      "contact-customer-support": "Kapcsolatfelvétel az ügyfélszolgálattal"
+    },
+    "expires-soon": {
+      "title-grafana-enterprise-license-expire": "Grafana Enterprise-licence hamarosan lejár",
+      "sub-title-license-expiration_one": "{{count}} nap van hátra, amely után a <3>vállalati funkciók le lesznek tiltva.</3>",
+      "sub-title-license-expiration_other": "{{count}} nap van hátra, amely után a <3>vállalati funkciók le lesznek tiltva.</3>"
+    },
+    "get-token-status": {
+      "title": {
+        "token-expired": "A token lejárt",
+        "token-expires-soon": "A token hamarosan lejár"
+      }
+    },
+    "get-trial-status": {
+      "title": {
+        "trial-active": "A próbaidőszak aktív",
+        "trial-expired": "A próbaidőszak lejárt"
+      }
+    },
+    "has-expired": {
+      "sub-title-licensing-reader": "<0>Néhány funkció</0> le lett tiltva.",
+      "title-your-grafana-enterprise-license-has-expired": "Grafana Enterprise-licence lejárt"
+    },
+    "is-invalid": {
+      "sub-title-licensing-reader": "<0>Néhány funkció</0> le lett tiltva.",
+      "title-your-grafana-enterprise-license-is-invalid": "Grafana Enterprise-licence érvénytelen"
+    },
+    "license-info": {
+      "aria-label-details-about-license-grafana-cloud": "Tekintse meg a licenc részleteit a Grafana Cloudban",
+      "card-content-account": "AWS-fiók",
+      "card-content-active-licensed-users": "Aktív licenccel rendelkező felhasználók",
+      "card-content-anonymous-users": "Anonim felhasználók",
+      "card-content-authenticated-users": "Hitelesített felhasználók",
+      "card-content-company": "Vállalat",
+      "card-content-license-expires": "A licenc lejár",
+      "card-content-license-expires-tooltip": "A licenc lejárati dátuma az a dátum, amikor az aktuális licenc már nem aktív. A licenc lejárati dátumának közeledtével a Grafana Enterprise megjelenít egy értesítésszalagot.",
+      "card-content-lid": "Licencazonosító",
+      "card-content-none": "Nincs",
+      "card-content-product": "Termék",
+      "card-content-products": "Termékek",
+      "card-content-purchase-date": "Vásárlás időpontja",
+      "card-content-token-auto-update": "A Grafana automatikusan frissíti a tokent, mielőtt lejár. Ha a token nem frissül, forduljon az ügyfélszolgálathoz.",
+      "card-content-token-expires": "A token lejár",
+      "card-content-token-id": "Tokenazonosító",
+      "card-content-token-issued": "Token kiadva",
+      "card-content-token-usage-billing-off": "Ki",
+      "card-content-url-name": "URL-cím",
+      "card-content-url-tooltip": "A licenc URL-címe a Grafana-példány gyökér-URL-címe. A licenc nem fog működni a Grafana olyan példányán, amely eltérő gyökér-URL-címmel rendelkezik.",
+      "card-content-usage-billing": "Használatalapú számlázás",
+      "card-content-usage-billing-on": "Be",
+      "card-content-usage-billing-tooltip": "Kérheti a Grafana Labs vállalatot, hogy kapcsolja be a használatalapú számlázást, hogy korlátlan számú aktív felhasználót engedélyezhessen. Ha a használatalapú számlázás engedélyezve van, a Grafana nem érvényesíti az aktív felhasználói korlátokat, és nem jelenít meg figyelmeztető értesítésszalagokat. Ehelyett az ügyfélszerződésének megfelelően a határértéket meghaladó aktív felhasználók után számít fel díjat.",
+      "edition-notice-licensing-info": "A Grafana Enterprise-t licenc nélkül futtatja. A vállalati funkciók le vannak tiltva.",
+      "edition-notice-problem-licensing-info": "Probléma merült fel a vállalati licenctokenjével. A vállalati funkciók le vannak tiltva.",
+      "license-alert": "Licenctoken feltöltve. Indítsa újra a Grafanát, hogy a módosítások életbe lépjenek.",
+      "license-details": "Licenc adatai",
+      "license-token-info": "Olvassa el a <2>licenc lejáratára</2> és a <6>licenc aktiválására</6> vonatkozó információkat.",
+      "renew-token": "Token megújítása",
+      "renewing": " (Megújítás…)",
+      "text-loading-licensing-info": "Licencadatok betöltése…",
+      "title-contact-support-renew-token-visit-cloud": "A token megújításához lépjen kapcsolatba az ügyfélszolgálattal, vagy látogasson el a felhőportálra, ha további információra van szüksége.",
+      "title-have-a-license": "Van licence?",
+      "title-license": "Licenc",
+      "title-license-token-renewed": "Licenctoken megújítva.",
+      "title-token": "Token",
+      "title-utilization": "Kihasználtság",
+      "utilization-footer": "A licencelt felhasználók kihasználtságát a bejelentkezett felhasználók elmúlt 30 napban végzett tevékenysége határozza meg.",
+      "utilization-info": "Olvassa el az <2>aktív felhasználói korlátokra</2> és az <6>egyidejű munkamenetekkel kapcsolatos korlátokra</6> vonatkozó információkat.",
+      "card-content-anonymous-users-tooltip_one": "A Grafana minden {{count}} anonim eszközt 1 felhasználónak számol.",
+      "card-content-anonymous-users-tooltip_other": "A Grafana minden {{count}} anonim eszközt 1 felhasználónak számol."
+    },
+    "license-token-upload": {
+      "instance-url": "Példány URL-címe: <1>{{licensedUrl}}</1>",
+      "upload-a-new-token": "Új token feltöltése",
+      "uploading": "Feltöltés…"
+    },
+    "max-users-reached": {
+      "title-exceeded-included-number-active-users": "Túllépte az aktív felhasználók megengedett számát",
+      "upgrade-your-license-link": "Kérjük, <2>váltson magasabb szintű licencre.</2>",
+      "upgrade-your-license-no-link": "Kérjük, váltson magasabb szintű licencre.",
+      "upgrade-your-license-subtitle_one": "Grafana Enterprise-licence {{maxUsers}} aktív felhasználót tesz lehetővé, és Önnek jelenleg {{count}} aktív felhasználója van. ",
+      "upgrade-your-license-subtitle_other": "Grafana Enterprise-licence {{maxUsers}} aktív felhasználót tesz lehetővé, és Önnek jelenleg {{count}} aktív felhasználója van. "
+    },
+    "page-alert": {
+      "learn-about-enterprise-licenses": "További információ a vállalati licencekről"
+    },
+    "token-expires-soon": {
+      "title-grafana-enterprise-token-needs-renewed": "Grafana Enterprise-tokenjét meg kell újítani",
+      "sub-title-token-expiration_one": "Licenctokenjéből {{count}} nap van hátra, amely után a <4>vállalati funkciók le lesznek tiltva.</4>",
+      "sub-title-token-expiration_other": "Licenctokenjéből {{count}} nap van hátra, amely után a <4>vállalati funkciók le lesznek tiltva.</4>"
+    }
+  },
+  "meta-analytics": {
+    "analytics-drawer": {
+      "public-dashboards-tab-label": "Nyilvános irányítópultok",
+      "shared-dashboards-tab-label": "Megosztott irányítópultok",
+      "stats-tab-label": "Statisztika",
+      "text-access-usage-insights-during-trial-grafana": "A Grafana Pro próbaidőszaka alatt teljes hozzáférést kaphat a használati adatokhoz ingyenesen.",
+      "title-dashboard-insights": "{{dashboardTitle}} – analitika",
+      "users-activity-tab-label": "Felhasználók és tevékenység"
+    },
+    "analytics-public-dashboards-tab": {
+      "daily-query-count-cached-queries-label": "gyorsítótárazott lekérdezés",
+      "daily-query-count-title": "Napi lekérdezésszám",
+      "errors-last-month-title": "Hibák az elmúlt 30 napban",
+      "no-data": "Nincsenek adatok.",
+      "views-last-month-title": "Megtekintések az elmúlt 30 napban"
+    },
+    "analytics-stats-tab": {
+      "daily-query-count-cached-queries-label": "gyorsítótárazott lekérdezés",
+      "daily-query-count-title": "Napi lekérdezésszám",
+      "errors-last-month-title": "Hibák az elmúlt 30 napban",
+      "no-data": "Nincsenek adatok."
+    },
+    "analytics-toolbar-button": {
+      "tooltip-dashboard-insights": "Irányítópult-információk"
+    },
+    "analytics-upgrade-drawer": {
+      "description-usage-insights-provide-detailed-information-about": "A Használati adatok részletes információkat nyújtanak az irányítópult használatáról, például a megtekintések, lekérdezések és a felhasználók által tapasztalt hibák számáról. Ezt felhasználhatja a felhasználói élmény javítására és a problémák elhárítására.",
+      "title-dashboard-insights": "{{dashboardTitle}} – analitika"
+    },
+    "analytics-users-tab": {
+      "aria-label-recent-users-table": "Legutóbbi felhasználók táblája",
+      "aria-label-user-box-title": "Felhasználói mező címe",
+      "aria-label-user-information-box": "Felhasználói adatok mező",
+      "aria-label-version-history-button": "Verzióelőzmények gomb",
+      "created-user-box": "Létrehozva",
+      "dashboard-version-history": "Irányítópult verzióelőzményei",
+      "format-date-currently-viewing": "Jelenleg megtekinti",
+      "format-date-last-hour": "Elmúlt óra",
+      "format-date-today": "Ma",
+      "format-date-yesterday": "Tegnap",
+      "last-dashboard-viewers": "Az irányítópult legutóbbi 30 megtekintője",
+      "last-edited-user-box": "Utoljára szerkesztette",
+      "last-viewed-user-box": "Utoljára megtekintette",
+      "user-views-data-frame-user-field": "Felhasználó",
+      "user-views-data-frame-when-field": "Amikor",
+      "views-last-month-title": "Megtekintések az elmúlt 30 napban"
+    },
+    "data-source-insights": {
+      "available-source": "Nincs elérhető adat ehhez az adatforráshoz.",
+      "average-load-duration-last-month-title": "Átlagos betöltési idő az elmúlt 30 napban (ms)",
+      "errors-last-month-title": "Hibák az elmúlt 30 napban",
+      "queries-last-month-title": "Lekérdezések az elmúlt 30 napban",
+      "text-enable-source-usage-insights-during-trial": "A Grafana Pro próbaidőszaka alatt ingyenesen engedélyezheti az adatforrás-használati adatok megtekintését.",
+      "text-feature-not-available-expired-license": "Az adatforrásra vonatkozó információk lejárt licenccel nem érhetők el. Az adatgyűjtés folytatódik, de frissítenie kell a licencet az oldal megtekintéséhez.",
+      "title-feature-available-expired-license": "A funkció lejárt licenccel nem érhető el",
+      "title-read-more-license-expiration": "További információ a licenc lejáratáról"
+    },
+    "data-source-insights-upgrade": {
+      "clean-instance-list-item": "Tisztítsa meg a példányt a nem használt adatforrások megkeresésével és eltávolításával",
+      "demonstrate-and-improve-list-item": "Mutassa be és javítsa megfigyelési szolgáltatásának értékét a felhasználói elkötelezettség nyomon követésével",
+      "description-usage-insights-provide-detailed-information-about": "A Használati adatok részletes információkat nyújtanak az adatforrás használatáról, például a megtekintések, lekérdezések és a felhasználók által tapasztalt hibák számáról. Ezt felhasználhatja a felhasználói élmény javítására és a problémák elhárítására",
+      "keep-performant-list-item": "Tartsa fenn a Grafana teljesítményét a lassú, hibára hajlamos adatforrások azonosításával és javításával",
+      "review-insights-list-item": "Tekintse át az egyes adatforrások használatára vonatkozó adatokat egy pillantással a felhasználói felületen, rendezze a keresési eredményeket a használat és a hibák szerint, vagy nézze meg a részletes használati naplókat"
+    }
+  },
+  "permissions": {
+    "data-source-permissions": {
+      "text-enable-source-permissions-during-trial-grafana": "A Grafana Pro próbaidőszaka alatt ingyenesen engedélyezheti az adatforrás-engedélyeket."
+    },
+    "permissions-upgrade-content": {
+      "description-source-permissions-protect-sensitive-limiting-access": "Az adatforrás-engedélyekkel megvédheti a bizalmas adatokat azzal, hogy az adott adatforráshoz való hozzáférést bizonyos felhasználókra, csapatokra és szerepekre korlátozza.",
+      "source-permissions-protect-clean-experience-list-item": "Célirányosítsa a felhasználói élményt a nem szükséges adatforrások elrejtésével",
+      "source-permissions-protect-sensitive-data-list-item": "Védje a bizalmas adatokat, például a biztonsági naplókat, az élő adatbázisokat és a személyazonosításra alkalmas információkat",
+      "source-permissions-protect-share-access-list-item": "Szabadabban megoszthatja a Grafana-hozzáférést annak tudatában, hogy a felhasználók nem fogják akaratlanul látni a bizalmas adatokat"
+    }
+  },
+  "plugins": {
+    "sandbox": {
+      "enable-sandbox-label": "Frontend Sandbox",
+      "enable-sandbox-tooltip": "A Frontend Sandbox elszigetelten futtatja a frontendkódot, korlátozva a hozzáférést a globális böngésző hatóköréhez, és felhasználói felület módosításait a bővítmény területére korlátozva.",
+      "enable-sandbox-tooltip-link": "További információk"
+    }
+  },
+  "public-dashboard": {
+    "email-sharing": {
+      "success-confirm-access": "Hozzáférés megerősítve!",
+      "success-resend-recipient-invitation": "Az e-mailes meghívót újraküldtük.",
+      "success-revoke-access-description": "Sikeresen visszavonta {{recipientEmail}} hozzáférését.",
+      "success-revoke-access-title": "Hozzáférés visszavonva",
+      "success-revoke-all-accesses-description": "Sikeresen eltávolította {{email}} hozzáférését az összes nyilvános irányítópulthoz.",
+      "success-revoke-all-accesses-title": "Hozzáférés visszavonva",
+      "success-send-recipient-invitation": "Az e-mailes meghívót elküldtük."
+    }
+  },
+  "public-dashboards": {
+    "confirm-access-page": {
+      "confirm-access": "Hozzáférés megerősítése",
+      "login-subtitle": "Szerezzen hozzáférést az irányítópulthoz 30 napig. 30 nap elteltével újra kérheti a hozzáférést, hogy továbbra is megtekinthesse az irányítópultot.",
+      "login-title": "Irányítópult-hozzáférés"
+    },
+    "request-view-access-page": {
+      "access-requested": "Hozzáférés igényelve",
+      "label-email": "E-mail-cím",
+      "placeholder-email": "e-mail",
+      "register-pattern-invalid-email": "Érvénytelen e-mail-cím",
+      "register-required-email": "Az e-mail-cím megadása kötelező",
+      "request-access": "Hozzáférés igénylése"
+    }
+  },
+  "query-library": {
+    "actions": {
+      "delete-query-button": "Lekérdezés törlése",
+      "duplicate-query-button": "Lekérdezés duplikálása",
+      "duplicate-query-title-copy": "Másolás",
+      "lock-query-button": "Lekérdezés zárolása",
+      "menu-button": "",
+      "save-history-query-button": "",
+      "select-query-button": "Lekérdezés kijelölése",
+      "unlock-query-button": "Lekérdezés zárolásának feloldása"
+    },
+    "delete-modal": {
+      "body-text": "Egy mentett lekérdezés eltávolítására készül. A művelet nem vonható vissza. Folytatja?",
+      "confirm-button": "Lekérdezés törlése",
+      "title": "Lekérdezés törlése"
+    },
+    "discard-changes": {
+      "discard-button": "Elvetés",
+      "text": "Nem mentett módosításai vannak ebben a lekérdezésben. Biztosan elveti őket?",
+      "title": "Elveti a lekérdezés módosításait?"
+    },
+    "drawer": {
+      "title": "Mentett lekérdezések",
+      "tooltip": "Jelenleg minden szervezet legfeljebb 1000 lekérdezést menthet"
+    },
+    "empty-state": {
+      "message": "Kezdje el hozzáadni őket az Explore-ból vagy egy irányítópult szerkesztésekor",
+      "no-favorites": "",
+      "no-favorites-description": "",
+      "no-history": "",
+      "no-history-description": "",
+      "title": ""
+    },
+    "error-state": {
+      "title": "Valami hiba történt!"
+    },
+    "explore-modal": {
+      "cancel-button": "",
+      "confirm-button": "",
+      "title": "",
+      "warning": ""
+    },
+    "filters": {
+      "datasource-placeholder": "Szűrés adatforrás szerint",
+      "datasource-user": "Szűrés felhasználónév alapján",
+      "search-placeholder": "Keresés adatforrás, lekérdezéstartalom, cím vagy leírás alapján",
+      "sort": {
+        "asc": "Betűrendben (A–Z)",
+        "desc": "Betűrendben (Z–A)",
+        "newest": "Újabbat előre",
+        "oldest": "Régebbit előre"
+      },
+      "sort-placeholder": "Rendezés"
+    },
+    "item": {
+      "add-to-library": "",
+      "favorite": "Kedvenc",
+      "new": "Új",
+      "unfavorite": "Eltávolítás a kedvencek közül"
+    },
+    "not-found": {
+      "message": "Próbálkozzon a keresési vagy szűrési feltételek módosításával",
+      "title": "Nincs eredmény"
+    },
+    "notifications": {
+      "query-deleted": "Lekérdezés törölve"
+    },
+    "query-details": {
+      "author": "Szerző",
+      "datasource": "Adatforrás",
+      "date-added": "Hozzáadás dátuma",
+      "description": "Leírás",
+      "edit-button": "Lekérdezés szerkesztése",
+      "edit-button-short": "Szerkesztés",
+      "make-query-visible": "Lekérdezés megosztása az összes felhasználóval",
+      "recent-description": "",
+      "recent-example": "",
+      "tags": "Címkék",
+      "title": "Cím"
+    },
+    "tabs": {
+      "all": "Összes",
+      "favorites": "Kedvencek",
+      "recent": ""
+    },
+    "template-variables-warning": {
+      "message": "",
+      "message-explore": "",
+      "title": ""
+    },
+    "user-info": {
+      "error": "Hiba történt a felhasználói adatok könyvtárból való lekérésekor: {{error}}"
+    }
+  },
+  "query-operation": {
+    "header": {
+      "replace-query-from-library": "Csere mentett lekérdezéssel",
+      "save-to-query-library": "Lekérdezés mentése"
+    }
+  },
+  "recorded-queries": {
+    "create-recorded-query-unconnected": {
+      "alert-severity-succesful": "Sikeres",
+      "alert-severity-test": "A rögzített lekérdezés tesztelése",
+      "aria-label-start-recording-query-button": "Lekérdezésrögzítés indítása gomb",
+      "contact-support": "Ha támogatási jegyet szeretne küldeni a Grafana Labs vállalatnak, töltse ki a <2>Kapcsolatfelvétel a Grafana Labs vállalattal</2> űrlapot",
+      "count-rows-returned": "A lekérdezés által visszaadott sorok számának megszámolása",
+      "description-decide-often-record-query": "Döntse el, hogy milyen gyakran szeretné rögzíteni ezt a lekérdezést",
+      "description-give-this-query-a-name": "Adjon nevet ennek a lekérdezésnek",
+      "description-provide-a-description-for-this-query": "Adjon meg egy leírást a lekérdezéshez",
+      "description-select-value-template-variable": "Válasszon ki egy értéket minden sablonváltozóhoz",
+      "done-button": {
+        "aria-label-cancel-recording-query-button": "Lekérdezésrögzítés visszavonása gomb",
+        "aria-label-close-recording-query-button": "Lekérdezésrögzítés bezárása gomb",
+        "cancel": "Mégse",
+        "close": "Bezárás"
+      },
+      "label": {
+        "relative-time-range": "Relatív időtartomány"
+      },
+      "label-count-query-results": "Lekérdezési eredmények számlálása",
+      "label-description": "Leírás",
+      "label-interval": "Intervallum",
+      "label-name": "Név",
+      "label-template-variables": "Sablonváltozók",
+      "message": {
+        "name-is-required": "A név megadása kötelező"
+      },
+      "query-relative-time-range": "Válassza ki a lekérdezés relatív időtartományát",
+      "results-alert-message": "Találatok: ",
+      "start-recording-query": "Lekérdezésrögzítés indítása",
+      "success-alert-message": "Az új rögzített lekérdezésének rögzítése sikeres volt.",
+      "sync-button": {
+        "aria-label-test-the-recorded-query": "A rögzített lekérdezés tesztelése"
+      },
+      "title-create-recorded-query": "Rögzített lekérdezés létrehozása"
+    },
+    "data-source-filter": {
+      "button-clear-filter": "Adatforrás-szűrő törlése",
+      "filter-by-data-source": "Szűrés adatforrás szerint",
+      "placeholder-select-a-data-source": "Adatforrás kiválasztása"
+    },
+    "empty-recorded-query-list": {
+      "message": "Nincs meghatározva rögzített lekérdezés",
+      "pro-tip": "Tipp: A lekérdezéseket a lekérdezésszerkesztőből rögzítheti."
+    },
+    "query-card": {
+      "interval-content": "Intervallum: {{interval}}",
+      "interval-range": "Tartomány: legutóbbi {{range}}",
+      "query-expression": "Lekérdezési kifejezés:"
+    },
+    "recorded-queries-config-unconnected": {
+      "body-delete": "Biztosan törölni kívánja ezt: {{name}}?",
+      "confirm-text-delete": "Törlés",
+      "edit-remote-write-target": "Távoli írási cél szerkesztése",
+      "queries-to-display": {
+        "buttons": {
+          "aria-label-delete-recorded-query": "Rögzített lekérdezés törlése",
+          "aria-label-pause-recorded-query": "Rögzítés szüneteltetése",
+          "aria-label-resume-recorded-query": "Rögzítés folytatása",
+          "delete": "Törlés"
+        }
+      },
+      "title-delete": "Törlés"
+    },
+    "recorded-queries-deprecation-notice": {
+      "description": "A rögzített lekérdezések elavultak. Használja inkább az új <2>Grafana által felügyelt rögzítési szabályokat</2>.",
+      "title-deprecation-notice": "Elavulási értesítés"
+    },
+    "recorded-query-add-modal-unconnected": {
+      "add": "Hozzáadás",
+      "cancel": "Mégse",
+      "new-recorded-query-alert": "Új rögzített lekérdezés létrehozásához térjen vissza a lekérdezésszerkesztőhöz, és használja a sorozatsáv <2></2> ikonját.",
+      "no-queries-available": "Nincs elérhető rögzített lekérdezés a következőhöz: {{datasourceName}}",
+      "recorded-query": "Rögzített lekérdezés",
+      "title-add-recorded-query": "Rögzített lekérdezés hozzáadása"
+    },
+    "write-target-config-unconnected": {
+      "label-remote-write-path": "Távoli írási útvonal",
+      "placeholder-select-a-data-source": "Adatforrás kiválasztása",
+      "save": "Mentés",
+      "select-data-source-label": "Válassza ki a metrikák írási céljaként használandó adatforrást"
+    }
+  },
+  "report": {
+    "report-header": {
+      "time-range": "Adatok időtartománya:",
+      "title": "{{reportTitle}} – létrehozva: {{generatedOnDate}}"
+    }
+  },
+  "reporting": {
+    "button-row": {
+      "next-step": "Következő: {{nextName}}",
+      "previous-step": "Előző: {{prevName}}"
+    },
+    "create-report": {
+      "alert-title": "Hiba történt a jelentés betöltésekor",
+      "loading-report": "Jelentés betöltése…",
+      "title": "Új jelentés létrehozása"
+    },
+    "errors": {
+      "action-message": "Kérjük, vegye fel a kapcsolatot Grafana-rendszergazdájával a bővítmény telepítéséhez.",
+      "no-renderer-description": "PDF-jelentések létrehozásához telepítenie kell a <2>Grafana Image Renderer</2> bővítményt.",
+      "no-renderer-title": "Az Image Renderer bővítmény nincs telepítve",
+      "old-renderer-description": "CSV-fájlok létrehozásához frissítenie kell a <2>Grafana Image Render </2> bővítményt.",
+      "old-renderer-title": "Ön az Image Renderer bővítmény régi verzióját használja"
+    },
+    "image-preview": {
+      "invalid-image": "Érvénytelen kép"
+    },
+    "page": {
+      "empty-button": "Jelentés készítése",
+      "empty-pro-tip": "Jelentés létrehozása bármely meglévő irányítópultból. <2>További információ</2>",
+      "empty-title": "Még nincs létrehozott jelentés",
+      "settings-button": "Jelentési beállítások"
+    },
+    "page-actions": {
+      "discard-button": "Elvetés",
+      "save-as-draft-button": "Mentés vázlatként",
+      "update-button": "Jelentés frissítése"
+    },
+    "report-footer": {
+      "page-pagination": "{{totalPageCount}}/{{currentPage}}. oldal"
+    },
+    "report-form": {
+      "edit-step": "5. Megerősítés"
+    },
+    "report-list": {
+      "confirmText-delete": "Törlés",
+      "content-pause-report": "Jelentés szüneteltetése",
+      "content-resume-report": "Jelentés folytatása",
+      "delete-report": "A(z) {{name}} jelentés törlése "
+    },
+    "schedule": {
+      "frecuency-custom-input-label": "Ismétlődés gyakorisága",
+      "frecuency-custom-select-label": "Egyedi gyakoriság",
+      "frecuency-custom-select-placeholder": "óra",
+      "frecuency-date-picker-label": "Jelentés ütemezésének kezdési dátuma",
+      "frecuency-date-picker-placeholder": "Válasszon dátumot",
+      "frecuency-end-date-label": "Befejezési dátum",
+      "frecuency-end-time-label": "Befejezési idő",
+      "frecuency-last-day-label": "Küldés minden hónap utolsó napján",
+      "frecuency-last-day-warning": "Megjegyzés: Bizonyos hónapokban nincs {{warningDateText}}. nap, és ezekben a hónapokban a rendszer nem küld jelentéseket. Válasszon korábbi dátumot, vagy válassza a <3>„Küldés minden hónap utolsó napján”</3> lehetőséget, ha minden hónap végén jelentést szeretne küldeni.",
+      "frecuency-send-later": "Küldés később",
+      "frecuency-send-now": "Küldés most",
+      "frecuency-start-time-label": "Kezdési idő",
+      "frecuency-time-zone-label": "Időzóna",
+      "frecuency-workdays-label": "Küldés csak hétfő és péntek között",
+      "report-schedule-end-date-label": "Jelentés ütemezésének befejezési dátuma",
+      "report-schedule-end-date-placeholder": "Nem ér véget"
+    },
+    "settings": {
+      "attachment-settings-fieldset-label": "Melléklet beállításai",
+      "drawer-title": "Jelentéssablon-beállítások",
+      "email-branding-fieldset-label": "E-mailes márkaelemek",
+      "email-footer-field-label": "E-mail-lábléc",
+      "email-logo-image-preview-altText": "Céges embléma előnézete",
+      "email-logo-url-field-description": "Az embléma az e-mail fejlécében jelenik meg. Támogatott formátumok: png, jpg, gif.",
+      "email-logo-url-field-label": "Céges embléma URL-címe",
+      "embedded-image-header": "Beágyazott kép",
+      "embedded-image-theme-picker-description": "A témát az e-mailbe ágyazott irányítópultképre alkalmazza a rendszer.",
+      "footer-link-field-label": "Lábléc hivatkozásának szövege",
+      "footer-link-url-field-label": "Lábléc hivatkozásának URL-címe",
+      "no-data": "Nincs elérhető beállítási adat",
+      "none-footer-label": "Nincs",
+      "pdf-header": "PDF",
+      "pdf-theme-picker-description": "A témát alkalmazza a rendszer a jelentéshez csatolt PDF-re.",
+      "report-logo-image-preview-altText": "Céges embléma előnézete",
+      "report-logo-url-field-description": "Az embléma a dokumentum láblécében jelenik meg. Támogatott formátumok: png, jpg, gif.",
+      "report-logo-url-field-label": "Céges embléma URL-címe",
+      "save-button": "Mentés",
+      "saving-button": "Mentés...",
+      "sent-by-footer-label": "Feladó:",
+      "settings-subtitle": "Jelentéssablon-beállítások kezelése."
+    },
+    "update-report": {
+      "title": "Jelentés frissítése"
+    }
+  },
+  "reports": {
+    "all-template-alert": {
+      "description-not-supported": "Az ismétlődő sorokban vagy paneleken használt sablonváltozókban szereplő Összes érték nem támogatott a PDF-ben",
+      "title-not-supported": "Nem támogatott"
+    },
+    "confirm": {
+      "edit": "Szerkesztés",
+      "report-data": {
+        "title": {
+          "combine-all-pdfs-in-one-file": "Az összes irányítópult PDF-fájljának egyesítése egyetlen fájlban",
+          "dashboard-link": "Irányítópult hivatkozása",
+          "email-subject": "E-mail tárgya",
+          "end-date": "Befejezési dátum",
+          "end-time": "Befejezési idő",
+          "format-report": "Jelentés formázása",
+          "message": "Üzenet",
+          "pdf-layout": "PDF elrendezése",
+          "pdf-orientation": "PDF tájolása",
+          "pdf-show-template-variables": "PDF sablonváltozóinak megjelenítése",
+          "preferred-format": "Előnyben részesített formátum*",
+          "recipients": "Címzettek*",
+          "recurrence": "Ismétlődés",
+          "repeat-every": "Ismétlődés gyakorisága",
+          "replytoemail": "Válasz az e-mailre",
+          "report-name": "Jelentés neve*",
+          "scale-factor": "Skálázási tényező",
+          "schedule": "Ütemezés",
+          "select-dashboard": "Irányítópult kiválasztása",
+          "send-monday-to-friday-only": "Küldés csak hétfő és péntek között",
+          "share": "Megosztás",
+          "start-date": "Kezdési dátum",
+          "start-time": "Kezdési idő",
+          "template-variables": "Sablonváltozók",
+          "time-range": "Időtartomány",
+          "time-zone": "Időzóna"
+        }
+      }
+    },
+    "create-report-tab": {
+      "create-report-using-this-dashboard": "Jelentés létrehozása ezzel az irányítópulttal",
+      "description-reporting-allows-automatically-generate-dashboards-grafana": "A jelentéskészítés lehetővé teszi, hogy automatikusan PDF-fájlokat hozzon létre bármelyik irányítópultjáról, és a Grafana e-mailben, ütemezetten elküldje őket az érdekelt feleknek.",
+      "get-started-with-reporting": "Kezdje el a jelentéskészítést",
+      "learn-more": "További információk",
+      "text-create-unlimited-reports-during-trial-grafana": "A Grafana Pro próbaidőszaka alatt korlátlan számú jelentést hozhat létre."
+    },
+    "dashbord-report-renderer": {
+      "title-unsupported-dashboard-layout": "Nem támogatott irányítópult-elrendezés"
+    },
+    "edit-actions": {
+      "aria-label-delete-report": "Jelentés törlése",
+      "body-are-you-sure": "Biztosan törli ezt a jelentést?",
+      "confirmText-delete": "Törlés",
+      "edit-report": "Jelentés szerkesztése",
+      "pause-button": "Szünet",
+      "resume-button": "Folytatás",
+      "title-delete-report": "Jelentés törlése",
+      "tooltip-delete": "Törlés"
+    },
+    "format-report": {
+      "aria-label-zoom": "Nagyítás",
+      "description-enlarge-table-columns-panel": "Nagyítson a szöveg nagyításához, vagy kicsinyítsen, hogy panelenként több adatot (például táblázatoszlopokat) lásson.",
+      "label-combine-dashboard": "Az összes irányítópulti PDF egyesítése egyetlen fájlban",
+      "label-configure-multiple-pdfs": "Több PDF konfigurálása",
+      "label-configure-report-header": "Jelentésfejléc konfigurálása",
+      "label-format-report": "2. Jelentés formázása",
+      "label-layout": "Elrendezés",
+      "label-orientation": "Tájolás",
+      "label-show-template-variables": "Sablonváltozók megjelenítése",
+      "label-style-the-pdf": "PDF stílusának megadása",
+      "label-zoom": "Nagyítás",
+      "preview-pdf": "PDF előnézete",
+      "tooltip-download-table-panel": "Táblapaneladatok letöltése CSV-ként egy ZIP-fájlban"
+    },
+    "highlight-trial-report": {
+      "get-started-with-reporting": "Kezdje el a jelentéskészítést",
+      "get-started-with-reporting-text": "A jelentéskészítés lehetővé teszi, hogy automatikusan PDF-fájlokat hozzon létre bármelyik irányítópultjáról, és a Grafana e-mailben, ütemezetten elküldje őket az érdekelt feleknek.",
+      "learn-more": "További információk",
+      "text-create-unlimited-reports-during-trial-grafana": "A Grafana Pro próbaidőszaka alatt korlátlan számú jelentést hozhat létre."
+    },
+    "report-upgrade-content": {
+      "description-reporting-allows-automatically-generate-dashboards-grafana": "A jelentéskészítés lehetővé teszi, hogy automatikusan PDF-fájlokat hozzon létre bármelyik irányítópultjáról, és a Grafana e-mailben, ütemezetten elküldje őket az érdekelt feleknek."
+    },
+    "reports-list-page": {
+      "render-list": {
+        "create-a-new-report": "Új jelentés létrehozása",
+        "placeholder-search-reports-report-dashboard-recipients": "Jelentések keresése a jelentés neve, az irányítópult neve vagy a címzettek alapján",
+        "text": {
+          "create-report": "Jelentés készítése"
+        },
+        "text-create-unlimited-reports-during-trial-grafana": "A Grafana Pro próbaidőszaka alatt korlátlan számú jelentést hozhat létre."
+      }
+    },
+    "schedule": {
+      "label-frequency": "Gyakoriság",
+      "label-schedule": "3. Ütemezés",
+      "label-start-date": "Kezdési dátum",
+      "label-time": "Idő"
+    },
+    "select-dashboard": {
+      "aria-label-source-dashboard": "Forrás-irányítópult",
+      "description-time-range": "Jelentés létrehozása a megadott időtartomány adataival. Ha az egyedi időtartomány üres, a rendszer a jelentés irányítópultjának időtartományát használja.",
+      "label-source-dashboard": "Forrás-irányítópult",
+      "label-template-variables": "Sablonváltozók",
+      "label-time-range": "Időtartomány"
+    },
+    "select-dashboards": {
+      "add-another-dashboard": "Másik irányítópult hozzáadása",
+      "label-select-dashboard": "1. Irányítópult kiválasztása",
+      "remove-dashboard": "Irányítópult eltávolítása"
+    },
+    "send-test-email-modal": {
+      "cancel": "Mégse",
+      "label-email": "E-mail-cím",
+      "label-use-emails-from-report": "E-mailek használata a jelentésből",
+      "send": "Küldés",
+      "title-send-test-email": "Tesztelési e-mail küldése"
+    },
+    "share": {
+      "description-address-appear-reply-field-email": "Az e-mail Válasz mezőjében megjelenő cím",
+      "description-separate-multiple-emails-comma-semicolon": "Több e-mail-címet vesszővel vagy pontosvesszővel elválasztva lehet megadni.",
+      "email-info-button": "Ha ez a mező üresen marad, a jelentés neve lesz az e-mail tárgya",
+      "email-subject": "E-mail tárgya",
+      "label-include-a-dashboard-link": "Irányítópult hivatkozásának belefoglalása",
+      "label-message": "Üzenet",
+      "label-recipients": "Címzettek",
+      "label-replyto-email-address": "E-mail-cím válaszhoz",
+      "label-report-name": "Jelentés neve",
+      "label-share": "4. Megosztás",
+      "name-placeholder-system-status-report": "Rendszerállapot-jelentés",
+      "recipients-placeholder-recipients-email-addresses-press-enter": "Írja be a címzettek e-mail-címét, majd nyomja le az Enter billentyűt",
+      "send-test-email": "Tesztelési e-mail küldése",
+      "subject-placeholder-email-subject": "E-mail tárgya",
+      "title-sending-test-email": "Tesztelési e-mail küldése…"
+    },
+    "share-pdfbase": {
+      "cancel": "Mégse",
+      "save-as-pdf": "Mentés PDF-formátumban"
+    },
+    "unavailable-feature-info-box": {
+      "title-feature-available-expired-license": "A funkció lejárt licenccel nem érhető el"
+    },
+    "upgrade-report": {
+      "description-reporting-allows-automatically-generate-dashboards-grafana": "A jelentéskészítés lehetővé teszi, hogy automatikusan PDF-fájlokat hozzon létre bármelyik irányítópultjáról, és a Grafana e-mailben, ütemezetten elküldje őket az érdekelt feleknek."
+    },
+    "variables-preview": {
+      "none": "nincs"
+    }
+  },
+  "saml-connect-to-idp": {
+    "validate-idp-metadata": {
+      "require-one": "Meg kell határozni egy metaadattípust"
+    }
+  },
+  "share-dashboard": {
+    "menu": {
+      "export-pdf-title": "Exportálás PDF-be",
+      "schedule-report-title": "Jelentés ütemezése"
+    }
+  },
+  "share-report": {
+    "actions": {
+      "aria-label-open-menu": "Műveleti menü megnyitása",
+      "download-csv-label": "CSV letöltése",
+      "downloading-label": "Letöltés…",
+      "preview-pdf-label": "PDF előnézete",
+      "report-settings-label": "Jelentési beállítások"
+    },
+    "attachments": {
+      "combine-one-file": "Az összes irányítópult PDF-fájljának egyesítése egyetlen fájlban",
+      "csv-tables": "Táblázatpanel-adatok csatolása CSV-fájlban",
+      "layout": "Elrendezés",
+      "orientation": "Tájolás",
+      "orientation-tooltip": "A kiválasztott tájolást alkalmazza a rendszer az irányítópulti PDF-re, a táblázatadatokra és a PDF-mellékletre",
+      "pdf-format": "PDF formátum",
+      "pdf-report": "Jelentés csatolása PDF-ként",
+      "pdf-tables": "Táblázatadatok csatolása külön PDF-fájlban",
+      "pdf-tables-appendix": "Táblázatadatok belefoglalása PDF-mellékletként",
+      "section-title": "Mellékletek",
+      "show-template-variables": "Sablonváltozók megjelenítése a fejlécben",
+      "zoom": "Nagyítás/kicsinyítés"
+    },
+    "back-button-text": "Vissza a jelentéslistához",
+    "confirm-delete": {
+      "button": "Jelentés törlése",
+      "description": "Biztosan törli ezt a jelentést?",
+      "title": "Jelentés törlése"
+    },
+    "create-report": "Új jelentés létrehozása",
+    "dashboard": {
+      "add-dashboard": "Irányítópult hozzáadása",
+      "dashboard-required": "Az irányítópult megadása kötelező",
+      "delete-dashboard-tooltip": "Irányítópult törlése",
+      "repeated-template-variables-description": "Ha ugyanazt az irányítópultot többször adja hozzá egy jelentéshez, a rendszer az elsőként kijelölt sablonváltozókat alkalmazza az adott irányítópult minden példányára a jelentésben.",
+      "section-title": "Irányítópultok",
+      "source-dashboard-label": "Forrás-irányítópult",
+      "template-variables-title": "Sablonváltozók testreszabása",
+      "time-range-description": "Üres időtartomány esetén a jelentés irányítópultjának időtartománya lesz használatban. Az abszolút időtartomány a böngésző időzónájában jelenik meg.",
+      "time-range-label": "Időtartomány",
+      "view-dashboard-tooltip": "Irányítópult megtekintése"
+    },
+    "discard-changes": {
+      "discard-button": "Elvetés",
+      "text": "Nem mentett módosításai vannak ebben az irányítópultjelentésben. Biztosan elveti őket?",
+      "title": "Elveti a jelentés módosításait?"
+    },
+    "email-configuration": {
+      "add-dashboard-image-label": "Irányítópultkép beágyazása",
+      "add-dashboard-url-label": "Irányítópult hivatkozásának belefoglalása",
+      "dashboard-image-settings-description": "Az irányítópultkép beállításai az általános <1>jelentésbeállításokban</1> módosíthatók",
+      "invalid-email": "Érvénytelen e-mail-cím",
+      "message-label": "Üzenet",
+      "message-placeholder": "Írja be az üzenetet",
+      "reply-to-label": "E-mail-cím válaszhoz",
+      "section-title": "E-mail-beállítások",
+      "subject-description": "Ha ez a mező üresen marad, a jelentés neve lesz az e-mail tárgya",
+      "subject-label": "E-mail tárgya"
+    },
+    "empty-list": {
+      "description": "Jelentés létrehozása erről az irányítópultról. <2>További információ</2>",
+      "title": "Nincsenek jelentések ehhez az irányítópulthoz"
+    },
+    "error-form": {
+      "title": "Hiba történt a jelentés betöltésekor"
+    },
+    "error-list": {
+      "title": "Hiba történt a jelentések betöltésekor"
+    },
+    "loading-form": "Űrlap betöltése…",
+    "loading-report": "Jelentés betöltése…",
+    "loading-report-form": "Jelentésűrlap betöltése…",
+    "loading-reports": "Jelentések betöltése…",
+    "recipients": {
+      "field-label": "Címzettek",
+      "invalid-email": "Érvénytelen e-mail-cím: {{email}}",
+      "invalid-emails": "Érvénytelen e-mail-címek: {{emails}}",
+      "placeholder": "Írja be a címzettek e-mail-címét, majd nyomja le az Enter billentyűt",
+      "recipients-required": "A címzettek megadása kötelező",
+      "section-title": "Címzettek",
+      "tooltip": "Több e-mail-címet vesszővel vagy pontosvesszővel elválasztva lehet megadni."
+    },
+    "report-name": {
+      "label": "Jelentés neve",
+      "required": "A jelentés nevének megadása kötelező"
+    },
+    "save-draft": {
+      "button": "Vázlat mentése",
+      "saving-button": "Vázlat mentése…"
+    },
+    "schedule": {
+      "end-date": "Befejezési dátum",
+      "end-date-invalid": "A befejezési dátumnak a kezdő dátumnál nagyobbnak vagy azzal egyenlőnek kell lennie",
+      "end-date-placeholder": "Nem ér véget",
+      "end-time": "Befejezési idő",
+      "frequency": "Gyakoriság",
+      "interval-amount-min": "Az intervallum mennyiségének legalább 2-nek kell lennie",
+      "interval-amount-required": "Az intervallum mennyiségének megadása kötelező",
+      "last-day-of-month": "Küldés minden hónap utolsó napján",
+      "monthly-schedule-alert-title": "Megjegyzés: Nem küldünk jelentéseket olyan hónapokról, amelyeknek nincs {{ dayNumber }}. napja. Válasszon korábbi dátumot, vagy válassza a „Küldés minden hónap utolsó napján” lehetőséget, ha minden hónap végén jelentést szeretne küldeni.",
+      "repeat-every": "Ismétlődés gyakorisága",
+      "repeat-every-placeholder": "pl. 2",
+      "repeat-interval-frequency-placeholder": "pl. óra",
+      "section-title": "Ütemezés",
+      "send-time": "Ütemezés",
+      "start-date": "Kezdési dátum",
+      "start-date-placeholder": "Válasszon dátumot",
+      "start-date-required": "A kezdési dátum megadása kötelező",
+      "start-time": "Kezdési idő",
+      "time-zone": "Időzóna",
+      "workdays-only": "Küldés csak hétfő és péntek között"
+    },
+    "schedule-report": {
+      "button": "Jelentés ütemezése",
+      "scheduling-button": "Jelentés ütemezése…"
+    },
+    "see-all-reports": "Minden jelentés megjelenítése",
+    "send-preview": {
+      "button": "Előnézet küldése",
+      "cancel": "Mégse",
+      "email": "E-mail",
+      "email-description": "Több e-mail-címet vesszővel vagy pontosvesszővel elválasztva lehet megadni.",
+      "email-required": "Az e-mail-cím megadása kötelező",
+      "send": "Küldés",
+      "sending": "Küldés…",
+      "title": "Előnézet küldése",
+      "use-report-emails": "E-mailek használata a jelentésből"
+    },
+    "settings": {
+      "loading": "Beállítások betöltése…"
+    },
+    "state": "Állapot:",
+    "unavailable-feature-info-box": {
+      "message": "Lejárt licenccel nem lehet új jelentéseket létrehozni. A meglévő jelentések feldolgozása folytatódik, de új jelentés létrehozásához frissítenie kell a licencét."
+    },
+    "update-report": {
+      "button": "Jelentés frissítése",
+      "delete-button": "Törlés",
+      "pause-button": "Szünet",
+      "pausing-button": "Jelentés szüneteltetése…",
+      "resume-button": "Folytatás",
+      "resuming-button": "Jelentés folytatása…",
+      "updating-button": "Jelentés frissítése…"
+    }
+  },
+  "shared": {
+    "resource-picker": {
+      "placeholder-select-color": "Szín kiválasztása"
+    }
+  },
+  "team-lbac": {
+    "create-team-lbacform": {
+      "label-rule": "Szabály",
+      "label-team": "Csapat",
+      "new-lbac-rule": "Új LBAC-szabály",
+      "new-lbac-rule-example": "Példa:",
+      "save": "Mentés"
+    },
+    "editable-cell": {
+      "empty-rule": "Üres szabály"
+    },
+    "team-label": {
+      "placeholder": "A(z) {{teamId}} azonosítójú csapat nem található"
+    },
+    "team-lbaceditor-unconnected": {
+      "add-a-lbac-rule": "LBAC-szabály hozzáadása",
+      "add-query-permissions": "<0>Lekérdezési engedélyek hozzáadása:</0> A következő csapatok nem rendelkeznek lekérdezési engedélyekkel az adatforráshoz, ezért nem tudják lekérdezni a naplókat a konfigurált LBAC-szabályokkal.",
+      "add-team-lbac-rules": "<0>Csapatra vonatkozó LBAC-szabályok hozzáadása:</0> A következő csapatok lekérdezhetik az összes naplót. Adjon hozzá Csapatra vonatkozó LBAC-szabályokat számukra:",
+      "clear-filter": "Törlés",
+      "clear-filter-aria-label": "Szűrő törlése",
+      "content-found-recommendation": "Talált ajánlások",
+      "description-data-access": "Itt konfigurálhatja a hozzáférést meghatározott adatokhoz az adatbázison belül LogQL címkeválasztók segítségével.",
+      "ensure-proper-access-control-please-follow": "A megfelelő hozzáférés-szabályozás biztosítása érdekében kövesse az alábbi ajánlásokat:",
+      "filter-results-single": "1 találat megjelenítése",
+      "filter-teams-aria-label": "LBAC-szabályok szűrése csapatnév alapján",
+      "filter-teams-placeholder": "Csapatok szűrése",
+      "hide-access-control-recommendations": "Hozzáférés-szabályozási ajánlások elrejtése",
+      "hide-lbac-rule": "LBAC-szabály elrejtése",
+      "label-selector": "Címkeválasztó",
+      "lbac-description": "Konfigurálja az LBAC-szabályokat az adott metrikákhoz/naplókhoz való hozzáférés korlátozásához.",
+      "lbac-labelbased-access-control": "LBAC (címkealapú hozzáférés-szabályozás)",
+      "lbac-rules-note": "Megjegyzés:<1></1>– Az LBAC-szabályok NEM vonatkoznak a lekérdezésre, ha a hitelesített felhőhozzáférési házirend tokenjének bármilyen címkeválasztója konfigurálva van a Grafana Cloudban.<3></3>– Az LBAC-szabályok módosításainak életbe léptetése a lekérdezési útvonal gyorsítótárazása miatt akár 5 percet is igénybe vehetnek.",
+      "learn-more-about-lbac-rules": "További információ az LBAC-szabályokról",
+      "remove-unrestricted-access": "<0>Korlátlan hozzáférés megszüntetése:</0> A következő szerepkörök jelenleg korlátlan hozzáféréssel rendelkeznek a naplókhoz.",
+      "role-warning-list": "Szerepkör: {{role}}",
+      "show-access-control-recommendations": "Hozzáférés-szabályozási ajánlások megjelenítése",
+      "sort-teams-ascending": "Csapatok rendezése: A–Z",
+      "sort-teams-descending": "Csapatok rendezése: Z–A",
+      "team": "Csapat",
+      "title-access-control-recommendations": "Hozzáférés-szabályozási ajánlások",
+      "title-data-access": "Adatelérés",
+      "filter-results-multiple_one": "",
+      "filter-results-multiple_other": ""
+    },
+    "team-rules-row": {
+      "aria-label-add-team-rule": "csapatszabály hozzáadása",
+      "aria-label-delete-rule": "Szabály törlése",
+      "aria-label-edit-team-rule": "csapatszabály szerkesztése",
+      "cancel": "Mégse",
+      "or": "VAGY",
+      "save": "Mentés",
+      "tooltip-add-new-rule": "Új szabály hozzáadása",
+      "tooltip-provisioned-rule": "Kiosztott szabály"
+    }
+  },
+  "teamLBAC": {
+    "create-team-lbacform": {
+      "message": {
+        "required": "Kötelező"
+      }
+    }
+  }
+}
