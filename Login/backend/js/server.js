@@ -248,7 +248,11 @@ const distIndex = path.join(distDir, 'index.html')
 if (fs.existsSync(distIndex)) {
   app.use(express.static(distDir))
   app.use((req, res, next) => {
-    if (req.path.startsWith('/api') || req.path.startsWith('/grafana') || req.path.startsWith('/auth')) {
+    if (
+      req.path.startsWith('/api')
+      || req.path.startsWith('/grafana')
+      || req.path.startsWith('/auth')
+    ) {
       next()
       return
     }

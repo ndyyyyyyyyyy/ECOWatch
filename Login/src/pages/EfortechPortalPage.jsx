@@ -2,8 +2,15 @@ import './style/efortech-portal.css'
 import efortechLogo from '../assets/efortech_logo.png'
 
 const DASHBOARD_URL = '/grafana/?orgId=1&from=now-6h&to=now&timezone=browser'
+const DEFAULT_ECOWATCH_URL = '/ecowatch/area-usage'
+const ECOWATCH_URL = import.meta.env.VITE_ECOWATCH_URL || DEFAULT_ECOWATCH_URL
 
 function EfortechPortalPage({ user, onSignOut }) {
+  function handleEcowatchOpen() {
+    localStorage.setItem('loggedInUser', user)
+    window.location.href = ECOWATCH_URL
+  }
+
   return (
     <main className="portal-page">
       <header className="portal-topbar">
@@ -25,7 +32,7 @@ function EfortechPortalPage({ user, onSignOut }) {
         <div className="portal-group">
           <h2>Services</h2>
           <div className="portal-grid">
-            <button type="button" className="portal-card">
+            <button type="button" className="portal-card" onClick={handleEcowatchOpen}>
               <div className="portal-card-icon">EW</div>
               <span>ECOWatch</span>
             </button>

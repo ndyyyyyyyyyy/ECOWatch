@@ -1,19 +1,27 @@
-import { useEffect, useMemo, useState } from 'react'
+import { Suspense, lazy, useEffect, useState } from 'react'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import EfortechLoginPage from './pages/EfortechLoginPage.jsx'
 import EfortechPortalPage from './pages/EfortechPortalPage.jsx'
 
+const EcowatchMainLayout = lazy(() => import('./layouts/EcowatchLayout.jsx'))
+const AreaUsagePage = lazy(() => import('./pages/EcowatchAreaUsagePage.jsx'))
+const DemandPage = lazy(() => import('./pages/EcowatchDemandPage.jsx'))
+const EnergyFlowPage = lazy(() => import('./pages/EcowatchEnergyFlowPage.jsx'))
+const ItemSummaryPage = lazy(() => import('./pages/EcowatchItemSummaryPage.jsx'))
+const EnergyRankingPage = lazy(() => import('./pages/EcowatchEnergyRankingPage.jsx'))
+const TOUPeriodPage = lazy(() => import('./pages/EcowatchTOUPeriodPage.jsx'))
+const AnnualReportPage = lazy(() => import('./pages/EcowatchAnnualReportPage.jsx'))
+
 const BACKEND_BASE_URL = window.location.origin
 
-function getHashRoute() {
-  const value = window.location.hash.replace(/^#/, '')
-  if (value === '/portal') {
-    return 'portal'
+function RequireSession({ sessionUser, children }) {
+  if (!sessionUser) {
+    return <Navigate to="/login" replace />
   }
-  return 'login'
+  return children
 }
 
 function Root() {
-  const [route, setRoute] = useState(getHashRoute)
   const [sessionUser, setSessionUser] = useState('')
   const [loading, setLoading] = useState(true)
 
@@ -26,21 +34,12 @@ function Root() {
         })
         if (!response.ok) {
           setSessionUser('')
-          if (getHashRoute() === 'portal') {
-            window.location.hash = '/login'
-            setRoute('login')
-          }
           return
         }
 
         const data = await response.json()
         const user = String(data?.user || '')
         setSessionUser(user)
-
-        if (user && getHashRoute() === 'login') {
-          window.location.hash = '/portal'
-          setRoute('portal')
-        }
       } finally {
         setLoading(false)
       }
@@ -49,48 +48,69 @@ function Root() {
     hydrateSession()
   }, [])
 
-  useEffect(() => {
-    function onHashChange() {
-      const nextRoute = getHashRoute()
-      setRoute(nextRoute)
-    }
-    window.addEventListener('hashchange', onHashChange)
-    return () => window.removeEventListener('hashchange', onHashChange)
-  }, [])
+  async function handleSignOut() {
+    await fetch(`${BACKEND_BASE_URL}/api/sign-out`, {
+      method: 'POST',
+      credentials: 'include',
+    })
+    localStorage.removeItem('loggedInUser')
+    setSessionUser('')
+  }
 
-  const content = useMemo(() => {
-    if (loading) {
-      return null
-    }
+  if (loading) {
+    return null
+  }
 
-    if (route === 'portal' && sessionUser) {
-      return (
-        <EfortechPortalPage
-          user={sessionUser}
-          onSignOut={async () => {
-            await fetch(`${BACKEND_BASE_URL}/api/sign-out`, {
-              method: 'POST',
-              credentials: 'include',
-            })
-            setSessionUser('')
-            window.location.hash = '/login'
-          }}
-        />
-      )
-    }
+  return (
+    <BrowserRouter>
+      <Suspense fallback={null}>
+        <Routes>
+          <Route
+            path="/login"
+            element={sessionUser
+              ? <Navigate to="/portal" replace />
+              : (
+                  <EfortechLoginPage
+                    onLoginSuccess={(user) => {
+                      setSessionUser(user)
+                    }}
+                  />
+                )}
+          />
 
-    return (
-      <EfortechLoginPage
-        onLoginSuccess={(user) => {
-          setSessionUser(user)
-          setRoute('portal')
-          window.location.hash = '/portal'
-        }}
-      />
-    )
-  }, [loading, route, sessionUser])
+          <Route
+            path="/portal"
+            element={(
+              <RequireSession sessionUser={sessionUser}>
+                <EfortechPortalPage user={sessionUser} onSignOut={handleSignOut} />
+              </RequireSession>
+            )}
+          />
 
-  return content
+          <Route
+            path="/ecowatch"
+            element={(
+              <RequireSession sessionUser={sessionUser}>
+                <EcowatchMainLayout />
+              </RequireSession>
+            )}
+          >
+            <Route index element={<Navigate to="/ecowatch/area-usage" replace />} />
+            <Route path="area-usage" element={<AreaUsagePage />} />
+            <Route path="demand" element={<DemandPage />} />
+            <Route path="energy-flow" element={<EnergyFlowPage />} />
+            <Route path="item-summary" element={<ItemSummaryPage />} />
+            <Route path="energy-ranking" element={<EnergyRankingPage />} />
+            <Route path="tou-period" element={<TOUPeriodPage />} />
+            <Route path="annual-report" element={<AnnualReportPage />} />
+          </Route>
+
+          <Route path="/" element={<Navigate to={sessionUser ? '/portal' : '/login'} replace />} />
+          <Route path="*" element={<Navigate to={sessionUser ? '/portal' : '/login'} replace />} />
+        </Routes>
+      </Suspense>
+    </BrowserRouter>
+  )
 }
 
 export default Root
