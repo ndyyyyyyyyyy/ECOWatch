@@ -138,7 +138,7 @@ export default function AreaUsagePage() {
         <ReactECharts 
           option={areaUsageOption} 
           theme={isDarkMode ? 'dark' : 'light'} 
-          style={{ height: '500px' }} 
+          style={{ height: '575px' }} 
         />
       </Card>
     </div>

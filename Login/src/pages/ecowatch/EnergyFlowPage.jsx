@@ -17,7 +17,7 @@ export default function EnergyFlowPage() {
         if (params.dataType === 'node') {
           return `${params.name}: ${params.value.toLocaleString()} kWh`;
         } else {
-          return `${params.data.source} ➔ ${params.data.target}: ${params.value.toLocaleString()} kWh`;
+          return `${params.data.source} -> ${params.data.target}: ${params.value.toLocaleString()} kWh`;
         }
       }
     },
@@ -30,7 +30,12 @@ export default function EnergyFlowPage() {
           show: true, 
           fontSize: 11, 
           color: isDarkMode ? '#fff' : '#333',
-          formatter: '{b}' 
+          formatter: function (params) {
+            if (params.value !== undefined) {
+              return `${params.name}\n${params.value.toLocaleString()} kWh`; 
+            }
+            return params.name;
+          }
         },
         lineStyle: { color: 'gradient', curveness: 0.5, opacity: 0.4 },
         itemStyle: { borderWidth: 0, opacity: 0.8 },
@@ -110,7 +115,7 @@ export default function EnergyFlowPage() {
         <ReactECharts 
           option={sankeyOption} 
           theme={isDarkMode ? 'dark' : 'light'} 
-          style={{ height: '600px', width: '100%' }} 
+          style={{ height: '675px', width: '100%' }} 
         />
       </Card>
     </div>

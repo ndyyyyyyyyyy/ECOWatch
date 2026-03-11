@@ -1,16 +1,18 @@
 import { Suspense, lazy, useEffect, useState } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import EfortechLoginPage from './pages/EfortechLoginPage.jsx'
-import EfortechPortalPage from './pages/EfortechPortalPage.jsx'
+import LoginPage from './pages/login/LoginPage.jsx'
+import PortalPage from './pages/portal/PortalPage.jsx'
 
-const EcowatchMainLayout = lazy(() => import('./layouts/EcowatchLayout.jsx'))
-const AreaUsagePage = lazy(() => import('./pages/EcowatchAreaUsagePage.jsx'))
-const DemandPage = lazy(() => import('./pages/EcowatchDemandPage.jsx'))
-const EnergyFlowPage = lazy(() => import('./pages/EcowatchEnergyFlowPage.jsx'))
-const ItemSummaryPage = lazy(() => import('./pages/EcowatchItemSummaryPage.jsx'))
-const EnergyRankingPage = lazy(() => import('./pages/EcowatchEnergyRankingPage.jsx'))
-const TOUPeriodPage = lazy(() => import('./pages/EcowatchTOUPeriodPage.jsx'))
-const AnnualReportPage = lazy(() => import('./pages/EcowatchAnnualReportPage.jsx'))
+const EcowatchMainLayout = lazy(() => import('./pages/ecowatch/Layout.jsx'))
+const ProjectPage = lazy(() => import('./pages/project/ProjectPage.jsx'))
+const TagConfigPage = lazy(() => import('./pages/project/TagConfigPage.jsx'))
+const AreaUsagePage = lazy(() => import('./pages/ecowatch/AreaUsagePage.jsx'))
+const DemandPage = lazy(() => import('./pages/ecowatch/DemandPage.jsx'))
+const EnergyFlowPage = lazy(() => import('./pages/ecowatch/EnergyFlowPage.jsx'))
+const ItemSummaryPage = lazy(() => import('./pages/ecowatch/ItemSummaryPage.jsx'))
+const EnergyRankingPage = lazy(() => import('./pages/ecowatch/EnergyRankingPage.jsx'))
+const TOUPeriodPage = lazy(() => import('./pages/ecowatch/TOUPeriodPage.jsx'))
+const AnnualReportPage = lazy(() => import('./pages/ecowatch/AnnualReportPage.jsx'))
 
 const BACKEND_BASE_URL = window.location.origin
 
@@ -70,7 +72,7 @@ function Root() {
             element={sessionUser
               ? <Navigate to="/portal" replace />
               : (
-                  <EfortechLoginPage
+                  <LoginPage
                     onLoginSuccess={(user) => {
                       setSessionUser(user)
                     }}
@@ -82,7 +84,25 @@ function Root() {
             path="/portal"
             element={(
               <RequireSession sessionUser={sessionUser}>
-                <EfortechPortalPage user={sessionUser} onSignOut={handleSignOut} />
+                <PortalPage user={sessionUser} onSignOut={handleSignOut} />
+              </RequireSession>
+            )}
+          />
+
+          <Route
+            path="/project"
+            element={(
+              <RequireSession sessionUser={sessionUser}>
+                <ProjectPage user={sessionUser} onSignOut={handleSignOut} />
+              </RequireSession>
+            )}
+          />
+
+          <Route
+            path="/project/tag/:deviceId/:tagId"
+            element={(
+              <RequireSession sessionUser={sessionUser}>
+                <TagConfigPage user={sessionUser} onSignOut={handleSignOut} />
               </RequireSession>
             )}
           />

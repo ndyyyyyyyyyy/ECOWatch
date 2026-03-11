@@ -6,8 +6,6 @@
   "scripts": {
     "dev": "vite",
     "backend": "npm run backend:py",
-    "backend:js": "node backend/js/server.js",
-    "backend:js:mono": "node backend/js/server.monolith.js",
     "backend:py": "python backend/python/server.py",
     "build": "vite build",
     "lint": "eslint .",

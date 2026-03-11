@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import './style/efortech-login.css'
-import efortechLogo from '../assets/efortech_logo.png'
+import './efortech-login.css'
+import efortechLogo from '../../assets/efortech_logo.png'
 
 const BACKEND_BASE_URL = window.location.origin
 
-function EfortechLoginPage({ onLoginSuccess }) {
+function LoginPage({ onLoginSuccess }) {
   const location = useLocation()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -136,4 +136,4 @@ function EfortechLoginPage({ onLoginSuccess }) {
   )
 }
 
-export default EfortechLoginPage
+export default LoginPage

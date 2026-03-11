@@ -68,6 +68,10 @@ def register_auth_routes(app: FastAPI):
         mode = AUTH_MODE if AUTH_MODE in {"grafana", "hybrid", "local"} else "hybrid"
         if mode == "local":
             return _local_login_response()
+        if mode == "hybrid" and account == LOCAL_AUTH_USERNAME:
+            local_response = _local_login_response()
+            if local_response.status_code == 200:
+                return local_response
 
         client = get_http_client()
         if client is None:
