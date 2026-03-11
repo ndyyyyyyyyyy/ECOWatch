@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Layout, Menu, Input, Tree, Button, Typography, ConfigProvider, theme, Dropdown } from 'antd'; // Tambahkan Dropdown di sini
+import { Layout, Menu, Input, Tree, Button, Typography, ConfigProvider, theme, Dropdown } from 'antd';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
-import { Sun, Moon, Search, Menu as MenuIcon, Settings, User, LogOut, Home } from 'lucide-react'; // Tambahkan ikon baru
+import { Sun, Moon, Search, Menu as MenuIcon, Settings, User, LogOut, Home, Bell } from 'lucide-react'; 
 
 const { Header, Content, Sider } = Layout;
 const { Title, Text } = Typography;
@@ -68,7 +68,7 @@ export default function MainLayout() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const hideAreaSidebarPaths = ['/ecowatch/item-summary']; 
+  const hideAreaSidebarPaths = ['/ecowatch/item-summary'];
   const showAreaSidebar = !hideAreaSidebarPaths.includes(location.pathname);
 
   useEffect(() => {
@@ -99,7 +99,11 @@ export default function MainLayout() {
     return () => clearInterval(timer);
   }, []);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await fetch('/api/sign-out', {
+      method: 'POST',
+      credentials: 'include',
+    });
     localStorage.removeItem('loggedInUser');
     navigate('/login');
   };
@@ -185,6 +189,13 @@ export default function MainLayout() {
               onClick={() => setIsDarkMode(!isDarkMode)} 
             />
 
+            <Button 
+              type="text" 
+              shape="circle" 
+              icon={<Bell size={20} color={isDarkMode ? '#ffffff' : '#595959'} />} 
+              onClick={() => console.log('Notification clicked')}
+            />
+
             <Dropdown 
               menu={{ items: settingsMenuItems }} 
               placement="bottomRight"
@@ -203,7 +214,7 @@ export default function MainLayout() {
         <Layout style={{ height: 'calc(100vh - 64px)' }}>
           
           <Sider 
-            width={200} 
+            width={170} 
             theme={isDarkMode ? 'dark' : 'light'} 
             style={{ 
               backgroundColor: isDarkMode ? '#141414' : '#ffffff',
@@ -229,7 +240,7 @@ export default function MainLayout() {
 
           {showAreaSidebar && (
             <Sider 
-              width={250} 
+              width={270} 
               theme={isDarkMode ? 'dark' : 'light'} 
               style={{ 
                 padding: '16px', 
@@ -246,12 +257,16 @@ export default function MainLayout() {
                 prefix={<Search size={16} />} 
                 style={{ marginBottom: 16 }} 
               />
+              
               <Tree
+                checkable
                 showLine
                 defaultExpandedKeys={['0-0', '0-0-0']}
                 treeData={treeData}
-                onSelect={(selectedKeys) => console.log('Area Terpilih:', selectedKeys)}
+                onSelect={(selectedKeys) => console.log('Area Terpilih (Klik Teks):', selectedKeys)}
+                onCheck={(checkedKeys) => console.log('Area Dicentang (Checkbox):', checkedKeys)}
               />
+
             </Sider>
           )}
 

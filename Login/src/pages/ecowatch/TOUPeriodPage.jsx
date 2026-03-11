@@ -13,10 +13,10 @@ export default function TOUPeriod() {
   const touElectricityOption = {
     title: {
       text: '106.93 MWh\n\nTotal usage',
-      left: '25%',
+      left: '24%',
       top: 'center',
       textAlign: 'center',
-      textStyle: { fontSize: 14, color: isDarkMode ? '#fff' : '#333', fontWeight: 'bold' }
+      textStyle: { fontSize: 12, color: isDarkMode ? '#fff' : '#333', fontWeight: 'bold' }
     },
     tooltip: { trigger: 'item' },
     legend: { orient: 'vertical', right: '10%', top: 'center', textStyle: { color: isDarkMode ? '#d9d9d9' : '#595959' } },
@@ -40,10 +40,10 @@ export default function TOUPeriod() {
   const touCostOption = {
     title: {
       text: '111,333.66 K IDR\n\nTotal cost',
-      left: '25%',
+      left: '24%',
       top: 'center',
       textAlign: 'center',
-      textStyle: { fontSize: 14, color: isDarkMode ? '#fff' : '#333', fontWeight: 'bold' }
+      textStyle: { fontSize: 12, color: isDarkMode ? '#fff' : '#333', fontWeight: 'bold' }
     },
     tooltip: { trigger: 'item' },
     legend: { orient: 'vertical', right: '10%', top: 'center', textStyle: { color: isDarkMode ? '#d9d9d9' : '#595959' } },
@@ -67,7 +67,7 @@ export default function TOUPeriod() {
   const touLineOption = {
     tooltip: { trigger: 'axis' },
     legend: { bottom: 0, data: ['On-peak', 'Off-peak'], textStyle: { color: isDarkMode ? '#d9d9d9' : '#595959' } },
-    grid: { left: '3%', right: '4%', bottom: '15%', containLabel: true },
+    grid: { top: '10%', left: '3%', right: '4%', bottom: '15%', containLabel: true },
     dataZoom: [{ type: 'inside' }, { type: 'slider', bottom: 30, height: 15 }],
     xAxis: { type: 'category', boundaryGap: false, data: ['01/25', '01/29', '02/02', '02/06', '02/10', '02/14', '02/18', '02/22', '02/24'] },
     yAxis: { type: 'value', name: 'kWh', splitLine: { lineStyle: { type: 'dashed', color: isDarkMode ? '#303030' : '#e8e8e8' } } },
@@ -79,7 +79,7 @@ export default function TOUPeriod() {
 
   const topUsageOption = {
     tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
-    grid: { left: '3%', right: '4%', bottom: '15%', containLabel: true },
+    grid: { top: '15%', left: '3%', right: '4%', bottom: '15%', containLabel: true },
     dataZoom: [{ type: 'inside' }, { type: 'slider', bottom: 10, height: 15 }],
     xAxis: { type: 'category', data: ['LVMDP_RAC', 'NR1', 'NR2', 'UT_NEW'] },
     yAxis: { type: 'value', name: 'kWh', splitLine: { lineStyle: { type: 'dashed', color: isDarkMode ? '#303030' : '#e8e8e8' } } },
@@ -107,13 +107,13 @@ export default function TOUPeriod() {
 
       <Row gutter={16}>
         <Col span={12}>
-          <Card title="TOU electricity" bordered={false}>
-            <ReactECharts option={touElectricityOption} theme={isDarkMode ? 'dark' : 'light'} style={{ height: '250px' }} />
+          <Card title="TOU Electricity" bordered={false}>
+            <ReactECharts option={touElectricityOption} theme={isDarkMode ? 'dark' : 'light'} style={{ height: '200px' }} />
           </Card>
         </Col>
         <Col span={12}>
-          <Card title="TOU cost" bordered={false}>
-            <ReactECharts option={touCostOption} theme={isDarkMode ? 'dark' : 'light'} style={{ height: '250px' }} />
+          <Card title="TOU Cost" bordered={false}>
+            <ReactECharts option={touCostOption} theme={isDarkMode ? 'dark' : 'light'} style={{ height: '200px' }} />
           </Card>
         </Col>
       </Row>
@@ -122,8 +122,8 @@ export default function TOUPeriod() {
         <ReactECharts option={touLineOption} theme={isDarkMode ? 'dark' : 'light'} style={{ height: '300px' }} />
       </Card>
 
-      <Card title="Top 30 usage" bordered={false}>
-        <ReactECharts option={topUsageOption} theme={isDarkMode ? 'dark' : 'light'} style={{ height: '250px' }} />
+      <Card title="Top 30 Usage" bordered={false}>
+        <ReactECharts option={topUsageOption} theme={isDarkMode ? 'dark' : 'light'} style={{ height: '200px' }} />
       </Card>
     </div>
   );

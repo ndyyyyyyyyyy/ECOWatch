@@ -34,7 +34,7 @@ export default function EnergyRanking() {
       data: ['Last year', 'Current'],
       textStyle: { color: isDarkMode ? '#d9d9d9' : '#595959' }
     },
-    grid: { left: '3%', right: '10%', bottom: '10%', containLabel: true },
+    grid: { top: '2%',left: '3%', right: '10%', bottom: '10%', containLabel: true },
     xAxis: [
       {
         type: 'value',
@@ -138,7 +138,7 @@ export default function EnergyRanking() {
       </Card>
 
       <Card 
-        title="Energy ranking" 
+        title="Energy Ranking" 
         bordered={false}
         extra={
           <Radio.Group value={rankingType} onChange={(e) => setRankingType(e.target.value)} buttonStyle="solid">
@@ -150,15 +150,15 @@ export default function EnergyRanking() {
         <ReactECharts 
           option={rankingOption} 
           theme={isDarkMode ? 'dark' : 'light'} 
-          style={{ height: '400px' }} 
+          style={{ height: '300px' }} 
         />
       </Card>
 
-      <Card title="Area details" bordered={false}>
+      <Card title="Area Details" bordered={false}>
         <Table 
           columns={columns} 
           dataSource={tableData} 
-          pagination={{ pageSize: 5 }} 
+          pagination={{ pageSize: 3 }} 
           size="small" 
         />
       </Card>

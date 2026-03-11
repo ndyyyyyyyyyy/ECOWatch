@@ -1,144 +1,184 @@
-import React, { useState } from 'react';
-import { Card, Select, DatePicker, Button, Space } from 'antd';
-import ReactECharts from 'echarts-for-react';
-import { useOutletContext } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Card, Select, DatePicker, Button, Space, message } from "antd";
+import ReactECharts from "echarts-for-react";
+import { useOutletContext } from "react-router-dom";
+import axios from "axios";
+import "./AreaUsage.css";
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
+const AREA_USAGE_FALLBACK_DATA = [
+  { timestamp: "00:00", tag_name: "V_F_MALE_C_NR1", value_kwh: 160 },
+  { timestamp: "01:00", tag_name: "V_F_MALE_C_NR1", value_kwh: 170 },
+  { timestamp: "02:00", tag_name: "V_F_MALE_C_NR1", value_kwh: 180 },
+  { timestamp: "03:00", tag_name: "V_F_MALE_C_NR1", value_kwh: 170 },
+  { timestamp: "04:00", tag_name: "V_F_MALE_C_NR1", value_kwh: 150 },
+  { timestamp: "05:00", tag_name: "V_F_MALE_C_NR1", value_kwh: 160 },
+  { timestamp: "06:00", tag_name: "V_F_MALE_C_NR1", value_kwh: 150 },
+  { timestamp: "07:00", tag_name: "V_F_MALE_C_NR1", value_kwh: 160 },
+  { timestamp: "00:00", tag_name: "DB_2", value_kwh: 130 },
+  { timestamp: "01:00", tag_name: "DB_2", value_kwh: 180 },
+  { timestamp: "02:00", tag_name: "DB_2", value_kwh: 130 },
+  { timestamp: "03:00", tag_name: "DB_2", value_kwh: 100 },
+  { timestamp: "04:00", tag_name: "DB_2", value_kwh: 140 },
+  { timestamp: "05:00", tag_name: "DB_2", value_kwh: 150 },
+  { timestamp: "06:00", tag_name: "DB_2", value_kwh: 130 },
+  { timestamp: "07:00", tag_name: "DB_2", value_kwh: 240 },
+  { timestamp: "00:00", tag_name: "V_F_MALE_B_NR1", value_kwh: 100 },
+  { timestamp: "01:00", tag_name: "V_F_MALE_B_NR1", value_kwh: 150 },
+  { timestamp: "02:00", tag_name: "V_F_MALE_B_NR1", value_kwh: 200 },
+  { timestamp: "03:00", tag_name: "V_F_MALE_B_NR1", value_kwh: 130 },
+  { timestamp: "04:00", tag_name: "V_F_MALE_B_NR1", value_kwh: 80 },
+  { timestamp: "05:00", tag_name: "V_F_MALE_B_NR1", value_kwh: 110 },
+  { timestamp: "06:00", tag_name: "V_F_MALE_B_NR1", value_kwh: 140 },
+  { timestamp: "07:00", tag_name: "V_F_MALE_B_NR1", value_kwh: 130 },
+  { timestamp: "00:00", tag_name: "DB3", value_kwh: 20 },
+  { timestamp: "01:00", tag_name: "DB3", value_kwh: 30 },
+  { timestamp: "02:00", tag_name: "DB3", value_kwh: 40 },
+  { timestamp: "03:00", tag_name: "DB3", value_kwh: 20 },
+  { timestamp: "04:00", tag_name: "DB3", value_kwh: 30 },
+  { timestamp: "05:00", tag_name: "DB3", value_kwh: 20 },
+  { timestamp: "06:00", tag_name: "DB3", value_kwh: 40 },
+  { timestamp: "07:00", tag_name: "DB3", value_kwh: 80 },
+];
+
+const ENERGY_API_BASE_URL =
+  import.meta.env.VITE_ECOWATCH_API_URL || "http://localhost:5000";
 
 export default function AreaUsagePage() {
-  const { isDarkMode } = useOutletContext(); 
-  const [intervalWaktu, setIntervalWaktu] = useState('Hour');
+  const { isDarkMode } = useOutletContext();
+
+  const [intervalWaktu, setIntervalWaktu] = useState(() => {
+    return sessionStorage.getItem("savedInterval") || "Hour";
+  });
+  const [dateRange, setDateRange] = useState(null);
+  const [chartData, setChartData] = useState([]);
+
+  const applyChartData = (payload, useFallbackNotice = false) => {
+    const dataArray = Array.isArray(payload) ? payload : payload?.data || [];
+    if (dataArray.length > 0) {
+      setChartData(dataArray);
+      return;
+    }
+
+    setChartData(AREA_USAGE_FALLBACK_DATA);
+    if (useFallbackNotice) {
+      message.warning("Area Usage memakai data contoh karena data API belum tersedia.");
+    }
+  };
+
+  const fetchData = () => {
+    let url = `${ENERGY_API_BASE_URL}/energy?interval=${intervalWaktu}`;
+
+    if (dateRange && dateRange.length === 2) {
+      const startDate = dateRange[0].format("YYYY-MM-DD");
+      const endDate = dateRange[1].format("YYYY-MM-DD");
+      url += `&start=${startDate}&end=${endDate}`;
+    }
+
+    sessionStorage.setItem("savedInterval", intervalWaktu);
+    sessionStorage.setItem("savedEnergyUrl", url);
+
+    axios.get(url)
+      .then(res => {
+        applyChartData(res.data, true);
+      })
+      .catch(err => {
+        console.error("Error mengambil data:", err);
+        applyChartData([], true);
+      });
+  };
+
+  useEffect(() => {
+    const savedUrl = sessionStorage.getItem("savedEnergyUrl");
+    
+    if (savedUrl) {
+      axios.get(savedUrl)
+        .then(res => {
+          applyChartData(res.data, true);
+        })
+        .catch(err => {
+          console.error("Error mengambil data:", err);
+          applyChartData([], true);
+        });
+    } else {
+      fetchData();
+    }
+  }, []);
+  const xAxisData = [...new Set(chartData.map(d => d.timestamp))].sort();
+  const tags = [...new Set(chartData.map(d => d.tag_name))];
+
+  const series = tags.map(tag => ({
+    name: tag,
+    type: "bar",
+    stack: "Total",
+    emphasis: { focus: "series" },
+    data: xAxisData.map(time => {
+      const item = chartData.find(d => d.tag_name === tag && d.timestamp === time);
+      return item ? item.value_kwh : 0;
+    })
+  }));
 
   const areaUsageOption = {
-    tooltip: {
-      trigger: 'axis',
-      axisPointer: { 
-        type: 'shadow',
-        shadowStyle: {
-          width: 'auto',
-          opacity: 0.3
-        }
-       }
-    },
-    grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '80px',
-      containLabel: true
-    },
-    dataZoom: [
-      { 
-        type: 'slider', 
-        bottom: 35,
-        height: 15,
-        start: 0, 
-        end: 100 
-      },
-      { type: 'inside' }
-    ],
-    legend: {
-      bottom: 0,
-      type: 'scroll',
-      textStyle: {
-        color: isDarkMode ? '#d9d9d9' : '#595959'
+    tooltip: {trigger: "axis"},
+    legend: {bottom: 0, type: "scroll", textStyle: {color: isDarkMode ? "#d9d9d9" : "#595959"}},
+    grid: {top: "5%", left: "3%", right: "4%", bottom: "80px", containLabel: true},
+    dataZoom: [{type: "slider", bottom: 35, height: 15}, {type: "inside"}],
+    xAxis: {type: "category", data: xAxisData, axisLabel: {
+        color: isDarkMode ? "#d9d9d9" : "#595959"
       }
     },
-    xAxis: {
-      type: 'category',
-      data: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'],
-      axisLabel: {
-        color: isDarkMode ? '#d9d9d9' : '#595959'
-      }
-    },
-    yAxis: {
-      type: 'value',
-      name: 'kWh',
+    yAxis: {type: "value", name: "kWh",
       nameTextStyle: {
-        color: isDarkMode ? '#d9d9d9' : '#595959'
+        color: isDarkMode ? "#d9d9d9" : "#595959"
       },
       axisLabel: {
-        color: isDarkMode ? '#d9d9d9' : '#595959'
-      },
-      splitLine: { 
-        lineStyle: { 
-          type: 'dashed',
-          color: isDarkMode ? '#303030' : '#e8e8e8'
-        } 
+        color: isDarkMode ? "#d9d9d9" : "#595959"
       }
     },
-    series: [
-      {
-        name: 'V_F_MALE_C_NR1',
-        type: 'bar',
-        stack: 'Total',
-        barWidth: '30%',
-        emphasis: { focus: 'series' },
-        itemStyle: { color: '#1677ff' },
-        data: [160, 170, 180, 170, 150, 160, 150, 160]
-      },
-      {
-        name: 'DB_2',
-        type: 'bar',
-        stack: 'Total',
-        emphasis: { focus: 'series' },
-        itemStyle: { color: '#52c41a' },
-        data: [130, 180, 130, 100, 140, 150, 130, 240]
-      },
-      {
-        name: 'V_F_MALE_B_NR1',
-        type: 'bar',
-        stack: 'Total',
-        emphasis: { focus: 'series' },
-        itemStyle: { color: '#fbe923' },
-        data: [100, 150, 200, 130, 80, 110, 140, 130]
-      },
-      {
-        name: 'DB3',
-        type: 'bar',
-        stack: 'Total',
-        emphasis: { focus: 'series' },
-        itemStyle: { color: '#cc2feb' },
-        data: [20, 30, 40, 20, 30, 20, 40, 80]
-      }
-    ]
+    series: series
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-      <Card bodyStyle={{ padding: '10px 24px', display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
-        <Space wrap>
-          <span>Energy item</span>
-          <Select defaultValue="Electricity" style={{ width: 120 }}>
-            <Option value="Electricity">Electricity</Option>
-            <Option value="Water">Water</Option>
-          </Select>
+    <div className="area-usage-container">
+      <Card styles={{ body: { padding: "10px 24px", overflowX: "auto" } }} className="full-width-card">
+        <Space size="middle" wrap={false} className="filter-wrapper">
+          
+          <Space size="small">
+            <span className="filter-label">Energy item</span>
+            <Select defaultValue="Electricity" className="select-energy">
+              <Option value="Electricity">Electricity</Option>
+            </Select>
+          </Space>
 
-          <span>Conversion method</span>
-          <Select defaultValue="Default" style={{ width: 120 }}>
-            <Option value="Default">Default</Option>
-            <Option value="Standard coal">Standard coal</Option>
-          </Select>
+          <Space size="small">
+            <span className="filter-label">Interval</span>
+            <Select value={intervalWaktu} onChange={setIntervalWaktu} className="select-interval">
+              <Option value="Year">Year</Option>
+              <Option value="Month">Month</Option>
+              <Option value="Day">Day</Option>
+              <Option value="Hour">Hour</Option>
+            </Select>
+          </Space>
 
-          <span>Interval</span>
-          <Select value={intervalWaktu} onChange={setIntervalWaktu} style={{ width: 100 }}>
-            <Option value="Year">Year</Option>
-            <Option value="Month">Month</Option>
-            <Option value="Day">Day</Option>
-            <Option value="Hour">Hour</Option>
-          </Select>
+          <Space size="small">
+            <span className="filter-label">Time</span>
+            <RangePicker 
+              className="picker-time" 
+              onChange={(dates) => setDateRange(dates)} 
+            />
+          </Space>
 
-          <span>Time</span>
-          <RangePicker />
-          <Button type="primary">Search</Button>
+          <Button type="primary" onClick={fetchData}>Search</Button>
+
         </Space>
       </Card>
 
-      <Card title="Area usage" bordered={false} hoverable>
-        <ReactECharts 
-          option={areaUsageOption} 
-          theme={isDarkMode ? 'dark' : 'light'} 
-          style={{ height: '575px' }} 
+      <Card title="Area Usage" variant="borderless" className="full-width-card" style={{ marginTop: '5px' }}>
+        <ReactECharts
+          option={areaUsageOption}
+          theme={isDarkMode ? "dark" : "light"}
+          style={{ height: "620px", width: "100%" }}
         />
       </Card>
     </div>

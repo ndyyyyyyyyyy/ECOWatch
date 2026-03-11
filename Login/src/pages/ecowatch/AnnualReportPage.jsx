@@ -55,7 +55,7 @@ export default function AnnualReport() {
       </Card>
 
       <Card 
-        title="Annual report" 
+        title="Annual Report" 
         bordered={false}
         extra={<Button type="text" icon={<DownloadOutlined />} />}
         bodyStyle={{ padding: 0 }}
@@ -63,10 +63,16 @@ export default function AnnualReport() {
         <Table 
           columns={columns} 
           dataSource={tableData} 
-          pagination={false} 
           bordered 
           size="middle"
-          scroll={{ x: 'max-content' }}
+          scroll={{ x: 'max-content', y: 600 }}
+          pagination={{
+            showSizeChanger: true,
+            showQuickJumper: true,
+            showTotal: (total) => `Total ${total}`,
+            defaultPageSize: 10,
+            pageSizeOptions: ['10', '20', '50', '100']
+          }}
         />
       </Card>
     </div>

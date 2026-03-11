@@ -1,5 +1,5 @@
 {
-  "name": "login",
+  "name": "efortech-energy-monitoring",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "antd": "^6.3.1",
+    "axios": "^1.12.2",
     "cors": "^2.8.6",
     "echarts": "^6.0.0",
     "echarts-for-react": "^3.0.6",

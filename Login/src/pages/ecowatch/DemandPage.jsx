@@ -3,6 +3,7 @@ import { Card, Select, DatePicker, Button, Space, Table } from 'antd';
 import ReactECharts from 'echarts-for-react';
 import * as echarts from 'echarts';
 import { useOutletContext } from 'react-router-dom';
+import './Demand.css';
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
@@ -13,7 +14,8 @@ export default function DemandPage() {
 
   const demandOption = {
     tooltip: { trigger: 'axis' },
-    dataZoom: [{ type: 'inside', start: 0, end: 100, height: 15 }, { type: 'slider', bottom: 0, height: 20,  }],
+    grid: {top: '13%', left: '3%', right: '3%', bottom: '50px', containLabel: true},
+    dataZoom: [{ type: 'inside', start: 0, end: 100, height: 15 }, { type: 'slider', bottom: 0, height: 20 }],
     xAxis: { 
       type: 'category', 
       boundaryGap: false,
@@ -55,27 +57,43 @@ export default function DemandPage() {
   ];
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-      <Card bodyStyle={{ padding: '10px 24px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-        <Space>
-          <span>Interval</span>
-          <Select value={intervalWaktu} onChange={setIntervalWaktu} style={{ width: 120 }}>
-            <Option value="Minute">Minute</Option>
-            <Option value="Hour">Hour</Option>
-          </Select>
-          <span style={{ marginLeft: '16px' }}>Time</span>
-          <RangePicker />
-          <Button type="primary" style={{ marginLeft: '8px' }}>Search</Button>
-        </Space>
+    <div className="demand-container">
+      
+      <Card bodyStyle={{ padding: '10px 24px' }}>
+        <div className="demand-filter-wrapper">
+          <Space>
+            <span>Interval</span>
+            <Select value={intervalWaktu} onChange={setIntervalWaktu} className="demand-select">
+              <Option value="Minute">Minute</Option>
+              <Option value="Hour">Hour</Option>
+            </Select>
+            <span className="demand-label-time">Time</span>
+            <RangePicker />
+            <Button type="primary" className="demand-btn-search">Search</Button>
+          </Space>
+        </div>
       </Card>
 
       <Card title="Demand" bordered={false}>
-        <ReactECharts option={demandOption} theme={isDarkMode ? 'dark' : 'light'} style={{ height: '350px' }} />
+        <ReactECharts option={demandOption} theme={isDarkMode ? 'dark' : 'light'} className="demand-chart" />
       </Card>
 
       <Card title="Data analysis" bordered={false}>
-        <Table dataSource={tableData} columns={columns} pagination={false} size="small" />
+        <Table 
+          dataSource={tableData} 
+          columns={columns} 
+          size="small" 
+          scroll={{ y: 200 }} 
+          pagination={{
+            showSizeChanger: true, 
+            showQuickJumper: true, 
+            showTotal: (total) => `Total ${total}`, 
+            defaultPageSize: 10, 
+            pageSizeOptions: ['10', '20', '50', '100']
+          }}
+        />
       </Card>
+      
     </div>
   );
 }

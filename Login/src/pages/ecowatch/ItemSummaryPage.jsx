@@ -1,13 +1,7 @@
 import React, { useState } from 'react';
-import { Card, Select, Button, Space, Typography, Radio, Progress } from 'antd';
+import { Card, Select, Button, Space, Typography, Progress, Row, Col } from 'antd';
 import ReactECharts from 'echarts-for-react';
 import { useOutletContext } from 'react-router-dom';
-
-import { Responsive, WidthProvider } from 'react-grid-layout/legacy';
-import 'react-grid-layout/css/styles.css';
-import 'react-resizable/css/styles.css';
-
-const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const { Option } = Select;
 const { Title, Text } = Typography;
@@ -38,32 +32,9 @@ export default function ItemSummary() {
     xAxis: { type: 'category', data: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'] },
     yAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: isDarkMode ? '#303030' : '#e8e8e8' } } },
     series: [
-      { 
-        name: 'This year', 
-        type: 'bar', 
-        itemStyle: { color: '#1890ff' }, 
-        data: [1500, 2000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] 
-      },
-      { 
-        name: 'Last year', 
-        type: 'bar', 
-        itemStyle: { color: isDarkMode ? '#172b4d' : '#e6f4ff' }, 
-        data: [2100, 2200, 1800, 1900, 2000, 2100, 2200, 2300, 2100, 2000, 1900, 2500] 
-      },
-      // TAMBAHKAN OBJEK TARGET DI BAWAH INI
-      { 
-        name: 'Target usage', 
-        type: 'line', // Menggunakan garis agar kontras dengan bar
-        smooth: true, // Membuat garis melengkung halus
-        lineStyle: { 
-          width: 3, 
-          type: 'dashed', // Garis putus-putus untuk menandakan target
-          color: '#ff4d4f' // Warna merah agar terlihat sebagai batas
-        },
-        symbol: 'circle',
-        itemStyle: { color: '#ff4d4f' },
-        data: [1800, 1800, 1800, 1800, 1800, 1800, 1800, 1800, 1800, 1800, 1800, 1800] 
-      },
+      { name: 'This year', type: 'bar', itemStyle: { color: '#1890ff' }, data: [1500, 2000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] },
+      { name: 'Last year', type: 'bar', itemStyle: { color: isDarkMode ? '#172b4d' : '#e6f4ff' }, data: [2100, 2200, 1800, 1900, 2000, 2100, 2200, 2300, 2100, 2000, 1900, 2500] },
+      { name: 'Target usage', type: 'line', smooth: true, lineStyle: { width: 3, type: 'dashed', color: '#ff4d4f' }, symbol: 'circle', itemStyle: { color: '#ff4d4f' }, data: [1800, 1800, 1800, 1800, 1800, 1800, 1800, 1800, 1800, 1800, 1800, 1800] },
     ]
   };
 
@@ -97,25 +68,14 @@ export default function ItemSummary() {
     series: [
       { name: 'This year', type: 'bar', itemStyle: { color: '#1890ff' }, data: [80, 0, 0, 0, 0, 0] },
       { name: 'Last year', type: 'bar', itemStyle: { color: isDarkMode ? '#172b4d' : '#e6f4ff' }, data: [550, 600, 580, 700, 650, 500] },
+      { name: 'Target usage', type: 'line', smooth: true, lineStyle: { width: 3, type: 'dashed', color: '#ff4d4f' }, symbol: 'circle', itemStyle: { color: '#ff4d4f' }, data: [450, 450, 450, 450, 450, 450] },
     ]
   };
 
-  const layout = [
-    { i: 'stat1', x: 0, y: 0, w: 3, h: 1, static: true },
-    { i: 'stat2', x: 3, y: 0, w: 3, h: 1, static: true },
-    { i: 'stat3', x: 6, y: 0, w: 3, h: 1, static: true },
-    { i: 'stat4', x: 9, y: 0, w: 3, h: 1, static: true },
-
-    { i: 'monthly', x: 0, y: 1, w: 8, h: 3 },
-    { i: 'ranking', x: 8, y: 1, w: 4, h: 6 },
-    { i: 'regional', x: 0, y: 4, w: 4, h: 3 },
-    { i: 'rac', x: 4, y: 4, w: 4, h: 3 },
-  ];
-
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px',padding: '10px 10px 0 10px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px'}}>
       
-      <Card bodyStyle={{ padding: '10px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
+      <Card bodyStyle={{ padding: '10px 24px' }}>
         <Space wrap>
           <span>Area</span>
           <Select defaultValue="MAIN_ELECTRICAL" style={{ width: 180 }}>
@@ -130,74 +90,71 @@ export default function ItemSummary() {
         </Space>
       </Card>
 
-      <ResponsiveGridLayout 
-        className="layout" 
-        layouts={{ lg: layout }} 
-        breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }} 
-        cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }} 
-        rowHeight={100}
-        draggableHandle=".ant-card-head" 
-        margin={[10, 10]}
-      >
-        
-        <div key="stat1">
-          <Card bordered={false} bodyStyle={{ padding: '16px', height: '100%' }} style={{ height: '100%' }}>
+      <Row gutter={[10, 10]}>
+        <Col xs={24} sm={12} lg={6}>
+          <Card bordered={false} bodyStyle={{ padding: '20px' }} style={{ height: '100%' }}>
             <Text type="secondary">This year usage</Text>
             <Title level={3} style={{ margin: 0 }}>3.41 <Text style={{ fontSize: '14px', fontWeight: 'normal' }}>GWh</Text></Title>
           </Card>
-        </div>
-        <div key="stat2">
-          <Card bordered={false} bodyStyle={{ padding: '16px', height: '100%' }} style={{ height: '100%' }}>
+        </Col>
+        <Col xs={24} sm={12} lg={6}>
+          <Card bordered={false} bodyStyle={{ padding: '20px' }} style={{ height: '100%' }}>
             <Text type="secondary">Last year usage</Text>
             <Title level={3} style={{ margin: 0 }}>22.71 <Text style={{ fontSize: '14px', fontWeight: 'normal' }}>GWh</Text></Title>
           </Card>
-        </div>
-        <div key="stat3">
-          <Card bordered={false} bodyStyle={{ padding: '16px', height: '100%' }} style={{ height: '100%' }}>
+        </Col>
+        <Col xs={24} sm={12} lg={6}>
+          <Card bordered={false} bodyStyle={{ padding: '20px' }} style={{ height: '100%' }}>
             <Text type="secondary">YoY deviation</Text>
             <Title level={3} style={{ margin: 0, color: '#52c41a' }}>-19.30 <Text style={{ fontSize: '14px', fontWeight: 'normal', color: '#52c41a' }}>GWh</Text></Title>
           </Card>
-        </div>
-        <div key="stat4">
-          <Card bordered={false} bodyStyle={{ padding: '16px', height: '100%' }} style={{ height: '100%' }}>
+        </Col>
+        <Col xs={24} sm={12} lg={6}>
+          <Card bordered={false} bodyStyle={{ padding: '20px' }} style={{ height: '100%' }}>
             <Text type="secondary">Real-time demand</Text>
             <Title level={3} style={{ margin: 0 }}>2,618.47 <Text style={{ fontSize: '14px', fontWeight: 'normal' }}>kW</Text></Title>
           </Card>
-        </div>
+        </Col>
+      </Row>
 
-        <div key="monthly">
-          <Card title="Monthly usage" bordered={false} style={{ height: '100%' }} bodyStyle={{ height: 'calc(100% - 56px)' }}>
-            <ReactECharts option={monthlyUsageOption} theme={isDarkMode ? 'dark' : 'light'} style={{ height: '100%' }} />
-          </Card>
-        </div>
+      <Row gutter={[10, 10]} align="stretch">
+        
+        <Col xs={24} lg={16}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', height: '100%' }}>
+            <Card title="Monthly Usage" bordered={false}>
+              <ReactECharts option={monthlyUsageOption} theme={isDarkMode ? 'dark' : 'light'} style={{ height: '200px' }} />
+            </Card>
+            
+            <Row gutter={[10, 10]}>
+              <Col xs={24} md={12}>
+                <Card title="Regional Usage" bordered={false}>
+                  <ReactECharts option={regionalUsageOption} theme={isDarkMode ? 'dark' : 'light'} style={{ height: '200px' }} />
+                </Card>
+              </Col>
+              <Col xs={24} md={12}>
+                <Card title="RAC Monthly Usage" bordered={false}>
+                  <ReactECharts option={racMonthlyOption} theme={isDarkMode ? 'dark' : 'light'} style={{ height: '200px' }} />
+                </Card>
+              </Col>
+            </Row>
+          </div>
+        </Col>
 
-        <div key="regional">
-          <Card title="Regional usage" bordered={false} style={{ height: '100%' }} bodyStyle={{ height: 'calc(100% - 56px)' }}>
-            <ReactECharts option={regionalUsageOption} theme={isDarkMode ? 'dark' : 'light'} style={{ height: '100%' }} />
-          </Card>
-        </div>
-
-        <div key="rac">
-          <Card title="RAC Monthly usage" bordered={false} style={{ height: '100%' }} bodyStyle={{ height: 'calc(100% - 56px)' }}>
-            <ReactECharts option={racMonthlyOption} theme={isDarkMode ? 'dark' : 'light'} style={{ height: '100%' }} />
-          </Card>
-        </div>
-
-        <div key="ranking">
-          <Card title="Equipment usage ranking" bordered={false} style={{ height: '100%' }} bodyStyle={{ height: 'calc(100% - 56px)', overflowY: 'auto' }}>
+        <Col xs={24} lg={8}>
+          <Card title="Equipment Usage Ranking" bordered={false} style={{ height: '100%' }} bodyStyle={{ height: '100%', overflowY: 'auto' }}>
             {rankingData.map((item, index) => (
-              <div key={index} style={{ marginBottom: '16px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                  <Text style={{ fontSize: '13px' }}>{item.name}</Text>
+              <div key={index} style={{ marginBottom: '0px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0px' }}>
+                  <Text style={{ fontSize: '13px', fontWeight: 500 }}>{item.name}</Text>
                   <Text style={{ fontSize: '13px' }}>{item.value} MWh</Text>
                 </div>
                 <Progress percent={item.percent} showInfo={false} strokeColor="#1890ff" trailColor={isDarkMode ? '#303030' : '#f5f5f5'} size="small"/>
               </div>
             ))}
           </Card>
-        </div>
+        </Col>
 
-      </ResponsiveGridLayout>
+      </Row>
     </div>
   );
 }

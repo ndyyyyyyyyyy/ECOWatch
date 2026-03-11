@@ -17,7 +17,7 @@ export default function EnergyFlowPage() {
         if (params.dataType === 'node') {
           return `${params.name}: ${params.value.toLocaleString()} kWh`;
         } else {
-          return `${params.data.source} -> ${params.data.target}: ${params.value.toLocaleString()} kWh`;
+          return `${params.data.source} ➔ ${params.data.target}: ${params.value.toLocaleString()} kWh`;
         }
       }
     },
