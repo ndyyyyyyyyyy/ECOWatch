@@ -17,9 +17,6 @@ export default defineConfig({
           if (id.includes('antd') || id.includes('@ant-design') || id.includes('/rc-')) {
             return 'vendor-antd'
           }
-          if (id.includes('react-grid-layout') || id.includes('react-resizable')) {
-            return 'vendor-grid'
-          }
           return undefined
         },
       },
