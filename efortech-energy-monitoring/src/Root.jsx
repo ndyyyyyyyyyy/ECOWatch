@@ -11,6 +11,7 @@ const DemandPage = lazy(() => import('./pages/ecowatch/DemandPage.jsx'))
 const EnergyFlowPage = lazy(() => import('./pages/ecowatch/EnergyFlowPage.jsx'))
 const ItemSummaryPage = lazy(() => import('./pages/ecowatch/ItemSummaryPage.jsx'))
 const EnergyRankingPage = lazy(() => import('./pages/ecowatch/EnergyRankingPage.jsx'))
+const LossAnalysisPage = lazy(() => import('./pages/ecowatch/LossAnalysisPage.jsx'))
 const TOUPeriodPage = lazy(() => import('./pages/ecowatch/TOUPeriodPage.jsx'))
 const AnnualReportPage = lazy(() => import('./pages/ecowatch/AnnualReportPage.jsx'))
 
@@ -121,6 +122,7 @@ function Root() {
             <Route path="energy-flow" element={<EnergyFlowPage />} />
             <Route path="item-summary" element={<ItemSummaryPage />} />
             <Route path="energy-ranking" element={<EnergyRankingPage />} />
+            <Route path="loss-analysis" element={<LossAnalysisPage />} />
             <Route path="tou-period" element={<TOUPeriodPage />} />
             <Route path="annual-report" element={<AnnualReportPage />} />
           </Route>

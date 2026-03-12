@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useState } from 'react'
+import { Button, Dropdown, Typography } from 'antd'
 import './project-tag-config-page.css'
-import efortechLogo from '../../assets/efortech_logo.png'
-import { List, PencilLine, Plus, Search, Trash2 } from 'lucide-react'
+import { Bell, Home, List, LogOut, Moon, PencilLine, Plus, Search, Settings, Sun, Trash2, User } from 'lucide-react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { loadProjectDevices, saveProjectDevices } from './projectDummyData.js'
+
+const { Text } = Typography
 
 const emptyTagForm = {
   name: '',
@@ -19,9 +21,12 @@ function TagConfigPage({ user, onSignOut }) {
   const [devices, setDevices] = useState(() => loadProjectDevices())
   const [selectedTagIds, setSelectedTagIds] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
+  const [activeTagTab, setActiveTagTab] = useState('all')
   const [isTagModalOpen, setIsTagModalOpen] = useState(false)
   const [tagModalMode, setTagModalMode] = useState('add')
   const [tagForm, setTagForm] = useState(emptyTagForm)
+  const [isDarkMode, setIsDarkMode] = useState(false)
+  const [time, setTime] = useState('')
 
   const activeDevice = useMemo(
     () => devices.find((device) => String(device.id) === String(deviceId)) ?? null,
@@ -33,13 +38,18 @@ function TagConfigPage({ user, onSignOut }) {
       return []
     }
 
+    const typeFilteredTags =
+      activeTagTab === 'all'
+        ? activeDevice.tags
+        : activeDevice.tags.filter((tag) => tag.type === activeTagTab)
+
     const keyword = searchTerm.trim().toLowerCase()
     if (!keyword) {
-      return activeDevice.tags
+      return typeFilteredTags
     }
 
-    return activeDevice.tags.filter((tag) => tag.name.toLowerCase().includes(keyword))
-  }, [activeDevice, searchTerm])
+    return typeFilteredTags.filter((tag) => tag.name.toLowerCase().includes(keyword))
+  }, [activeDevice, activeTagTab, searchTerm])
 
   const selectedTag = activeDevice?.tags.find((tag) => tag.id === selectedTagIds[0]) ?? null
   const canEdit = selectedTagIds.length === 1
@@ -55,6 +65,31 @@ function TagConfigPage({ user, onSignOut }) {
   useEffect(() => {
     setSelectedTagIds([])
   }, [deviceId])
+
+  useEffect(() => {
+    setSelectedTagIds([])
+  }, [activeTagTab])
+
+  useEffect(() => {
+    const updateDateTime = () => {
+      const now = new Date()
+      const options = {
+        weekday: 'short',
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+      }
+      setTime(now.toLocaleString('en-GB', options).replace(',', ''))
+    }
+
+    updateDateTime()
+    const timer = setInterval(updateDateTime, 1000)
+    return () => clearInterval(timer)
+  }, [])
 
   function toggleTagSelection(tagId) {
     setSelectedTagIds((prev) =>
@@ -178,78 +213,130 @@ function TagConfigPage({ user, onSignOut }) {
     setSelectedTagIds([])
   }
 
+  const selectedVisibleCount = tagRows.filter((row) => selectedTagIds.includes(row.id)).length
+
+  const settingsMenuItems = [
+    {
+      key: 'user-info',
+      label: (
+        <div style={{ padding: '4px 0', borderBottom: '1px solid #f0f0f0', marginBottom: '4px' }}>
+          <Text strong style={{ display: 'block' }}>{user || 'Guest'}</Text>
+          <Text type="secondary" style={{ fontSize: '12px' }}>{String(user || 'guest').toLowerCase()}</Text>
+        </div>
+      ),
+      icon: <User size={16} />,
+      disabled: true,
+    },
+    {
+      key: 'project',
+      label: 'Project Management',
+      icon: <Home size={16} />,
+      onClick: () => navigate('/project'),
+    },
+    {
+      type: 'divider',
+    },
+    {
+      key: 'logout',
+      label: 'Logout',
+      icon: <LogOut size={16} color="#ff4d4f" />,
+      onClick: onSignOut,
+      danger: true,
+    },
+  ]
+
   if (!activeDevice) {
     return null
   }
 
   return (
-    <main className="project-tag-page">
+    <main className={`project-tag-page ${isDarkMode ? 'is-dark' : ''}`}>
       <header className="project-tag-topbar">
         <div className="project-tag-left">
-          <button type="button" className="project-tag-logo-btn" onClick={() => navigate('/portal')}>
-            <img className="project-tag-logo" src={efortechLogo} alt="Efortech" />
-          </button>
-          <button type="button" className="project-tag-back-btn" onClick={() => navigate('/project')}>
-            Back to Project
+          <button type="button" className="project-tag-brand-btn" onClick={() => navigate('/project')}>
+            <span className="project-tag-brand-title">Tag Management</span>
+            <span className="project-tag-brand-subtitle">Review and maintain tags for the selected device.</span>
           </button>
         </div>
-        <div className="project-tag-right">
-          <span className="project-tag-user">{user}</span>
-          <button type="button" className="project-tag-signout-btn" onClick={onSignOut}>
-            Sign out
-          </button>
+        <div className="project-tag-right project-tag-topbar-tools">
+          <Text className="project-tag-topbar-time">{time}</Text>
+          <Button
+            type="text"
+            shape="circle"
+            className="project-tag-topbar-icon-btn"
+            icon={isDarkMode ? <Sun size={20} color="#ffffff" /> : <Moon size={20} color="#595959" />}
+            onClick={() => setIsDarkMode(!isDarkMode)}
+          />
+          <Button
+            type="text"
+            shape="circle"
+            className="project-tag-topbar-icon-btn"
+            icon={<Bell size={20} color={isDarkMode ? '#ffffff' : '#595959'} />}
+          />
+          <Dropdown menu={{ items: settingsMenuItems }} placement="bottomRight" trigger={['click']}>
+            <Button
+              type="text"
+              shape="circle"
+              className="project-tag-topbar-icon-btn"
+              icon={<Settings size={20} color={isDarkMode ? '#ffffff' : '#595959'} />}
+            />
+          </Dropdown>
         </div>
       </header>
 
       <section className="project-tag-content">
-        <div className="project-tag-toolbar">
-          <button type="button" className="project-tag-action" onClick={openAddTagModal}>
-            <Plus size={28} strokeWidth={1.8} />
-            <span>Insert</span>
-          </button>
-          <button type="button" className={`project-tag-action ${!canEdit ? 'is-disabled' : ''}`} disabled={!canEdit} onClick={openEditTagModal}>
-            <PencilLine size={24} strokeWidth={1.8} />
-            <span>Edit</span>
-          </button>
-          <button type="button" className="project-tag-action is-disabled" disabled>
-            <PencilLine size={24} strokeWidth={1.8} />
-            <span>Batch Edit</span>
-          </button>
-          <button type="button" className={`project-tag-action ${!canDelete ? 'is-disabled' : ''}`} disabled={!canDelete} onClick={handleDeleteTags}>
-            <Trash2 size={24} strokeWidth={1.8} />
-            <span>Delete</span>
-          </button>
-        </div>
+        <div className="project-tag-toolbar-card">
+          <div className="project-tag-toolbar-main">
+            <div className="project-tag-toolbar">
+              <button type="button" className="project-tag-action" onClick={openAddTagModal}>
+                <Plus size={18} strokeWidth={1.9} />
+                <span>Add</span>
+              </button>
+              <button type="button" className={`project-tag-action ${!canEdit ? 'is-disabled' : ''}`} disabled={!canEdit} onClick={openEditTagModal}>
+                <PencilLine size={18} strokeWidth={1.9} />
+                <span>Edit</span>
+              </button>
+              <button type="button" className={`project-tag-action ${!canDelete ? 'is-disabled' : ''}`} disabled={!canDelete} onClick={handleDeleteTags}>
+                <Trash2 size={18} strokeWidth={1.9} />
+                <span>Delete</span>
+              </button>
+            </div>
 
-        <div className="project-tag-meta">
-          <div className="project-tag-breadcrumb">
-            <span>{activeDevice.name}</span>
-            <span>/</span>
-            <strong>{`Tag(${activeDevice.tags.length})`}</strong>
+            <div className="project-tag-tabs">
+              <button type="button" className={activeTagTab === 'all' ? 'is-active' : ''} onClick={() => setActiveTagTab('all')}>
+                {`All (${activeDevice.tags.length})`}
+              </button>
+              <button type="button" className={activeTagTab === 'analog' ? 'is-active' : ''} onClick={() => setActiveTagTab('analog')}>
+                {`Analog (${analogCount})`}
+              </button>
+              <button type="button" className={activeTagTab === 'discrete' ? 'is-active' : ''} onClick={() => setActiveTagTab('discrete')}>
+                {`Discrete (${discreteCount})`}
+              </button>
+              <button type="button" className={activeTagTab === 'text' ? 'is-active' : ''} onClick={() => setActiveTagTab('text')}>
+                {`Text (${textCount})`}
+              </button>
+            </div>
           </div>
-          <div className="project-tag-search">
-            <Search size={22} strokeWidth={1.8} />
-            <input type="text" placeholder="Tag Name Search" value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} />
-          </div>
-        </div>
 
-        <div className="project-tag-tabs">
-          <button type="button" className="is-active">{`All (${activeDevice.tags.length})`}</button>
-          <button type="button">{`Analog Tag (${analogCount})`}</button>
-          <button type="button">{`Discrete Tag (${discreteCount})`}</button>
-          <button type="button" disabled>{`Text Tag (${textCount})`}</button>
+          <div className="project-tag-toolbar-side">
+            <div className="project-tag-summary-meta">{tagRows.length ? `${tagRows.length} item(s)` : 'No items'}</div>
+            <div className="project-tag-search">
+              <Search size={18} strokeWidth={1.9} />
+              <input type="text" placeholder="Search tags" value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} />
+            </div>
+          </div>
         </div>
 
         <div className="project-tag-table-card">
           <div className="project-tag-table-top">
             <div className="project-tag-pagination">
-              <span>{tagRows.length ? `1-${tagRows.length} of ${tagRows.length}` : '0-0 of 0'}</span>
+              <span>{tagRows.length ? `Showing ${tagRows.length} tag(s)` : 'No tags found'}</span>
             </div>
             <div className="project-tag-records">
               <span>Records per page</span>
               <button type="button" className="project-tag-records-btn">100</button>
               <button type="button" className="project-tag-view-btn" aria-label="List view">
-                <List size={22} strokeWidth={1.8} />
+                <List size={20} strokeWidth={1.9} />
               </button>
             </div>
           </div>
@@ -261,14 +348,12 @@ function TagConfigPage({ user, onSignOut }) {
                   <th className="project-tag-checkbox-col">
                     <input
                       type="checkbox"
-                      checked={tagRows.length > 0 && selectedTagIds.length === tagRows.length}
-                      onChange={(event) =>
-                        setSelectedTagIds(event.target.checked ? tagRows.map((row) => row.id) : [])
-                      }
+                      checked={tagRows.length > 0 && selectedVisibleCount === tagRows.length}
+                      onChange={(event) => setSelectedTagIds(event.target.checked ? tagRows.map((row) => row.id) : [])}
                     />
                   </th>
                   <th>Tag Name</th>
-                  <th>Tag Type</th>
+                  <th>Type</th>
                   <th>Description</th>
                   <th>Address</th>
                 </tr>
@@ -307,9 +392,11 @@ function TagConfigPage({ user, onSignOut }) {
           <div className="project-modal" role="dialog" aria-modal="true" onClick={(event) => event.stopPropagation()}>
             <div className="project-modal-head">
               <h3>{tagModalMode === 'add' ? 'Add Tag' : 'Edit Tag'}</h3>
-              <button type="button" className="project-modal-close" onClick={closeTagModal}>
-                Close
-              </button>
+              {tagModalMode === 'add' && (
+                <button type="button" className="project-modal-close" onClick={closeTagModal}>
+                  Close
+                </button>
+              )}
             </div>
 
             <form className="project-modal-form" onSubmit={handleTagSubmit}>
@@ -323,7 +410,6 @@ function TagConfigPage({ user, onSignOut }) {
                 <select value={tagForm.type} onChange={(event) => handleTagFieldChange('type', event.target.value)}>
                   <option value="analog">analog</option>
                   <option value="discrete">discrete</option>
-                  <option value="datalog">datalog</option>
                   <option value="text">text</option>
                 </select>
               </label>

@@ -3,6 +3,12 @@ export const defaultDeviceProperties = [
   { label: 'Description', value: '' },
   { label: 'Unit Number', value: '0' },
   { label: 'Device Type', value: 'Modicon' },
+  { label: 'Primary IP Address', value: '127.0.0.1' },
+  { label: 'Primary Port Number', value: '502' },
+  { label: 'Primary Device Address', value: '1' },
+  { label: 'Secondary IP Address', value: '' },
+  { label: 'Secondary Port Number', value: '' },
+  { label: 'Secondary Device Address', value: '' },
   { label: 'Use UDP :', value: '0' },
   { label: 'Packet Delay (ms) :', value: '0' },
   { label: 'Digital block size :', value: '512' },
@@ -13,14 +19,32 @@ export const defaultDeviceProperties = [
 
 export const PROJECT_STORAGE_KEY = 'project_dummy_devices'
 
+function mergeDeviceProperties(properties = [], deviceName = '') {
+  return defaultDeviceProperties.map((defaultProperty, index) => {
+    const existingProperty = properties.find((property) => property.label === defaultProperty.label)
+    if (existingProperty) {
+      return {
+        ...defaultProperty,
+        value: existingProperty.value ?? defaultProperty.value,
+      }
+    }
+
+    if (index === 0 && deviceName) {
+      return {
+        ...defaultProperty,
+        value: deviceName,
+      }
+    }
+
+    return { ...defaultProperty }
+  })
+}
+
 export const initialDevices = [
   {
     id: 1,
     name: 'ECU1051',
-    properties: defaultDeviceProperties.map((property, index) => ({
-      ...property,
-      value: index === 0 ? 'ECU1051' : property.value,
-    })),
+    properties: mergeDeviceProperties([], 'ECU1051'),
     tags: [
       { id: 101, name: 'Current', type: 'analog', description: 'Analog Input', address: '40001' },
     ],
@@ -32,10 +56,7 @@ export const initialDevices = [
   {
     id: 2,
     name: 'ECU',
-    properties: defaultDeviceProperties.map((property, index) => ({
-      ...property,
-      value: index === 0 ? 'Modbus' : property.value,
-    })),
+    properties: mergeDeviceProperties([], 'Modbus'),
     tags: [
       { id: 201, name: 'Current', type: 'analog', description: 'Analog Input', address: '40001' },
       { id: 202, name: 'Item', type: 'analog', description: 'Analog Input', address: '40007' },
@@ -64,6 +85,15 @@ export function buildDeviceItems(device) {
   })
 }
 
+function normalizeDevices(devices) {
+  return devices.map((device) => ({
+    ...device,
+    properties: mergeDeviceProperties(device.properties || [], device.name),
+    tags: device.tags || [],
+    items: device.items || [],
+  }))
+}
+
 export function loadProjectDevices() {
   try {
     const rawValue = localStorage.getItem(PROJECT_STORAGE_KEY)
@@ -72,7 +102,7 @@ export function loadProjectDevices() {
     }
 
     const parsedValue = JSON.parse(rawValue)
-    return Array.isArray(parsedValue) ? parsedValue : cloneDevices(initialDevices)
+    return Array.isArray(parsedValue) ? normalizeDevices(parsedValue) : cloneDevices(initialDevices)
   } catch {
     return cloneDevices(initialDevices)
   }

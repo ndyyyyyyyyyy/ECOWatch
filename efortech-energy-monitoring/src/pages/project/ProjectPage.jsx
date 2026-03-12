@@ -1,17 +1,20 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { Button, Dropdown, Typography } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import './project-page.css'
-import efortechLogo from '../../assets/efortech_logo.png'
-import { PencilLine, SquarePlus, Trash2 } from 'lucide-react'
+import { Bell, ChevronRight, Cpu, Home, LogOut, Moon, PencilLine, Settings, SquarePlus, Sun, Trash2, User } from 'lucide-react'
 import { buildDeviceItems, defaultDeviceProperties, loadProjectDevices, saveProjectDevices } from './projectDummyData.js'
+
+const { Text } = Typography
 
 function ProjectPage({ user, onSignOut }) {
   const navigate = useNavigate()
   const [devices, setDevices] = useState(() => loadProjectDevices())
   const [activeDeviceId, setActiveDeviceId] = useState(null)
-  const [expandedIds, setExpandedIds] = useState([1, 2])
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const [isDarkMode, setIsDarkMode] = useState(false)
+  const [time, setTime] = useState('')
   const [addForm, setAddForm] = useState(
     defaultDeviceProperties.reduce((accumulator, property) => {
       accumulator[property.label] = property.value
@@ -19,12 +22,6 @@ function ProjectPage({ user, onSignOut }) {
     }, {}),
   )
   const [editForm, setEditForm] = useState({})
-
-  function toggleExpanded(deviceId) {
-    setExpandedIds((prev) =>
-      prev.includes(deviceId) ? prev.filter((item) => item !== deviceId) : [...prev, deviceId],
-    )
-  }
 
   function toggleSelectedDevice(deviceId) {
     setActiveDeviceId((prev) => (prev === deviceId ? null : deviceId))
@@ -118,7 +115,6 @@ function ProjectPage({ user, onSignOut }) {
     }
 
     setDevices((prev) => [...prev, nextDevice])
-    setExpandedIds((prev) => [...prev, nextId])
     setActiveDeviceId(nextId)
     setIsAddModalOpen(false)
   }
@@ -134,7 +130,6 @@ function ProjectPage({ user, onSignOut }) {
     }
 
     setDevices((prev) => prev.filter((device) => device.id !== activeDevice.id))
-    setExpandedIds((prev) => prev.filter((id) => id !== activeDevice.id))
     setActiveDeviceId(null)
   }
 
@@ -153,139 +148,232 @@ function ProjectPage({ user, onSignOut }) {
   }
 
   const canAddDevice = activeDeviceId === null
-  const canEditDevice = devices.some((device) => device.id === activeDeviceId)
-  const canDeleteDevice = canEditDevice
+  const canDeleteDevice = devices.some((device) => device.id === activeDeviceId)
   const activeDevice = devices.find((device) => device.id === activeDeviceId) ?? null
+  const activeDeviceItems = useMemo(() => (activeDevice ? buildDeviceItems(activeDevice) : []), [activeDevice])
 
   useEffect(() => {
     saveProjectDevices(devices)
   }, [devices])
 
+  useEffect(() => {
+    const updateDateTime = () => {
+      const now = new Date()
+      const options = {
+        weekday: 'short',
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+      }
+      setTime(now.toLocaleString('en-GB', options).replace(',', ''))
+    }
+
+    updateDateTime()
+    const timer = setInterval(updateDateTime, 1000)
+    return () => clearInterval(timer)
+  }, [])
+
+  const settingsMenuItems = [
+    {
+      key: 'user-info',
+      label: (
+        <div style={{ padding: '4px 0', borderBottom: '1px solid #f0f0f0', marginBottom: '4px' }}>
+          <Text strong style={{ display: 'block' }}>{user || 'Guest'}</Text>
+          <Text type="secondary" style={{ fontSize: '12px' }}>{String(user || 'guest').toLowerCase()}</Text>
+        </div>
+      ),
+      icon: <User size={16} />,
+      disabled: true,
+    },
+    {
+      key: 'portal',
+      label: 'App Launcher (Portal)',
+      icon: <Home size={16} />,
+      onClick: () => navigate('/portal'),
+    },
+    {
+      type: 'divider',
+    },
+    {
+      key: 'logout',
+      label: 'Logout',
+      icon: <LogOut size={16} color="#ff4d4f" />,
+      onClick: onSignOut,
+      danger: true,
+    },
+  ]
+
   return (
-    <main className="project-page">
+    <main className={`project-page ${isDarkMode ? 'is-dark' : ''}`}>
       <header className="project-topbar">
         <div className="project-left">
-          <button
-            type="button"
-            className="project-logo-btn"
-            onClick={() => navigate('/portal')}
-          >
-            <img className="project-logo" src={efortechLogo} alt="Efortech" />
+          <button type="button" className="project-brand-btn" onClick={() => navigate('/portal')}>
+            <span className="project-brand-title">Project Manager</span>
+            <span className="project-brand-subtitle">Manage devices and jump into tag configuration from a single workspace.</span>
           </button>
         </div>
-        <div className="project-right">
-          <span className="project-user">{user}</span>
-          <button type="button" className="project-signout-btn" onClick={onSignOut}>
-            Sign out
-          </button>
+        <div className="project-right project-topbar-tools">
+          <Text className="project-topbar-time">{time}</Text>
+          <Button
+            type="text"
+            shape="circle"
+            className="project-topbar-icon-btn"
+            icon={isDarkMode ? <Sun size={20} color="#ffffff" /> : <Moon size={20} color="#595959" />}
+            onClick={() => setIsDarkMode(!isDarkMode)}
+          />
+          <Button
+            type="text"
+            shape="circle"
+            className="project-topbar-icon-btn"
+            icon={<Bell size={20} color={isDarkMode ? '#ffffff' : '#595959'} />}
+          />
+          <Dropdown menu={{ items: settingsMenuItems }} placement="bottomRight" trigger={['click']}>
+            <Button
+              type="text"
+              shape="circle"
+              className="project-topbar-icon-btn"
+              icon={<Settings size={20} color={isDarkMode ? '#ffffff' : '#595959'} />}
+            />
+          </Dropdown>
         </div>
       </header>
 
       <section className="project-content">
         <div className="project-layout">
-          <div className="project-flow-card">
-            <div className="project-toolbar">
+          <aside className="project-device-panel">
+            <div className="project-panel-head project-panel-head-actions">
+              <div>
+                <h2>Devices</h2>
+                <span>{devices.length} registered</span>
+              </div>
               <div className="project-toolbar-actions">
-                <button
-                  type="button"
-                  className="project-action-btn"
-                  disabled={!canAddDevice}
-                  onClick={openAddModal}
-                >
-                  <SquarePlus size={22} strokeWidth={1.8} />
-                  Add Device
+                <button type="button" className="project-action-btn" disabled={!canAddDevice} onClick={openAddModal}>
+                  <SquarePlus size={18} strokeWidth={1.8} />
+                  Add
                 </button>
-                <button
-                  type="button"
-                  className="project-action-btn"
-                  disabled={!canEditDevice}
-                  onClick={openEditModal}
-                >
-                  <PencilLine size={22} strokeWidth={1.8} />
-                  Edit Device
-                </button>
-                <button
-                  type="button"
-                  className="project-action-btn"
-                  disabled={!canDeleteDevice}
-                  onClick={handleDeleteDevice}
-                >
-                  <Trash2 size={22} strokeWidth={1.8} />
+                <button type="button" className="project-action-btn" disabled={!canDeleteDevice} onClick={handleDeleteDevice}>
+                  <Trash2 size={18} strokeWidth={1.8} />
                   Delete
                 </button>
               </div>
             </div>
-
-            <div className="project-flow-head">
-              <h2>Device</h2>
-              <h2>Tag/Block</h2>
-            </div>
-
-            <div className="project-flow-body">
+            <div className="project-device-list">
               {devices.map((device) => {
-                const isExpanded = expandedIds.includes(device.id)
                 const isActive = activeDeviceId === device.id
-                const deviceItems = buildDeviceItems(device)
-
                 return (
-                  <div className="project-row" key={device.id}>
-                    <div className="project-device-pane">
-                      <button
-                        type="button"
-                        className={`project-device-node ${isActive ? 'is-active' : ''}`}
-                        onClick={() => toggleSelectedDevice(device.id)}
-                      >
-                        {device.name}
-                      </button>
-
-                      <button
-                        type="button"
-                        className={`project-toggle-dot ${isExpanded ? 'is-open' : ''}`}
-                        aria-label={isExpanded ? `Collapse ${device.name}` : `Expand ${device.name}`}
-                        onClick={() => toggleExpanded(device.id)}
-                      />
+                  <button
+                    type="button"
+                    key={device.id}
+                    className={`project-device-card ${isActive ? 'is-active' : ''}`}
+                    onClick={() => toggleSelectedDevice(device.id)}
+                  >
+                    <div className="project-device-card-top">
+                      <strong>{device.name}</strong>
+                      <span>{device.tags.length} tags</span>
                     </div>
-
-                    <div className={`project-tags-pane ${isExpanded ? 'is-open' : 'is-closed'}`}>
-                      {isExpanded && (
-                        <>
-                          <div className="project-connector-line" aria-hidden="true" />
-                          <div className="project-tags-stack">
-                            {deviceItems.map((item) => (
-                              <button
-                                key={item.id}
-                                type="button"
-                                className={`project-tag-node ${item.kind === 'block' ? 'is-block' : 'is-tag'} ${item.kind === 'tag' ? 'is-clickable' : ''}`}
-                                onClick={() => openTagConfiguration(device, item)}
-                              >
-                                {item.label}
-                              </button>
-                            ))}
-                          </div>
-                        </>
-                      )}
+                    <div className="project-device-card-meta">
+                      <span>{device.properties.find((property) => property.label === 'Device Type')?.value || 'Device'}</span>
+                      <span>{device.items.find((item) => item.kind === 'block')?.label || 'Block(0)'}</span>
                     </div>
-                  </div>
+                  </button>
                 )
               })}
             </div>
-          </div>
-
-          <aside className="project-property-card">
-            <div className="project-property-head">Device Property</div>
-            <div className="project-property-body">
-              {activeDevice ? (
-                activeDevice.properties.map((property) => (
-                  <div className="project-property-item" key={property.label}>
-                    <div className="project-property-label">{property.label}</div>
-                    <div className="project-property-value">{property.value || '\u00A0'}</div>
-                  </div>
-                ))
-              ) : (
-                <div className="project-property-empty">Select a device to view its properties.</div>
-              )}
-            </div>
           </aside>
+
+          <div className="project-main-panel">
+            {activeDevice ? (
+              <>
+                <section className="project-summary-card">
+                  <div className="project-summary-copy">
+                    <p className="project-summary-kicker">Selected Device</p>
+                    <div className="project-summary-title-row">
+                      <div>
+                        <h2>{activeDevice.name}</h2>
+                        <p>
+                          {activeDevice.properties.find((property) => property.label === 'Description')?.value || 'No description set.'}
+                        </p>
+                      </div>
+                      <button type="button" className="project-summary-edit-btn" onClick={openEditModal}>
+                        <PencilLine size={18} strokeWidth={1.8} />
+                        Edit
+                      </button>
+                    </div>
+                  </div>
+                  <div className="project-summary-stats">
+                    <div className="project-stat-card">
+                      <span>Tags</span>
+                      <strong>{activeDevice.tags.length}</strong>
+                    </div>
+                    <div className="project-stat-card">
+                      <span>Blocks</span>
+                      <strong>{activeDeviceItems.filter((item) => item.kind === 'block').length}</strong>
+                    </div>
+                    <div className="project-stat-card">
+                      <span>Unit</span>
+                      <strong>{activeDevice.properties.find((property) => property.label === 'Unit Number')?.value || '0'}</strong>
+                    </div>
+                  </div>
+                </section>
+
+                <div className="project-detail-grid">
+                  <section className="project-section-card">
+                    <div className="project-panel-head">
+                      <div>
+                        <h2>Tag and Block Access</h2>
+                        <span>Open tag management directly or review block availability.</span>
+                      </div>
+                    </div>
+                    <div className="project-shortcut-grid">
+                      {activeDeviceItems.map((item) => (
+                        <button
+                          key={item.id}
+                          type="button"
+                          className={`project-shortcut-card ${item.kind === 'tag' ? 'is-tag' : 'is-block'} ${item.kind === 'tag' ? 'is-clickable' : 'is-static'}`}
+                          onClick={() => openTagConfiguration(activeDevice, item)}
+                        >
+                          <div className="project-shortcut-icon">
+                            {item.kind === 'tag' ? <Cpu size={18} strokeWidth={1.9} /> : <SquarePlus size={18} strokeWidth={1.9} />}
+                          </div>
+                          <div className="project-shortcut-copy">
+                            <strong>{item.label}</strong>
+                            <span>{item.kind === 'tag' ? 'Manage device data points' : 'Block configuration placeholder'}</span>
+                          </div>
+                          {item.kind === 'tag' && <ChevronRight size={18} strokeWidth={1.9} />}
+                        </button>
+                      ))}
+                    </div>
+                  </section>
+
+                  <section className="project-section-card">
+                    <div className="project-panel-head">
+                      <div>
+                        <h2>Device Properties</h2>
+                        <span>Editable via the selected device action.</span>
+                      </div>
+                    </div>
+                    <div className="project-property-grid">
+                      {activeDevice.properties.map((property) => (
+                        <div className="project-property-item" key={property.label}>
+                          <div className="project-property-label">{property.label}</div>
+                          <div className="project-property-value">{property.value || '\u00A0'}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                </div>
+              </>
+            ) : (
+              <div className="project-empty-state">
+                <h2>Select a device</h2>
+                <p>Choose one device from the left panel to inspect properties and open its tag manager.</p>
+              </div>
+            )}
+          </div>
         </div>
       </section>
 
