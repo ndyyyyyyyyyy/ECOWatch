@@ -69,6 +69,35 @@ a[aria-label="Help"],
   new MutationObserver(hideHomeRow).observe(document.body, { childList: true, subtree: true });
 })();
 </script>
+<script>
+(function () {
+  function shouldHide() {
+    const p = window.location.pathname;
+    // khusus dashboard slug /home (UID bebas), termasuk subpath /grafana
+    return p.includes("/d/") && p.endsWith("/home");
+  }
+  function hideButtons() {
+    if (!shouldHide()) return;
+    const toolbar = document.querySelector('div[data-testid="data-testid Nav toolbar"]');
+    if (!toolbar) return;
+    toolbar.querySelectorAll(
+      'button[aria-label="Mark as favorite"],' +
+      'button[data-testid="data-testid Edit dashboard button"],' +
+      'button[aria-label="Export dashboard"],' +
+      'div[data-testid="data-testid new share button"]'
+    ).forEach(el => el.style.display = "none");
+    toolbar.querySelectorAll('.css-1ju7n6r').forEach(el => el.style.display = "none");
+  }
+  hideButtons();
+  const mo = new MutationObserver(hideButtons);
+  mo.observe(document.documentElement, { childList: true, subtree: true });
+  window.addEventListener("popstate", hideButtons);
+  const _push = history.pushState;
+  history.pushState = function () { _push.apply(this, arguments); hideButtons(); };
+  const _replace = history.replaceState;
+  history.replaceState = function () { _replace.apply(this, arguments); hideButtons(); };
+})();
+</script>
 </head>
 
   <body class="theme-[[ .ThemeType ]] [[.AppNameBodyClass]]">
@@ -416,6 +445,7 @@ a[aria-label="Help"],
     </script>
   </body>
 </html>
+
 
 
 
