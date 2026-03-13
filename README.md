@@ -1,6 +1,6 @@
 # ECOWatch
 
-## Setup Grafana
+## Setup Grafana Enterprise Version 12_2_1
 
 1. Replace folder `public`
    - Source: `grafana/public`
