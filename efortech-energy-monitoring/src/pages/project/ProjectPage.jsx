@@ -1,27 +1,59 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Button, Dropdown, Typography } from 'antd'
+import { Button, Dropdown, Typography, message } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import './project-page.css'
 import { Bell, ChevronRight, Cpu, Home, LogOut, Moon, PencilLine, Settings, SquarePlus, Sun, Trash2, User } from 'lucide-react'
-import { buildDeviceItems, defaultDeviceProperties, loadProjectDevices, saveProjectDevices } from './projectDummyData.js'
+import {
+  buildDeviceItems,
+  createDeviceFormState,
+  getDevicePropertySchema,
+  loadProjectDevices,
+  saveProjectDevices,
+} from './projectStorage.js'
+import {
+  connectProjectStream,
+  fetchProjectDevices,
+  subscribeProjectDevice,
+  unsubscribeProjectDevice,
+  updateProjectDevice,
+} from '../../api/projectApi.js'
 
 const { Text } = Typography
-
 function ProjectPage({ user, onSignOut }) {
   const navigate = useNavigate()
   const [devices, setDevices] = useState(() => loadProjectDevices())
   const [activeDeviceId, setActiveDeviceId] = useState(null)
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [isDarkMode, setIsDarkMode] = useState(false)
   const [time, setTime] = useState('')
-  const [addForm, setAddForm] = useState(
-    defaultDeviceProperties.reduce((accumulator, property) => {
-      accumulator[property.label] = property.value
-      return accumulator
-    }, {}),
-  )
+  const [addForm, setAddForm] = useState(() => createDeviceFormState('Modicon'))
   const [editForm, setEditForm] = useState({})
+  const [dataSource, setDataSource] = useState('dummy')
+
+  function applyBackendDevices(response) {
+    const apiDevices = Array.isArray(response?.devices) ? response.devices : []
+    const nextSource = response?.source === 'mqtt' ? 'mqtt' : 'dummy'
+
+    setDataSource(nextSource)
+
+    if (nextSource === 'mqtt') {
+      setDevices(apiDevices)
+      setActiveDeviceId((prev) => {
+        if (prev && apiDevices.some((device) => device.id === prev)) {
+          return prev
+        }
+        return apiDevices[0]?.id ?? null
+      })
+    }
+  }
+
+  async function refreshProjectDevices() {
+    const response = await fetchProjectDevices()
+    applyBackendDevices(response)
+    return response
+  }
 
   function toggleSelectedDevice(deviceId) {
     setActiveDeviceId((prev) => (prev === deviceId ? null : deviceId))
@@ -34,10 +66,13 @@ function ProjectPage({ user, onSignOut }) {
     }
 
     setEditForm(
-      selectedDevice.properties.reduce((accumulator, property) => {
+      createDeviceFormState(
+        selectedDevice.properties.find((property) => property.label === 'Device Type')?.value || 'Modicon',
+        selectedDevice.properties.reduce((accumulator, property) => {
         accumulator[property.label] = property.value
         return accumulator
-      }, {}),
+        }, {}),
+      ),
     )
     setIsEditModalOpen(true)
   }
@@ -47,12 +82,7 @@ function ProjectPage({ user, onSignOut }) {
   }
 
   function openAddModal() {
-    setAddForm(
-      defaultDeviceProperties.reduce((accumulator, property) => {
-        accumulator[property.label] = property.value
-        return accumulator
-      }, {}),
-    )
+    setAddForm(createDeviceFormState('Modicon'))
     setIsAddModalOpen(true)
   }
 
@@ -60,22 +90,73 @@ function ProjectPage({ user, onSignOut }) {
     setIsAddModalOpen(false)
   }
 
+  function openDeleteModal() {
+    if (!activeDevice) {
+      return
+    }
+    setIsDeleteModalOpen(true)
+  }
+
+  function closeDeleteModal() {
+    setIsDeleteModalOpen(false)
+  }
+
   function handleAddFieldChange(label, value) {
-    setAddForm((prev) => ({
-      ...prev,
-      [label]: value,
-    }))
+    setAddForm((prev) => {
+      if (label === 'Device Type') {
+        return createDeviceFormState(value, { ...prev, [label]: value })
+      }
+      return {
+        ...prev,
+        [label]: value,
+      }
+    })
   }
 
   function handleEditFieldChange(label, value) {
-    setEditForm((prev) => ({
-      ...prev,
-      [label]: value,
+    setEditForm((prev) => {
+      if (label === 'Device Type') {
+        return createDeviceFormState(value, { ...prev, [label]: value })
+      }
+      return {
+        ...prev,
+        [label]: value,
+      }
+    })
+  }
+
+  function buildPropertiesFromForm(formState) {
+    return getDevicePropertySchema(formState['Device Type'] || 'Modicon').map((property) => ({
+      label: property.label,
+      value: formState[property.label] ?? property.value,
     }))
   }
 
   function handleEditSubmit(event) {
     event.preventDefault()
+    if (!activeDevice) {
+      return
+    }
+
+    if (dataSource === 'mqtt') {
+      const properties = buildPropertiesFromForm(editForm)
+      const nextDeviceName = editForm['Device Name'] || activeDevice.name
+
+      updateProjectDevice(activeDevice.name, properties)
+        .then(() => refreshProjectDevices())
+        .then((response) => {
+          const updatedDevice = response?.devices?.find((device) => device.name === nextDeviceName)
+          if (updatedDevice) {
+            setActiveDeviceId(updatedDevice.id)
+          }
+          setIsEditModalOpen(false)
+          message.success(`Updated device configuration for "${nextDeviceName}".`)
+        })
+        .catch((error) => {
+          message.error(error?.response?.data?.detail || 'Failed to update device configuration.')
+        })
+      return
+    }
 
     setDevices((prev) =>
       prev.map((device) =>
@@ -97,6 +178,26 @@ function ProjectPage({ user, onSignOut }) {
 
   function handleAddSubmit(event) {
     event.preventDefault()
+
+    if (dataSource === 'mqtt') {
+      const properties = buildPropertiesFromForm(addForm)
+      const deviceName = addForm['Device Name'] || 'Device'
+
+      subscribeProjectDevice(properties)
+        .then(() => refreshProjectDevices())
+        .then((response) => {
+          const addedDevice = response?.devices?.find((device) => device.name === deviceName)
+          if (addedDevice) {
+            setActiveDeviceId(addedDevice.id)
+          }
+          setIsAddModalOpen(false)
+          message.success(`Added device configuration for "${deviceName}".`)
+        })
+        .catch((error) => {
+          message.error(error?.response?.data?.detail || 'Failed to subscribe device.')
+        })
+      return
+    }
 
     const nextId = devices.length ? Math.max(...devices.map((device) => device.id)) + 1 : 1
     const nextItemId = devices.flatMap((device) => device.items).length
@@ -124,13 +225,22 @@ function ProjectPage({ user, onSignOut }) {
       return
     }
 
-    const confirmed = window.confirm(`Delete device "${activeDevice.name}"?`)
-    if (!confirmed) {
+    if (dataSource === 'mqtt') {
+      unsubscribeProjectDevice(activeDevice.name)
+        .then(() => refreshProjectDevices())
+        .then(() => {
+          setIsDeleteModalOpen(false)
+          message.success(`Unsubscribed device "${activeDevice.name}".`)
+        })
+        .catch((error) => {
+          message.error(error?.response?.data?.detail || 'Failed to unsubscribe device.')
+        })
       return
     }
 
     setDevices((prev) => prev.filter((device) => device.id !== activeDevice.id))
     setActiveDeviceId(null)
+    setIsDeleteModalOpen(false)
   }
 
   function openTagConfiguration(device, item) {
@@ -147,14 +257,68 @@ function ProjectPage({ user, onSignOut }) {
     })
   }
 
-  const canAddDevice = activeDeviceId === null
+  function getMatchTone(device) {
+    if (device?.matchStatus === 'matched') {
+      return 'Matched'
+    }
+    if (device?.matchStatus === 'mismatch') {
+      return 'Mismatch'
+    }
+    return 'Waiting'
+  }
+
+  const canAddDevice = dataSource === 'mqtt' ? true : activeDeviceId === null
   const canDeleteDevice = devices.some((device) => device.id === activeDeviceId)
   const activeDevice = devices.find((device) => device.id === activeDeviceId) ?? null
   const activeDeviceItems = useMemo(() => (activeDevice ? buildDeviceItems(activeDevice) : []), [activeDevice])
+  const activeDeviceType = activeDevice?.properties.find((property) => property.label === 'Device Type')?.value || 'Modicon'
+  const visibleActiveDeviceProperties = useMemo(
+    () => {
+      const visibleLabels = new Set(getDevicePropertySchema(activeDeviceType).map((property) => property.label))
+      return (activeDevice?.properties || []).filter((property) => visibleLabels.has(property.label))
+    },
+    [activeDevice, activeDeviceType],
+  )
+  const addFormFields = useMemo(() => getDevicePropertySchema(addForm['Device Type'] || 'Modicon'), [addForm])
+  const editFormFields = useMemo(() => getDevicePropertySchema(editForm['Device Type'] || activeDeviceType), [editForm, activeDeviceType])
 
   useEffect(() => {
-    saveProjectDevices(devices)
-  }, [devices])
+    if (dataSource !== 'mqtt') {
+      saveProjectDevices(devices)
+    }
+  }, [devices, dataSource])
+
+  useEffect(() => {
+    let isMounted = true
+
+    fetchProjectDevices()
+      .then((response) => {
+        if (!isMounted) {
+          return
+        }
+        applyBackendDevices(response)
+      })
+      .catch(() => {
+        if (!isMounted) {
+          return
+        }
+        setDataSource('dummy')
+      })
+
+    return () => {
+      isMounted = false
+    }
+  }, [])
+
+  useEffect(() => {
+    const stream = connectProjectStream((response) => {
+      applyBackendDevices(response)
+    })
+
+    return () => {
+      stream.close()
+    }
+  }, [])
 
   useEffect(() => {
     const updateDateTime = () => {
@@ -207,6 +371,9 @@ function ProjectPage({ user, onSignOut }) {
     },
   ]
 
+  const addDisabled = !canAddDevice
+  const editDisabled = !activeDevice
+
   return (
     <main className={`project-page ${isDarkMode ? 'is-dark' : ''}`}>
       <header className="project-topbar">
@@ -251,11 +418,11 @@ function ProjectPage({ user, onSignOut }) {
                 <span>{devices.length} registered</span>
               </div>
               <div className="project-toolbar-actions">
-                <button type="button" className="project-action-btn" disabled={!canAddDevice} onClick={openAddModal}>
+                <button type="button" className="project-action-btn" disabled={addDisabled} onClick={openAddModal}>
                   <SquarePlus size={18} strokeWidth={1.8} />
                   Add
                 </button>
-                <button type="button" className="project-action-btn" disabled={!canDeleteDevice} onClick={handleDeleteDevice}>
+                <button type="button" className="project-action-btn" disabled={!canDeleteDevice} onClick={openDeleteModal}>
                   <Trash2 size={18} strokeWidth={1.8} />
                   Delete
                 </button>
@@ -277,7 +444,7 @@ function ProjectPage({ user, onSignOut }) {
                     </div>
                     <div className="project-device-card-meta">
                       <span>{device.properties.find((property) => property.label === 'Device Type')?.value || 'Device'}</span>
-                      <span>{device.items.find((item) => item.kind === 'block')?.label || 'Block(0)'}</span>
+                      <span>{dataSource === 'mqtt' ? getMatchTone(device) : device.items.find((item) => item.kind === 'block')?.label || 'Block(0)'}</span>
                     </div>
                   </button>
                 )
@@ -294,11 +461,13 @@ function ProjectPage({ user, onSignOut }) {
                     <div className="project-summary-title-row">
                       <div>
                         <h2>{activeDevice.name}</h2>
-                        <p>
-                          {activeDevice.properties.find((property) => property.label === 'Description')?.value || 'No description set.'}
-                        </p>
+                        {dataSource === 'mqtt' ? (
+                          activeDevice.matchStatus === 'mismatch' && activeDevice.matchMessage ? <p>{activeDevice.matchMessage}</p> : null
+                        ) : (
+                          <p>{activeDevice.properties.find((property) => property.label === 'Description')?.value || 'No description set.'}</p>
+                        )}
                       </div>
-                      <button type="button" className="project-summary-edit-btn" onClick={openEditModal}>
+                      <button type="button" className="project-summary-edit-btn" disabled={editDisabled} onClick={openEditModal}>
                         <PencilLine size={18} strokeWidth={1.8} />
                         Edit
                       </button>
@@ -357,7 +526,7 @@ function ProjectPage({ user, onSignOut }) {
                       </div>
                     </div>
                     <div className="project-property-grid">
-                      {activeDevice.properties.map((property) => (
+                      {visibleActiveDeviceProperties.map((property) => (
                         <div className="project-property-item" key={property.label}>
                           <div className="project-property-label">{property.label}</div>
                           <div className="project-property-value">{property.value || '\u00A0'}</div>
@@ -378,24 +547,28 @@ function ProjectPage({ user, onSignOut }) {
       </section>
 
       {isEditModalOpen && activeDevice && (
-        <div className="project-modal-backdrop" role="presentation" onClick={closeEditModal}>
+        <div className="project-modal-backdrop" role="presentation">
           <div className="project-modal" role="dialog" aria-modal="true" onClick={(event) => event.stopPropagation()}>
             <div className="project-modal-head">
-              <h3>Edit Device</h3>
-              <button type="button" className="project-modal-close" onClick={closeEditModal}>
-                Close
-              </button>
+              <h3>{dataSource === 'mqtt' ? 'Edit Device Configuration' : 'Edit Device'}</h3>
             </div>
 
             <form className="project-modal-form" onSubmit={handleEditSubmit}>
-              {activeDevice.properties.map((property) => (
+              {editFormFields.map((property) => (
                 <label className="project-modal-field" key={property.label}>
                   <span>{property.label}</span>
-                  <input
-                    type="text"
-                    value={editForm[property.label] ?? ''}
-                    onChange={(event) => handleEditFieldChange(property.label, event.target.value)}
-                  />
+                  {property.label === 'Device Type' ? (
+                    <select value={editForm[property.label] ?? property.value} onChange={(event) => handleEditFieldChange(property.label, event.target.value)}>
+                      <option value="Modicon">Modicon</option>
+                      <option value="MQTT">MQTT</option>
+                    </select>
+                  ) : (
+                    <input
+                      type={property.label === 'Password' ? 'password' : 'text'}
+                      value={editForm[property.label] ?? ''}
+                      onChange={(event) => handleEditFieldChange(property.label, event.target.value)}
+                    />
+                  )}
                 </label>
               ))}
 
@@ -413,24 +586,28 @@ function ProjectPage({ user, onSignOut }) {
       )}
 
       {isAddModalOpen && (
-        <div className="project-modal-backdrop" role="presentation" onClick={closeAddModal}>
+        <div className="project-modal-backdrop" role="presentation">
           <div className="project-modal" role="dialog" aria-modal="true" onClick={(event) => event.stopPropagation()}>
             <div className="project-modal-head">
               <h3>Add Device</h3>
-              <button type="button" className="project-modal-close" onClick={closeAddModal}>
-                Close
-              </button>
             </div>
 
             <form className="project-modal-form" onSubmit={handleAddSubmit}>
-              {Object.keys(addForm).map((label) => (
-                <label className="project-modal-field" key={label}>
-                  <span>{label}</span>
-                  <input
-                    type="text"
-                    value={addForm[label] ?? ''}
-                    onChange={(event) => handleAddFieldChange(label, event.target.value)}
-                  />
+              {addFormFields.map((property) => (
+                <label className="project-modal-field" key={property.label}>
+                  <span>{property.label}</span>
+                  {property.label === 'Device Type' ? (
+                    <select value={addForm[property.label] ?? property.value} onChange={(event) => handleAddFieldChange(property.label, event.target.value)}>
+                      <option value="Modicon">Modicon</option>
+                      <option value="MQTT">MQTT</option>
+                    </select>
+                  ) : (
+                    <input
+                      type={property.label === 'Password' ? 'password' : 'text'}
+                      value={addForm[property.label] ?? ''}
+                      onChange={(event) => handleAddFieldChange(property.label, event.target.value)}
+                    />
+                  )}
                 </label>
               ))}
 
@@ -443,6 +620,30 @@ function ProjectPage({ user, onSignOut }) {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {isDeleteModalOpen && activeDevice && (
+        <div className="project-modal-backdrop" role="presentation">
+          <div className="project-modal project-confirm-modal" role="dialog" aria-modal="true" onClick={(event) => event.stopPropagation()}>
+            <div className="project-modal-head">
+              <h3>Delete Device</h3>
+            </div>
+
+            <div className="project-modal-form">
+              <p className="project-confirm-copy">
+                Delete device <strong>{activeDevice.name}</strong>?
+              </p>
+              <div className="project-modal-actions">
+                <button type="button" className="project-modal-secondary" onClick={closeDeleteModal}>
+                  Cancel
+                </button>
+                <button type="button" className="project-modal-primary project-modal-danger" onClick={handleDeleteDevice}>
+                  Delete
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}

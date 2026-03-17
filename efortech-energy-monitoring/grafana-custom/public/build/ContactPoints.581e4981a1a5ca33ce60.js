@@ -1,0 +1,3 @@
+"use strict";(self.webpackChunkgrafana=self.webpackChunkgrafana||[]).push([[4312],{12266:(g,e,a)=>{a.d(e,{e:()=>_});var t=a(74848),r=a(45861);const _=({isCollapsed:n,onToggle:l,idControlled:c,className:o,text:s,size:i="xl",...u})=>(0,t.jsx)(r.$n,{type:"button",fill:"text",variant:"secondary","aria-expanded":!n,"aria-controls":c,className:o,icon:n?"angle-right":"angle-down",onClick:()=>l(!n),...u,children:s})}}]);
+
+//# sourceMappingURL=ContactPoints.581e4981a1a5ca33ce60.js.map

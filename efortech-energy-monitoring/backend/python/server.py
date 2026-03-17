@@ -5,46 +5,58 @@ from fastapi.staticfiles import StaticFiles
 
 from py.auth_routes import register_auth_routes
 from py.config import DIST_DIR, DIST_INDEX, GRAFANA_TARGET, LOGIN_APP_URL, PORT
+from py.energy_routes import register_energy_routes
 from py.grafana_proxy import register_grafana_proxy_routes
 from py.http_client import shutdown_http_client, startup_http_client
 from py.middleware import register_gateway_middleware
+from py.project_routes import register_project_routes
+from py.project_store import project_store
 from py.security import ALLOWED_SUBNETS
 
-app = FastAPI()
+
+def create_app() -> FastAPI:
+    app = FastAPI()
+
+    register_gateway_middleware(app)
+    register_auth_routes(app)
+    register_energy_routes(app)
+    register_grafana_proxy_routes(app)
+    register_project_routes(app)
+
+    if DIST_DIR.exists():
+        app.mount("/assets", StaticFiles(directory=str(DIST_DIR / "assets")), name="assets")
+
+    @app.get("/{full_path:path}")
+    async def spa_fallback(full_path: str):
+        if full_path.startswith(("api", "grafana", "auth", "public", "avatar")):
+            return JSONResponse({"message": "Not Found"}, status_code=404)
+
+        if DIST_INDEX.exists():
+            candidate = DIST_DIR / full_path
+            if full_path and candidate.exists() and candidate.is_file():
+                return FileResponse(candidate)
+            return FileResponse(DIST_INDEX)
+
+        if LOGIN_APP_URL == "/":
+            return {"ok": True, "message": "Efortech Python gateway running."}
+        return RedirectResponse(LOGIN_APP_URL, status_code=302)
+
+    return app
+
+
+app = create_app()
 
 
 @app.on_event("startup")
 async def startup_event():
     await startup_http_client()
+    project_store.start()
 
 
 @app.on_event("shutdown")
 async def shutdown_event():
+    project_store.stop()
     await shutdown_http_client()
-
-
-register_gateway_middleware(app)
-register_auth_routes(app)
-register_grafana_proxy_routes(app)
-
-if DIST_DIR.exists():
-    app.mount("/assets", StaticFiles(directory=str(DIST_DIR / "assets")), name="assets")
-
-
-@app.get("/{full_path:path}")
-async def spa_fallback(full_path: str):
-    if full_path.startswith(("api", "grafana", "auth", "public", "avatar")):
-        return JSONResponse({"message": "Not Found"}, status_code=404)
-
-    if DIST_INDEX.exists():
-        candidate = DIST_DIR / full_path
-        if full_path and candidate.exists() and candidate.is_file():
-            return FileResponse(candidate)
-        return FileResponse(DIST_INDEX)
-
-    if LOGIN_APP_URL == "/":
-        return {"ok": True, "message": "Efortech Python gateway running."}
-    return RedirectResponse(LOGIN_APP_URL, status_code=302)
 
 
 if __name__ == "__main__":

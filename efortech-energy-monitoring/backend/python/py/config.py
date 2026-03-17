@@ -2,11 +2,44 @@ import os
 from pathlib import Path
 
 
+ROOT_DIR = Path(__file__).resolve().parents[3]
+
+
+def _load_env_file():
+    env_path = ROOT_DIR / ".env"
+    if not env_path.exists():
+        return
+
+    for raw_line in env_path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+
+        key, value = line.split("=", 1)
+        key = key.strip()
+        value = value.strip().strip('"').strip("'")
+        if key and key not in os.environ:
+            os.environ[key] = value
+
+
+_load_env_file()
+
+
 def _env_bool(name: str, default: bool) -> bool:
     value = os.getenv(name)
     if value is None:
         return default
     return value.strip().lower() in {"1", "true", "yes", "on"}
+
+
+def _env_int(name: str, default: int) -> int:
+    value = os.getenv(name)
+    if value is None:
+        return default
+    try:
+        return int(value)
+    except ValueError:
+        return default
 
 
 PORT = int(os.getenv("PORT", "4000"))
@@ -34,6 +67,15 @@ ALLOWED_ORIGINS = {
     if value.strip()
 }
 
-ROOT_DIR = Path(__file__).resolve().parents[3]
 DIST_DIR = ROOT_DIR / "dist"
 DIST_INDEX = DIST_DIR / "index.html"
+DATA_DIR = ROOT_DIR / "backend" / "python" / "data"
+PROJECT_STORE_FILE = DATA_DIR / "project_store.json"
+
+MQTT_ENABLED = _env_bool("MQTT_ENABLED", False)
+MQTT_BROKER_HOST = os.getenv("MQTT_BROKER_HOST", "127.0.0.1")
+MQTT_BROKER_PORT = _env_int("MQTT_BROKER_PORT", 1883)
+MQTT_USERNAME = os.getenv("MQTT_USERNAME", "").strip()
+MQTT_PASSWORD = os.getenv("MQTT_PASSWORD", "").strip()
+MQTT_CLIENT_ID = os.getenv("MQTT_CLIENT_ID", "efortech-project-backend").strip()
+MQTT_TOPIC_FILTER = os.getenv("MQTT_TOPIC_FILTER", "devices/+").strip() or "devices/+"

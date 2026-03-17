@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Button, Dropdown, Typography } from 'antd'
+import { Button, Dropdown, Typography, message } from 'antd'
 import './project-tag-config-page.css'
 import { Bell, Home, List, LogOut, Moon, PencilLine, Plus, Search, Settings, Sun, Trash2, User } from 'lucide-react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { loadProjectDevices, saveProjectDevices } from './projectDummyData.js'
+import { loadProjectDevices, saveProjectDevices } from './projectStorage.js'
+import { connectProjectStream, deleteProjectTag, fetchProjectDevices, upsertProjectTag } from '../../api/projectApi.js'
 
 const { Text } = Typography
 
@@ -27,6 +28,20 @@ function TagConfigPage({ user, onSignOut }) {
   const [tagForm, setTagForm] = useState(emptyTagForm)
   const [isDarkMode, setIsDarkMode] = useState(false)
   const [time, setTime] = useState('')
+  const [dataSource, setDataSource] = useState('dummy')
+  const [backendStatus, setBackendStatus] = useState('')
+
+  function applyBackendDevices(response) {
+    const apiDevices = Array.isArray(response?.devices) ? response.devices : []
+    const nextSource = response?.source === 'mqtt' ? 'mqtt' : 'dummy'
+
+    setDataSource(nextSource)
+    setBackendStatus(response?.status?.message || '')
+
+    if (nextSource === 'mqtt') {
+      setDevices(apiDevices)
+    }
+  }
 
   const activeDevice = useMemo(
     () => devices.find((device) => String(device.id) === String(deviceId)) ?? null,
@@ -59,8 +74,42 @@ function TagConfigPage({ user, onSignOut }) {
   const textCount = activeDevice?.tags.filter((row) => row.type === 'text').length ?? 0
 
   useEffect(() => {
-    saveProjectDevices(devices)
-  }, [devices])
+    if (dataSource !== 'mqtt') {
+      saveProjectDevices(devices)
+    }
+  }, [devices, dataSource])
+
+  useEffect(() => {
+    let isMounted = true
+
+    fetchProjectDevices()
+      .then((response) => {
+        if (!isMounted) {
+          return
+        }
+        applyBackendDevices(response)
+      })
+      .catch(() => {
+        if (!isMounted) {
+          return
+        }
+        setDataSource('dummy')
+      })
+
+    return () => {
+      isMounted = false
+    }
+  }, [])
+
+  useEffect(() => {
+    const stream = connectProjectStream((response) => {
+      applyBackendDevices(response)
+    })
+
+    return () => {
+      stream.close()
+    }
+  }, [])
 
   useEffect(() => {
     setSelectedTagIds([])
@@ -137,6 +186,19 @@ function TagConfigPage({ user, onSignOut }) {
       return
     }
 
+    if (dataSource === 'mqtt') {
+      upsertProjectTag(activeDevice.name, tagForm, tagModalMode === 'edit' ? selectedTag?.address : '')
+        .then(() => {
+          setIsTagModalOpen(false)
+          setSelectedTagIds([])
+          message.success(tagModalMode === 'add' ? 'Tag configuration added.' : 'Tag configuration updated.')
+        })
+        .catch((error) => {
+          message.error(error?.response?.data?.detail || 'Failed to save tag configuration.')
+        })
+      return
+    }
+
     if (tagModalMode === 'add') {
       const nextTagId = devices.flatMap((device) => device.tags || []).length
         ? Math.max(...devices.flatMap((device) => device.tags || []).map((tag) => tag.id)) + 1
@@ -200,6 +262,19 @@ function TagConfigPage({ user, onSignOut }) {
       return
     }
 
+    if (dataSource === 'mqtt') {
+      const tagsToDelete = activeDevice.tags.filter((tag) => selectedTagIds.includes(tag.id))
+      Promise.all(tagsToDelete.map((tag) => deleteProjectTag(activeDevice.name, tag.address)))
+        .then(() => {
+          setSelectedTagIds([])
+          message.success('Tag configuration deleted.')
+        })
+        .catch((error) => {
+          message.error(error?.response?.data?.detail || 'Failed to delete tag configuration.')
+        })
+      return
+    }
+
     setDevices((prev) =>
       prev.map((device) =>
         device.id === activeDevice.id
@@ -211,6 +286,16 @@ function TagConfigPage({ user, onSignOut }) {
       ),
     )
     setSelectedTagIds([])
+  }
+
+  function getTagTone(tag) {
+    if (tag?.matchStatus === 'matched') {
+      return 'Matched'
+    }
+    if (tag?.matchStatus === 'mismatch') {
+      return 'Mismatch'
+    }
+    return 'Waiting'
   }
 
   const selectedVisibleCount = tagRows.filter((row) => selectedTagIds.includes(row.id)).length
@@ -301,7 +386,6 @@ function TagConfigPage({ user, onSignOut }) {
                 <span>Delete</span>
               </button>
             </div>
-
             <div className="project-tag-tabs">
               <button type="button" className={activeTagTab === 'all' ? 'is-active' : ''} onClick={() => setActiveTagTab('all')}>
                 {`All (${activeDevice.tags.length})`}
@@ -356,6 +440,7 @@ function TagConfigPage({ user, onSignOut }) {
                   <th>Type</th>
                   <th>Description</th>
                   <th>Address</th>
+                  <th>Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -374,11 +459,14 @@ function TagConfigPage({ user, onSignOut }) {
                     </td>
                     <td>{row.description}</td>
                     <td>{row.address}</td>
+                    <td>
+                      <span className={`project-tag-pill project-tag-pill-status is-${row.matchStatus || 'waiting'}`}>{getTagTone(row)}</span>
+                    </td>
                   </tr>
                 ))}
                 {!tagRows.length && (
                   <tr>
-                    <td className="project-tag-empty" colSpan={5}>No tag data available.</td>
+                    <td className="project-tag-empty" colSpan={6}>No tag data available.</td>
                   </tr>
                 )}
               </tbody>
@@ -388,15 +476,10 @@ function TagConfigPage({ user, onSignOut }) {
       </section>
 
       {isTagModalOpen && (
-        <div className="project-modal-backdrop" role="presentation" onClick={closeTagModal}>
+        <div className="project-modal-backdrop" role="presentation">
           <div className="project-modal" role="dialog" aria-modal="true" onClick={(event) => event.stopPropagation()}>
             <div className="project-modal-head">
               <h3>{tagModalMode === 'add' ? 'Add Tag' : 'Edit Tag'}</h3>
-              {tagModalMode === 'add' && (
-                <button type="button" className="project-modal-close" onClick={closeTagModal}>
-                  Close
-                </button>
-              )}
             </div>
 
             <form className="project-modal-form" onSubmit={handleTagSubmit}>

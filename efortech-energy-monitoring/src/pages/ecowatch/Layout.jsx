@@ -52,6 +52,20 @@ const treeData = [
         key: '0-0-1',
         children: [
           { title: 'LVMDP_NR1', key: '0-0-1-0' },
+          { title: 'DB1', key: '0-0-1-1' },
+          { title: 'DB2', key: '0-0-1-2' },
+          {
+            title: 'DB3',
+            key: '0-0-1-3',
+            children: [
+              { title: 'CHAMBER_AR1', key: '0-0-1-3-0' },
+              { title: 'LP_OFFICE_REFF_2', key: '0-0-1-3-1' },
+              { title: 'H_PRESS_MC1', key: '0-0-1-3-2' },
+              { title: 'V_F_MALE_C_NR1', key: '0-0-1-3-3' },
+              { title: 'V_F_FEMALE_B_NR1', key: '0-0-1-3-4' },
+              { title: 'V_F_FEMALE_A_NR1', key: '0-0-1-3-5' },
+            ],
+          },
         ],
       },
       {
@@ -106,10 +120,16 @@ const treeData = [
 ];
 
 export default function MainLayout() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem('appTheme');
+    return savedTheme === 'dark';
+  });
   const [collapsed, setCollapsed] = useState(false);
   const [time, setTime] = useState('');
   const [currentUser, setCurrentUser] = useState('');
+  const [checkedKeys, setCheckedKeys] = useState([]);
+  const [selectedKeys, setSelectedKeys] = useState([]);
+  const [checkedAreaNames, setCheckedAreaNames] = useState([]);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -144,6 +164,10 @@ export default function MainLayout() {
     const timer = setInterval(updateDateTime, 1000);
     return () => clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem('appTheme', isDarkMode ? 'dark' : 'light');
+  }, [isDarkMode]);
 
   const handleLogout = async () => {
     await fetch('/api/sign-out', {
@@ -306,8 +330,31 @@ export default function MainLayout() {
                 showLine
                 defaultExpandedKeys={['0-0', '0-0-0']}
                 treeData={treeData}
-                onSelect={(selectedKeys) => console.log('Area Terpilih (Klik Teks):', selectedKeys)}
-                onCheck={(checkedKeys) => console.log('Area Dicentang (Checkbox):', checkedKeys)}
+                checkedKeys={checkedKeys}
+                selectedKeys={selectedKeys}
+                onCheck={(keys, info) => {
+                  setCheckedKeys(keys);
+                  setCheckedAreaNames(info.checkedNodes.map((node) => node.title));
+                }}
+                onSelect={(keys, info) => {
+                  setSelectedKeys(keys);
+
+                  const clickedKey = info.node.key;
+                  const clickedTitle = info.node.title;
+                  let nextCheckedKeys = [...checkedKeys];
+                  let nextCheckedAreaNames = [...checkedAreaNames];
+
+                  if (nextCheckedKeys.includes(clickedKey)) {
+                    nextCheckedKeys = nextCheckedKeys.filter((key) => key !== clickedKey);
+                    nextCheckedAreaNames = nextCheckedAreaNames.filter((name) => name !== clickedTitle);
+                  } else {
+                    nextCheckedKeys.push(clickedKey);
+                    nextCheckedAreaNames.push(clickedTitle);
+                  }
+
+                  setCheckedKeys(nextCheckedKeys);
+                  setCheckedAreaNames(nextCheckedAreaNames);
+                }}
               />
             </Sider>
           )}
@@ -320,7 +367,7 @@ export default function MainLayout() {
               overflowY: 'auto',
             }}
           >
-            <Outlet context={{ isDarkMode }} />
+            <Outlet context={{ isDarkMode, checkedAreaNames }} />
           </Content>
         </Layout>
       </Layout>

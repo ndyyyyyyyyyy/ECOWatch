@@ -33,7 +33,7 @@ def register_gateway_middleware(app: FastAPI):
                 response.headers["Vary"] = "Origin"
             response.headers["Access-Control-Allow-Credentials"] = "true"
             response.headers["Access-Control-Allow-Headers"] = "Content-Type"
-            response.headers["Access-Control-Allow-Methods"] = "GET,POST,OPTIONS"
+            response.headers["Access-Control-Allow-Methods"] = "GET,POST,DELETE,OPTIONS"
             return response
 
         return await call_next(request)

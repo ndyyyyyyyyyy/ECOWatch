@@ -193,7 +193,8 @@
 .project-stat-card span,
 .project-property-label,
 .project-empty-state p,
-.project-shortcut-copy span {
+.project-shortcut-copy span,
+.project-confirm-copy {
   color: #8c8c8c;
 }
 
@@ -205,7 +206,8 @@
 .project-page.is-dark .project-empty-state h2,
 .project-page.is-dark .project-shortcut-copy strong,
 .project-page.is-dark .project-modal-head h3,
-.project-page.is-dark .project-modal-field {
+.project-page.is-dark .project-modal-field,
+.project-page.is-dark .project-confirm-copy {
   color: #f5f5f5;
 }
 
@@ -531,6 +533,10 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
+.project-confirm-modal {
+  width: min(420px, 100%);
+}
+
 .project-modal-head {
   display: flex;
   align-items: center;
@@ -574,12 +580,23 @@
   color: #fff;
 }
 
+.project-modal-danger {
+  border-color: #ff4d4f;
+  background: #ff4d4f;
+}
+
 .project-modal-form {
   display: flex;
   flex-direction: column;
   gap: 14px;
   padding: 18px;
   overflow: auto;
+}
+
+.project-confirm-copy {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .project-modal-field {
@@ -591,7 +608,8 @@
   font-weight: 500;
 }
 
-.project-modal-field input {
+.project-modal-field input,
+.project-modal-field select {
   height: 40px;
   border: 1px solid #d9d9d9;
   border-radius: 8px;
@@ -601,7 +619,8 @@
   color: #262626;
 }
 
-.project-page.is-dark .project-modal-field input {
+.project-page.is-dark .project-modal-field input,
+.project-page.is-dark .project-modal-field select {
   background: #141414;
   border-color: #434343;
   color: #f5f5f5;

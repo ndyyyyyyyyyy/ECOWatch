@@ -7,10 +7,10 @@ from fastapi import FastAPI, Request, WebSocket, WebSocketDisconnect
 from fastapi.responses import JSONResponse, RedirectResponse, Response, StreamingResponse
 from starlette.background import BackgroundTask
 
+from .auth_routes import _SESSIONS, require_user
 from .config import GRAFANA_TARGET, LOGIN_APP_URL, SESSION_COOKIE_NAME
 from .http_client import get_http_client
 from .security import build_request_origin
-from .session_store import _SESSIONS, require_user
 
 
 def rewrite_location(location_value: str | None, request: Request) -> str | None:

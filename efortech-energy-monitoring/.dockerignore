@@ -1,0 +1,11 @@
+node_modules
+dist
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+backend/python/__pycache__
+backend/python/py/__pycache__
+*.pyc
+npm-debug.log*

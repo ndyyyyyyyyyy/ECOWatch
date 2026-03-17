@@ -1,0 +1,35 @@
+.area-usage-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+}
+
+.full-width-card {
+  width: 100%;
+}
+
+.filter-wrapper {
+  display: flex;
+}
+
+.filter-label {
+  white-space: nowrap;
+}
+
+.select-energy {
+  width: 120px;
+}
+
+.select-method {
+  width: 130px;
+}
+
+.select-interval {
+  width: 100px;
+}
+
+.picker-time {
+  min-width: 240px;
+}

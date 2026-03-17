@@ -1,78 +1,116 @@
-import React, { useState } from 'react';
-import { Card, Select, DatePicker, Button, Space, Table, Radio, Typography } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Card, Select, Button, Space, Table, Radio, Typography, Spin } from 'antd';
 import ReactECharts from 'echarts-for-react';
 import { useOutletContext } from 'react-router-dom';
+import axios from 'axios';
 
 const { Option } = Select;
-const { RangePicker } = DatePicker;
 const { Text } = Typography;
 
 export default function EnergyRanking() {
   const { isDarkMode } = useOutletContext();
+  const [loading, setLoading] = useState(false);
   const [rankingType, setRankingType] = useState('YoY');
+  const [categories, setCategories] = useState([]);
+  const [comparisonData, setComparisonData] = useState([]);
+  const [currentData, setCurrentData] = useState([]);
+  const [growthRates, setGrowthRates] = useState([]);
 
-  const categories = ['RAC-Electricity', 'UTILITY-Electricity', 'NR2-Electricity', 'NR1-Electricity', 'UT_NEW-Electricity'];
-  const lastYearData = [7572.79, 113494.61, 346208.30, 387433.89, 482007.25];
-  const currentData = [7575.86, 248554.69, 471805.01, 544092.21, 684680.00];
-  const growthRates = ['-83.13', '119.00', '36.28', '40.43', '42.05'];
+  const mainAreas = 'RAC,NR1,NR2,UT_NEW,UTILITY';
+
+  const fetchData = async () => {
+    setLoading(true);
+
+    const now = new Date();
+    const thisYear = now.getFullYear();
+    const thisMonth = now.getMonth() + 1;
+    const monthValue = String(thisMonth).padStart(2, '0');
+    const startCur = `${thisYear}-${monthValue}-01`;
+    const endCur = `${thisYear}-${monthValue}-31`;
+
+    let startComp;
+    let endComp;
+
+    if (rankingType === 'YoY') {
+      startComp = `${thisYear - 1}-${monthValue}-01`;
+      endComp = `${thisYear - 1}-${monthValue}-31`;
+    } else {
+      const prevMonth = thisMonth === 1 ? 12 : thisMonth - 1;
+      const prevYear = thisMonth === 1 ? thisYear - 1 : thisYear;
+      const prevMonthValue = String(prevMonth).padStart(2, '0');
+      startComp = `${prevYear}-${prevMonthValue}-01`;
+      endComp = `${prevYear}-${prevMonthValue}-31`;
+    }
+
+    try {
+      const resCur = await axios.get(`/energy?interval=Month&start=${startCur}&end=${endCur}&areas=${mainAreas}`);
+      const resComp = await axios.get(`/energy?interval=Month&start=${startComp}&end=${endComp}&areas=${mainAreas}`);
+
+      const areaList = mainAreas.split(',');
+      const curVals = [];
+      const compVals = [];
+      const growthVals = [];
+
+      areaList.forEach((area) => {
+        const valCur = resCur.data.find((item) => item.tag_name === area)?.value_kwh || 0;
+        const valComp = resComp.data.find((item) => item.tag_name === area)?.value_kwh || 0;
+        const growth = valComp !== 0 ? (((valCur - valComp) / valComp) * 100).toFixed(2) : '0.00';
+
+        curVals.push(valCur);
+        compVals.push(valComp);
+        growthVals.push(growth);
+      });
+
+      setCategories(areaList);
+      setCurrentData(curVals);
+      setComparisonData(compVals);
+      setGrowthRates(growthVals);
+    } catch (err) {
+      console.error('Gagal ambil data:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [rankingType]);
 
   const rankingOption = {
     tooltip: {
       trigger: 'axis',
       axisPointer: { type: 'shadow' },
-      formatter: function (params) {
-        let html = params[0].name + '<br/>';
-        params.forEach(p => {
-          const val = Math.abs(p.value).toLocaleString();
-          html += `${p.marker} ${p.seriesName}: ${val} kWh<br/>`;
+      formatter: (params) => {
+        let html = `<b>${params[0].name}</b><br/>`;
+        params.forEach((p) => {
+          html += `${p.marker} ${p.seriesName}: <b>${Math.abs(p.value).toLocaleString()} kWh</b><br/>`;
         });
         return html;
-      }
+      },
     },
-    legend: { 
-      bottom: 0, 
-      data: ['Last year', 'Current'],
-      textStyle: { color: isDarkMode ? '#d9d9d9' : '#595959' }
+    legend: {
+      bottom: 0,
+      data: [rankingType === 'YoY' ? 'Last Year' : 'Last Month', 'Current'],
+      textStyle: { color: isDarkMode ? '#d9d9d9' : '#595959' },
     },
-    grid: { top: '2%',left: '3%', right: '10%', bottom: '10%', containLabel: true },
-    xAxis: [
-      {
-        type: 'value',
-        axisLabel: {
-          color: isDarkMode ? '#d9d9d9' : '#595959',
-          formatter: function (value) {
-            return Math.abs(value) / 1000 + 'K';
-          }
-        },
-        splitLine: { 
-          lineStyle: { 
-            type: 'dashed',
-            color: isDarkMode ? '#303030' : '#e8e8e8'
-          } 
-        }
-      }
-    ],
-    yAxis: [
-      {
-        type: 'category',
-        axisTick: { show: false },
-        data: categories,
-        axisLabel: { color: isDarkMode ? '#d9d9d9' : '#595959' }
-      }
-    ],
+    grid: { top: '5%', left: '3%', right: '15%', bottom: '12%', containLabel: true },
+    xAxis: {
+      type: 'value',
+      axisLabel: { formatter: (value) => Math.abs(value).toLocaleString() },
+    },
+    yAxis: {
+      type: 'category',
+      data: categories,
+      axisLabel: { color: isDarkMode ? '#d9d9d9' : '#595959' },
+    },
     series: [
       {
-        name: 'Last year',
+        name: rankingType === 'YoY' ? 'Last Year' : 'Last Month',
         type: 'bar',
         stack: 'Total',
-        data: lastYearData.map(val => -val), 
+        data: comparisonData.map((value) => -value),
         itemStyle: { color: '#91caff' },
-        label: { 
-          show: true, 
-          position: 'left', 
-          color: isDarkMode ? '#d9d9d9' : '#8c8c8c',
-          formatter: (p) => Math.abs(p.value).toLocaleString()
-        },
+        label: { show: true, position: 'left', formatter: (p) => Math.abs(p.value).toLocaleString() },
       },
       {
         name: 'Current',
@@ -80,66 +118,29 @@ export default function EnergyRanking() {
         stack: 'Total',
         data: currentData,
         itemStyle: { color: '#1677ff' },
-        label: { 
-          show: true, 
-          position: 'right', 
-          color: isDarkMode ? '#1677ff' : '#1677ff',
-          formatter: (p) => `${p.value.toLocaleString()} (${growthRates[p.dataIndex]}%)` 
+        label: {
+          show: true,
+          position: 'right',
+          formatter: (p) => `${p.value.toLocaleString()} (${growthRates[p.dataIndex]}%)`,
         },
-      }
-    ]
+      },
+    ],
   };
-
-  const columns = [
-    { title: 'Area', dataIndex: 'area', key: 'area' },
-    { title: 'Total usage(kWh)', dataIndex: 'totalUsage', key: 'totalUsage', align: 'right' },
-    { title: 'Last year(kWh)', dataIndex: 'lastYear', key: 'lastYear', align: 'right' },
-    { 
-      title: 'YoY growth rate(%)', 
-      dataIndex: 'growth', 
-      key: 'growth', 
-      align: 'right',
-      render: (text) => (
-        <Text style={{ color: parseFloat(text) > 0 ? '#ff4d4f' : '#52c41a' }}>
-          {text}
-        </Text>
-      )
-    },
-  ];
-
-  const tableData = categories.map((cat, index) => ({
-    key: index,
-    area: cat,
-    totalUsage: currentData[index].toLocaleString(undefined, { minimumFractionDigits: 2 }),
-    lastYear: lastYearData[index].toLocaleString(undefined, { minimumFractionDigits: 2 }),
-    growth: growthRates[index]
-  })).reverse();
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-      
-      <Card bodyStyle={{ padding: '10px 24px', display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
+      <Card styles={{ body: { padding: '10px 24px' } }}>
         <Space wrap>
-          <span>Energy item</span>
+          <span>Energy item:</span>
           <Select defaultValue="Electricity" style={{ width: 150 }}>
             <Option value="Electricity">Electricity</Option>
           </Select>
-          
-          <span style={{ marginLeft: '16px' }}>Time</span>
-          <Select defaultValue="Month" style={{ width: 100 }}>
-            <Option value="Month">Month</Option>
-            <Option value="Week">Week</Option>
-            <Option value="Day">Day</Option>
-          </Select>
-          <DatePicker picker="month" />
-          
-          <Button type="primary">Search</Button>
+          <Button type="primary" onClick={fetchData} loading={loading}>Search</Button>
         </Space>
       </Card>
 
-      <Card 
-        title="Energy Ranking" 
-        bordered={false}
+      <Card
+        title={`Energy Ranking (${rankingType})`}
         extra={
           <Radio.Group value={rankingType} onChange={(e) => setRankingType(e.target.value)} buttonStyle="solid">
             <Radio.Button value="YoY">YoY</Radio.Button>
@@ -147,22 +148,35 @@ export default function EnergyRanking() {
           </Radio.Group>
         }
       >
-        <ReactECharts 
-          option={rankingOption} 
-          theme={isDarkMode ? 'dark' : 'light'} 
-          style={{ height: '300px' }} 
-        />
+        <Spin spinning={loading}>
+          <ReactECharts option={rankingOption} theme={isDarkMode ? 'dark' : 'light'} style={{ height: '400px' }} />
+        </Spin>
       </Card>
 
-      <Card title="Area Details" bordered={false}>
-        <Table 
-          columns={columns} 
-          dataSource={tableData} 
-          pagination={{ pageSize: 3 }} 
-          size="small" 
+      <Card title="Area Details">
+        <Table
+          dataSource={categories.map((cat, index) => ({
+            key: index,
+            area: cat,
+            current: currentData[index]?.toLocaleString(),
+            comp: comparisonData[index]?.toLocaleString(),
+            growth: growthRates[index],
+          })).reverse()}
+          columns={[
+            { title: 'Area', dataIndex: 'area' },
+            { title: 'Current (kWh)', dataIndex: 'current', align: 'right' },
+            { title: `${rankingType === 'YoY' ? 'Last Year' : 'Last Month'} (kWh)`, dataIndex: 'comp', align: 'right' },
+            {
+              title: `${rankingType} Growth (%)`,
+              dataIndex: 'growth',
+              align: 'right',
+              render: (value) => <Text style={{ color: parseFloat(value) > 0 ? '#ff4d4f' : '#52c41a' }}>{value}%</Text>,
+            },
+          ]}
+          pagination={false}
+          size="small"
         />
       </Card>
-
     </div>
   );
 }

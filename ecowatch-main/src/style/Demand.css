@@ -1,0 +1,23 @@
+.demand-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.demand-filter-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.demand-select {
+  width: 120px;
+}
+
+.demand-label-time {
+  margin-left: 16px;
+}
+
+.demand-btn-search {
+  margin-left: 8px;
+}
