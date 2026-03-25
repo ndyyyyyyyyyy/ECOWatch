@@ -7,8 +7,6 @@ import {
   buildDeviceItems,
   createDeviceFormState,
   getDevicePropertySchema,
-  loadProjectDevices,
-  saveProjectDevices,
 } from './projectStorage.js'
 import {
   connectProjectStream,
@@ -21,7 +19,7 @@ import {
 const { Text } = Typography
 function ProjectPage({ user, onSignOut }) {
   const navigate = useNavigate()
-  const [devices, setDevices] = useState(() => loadProjectDevices())
+  const [devices, setDevices] = useState([])
   const [activeDeviceId, setActiveDeviceId] = useState(null)
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
@@ -30,23 +28,20 @@ function ProjectPage({ user, onSignOut }) {
   const [time, setTime] = useState('')
   const [addForm, setAddForm] = useState(() => createDeviceFormState('Modicon'))
   const [editForm, setEditForm] = useState({})
-  const [dataSource, setDataSource] = useState('dummy')
+  const [backendStatus, setBackendStatus] = useState('')
+  const [mqttEnabled, setMqttEnabled] = useState(false)
 
   function applyBackendDevices(response) {
     const apiDevices = Array.isArray(response?.devices) ? response.devices : []
-    const nextSource = response?.source === 'mqtt' ? 'mqtt' : 'dummy'
-
-    setDataSource(nextSource)
-
-    if (nextSource === 'mqtt') {
-      setDevices(apiDevices)
-      setActiveDeviceId((prev) => {
-        if (prev && apiDevices.some((device) => device.id === prev)) {
-          return prev
-        }
-        return apiDevices[0]?.id ?? null
-      })
-    }
+    setDevices(apiDevices)
+    setBackendStatus(response?.status?.message || '')
+    setMqttEnabled(Boolean(response?.status?.mqttEnabled))
+    setActiveDeviceId((prev) => {
+      if (prev && apiDevices.some((device) => device.id === prev)) {
+        return prev
+      }
+      return apiDevices[0]?.id ?? null
+    })
   }
 
   async function refreshProjectDevices() {
@@ -137,110 +132,57 @@ function ProjectPage({ user, onSignOut }) {
     if (!activeDevice) {
       return
     }
+    const properties = buildPropertiesFromForm(editForm)
+    const nextDeviceName = editForm['Device Name'] || activeDevice.name
 
-    if (dataSource === 'mqtt') {
-      const properties = buildPropertiesFromForm(editForm)
-      const nextDeviceName = editForm['Device Name'] || activeDevice.name
-
-      updateProjectDevice(activeDevice.name, properties)
-        .then(() => refreshProjectDevices())
-        .then((response) => {
-          const updatedDevice = response?.devices?.find((device) => device.name === nextDeviceName)
-          if (updatedDevice) {
-            setActiveDeviceId(updatedDevice.id)
-          }
-          setIsEditModalOpen(false)
-          message.success(`Updated device configuration for "${nextDeviceName}".`)
-        })
-        .catch((error) => {
-          message.error(error?.response?.data?.detail || 'Failed to update device configuration.')
-        })
-      return
-    }
-
-    setDevices((prev) =>
-      prev.map((device) =>
-        device.id === activeDeviceId
-          ? {
-              ...device,
-              name: editForm['Device Name'] || device.name,
-              properties: device.properties.map((property) => ({
-                ...property,
-                value: editForm[property.label] ?? property.value,
-              })),
-            }
-          : device,
-      ),
-    )
-
-    setIsEditModalOpen(false)
+    updateProjectDevice(activeDevice.name, properties)
+      .then(() => refreshProjectDevices())
+      .then((response) => {
+        const updatedDevice = response?.devices?.find((device) => device.name === nextDeviceName)
+        if (updatedDevice) {
+          setActiveDeviceId(updatedDevice.id)
+        }
+        setIsEditModalOpen(false)
+        message.success(`Updated device configuration for "${nextDeviceName}".`)
+      })
+      .catch((error) => {
+        message.error(error?.response?.data?.detail || 'Failed to update device configuration.')
+      })
   }
 
   function handleAddSubmit(event) {
     event.preventDefault()
+    const properties = buildPropertiesFromForm(addForm)
+    const deviceName = addForm['Device Name'] || 'Device'
 
-    if (dataSource === 'mqtt') {
-      const properties = buildPropertiesFromForm(addForm)
-      const deviceName = addForm['Device Name'] || 'Device'
-
-      subscribeProjectDevice(properties)
-        .then(() => refreshProjectDevices())
-        .then((response) => {
-          const addedDevice = response?.devices?.find((device) => device.name === deviceName)
-          if (addedDevice) {
-            setActiveDeviceId(addedDevice.id)
-          }
-          setIsAddModalOpen(false)
-          message.success(`Added device configuration for "${deviceName}".`)
-        })
-        .catch((error) => {
-          message.error(error?.response?.data?.detail || 'Failed to subscribe device.')
-        })
-      return
-    }
-
-    const nextId = devices.length ? Math.max(...devices.map((device) => device.id)) + 1 : 1
-    const nextItemId = devices.flatMap((device) => device.items).length
-      ? Math.max(...devices.flatMap((device) => device.items).map((item) => item.id)) + 1
-      : 1
-
-    const nextDevice = {
-      id: nextId,
-      name: addForm['Device Name'] || `Device ${nextId}`,
-      properties: Object.entries(addForm).map(([label, value]) => ({ label, value })),
-      tags: [],
-      items: [
-        { id: nextItemId, kind: 'tag', label: 'Tag(0)', tagGroupId: `device-${nextId}-tags` },
-        { id: nextItemId + 1, kind: 'block', label: 'Block(0)' },
-      ],
-    }
-
-    setDevices((prev) => [...prev, nextDevice])
-    setActiveDeviceId(nextId)
-    setIsAddModalOpen(false)
+    subscribeProjectDevice(properties)
+      .then(() => refreshProjectDevices())
+      .then((response) => {
+        const addedDevice = response?.devices?.find((device) => device.name === deviceName)
+        if (addedDevice) {
+          setActiveDeviceId(addedDevice.id)
+        }
+        setIsAddModalOpen(false)
+        message.success(`Added device configuration for "${deviceName}".`)
+      })
+      .catch((error) => {
+        message.error(error?.response?.data?.detail || 'Failed to subscribe device.')
+      })
   }
 
   function handleDeleteDevice() {
     if (!activeDevice) {
       return
     }
-
-    if (dataSource === 'mqtt') {
-      unsubscribeProjectDevice(activeDevice.name)
-        .then(() => refreshProjectDevices())
-        .then(() => {
-          setIsDeleteModalOpen(false)
-          message.success(`Unsubscribed device "${activeDevice.name}".`)
-        })
-        .catch((error) => {
-          message.error(error?.response?.data?.detail || 'Failed to unsubscribe device.')
-        })
-      return
-    }
-
-    setDevices((prev) => prev.filter((device) => device.id !== activeDevice.id))
-    setActiveDeviceId(null)
-    setIsDeleteModalOpen(false)
+    unsubscribeProjectDevice(activeDevice.name)
+      .then(() => refreshProjectDevices())
+      .then(() => {
+        setIsDeleteModalOpen(false)
+        message.success(`Unsubscribed device "${activeDevice.name}".`)
+      })
+      .catch((error) => {
+        message.error(error?.response?.data?.detail || 'Failed to unsubscribe device.')
+      })
   }
 
   function openTagConfiguration(device, item) {
@@ -267,7 +209,7 @@ function ProjectPage({ user, onSignOut }) {
     return 'Waiting'
   }
 
-  const canAddDevice = dataSource === 'mqtt' ? true : activeDeviceId === null
+  const canAddDevice = mqttEnabled
   const canDeleteDevice = devices.some((device) => device.id === activeDeviceId)
   const activeDevice = devices.find((device) => device.id === activeDeviceId) ?? null
   const activeDeviceItems = useMemo(() => (activeDevice ? buildDeviceItems(activeDevice) : []), [activeDevice])
@@ -283,12 +225,6 @@ function ProjectPage({ user, onSignOut }) {
   const editFormFields = useMemo(() => getDevicePropertySchema(editForm['Device Type'] || activeDeviceType), [editForm, activeDeviceType])
 
   useEffect(() => {
-    if (dataSource !== 'mqtt') {
-      saveProjectDevices(devices)
-    }
-  }, [devices, dataSource])
-
-  useEffect(() => {
     let isMounted = true
 
     fetchProjectDevices()
@@ -302,7 +238,9 @@ function ProjectPage({ user, onSignOut }) {
         if (!isMounted) {
           return
         }
-        setDataSource('dummy')
+        setDevices([])
+        setBackendStatus('Failed to fetch MQTT project data.')
+        setMqttEnabled(false)
       })
 
     return () => {
@@ -444,7 +382,7 @@ function ProjectPage({ user, onSignOut }) {
                     </div>
                     <div className="project-device-card-meta">
                       <span>{device.properties.find((property) => property.label === 'Device Type')?.value || 'Device'}</span>
-                      <span>{dataSource === 'mqtt' ? getMatchTone(device) : device.items.find((item) => item.kind === 'block')?.label || 'Block(0)'}</span>
+                      <span>{getMatchTone(device)}</span>
                     </div>
                   </button>
                 )
@@ -461,11 +399,6 @@ function ProjectPage({ user, onSignOut }) {
                     <div className="project-summary-title-row">
                       <div>
                         <h2>{activeDevice.name}</h2>
-                        {dataSource === 'mqtt' ? (
-                          activeDevice.matchStatus === 'mismatch' && activeDevice.matchMessage ? <p>{activeDevice.matchMessage}</p> : null
-                        ) : (
-                          <p>{activeDevice.properties.find((property) => property.label === 'Description')?.value || 'No description set.'}</p>
-                        )}
                       </div>
                       <button type="button" className="project-summary-edit-btn" disabled={editDisabled} onClick={openEditModal}>
                         <PencilLine size={18} strokeWidth={1.8} />
@@ -550,7 +483,7 @@ function ProjectPage({ user, onSignOut }) {
         <div className="project-modal-backdrop" role="presentation">
           <div className="project-modal" role="dialog" aria-modal="true" onClick={(event) => event.stopPropagation()}>
             <div className="project-modal-head">
-              <h3>{dataSource === 'mqtt' ? 'Edit Device Configuration' : 'Edit Device'}</h3>
+              <h3>Edit Device Configuration</h3>
             </div>
 
             <form className="project-modal-form" onSubmit={handleEditSubmit}>

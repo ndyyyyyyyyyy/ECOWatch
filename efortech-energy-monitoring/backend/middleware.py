@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse, Response
 
-from .security import ip_in_allowed_subnet, is_allowed_origin, normalize_ip
+from security import ip_in_allowed_subnet, is_allowed_origin, normalize_ip
 
 
 def register_gateway_middleware(app: FastAPI):

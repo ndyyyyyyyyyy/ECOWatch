@@ -6,7 +6,7 @@ import subprocess
 from datetime import datetime
 from urllib.parse import urlparse
 
-from .config import ALLOWED_ORIGINS, PORT
+from config import ALLOWED_ORIGINS, PORT
 
 
 def normalize_ip(raw: str | None) -> str:

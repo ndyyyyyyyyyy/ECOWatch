@@ -3,7 +3,7 @@ from __future__ import annotations
 from fastapi import Body, FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
 
-from .project_store import project_store
+from project_store import project_store
 
 
 def register_project_routes(app: FastAPI):
@@ -24,7 +24,7 @@ def register_project_routes(app: FastAPI):
     async def project_devices():
         status = project_store.get_status()
         return {
-            "source": "mqtt" if status.enabled else "fallback",
+            "source": "mqtt" if status.enabled else "unavailable",
             "devices": project_store.get_devices(),
             "status": {
                 "mqttEnabled": status.enabled,

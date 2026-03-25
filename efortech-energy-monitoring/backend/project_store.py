@@ -8,7 +8,9 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Iterator
 
-from .config import (
+from energy_db import insert_energy_reading
+from source_bridge import bridge_property_mismatches, get_source_bridge, modicon_property_mismatches
+from config import (
     MQTT_BROKER_HOST,
     MQTT_BROKER_PORT,
     MQTT_CLIENT_ID,
@@ -77,6 +79,11 @@ def _match_topic_segments(topic: str, topic_filter: str) -> list[str]:
     if topic_index != len(topic_segments):
         return []
     return matches
+
+
+def _topic_tail(topic: str) -> str:
+    topic_segments = [segment for segment in str(topic).split("/") if segment]
+    return topic_segments[-1] if topic_segments else ""
 
 
 def _format_property(label: str, value: Any) -> dict[str, str]:
@@ -236,7 +243,7 @@ class MqttProjectStore:
     def _serialize_snapshot(self) -> str:
         status = self.get_status()
         payload = {
-            "source": "mqtt" if status.enabled else "fallback",
+            "source": "mqtt" if status.enabled else "unavailable",
             "devices": self.get_devices(),
             "status": {
                 "mqttEnabled": status.enabled,
@@ -289,16 +296,13 @@ class MqttProjectStore:
         code = self._reason_code_value(reason_code)
         self._connected = code == 0
         if self._connected:
+            client.subscribe(MQTT_TOPIC_FILTER)
             with self._lock:
-                topics = list(self._subscriptions.values())
+                topic_count = len(self._subscriptions)
 
-            for topic in topics:
-                client.subscribe(topic)
-
-            if topics:
-                self._message = f"Connected and subscribed to {len(topics)} device topic(s)."
-            else:
-                self._message = "Connected to MQTT broker. Add a device to start subscribing."
+            self._message = (
+                f"Connected to MQTT broker. Listening on {MQTT_TOPIC_FILTER} with {topic_count} configured device(s)."
+            )
         else:
             self._message = f"MQTT connect failed with reason code {code}."
 
@@ -334,17 +338,13 @@ class MqttProjectStore:
         )
 
         with self._lock:
-            is_registered = device_name in self._subscriptions
             device_entry = self._devices.get(device_name)
             configured_properties = device_entry.get("configuredProperties", []) if device_entry else []
             configured_tags = device_entry.get("configuredTags", {}) if device_entry else {}
 
-        if not is_registered or not device_entry:
-            return
-
         device_payload = self._build_incoming_device_payload(device_name, payload_data, device_section)
 
-        device_match_result = self._evaluate_device_match(configured_properties, device_payload, payload_data, device_section)
+        device_match_result = self._evaluate_device_match(device_name, configured_properties, device_payload, payload_data, device_section)
         default_timestamp = _parse_iso_datetime(
             _pick(payload_data.get("timestamp"), telemetry_section.get("timestamp"))
         ) or datetime.now()
@@ -354,11 +354,28 @@ class MqttProjectStore:
         with self._lock:
             device_entry = self._devices.get(device_name)
             if not device_entry:
-                return
+                properties = self._build_properties(device_payload)
+                device_entry = {
+                    "id": device_name,
+                    "name": device_name,
+                    "properties": properties,
+                    "configuredProperties": properties,
+                    "configuredTags": {},
+                    "tags": {},
+                    "matchStatus": "matched",
+                    "matchMessage": "",
+                }
+                self._devices[device_name] = device_entry
+                self._subscriptions[device_name] = self._device_topic(device_name)
+                configured_properties = device_entry["configuredProperties"]
+                configured_tags = device_entry["configuredTags"]
 
             device_entry["name"] = device_payload["name"]
             device_entry["properties"] = device_entry.get("configuredProperties") or self._build_properties(device_payload)
+            if not device_entry.get("configuredProperties"):
+                device_entry["configuredProperties"] = self._build_properties(device_payload)
             if device_match_result["status"] == "mismatch":
+                print(f'[project-store] device mismatch for "{device_name}": {device_match_result["message"]}')
                 device_entry["matchStatus"] = "mismatch"
                 device_entry["matchMessage"] = device_match_result["message"]
                 should_publish = True
@@ -373,14 +390,20 @@ class MqttProjectStore:
                         tag_section,
                         default_timestamp,
                         msg.topic,
+                        wildcard_values,
                     )
                     configured_tag = configured_tags.get(tag_payload["address"])
                     if not configured_tag:
-                        continue
+                        configured_tag = self._tag_to_payload(tag_payload)
+                        configured_tags[tag_payload["address"]] = configured_tag
 
                     tag_entry = device_entry["tags"].setdefault(tag_payload["address"], self._build_tag_entry(configured_tag))
                     tag_match_result = self._evaluate_tag_match(configured_tag, tag_payload, payload_data, candidate_tag)
                     if tag_match_result["status"] == "mismatch":
+                        print(
+                            f'[project-store] tag mismatch for "{device_name}" / "{configured_tag["name"]}": '
+                            f'{tag_match_result["message"]}'
+                        )
                         tag_entry.update(
                             {
                                 "matchStatus": "mismatch",
@@ -395,6 +418,7 @@ class MqttProjectStore:
                             "name": configured_tag["name"],
                             "type": configured_tag["type"],
                             "description": configured_tag["description"],
+                            "sourceAddress": configured_tag.get("sourceAddress", ""),
                             "address": configured_tag["address"],
                             "logData": configured_tag["logData"],
                             "latestValue": tag_payload["latestValue"],
@@ -404,9 +428,21 @@ class MqttProjectStore:
                             "matchMessage": tag_match_result["message"],
                         }
                     )
+                    if (
+                        str(configured_tag.get("logData", "yes")).strip().lower() == "yes"
+                        and tag_payload["latestValue"] is not None
+                    ):
+                        insert_energy_reading(
+                            timestamp=_parse_iso_datetime(tag_payload["lastTimestamp"]) or default_timestamp,
+                            device_name=device_name,
+                            tag_name=configured_tag["name"],
+                            tag_address=configured_tag["address"],
+                            value=tag_payload["latestValue"],
+                        )
                 should_publish = True
 
         if should_publish:
+            self._save_persisted_state()
             self._publish_snapshot()
 
     @staticmethod
@@ -599,8 +635,38 @@ class MqttProjectStore:
             "name": name,
             "type": str(tag_map.get("type", "analog")).strip() or "analog",
             "description": str(tag_map.get("description", "")).strip(),
+            "sourceAddress": str(tag_map.get("sourceAddress", tag_map.get("source_address", ""))).strip(),
             "address": str(tag_map.get("address", "")).strip(),
             "logData": str(tag_map.get("logData", "yes")).strip() or "yes",
+        }
+
+    @staticmethod
+    def _device_type_from_entry(device_entry: dict[str, Any] | None) -> str:
+        properties = device_entry.get("configuredProperties") if device_entry else None
+        if not properties:
+            properties = device_entry.get("properties") if device_entry else None
+        property_map = {
+            str(item.get("label", "")).strip(): str(item.get("value", "")).strip()
+            for item in (properties or [])
+            if isinstance(item, dict)
+        }
+        return property_map.get("Device Type", "MQTT") or "MQTT"
+
+    @staticmethod
+    def _normalize_configured_tag(
+        tag_payload: dict[str, str],
+        device_type: str,
+        existing_tag: dict[str, Any] | None = None,
+    ) -> dict[str, str]:
+        existing_source = str((existing_tag or {}).get("sourceAddress", "")).strip()
+        existing_address = str((existing_tag or {}).get("address", "")).strip()
+        raw_address = str(tag_payload.get("address", "")).strip()
+        raw_source = str(tag_payload.get("sourceAddress", "")).strip()
+        normalized_address = raw_address or raw_source or existing_address or existing_source
+        return {
+            **tag_payload,
+            "sourceAddress": normalized_address,
+            "address": normalized_address,
         }
 
     @staticmethod
@@ -641,6 +707,7 @@ class MqttProjectStore:
             "name": tag_payload["name"],
             "type": tag_payload["type"],
             "description": tag_payload["description"],
+            "sourceAddress": tag_payload.get("sourceAddress", ""),
             "address": tag_payload["address"],
             "logData": tag_payload["logData"],
             "latestValue": existing_tag.get("latestValue") if existing_tag else None,
@@ -657,6 +724,7 @@ class MqttProjectStore:
         tag_section: dict[str, Any],
         default_timestamp: datetime,
         topic: str,
+        wildcard_values: list[str],
     ) -> dict[str, Any]:
         timestamp = _parse_iso_datetime(
             _pick(
@@ -678,6 +746,8 @@ class MqttProjectStore:
                 candidate_tag.get("address"),
                 payload_data.get("address"),
                 tag_section.get("address"),
+                wildcard_values[1] if len(wildcard_values) >= 2 else None,
+                _topic_tail(topic),
                 default=topic,
             )
         )
@@ -701,6 +771,17 @@ class MqttProjectStore:
                     default=f"MQTT topic: {topic}",
                 )
             ),
+            "sourceAddress": str(
+                _pick(
+                    candidate_tag.get("sourceAddress"),
+                    candidate_tag.get("source_address"),
+                    payload_data.get("sourceAddress"),
+                    payload_data.get("source_address"),
+                    tag_section.get("sourceAddress"),
+                    tag_section.get("source_address"),
+                    default="",
+                )
+            ),
             "address": address,
             "logData": str(_pick(candidate_tag.get("logData"), payload_data.get("logData"), tag_section.get("logData"), default="yes")),
             "latestValue": numeric_value,
@@ -710,6 +791,7 @@ class MqttProjectStore:
 
     @staticmethod
     def _evaluate_device_match(
+        device_name: str,
         configured_properties: list[dict[str, Any]] | None,
         incoming_device_payload: dict[str, Any],
         payload_data: dict[str, Any],
@@ -721,14 +803,23 @@ class MqttProjectStore:
             if isinstance(item, dict)
         }
         if incoming_device_payload["deviceType"] == "MQTT":
+            hardcoded_mismatches = bridge_property_mismatches(device_name, property_map)
+            if hardcoded_mismatches:
+                return {"status": "mismatch", "message": "Hardcoded property mismatch: " + ", ".join(hardcoded_mismatches)}
+
+            bridge = get_source_bridge(device_name)
             comparisons = [
                 ("Device Type", incoming_device_payload["deviceType"], "device_type" in payload_data or "device_type" in device_section),
-                ("Device ID", incoming_device_payload.get("deviceId", ""), "device_id" in payload_data or "device_id" in device_section),
-                ("Username", incoming_device_payload.get("username", ""), "username" in payload_data or "username" in device_section),
-                ("IP Address", incoming_device_payload.get("ipAddress", ""), "ip_address" in payload_data or "ip_address" in device_section),
-                ("Port Number", incoming_device_payload.get("portNumber", ""), "port_number" in payload_data or "port_number" in device_section),
+                ("Device ID", incoming_device_payload.get("deviceId", ""), bool(bridge.get("deviceId")) or "device_id" in payload_data or "device_id" in device_section),
+                ("Username", incoming_device_payload.get("username", ""), bool(bridge.get("username")) or "username" in payload_data or "username" in device_section),
+                ("IP Address", incoming_device_payload.get("ipAddress", ""), bool(bridge.get("brokerHost")) or "ip_address" in payload_data or "ip_address" in device_section),
+                ("Port Number", incoming_device_payload.get("portNumber", ""), bool(bridge.get("brokerPort")) or "port_number" in payload_data or "port_number" in device_section),
             ]
         else:
+            hardcoded_mismatches = modicon_property_mismatches(device_name, property_map)
+            if hardcoded_mismatches:
+                return {"status": "mismatch", "message": "Hardcoded property mismatch: " + ", ".join(hardcoded_mismatches)}
+
             comparisons = [
                 ("Device Type", incoming_device_payload["deviceType"], "device_type" in payload_data or "device_type" in device_section),
                 ("Primary IP Address", incoming_device_payload["primaryIpAddress"], "primary_ip" in payload_data or "primary_ip" in device_section),
@@ -815,8 +906,9 @@ class MqttProjectStore:
             self._subscriptions[device_name] = topic
 
         if self._client and self._connected:
-            self._client.subscribe(topic)
-            self._message = f"Connected and subscribed to {len(self._subscriptions)} device topic(s)."
+            self._message = (
+                f"Connected to MQTT broker. Listening on {MQTT_TOPIC_FILTER} with {len(self._subscriptions)} configured device(s)."
+            )
         else:
             self._message = f'Device "{device_name}" added. Waiting for MQTT connection.'
 
@@ -851,10 +943,9 @@ class MqttProjectStore:
             subscription_count = len(self._subscriptions)
 
         if self._client and self._connected:
-            if previous_topic:
-                self._client.unsubscribe(previous_topic)
-            self._client.subscribe(next_topic)
-            self._message = f"Connected and subscribed to {subscription_count} device topic(s)."
+            self._message = (
+                f"Connected to MQTT broker. Listening on {MQTT_TOPIC_FILTER} with {subscription_count} configured device(s)."
+            )
 
         self._save_persisted_state()
         self._publish_snapshot()
@@ -875,13 +966,13 @@ class MqttProjectStore:
             remaining_topics = len(self._subscriptions)
 
         if topic and self._client and self._connected:
-            self._client.unsubscribe(topic)
+            pass
 
         if self._connected:
             self._message = (
-                f"Connected and subscribed to {remaining_topics} device topic(s)."
+                f"Connected to MQTT broker. Listening on {MQTT_TOPIC_FILTER} with {remaining_topics} configured device(s)."
                 if remaining_topics
-                else "Connected to MQTT broker. Add a device to start subscribing."
+                else f"Connected to MQTT broker. Listening on {MQTT_TOPIC_FILTER}."
             )
         else:
             self._message = f'Device "{normalized_name}" removed.'
@@ -893,17 +984,22 @@ class MqttProjectStore:
     def upsert_tag(self, device_name: str, tag: dict[str, Any], current_tag_name: str | None = None) -> dict[str, Any]:
         normalized_device_name = str(device_name).strip()
         normalized_current_tag_name = str(current_tag_name or "").strip()
-        tag_payload = self._tag_to_payload(tag)
+        raw_tag_payload = self._tag_to_payload(tag)
 
         with self._lock:
             device_entry = self._devices.get(normalized_device_name)
             if not device_entry:
                 raise ValueError("Device not found.")
 
+            device_type = self._device_type_from_entry(device_entry)
+
             configured_tags = device_entry.setdefault("configuredTags", {})
             visible_tags = device_entry.setdefault("tags", {})
 
-            current_tag_key = normalized_current_tag_name or tag_payload["address"]
+            current_tag_key = normalized_current_tag_name or raw_tag_payload["address"]
+            existing_configured_tag = configured_tags.get(current_tag_key)
+            tag_payload = self._normalize_configured_tag(raw_tag_payload, device_type, existing_configured_tag)
+
             if normalized_current_tag_name and normalized_current_tag_name != tag_payload["address"]:
                 configured_tags.pop(normalized_current_tag_name, None)
                 existing_tag = visible_tags.pop(normalized_current_tag_name, None)
@@ -974,6 +1070,7 @@ class MqttProjectStore:
                                 "name": tag["name"],
                                 "type": tag["type"],
                                 "description": tag["description"],
+                                "sourceAddress": tag.get("sourceAddress", ""),
                                 "address": tag["address"],
                                 "logData": tag["logData"],
                                 "latestValue": tag["latestValue"],

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "backend": "python backend/python/server.py",
+    "backend": "python backend/server.py",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"

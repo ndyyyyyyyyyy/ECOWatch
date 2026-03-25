@@ -5,7 +5,7 @@ from threading import Lock
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse, RedirectResponse, Response
 
-from .config import (
+from config import (
     ALLOW_LOCAL_LOGIN_WITHOUT_PASSWORD,
     AUTH_MODE,
     GRAFANA_DEFAULT_PATH,
@@ -16,8 +16,8 @@ from .config import (
     REMEMBER_ME_MAX_AGE_SECONDS,
     SESSION_COOKIE_NAME,
 )
-from .http_client import get_http_client
-from .security import get_week_key, is_weekend
+from http_client import get_http_client
+from security import get_week_key, is_weekend
 
 _SESSIONS: dict[str, dict] = {}
 _SESSIONS_LOCK = Lock()

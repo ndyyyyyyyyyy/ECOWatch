@@ -3,7 +3,6 @@ import { Button, Dropdown, Typography, message } from 'antd'
 import './project-tag-config-page.css'
 import { Bell, Home, List, LogOut, Moon, PencilLine, Plus, Search, Settings, Sun, Trash2, User } from 'lucide-react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { loadProjectDevices, saveProjectDevices } from './projectStorage.js'
 import { connectProjectStream, deleteProjectTag, fetchProjectDevices, upsertProjectTag } from '../../api/projectApi.js'
 
 const { Text } = Typography
@@ -19,7 +18,7 @@ const emptyTagForm = {
 function TagConfigPage({ user, onSignOut }) {
   const navigate = useNavigate()
   const { deviceId } = useParams()
-  const [devices, setDevices] = useState(() => loadProjectDevices())
+  const [devices, setDevices] = useState([])
   const [selectedTagIds, setSelectedTagIds] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
   const [activeTagTab, setActiveTagTab] = useState('all')
@@ -28,19 +27,12 @@ function TagConfigPage({ user, onSignOut }) {
   const [tagForm, setTagForm] = useState(emptyTagForm)
   const [isDarkMode, setIsDarkMode] = useState(false)
   const [time, setTime] = useState('')
-  const [dataSource, setDataSource] = useState('dummy')
   const [backendStatus, setBackendStatus] = useState('')
 
   function applyBackendDevices(response) {
     const apiDevices = Array.isArray(response?.devices) ? response.devices : []
-    const nextSource = response?.source === 'mqtt' ? 'mqtt' : 'dummy'
-
-    setDataSource(nextSource)
     setBackendStatus(response?.status?.message || '')
-
-    if (nextSource === 'mqtt') {
-      setDevices(apiDevices)
-    }
+    setDevices(apiDevices)
   }
 
   const activeDevice = useMemo(
@@ -67,17 +59,12 @@ function TagConfigPage({ user, onSignOut }) {
   }, [activeDevice, activeTagTab, searchTerm])
 
   const selectedTag = activeDevice?.tags.find((tag) => tag.id === selectedTagIds[0]) ?? null
+  const activeDeviceType = activeDevice?.properties.find((property) => property.label === 'Device Type')?.value || 'MQTT'
   const canEdit = selectedTagIds.length === 1
   const canDelete = selectedTagIds.length > 0
   const analogCount = activeDevice?.tags.filter((row) => row.type === 'analog').length ?? 0
   const discreteCount = activeDevice?.tags.filter((row) => row.type === 'discrete').length ?? 0
   const textCount = activeDevice?.tags.filter((row) => row.type === 'text').length ?? 0
-
-  useEffect(() => {
-    if (dataSource !== 'mqtt') {
-      saveProjectDevices(devices)
-    }
-  }, [devices, dataSource])
 
   useEffect(() => {
     let isMounted = true
@@ -93,7 +80,8 @@ function TagConfigPage({ user, onSignOut }) {
         if (!isMounted) {
           return
         }
-        setDataSource('dummy')
+        setDevices([])
+        setBackendStatus('Failed to fetch MQTT project data.')
       })
 
     return () => {
@@ -162,7 +150,7 @@ function TagConfigPage({ user, onSignOut }) {
       name: selectedTag.name,
       type: selectedTag.type,
       description: selectedTag.description,
-      address: selectedTag.address,
+      address: activeDeviceType === 'Modicon' ? (selectedTag.sourceAddress || selectedTag.address) : selectedTag.address,
       logData: selectedTag.logData || 'yes',
     })
     setIsTagModalOpen(true)
@@ -186,70 +174,15 @@ function TagConfigPage({ user, onSignOut }) {
       return
     }
 
-    if (dataSource === 'mqtt') {
-      upsertProjectTag(activeDevice.name, tagForm, tagModalMode === 'edit' ? selectedTag?.address : '')
-        .then(() => {
-          setIsTagModalOpen(false)
-          setSelectedTagIds([])
-          message.success(tagModalMode === 'add' ? 'Tag configuration added.' : 'Tag configuration updated.')
-        })
-        .catch((error) => {
-          message.error(error?.response?.data?.detail || 'Failed to save tag configuration.')
-        })
-      return
-    }
-
-    if (tagModalMode === 'add') {
-      const nextTagId = devices.flatMap((device) => device.tags || []).length
-        ? Math.max(...devices.flatMap((device) => device.tags || []).map((tag) => tag.id)) + 1
-        : 1
-
-      setDevices((prev) =>
-        prev.map((device) =>
-          device.id === activeDevice.id
-            ? {
-                ...device,
-                tags: [
-                  ...device.tags,
-                  {
-                    id: nextTagId,
-                    name: tagForm.name || `Tag ${nextTagId}`,
-                    type: tagForm.type,
-                    description: tagForm.description,
-                    address: tagForm.address || '40001',
-                    logData: tagForm.logData,
-                  },
-                ],
-              }
-            : device,
-        ),
-      )
-    } else if (selectedTag) {
-      setDevices((prev) =>
-        prev.map((device) =>
-          device.id === activeDevice.id
-            ? {
-                ...device,
-                tags: device.tags.map((tag) =>
-                  tag.id === selectedTag.id
-                    ? {
-                        ...tag,
-                        name: tagForm.name,
-                        type: tagForm.type,
-                        description: tagForm.description,
-                        address: tagForm.address,
-                        logData: tagForm.logData,
-                      }
-                    : tag,
-                ),
-              }
-            : device,
-        ),
-      )
-    }
-
-    setIsTagModalOpen(false)
-    setSelectedTagIds([])
+    upsertProjectTag(activeDevice.name, tagForm, tagModalMode === 'edit' ? selectedTag?.address : '')
+      .then(() => {
+        setIsTagModalOpen(false)
+        setSelectedTagIds([])
+        message.success(tagModalMode === 'add' ? 'Tag configuration added.' : 'Tag configuration updated.')
+      })
+      .catch((error) => {
+        message.error(error?.response?.data?.detail || 'Failed to save tag configuration.')
+      })
   }
 
   function handleDeleteTags() {
@@ -262,30 +195,15 @@ function TagConfigPage({ user, onSignOut }) {
       return
     }
 
-    if (dataSource === 'mqtt') {
-      const tagsToDelete = activeDevice.tags.filter((tag) => selectedTagIds.includes(tag.id))
-      Promise.all(tagsToDelete.map((tag) => deleteProjectTag(activeDevice.name, tag.address)))
-        .then(() => {
-          setSelectedTagIds([])
-          message.success('Tag configuration deleted.')
-        })
-        .catch((error) => {
-          message.error(error?.response?.data?.detail || 'Failed to delete tag configuration.')
-        })
-      return
-    }
-
-    setDevices((prev) =>
-      prev.map((device) =>
-        device.id === activeDevice.id
-          ? {
-              ...device,
-              tags: device.tags.filter((tag) => !selectedTagIds.includes(tag.id)),
-            }
-          : device,
-      ),
-    )
-    setSelectedTagIds([])
+    const tagsToDelete = activeDevice.tags.filter((tag) => selectedTagIds.includes(tag.id))
+    Promise.all(tagsToDelete.map((tag) => deleteProjectTag(activeDevice.name, tag.address)))
+      .then(() => {
+        setSelectedTagIds([])
+        message.success('Tag configuration deleted.')
+      })
+      .catch((error) => {
+        message.error(error?.response?.data?.detail || 'Failed to delete tag configuration.')
+      })
   }
 
   function getTagTone(tag) {
@@ -458,7 +376,7 @@ function TagConfigPage({ user, onSignOut }) {
                       <span className="project-tag-pill">{row.type}</span>
                     </td>
                     <td>{row.description}</td>
-                    <td>{row.address}</td>
+                    <td>{activeDeviceType === 'Modicon' ? (row.sourceAddress || row.address || '-') : (row.address || '-')}</td>
                     <td>
                       <span className={`project-tag-pill project-tag-pill-status is-${row.matchStatus || 'waiting'}`}>{getTagTone(row)}</span>
                     </td>

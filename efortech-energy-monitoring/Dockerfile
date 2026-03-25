@@ -20,11 +20,11 @@ ENV PYTHONUNBUFFERED=1
 ENV PORT=4000
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends build-essential gcc unixodbc unixodbc-dev \
+    && apt-get install -y --no-install-recommends build-essential gcc \
     && rm -rf /var/lib/apt/lists/*
 
-COPY backend/python/requirements.txt ./backend/python/requirements.txt
-RUN pip install --no-cache-dir -r backend/python/requirements.txt
+COPY backend/requirements.txt ./backend/requirements.txt
+RUN pip install --no-cache-dir -r backend/requirements.txt
 
 COPY backend ./backend
 COPY --from=frontend-builder /app/dist ./dist
@@ -32,4 +32,4 @@ COPY .env.example ./
 
 EXPOSE 4000
 
-CMD ["python", "backend/python/server.py"]
+CMD ["python", "backend/server.py"]

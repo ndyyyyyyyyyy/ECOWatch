@@ -7,15 +7,46 @@ services:
     ports:
       - "4000:4000"
     env_file:
-      - .env
+      - .env.docker
     depends_on:
+      - postgres
+      - mosquitto
       - grafana
     restart: unless-stopped
+    volumes:
+      - backend-data:/app/backend/data
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres
+    environment:
+      POSTGRES_DB: Energy
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d Energy"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mosquitto:
+    image: eclipse-mosquitto:2
+    container_name: mosquitto
+    ports:
+      - "1883:1883"
+    restart: unless-stopped
+    volumes:
+      - ./docker/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      - mosquitto-data:/mosquitto/data
+      - mosquitto-log:/mosquitto/log
 
   grafana:
-    build:
-      context: ./grafana-custom
-      dockerfile: Dockerfile
+    image: efortech-grafana-custom
     container_name: grafana
     environment:
       GF_SERVER_HTTP_ADDR: 0.0.0.0
@@ -29,6 +60,7 @@ services:
       GF_AUTH_PROXY_HEADER_PROPERTY: username
       GF_AUTH_PROXY_AUTO_SIGN_UP: "true"
       GF_AUTH_PROXY_SYNC_TTL: "15"
+      GF_AUTH_PROXY_WHITELIST: 172.18.0.0/16
       GF_USERS_ALLOW_SIGN_UP: "false"
       GF_LOG_LEVEL: warn
     expose:
@@ -37,5 +69,10 @@ services:
     volumes:
       - grafana-data:/var/lib/grafana
 
+
 volumes:
+  backend-data:
   grafana-data:
+  postgres-data:
+  mosquitto-data:
+  mosquitto-log:
