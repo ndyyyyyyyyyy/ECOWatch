@@ -4,11 +4,11 @@
     "deviceId": "mqtt-01",
     "username": "admin",
     "password": "admin",
-    "brokerHost": "192.168.1.38",
+    "brokerHost": "192.168.1.101",
     "brokerPort": "1883"
   },
    "ECU1051": {
-    "sourceHost": "192.168.1.38",
+    "sourceHost": "192.168.1.101",
     "sourcePort": 502,
     "unitId": 1
   }

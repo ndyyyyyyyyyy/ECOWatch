@@ -14,7 +14,7 @@ services:
       - grafana
     restart: unless-stopped
     volumes:
-      - backend-data:/app/backend/data
+      - ./backend/data:/app/backend/data
 
   postgres:
     image: postgres:16-alpine
@@ -71,7 +71,6 @@ services:
 
 
 volumes:
-  backend-data:
   grafana-data:
   postgres-data:
   mosquitto-data:
