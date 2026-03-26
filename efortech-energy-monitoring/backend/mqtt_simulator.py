@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import math
+import random
 import threading
 import time
 from datetime import datetime
@@ -62,7 +63,7 @@ class MqttDeviceSimulator:
         self._sequence = 0
         self._last_sent_at: dict[str, float] = {}
         self._accumulators: dict[str, float] = {}
-        self._device_profiles: dict[str, dict[str, float]] = {}
+        self._device_states: dict[str, dict[str, Any]] = {}
 
     def start(self):
         if not MQTT_SIMULATOR_ENABLED:
@@ -111,6 +112,8 @@ class MqttDeviceSimulator:
             device_type = self._device_type(device)
             device_name = str(device.get("name", "")).strip()
             if not device_name:
+                continue
+            if not bool(device.get("deployed", True)):
                 continue
 
             if device_type == "MQTT":
@@ -207,25 +210,26 @@ class MqttDeviceSimulator:
         state_key = f"{device_name}:{address or source_key}"
         seed = sum(ord(char) for char in state_key) % 17
         profile = self._device_profile(device_name)
+        rng = profile["rng"]
 
         if tag_type == "discrete":
-            threshold = 0.55 + (seed % 3) * 0.1
+            threshold = 0.58 + (seed % 3) * 0.07
             return float(profile["load_ratio"] >= threshold)
 
         if "voltage" in tag_name or "volt" in address or address.startswith("v"):
-            return round(profile["voltage"] + (seed % 5 - 2) * 0.08, 2)
+            return round(profile["voltage"] + rng.uniform(-0.18, 0.18) + (seed % 5 - 2) * 0.03, 2)
 
         if "current" in tag_name or "curr" in address or address.startswith("i"):
-            return round(profile["current"] + (seed % 4 - 1.5) * 0.03, 2)
+            return round(max(0.0, profile["current"] + rng.uniform(-0.12, 0.12) + (seed % 4 - 1.5) * 0.02), 2)
 
         if "power factor" in tag_name or "pf" == address or address.startswith("pf"):
-            return round(profile["power_factor"] + (seed % 3 - 1) * 0.002, 3)
+            return round(min(0.99, max(0.72, profile["power_factor"] + rng.uniform(-0.006, 0.006))), 3)
 
         if "frequency" in tag_name or "freq" in tag_name or address.startswith("hz") or "freq" in address:
-            return round(profile["frequency"] + (seed % 3 - 1) * 0.005, 2)
+            return round(profile["frequency"] + rng.uniform(-0.02, 0.02), 2)
 
         if "power" in tag_name or "kw" in tag_name or address.startswith("kw"):
-            return round(profile["power_kw"] + (seed % 4 - 1.5) * 0.04, 2)
+            return round(max(0.0, profile["power_kw"] + rng.uniform(-0.08, 0.08)), 2)
 
         if "kwh" in tag_name or "energy" in tag_name or "kwh" in address:
             previous = self._accumulators.get(state_key, 100 + seed)
@@ -236,42 +240,66 @@ class MqttDeviceSimulator:
             return next_value
 
         if "temperature" in tag_name or "temp" in address:
-            base = 26.0 + profile["load_ratio"] * 6.5
-            swing = math.sin(profile["phase"] / 2.0 + seed) * 0.35
-            return round(base + swing, 2)
+            base = 27.0 + profile["load_ratio"] * 5.2
+            return round(base + rng.uniform(-0.25, 0.25), 2)
 
         if "pressure" in tag_name or "press" in address:
-            base = 3.1 + profile["load_ratio"] * 1.4
-            swing = math.cos(profile["phase"] / 1.7 + seed) * 0.08
-            return round(base + swing, 3)
+            base = 3.4 + profile["load_ratio"] * 0.9
+            return round(base + rng.uniform(-0.06, 0.06), 3)
 
         if "flow" in tag_name or "flow" in address:
-            base = 14.0 + profile["load_ratio"] * 8.0
-            swing = math.sin(profile["phase"] / 1.3 + seed) * 0.45
-            return round(base + swing, 2)
+            base = 12.0 + profile["load_ratio"] * 10.5
+            return round(base + rng.uniform(-0.3, 0.3), 2)
 
-        base = 10 + (seed % 10) + profile["load_ratio"] * 3.5
-        swing = math.sin(profile["phase"] + seed) * 0.25
-        return round(base + swing, 2)
+        base = 10 + (seed % 10) + profile["load_ratio"] * 3.2
+        return round(base + rng.uniform(-0.2, 0.2), 2)
 
-    def _device_profile(self, device_name: str) -> dict[str, float]:
-        device_seed = sum(ord(char) for char in device_name) % 19
-        phase = (self._sequence + device_seed) / 3.0
-        load_wave = (math.sin(phase) + 1) / 2
-        load_ripple = (math.sin(phase / 3.0 + 0.7) + 1) / 2
-        load_ratio = 0.35 + load_wave * 0.45 + load_ripple * 0.1
+    def _device_profile(self, device_name: str) -> dict[str, Any]:
+        state = self._device_states.get(device_name)
+        if state is None:
+            seed = sum(ord(char) for char in device_name)
+            rng = random.Random(seed)
+            state = {
+                "rng": rng,
+                "load_ratio": rng.uniform(0.45, 0.7),
+                "target_load": rng.uniform(0.45, 0.75),
+                "voltage_bias": rng.uniform(-1.0, 1.0),
+                "frequency_bias": rng.uniform(-0.015, 0.015),
+                "temperature_bias": rng.uniform(-0.6, 0.6),
+                "samples": 0,
+            }
+            self._device_states[device_name] = state
 
-        profile = {
-            "phase": phase,
+        rng = state["rng"]
+        state["samples"] += 1
+
+        if state["samples"] % 18 == 0:
+            state["target_load"] = rng.uniform(0.35, 0.92)
+
+        if rng.random() < 0.08:
+            state["target_load"] = min(0.95, max(0.25, state["target_load"] + rng.uniform(-0.12, 0.12)))
+
+        load_delta = state["target_load"] - state["load_ratio"]
+        state["load_ratio"] += load_delta * 0.28 + rng.uniform(-0.03, 0.03)
+        state["load_ratio"] = min(0.98, max(0.18, state["load_ratio"]))
+
+        transient = rng.uniform(-0.18, 0.18) if rng.random() < 0.12 else 0.0
+        load_ratio = min(0.98, max(0.18, state["load_ratio"] + transient))
+        voltage = 223.2 + state["voltage_bias"] - load_ratio * 3.4 + rng.uniform(-0.45, 0.45)
+        current = 1.6 + load_ratio * 10.8 + rng.uniform(-0.22, 0.22)
+        power_factor = 0.78 + load_ratio * 0.16 + rng.uniform(-0.012, 0.012)
+        frequency = 49.98 + state["frequency_bias"] + rng.uniform(-0.025, 0.025)
+        power_kw = max(0.05, voltage * current * power_factor / 1000)
+
+        return {
+            "rng": rng,
             "load_ratio": load_ratio,
-            "voltage": 221.5 + math.sin(phase / 2.2) * 2.4 - load_ratio * 1.8,
-            "current": 4.0 + load_ratio * 8.5 + math.sin(phase / 1.5) * 0.25,
-            "power_factor": min(0.98, 0.84 + load_ratio * 0.11 + math.sin(phase / 4.0) * 0.01),
-            "frequency": 50.0 + math.sin(phase / 5.0) * 0.06,
+            "voltage": voltage,
+            "current": current,
+            "power_factor": min(0.99, max(0.72, power_factor)),
+            "frequency": frequency,
+            "power_kw": power_kw,
         }
-        profile["power_kw"] = profile["voltage"] * profile["current"] * profile["power_factor"] / 1000
-        self._device_profiles[device_name] = profile
-        return profile
 
     @staticmethod
     def _property_value(device: dict[str, Any], label: str) -> str:

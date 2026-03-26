@@ -28,7 +28,6 @@ RUN pip install --no-cache-dir -r backend/requirements.txt
 
 COPY backend ./backend
 COPY --from=frontend-builder /app/dist ./dist
-COPY .env.example ./
 
 EXPOSE 4000
 

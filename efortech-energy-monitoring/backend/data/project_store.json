@@ -1,50 +1,8 @@
 {
   "devices": [
     {
-      "deviceName": "ECU1051",
-      "configuredProperties": [
-        {
-          "label": "Device Name",
-          "value": "ECU1051"
-        },
-        {
-          "label": "Description",
-          "value": ""
-        },
-        {
-          "label": "Unit Number",
-          "value": "1"
-        },
-        {
-          "label": "Device Type",
-          "value": "Modicon"
-        },
-        {
-          "label": "Primary IP Address",
-          "value": "192.168.1.38"
-        },
-        {
-          "label": "Primary Port Number",
-          "value": "502"
-        },
-        {
-          "label": "Primary Device Address",
-          "value": "1"
-        }
-      ],
-      "configuredTags": [
-        {
-          "name": "TES",
-          "type": "analog",
-          "description": "Analog Input",
-          "sourceAddress": "",
-          "address": "40001",
-          "logData": "yes"
-        }
-      ]
-    },
-    {
       "deviceName": "PM",
+      "deployed": true,
       "configuredProperties": [
         {
           "label": "Device Name",
@@ -110,6 +68,50 @@
           "description": "Analog Input",
           "sourceAddress": "kwh01",
           "address": "kwh01",
+          "logData": "yes"
+        }
+      ]
+    },
+    {
+      "deviceName": "ECU1051",
+      "deployed": true,
+      "configuredProperties": [
+        {
+          "label": "Device Name",
+          "value": "ECU1051"
+        },
+        {
+          "label": "Description",
+          "value": ""
+        },
+        {
+          "label": "Unit Number",
+          "value": "1"
+        },
+        {
+          "label": "Device Type",
+          "value": "Modicon"
+        },
+        {
+          "label": "Primary IP Address",
+          "value": "192.168.1.38"
+        },
+        {
+          "label": "Primary Port Number",
+          "value": "502"
+        },
+        {
+          "label": "Primary Device Address",
+          "value": "1"
+        }
+      ],
+      "configuredTags": [
+        {
+          "name": "TES",
+          "type": "analog",
+          "description": "Analog Input",
+          "sourceAddress": "",
+          "address": "40001",
           "logData": "yes"
         }
       ]

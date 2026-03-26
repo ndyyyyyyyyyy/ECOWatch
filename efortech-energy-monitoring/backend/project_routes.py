@@ -67,6 +67,14 @@ def register_project_routes(app: FastAPI):
         except RuntimeError as error:
             raise HTTPException(status_code=409, detail=str(error)) from error
 
+    @app.post("/api/project/devices/{device_name}/deploy")
+    async def deploy_project_device(device_name: str):
+        try:
+            result = project_store.deploy_device(device_name)
+            return {"ok": True, **result}
+        except ValueError as error:
+            raise HTTPException(status_code=400, detail=str(error)) from error
+
     @app.delete("/api/project/devices/{device_name}")
     async def unsubscribe_project_device(device_name: str):
         try:

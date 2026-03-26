@@ -25,6 +25,11 @@ export async function unsubscribeProjectDevice(deviceName) {
   return data
 }
 
+export async function deployProjectDevice(deviceName) {
+  const { data } = await apiClient.post(`/devices/${encodeURIComponent(deviceName)}/deploy`)
+  return data
+}
+
 export async function upsertProjectTag(deviceName, tag, currentTagName = '') {
   const { data } = await apiClient.post(`/devices/${encodeURIComponent(deviceName)}/tags`, { tag, currentTagName })
   return data

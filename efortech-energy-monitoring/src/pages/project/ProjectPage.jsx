@@ -10,6 +10,7 @@ import {
 } from './projectStorage.js'
 import {
   connectProjectStream,
+  deployProjectDevice,
   fetchProjectDevices,
   subscribeProjectDevice,
   unsubscribeProjectDevice,
@@ -143,7 +144,7 @@ function ProjectPage({ user, onSignOut }) {
           setActiveDeviceId(updatedDevice.id)
         }
         setIsEditModalOpen(false)
-        message.success(`Updated device configuration for "${nextDeviceName}".`)
+        message.success(`Configuration for "${nextDeviceName}" saved. Deploy device to apply changes.`)
       })
       .catch((error) => {
         message.error(error?.response?.data?.detail || 'Failed to update device configuration.')
@@ -163,7 +164,7 @@ function ProjectPage({ user, onSignOut }) {
           setActiveDeviceId(addedDevice.id)
         }
         setIsAddModalOpen(false)
-        message.success(`Added device configuration for "${deviceName}".`)
+        message.success(`Device "${deviceName}" saved. Deploy device to start data stream.`)
       })
       .catch((error) => {
         message.error(error?.response?.data?.detail || 'Failed to subscribe device.')
@@ -185,6 +186,20 @@ function ProjectPage({ user, onSignOut }) {
       })
   }
 
+  function handleDeployDevice() {
+    if (!activeDevice) {
+      return
+    }
+    deployProjectDevice(activeDevice.name)
+      .then(() => refreshProjectDevices())
+      .then(() => {
+        message.success(`Device "${activeDevice.name}" deployed.`)
+      })
+      .catch((error) => {
+        message.error(error?.response?.data?.detail || 'Failed to deploy device.')
+      })
+  }
+
   function openTagConfiguration(device, item) {
     if (item.kind !== 'tag') {
       return
@@ -200,6 +215,9 @@ function ProjectPage({ user, onSignOut }) {
   }
 
   function getMatchTone(device) {
+    if (!device?.deployed) {
+      return 'Draft'
+    }
     if (device?.matchStatus === 'matched') {
       return 'Matched'
     }
@@ -400,11 +418,24 @@ function ProjectPage({ user, onSignOut }) {
                       <div>
                         <h2>{activeDevice.name}</h2>
                       </div>
-                      <button type="button" className="project-summary-edit-btn" disabled={editDisabled} onClick={openEditModal}>
-                        <PencilLine size={18} strokeWidth={1.8} />
-                        Edit
-                      </button>
+                      <div className="project-summary-actions">
+                        <button
+                          type="button"
+                          className={`project-summary-deploy-btn ${activeDevice.deployed ? 'is-deployed' : ''}`}
+                          disabled={Boolean(activeDevice.deployed)}
+                          onClick={handleDeployDevice}
+                        >
+                          {activeDevice.deployed ? 'Deployed' : 'Deploy'}
+                        </button>
+                        <button type="button" className="project-summary-edit-btn" disabled={editDisabled} onClick={openEditModal}>
+                          <PencilLine size={18} strokeWidth={1.8} />
+                          Edit
+                        </button>
+                      </div>
                     </div>
+                    {!activeDevice.deployed && (
+                      <p className="project-summary-note">Configuration saved as draft. Deploy this device to start polling and publishing data.</p>
+                    )}
                   </div>
                   <div className="project-summary-stats">
                     <div className="project-stat-card">

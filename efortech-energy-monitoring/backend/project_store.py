@@ -140,6 +140,7 @@ class MqttProjectStore:
             devices_payload = [
                 {
                     "deviceName": device_name,
+                    "deployed": bool(device.get("deployed", True)),
                     "configuredProperties": device.get("configuredProperties", []),
                     "configuredTags": list(device.get("configuredTags", {}).values()),
                 }
@@ -184,6 +185,7 @@ class MqttProjectStore:
                 visible_tags[tag_payload["address"]] = self._build_tag_entry(tag_payload)
 
             device_name = device_payload["name"]
+            deployed = bool(raw_device.get("deployed", True))
             loaded_devices[device_name] = {
                 "id": device_name,
                 "name": device_name,
@@ -192,7 +194,8 @@ class MqttProjectStore:
                 "configuredTags": configured_tags,
                 "tags": visible_tags,
                 "matchStatus": "waiting",
-                "matchMessage": "Waiting for MQTT payload.",
+                "matchMessage": "Waiting for MQTT payload." if deployed else "Configuration saved. Deploy device to start data stream.",
+                "deployed": deployed,
             }
             loaded_subscriptions[device_name] = self._device_topic(device_name)
 
@@ -863,6 +866,11 @@ class MqttProjectStore:
 
     @staticmethod
     def _reset_device_tags_to_waiting(device_entry: dict[str, Any]):
+        waiting_message = (
+            "Waiting for MQTT payload."
+            if device_entry.get("deployed", True)
+            else "Configuration saved. Deploy device to start data stream."
+        )
         for tag_key, configured_tag in device_entry.get("configuredTags", {}).items():
             existing_tag = device_entry.get("tags", {}).get(tag_key)
             device_entry["tags"][tag_key] = MqttProjectStore._build_tag_entry(
@@ -873,9 +881,36 @@ class MqttProjectStore:
                     "lastTimestamp": None,
                     "topic": "",
                     "matchStatus": "waiting",
-                    "matchMessage": "Waiting for MQTT payload.",
+                    "matchMessage": waiting_message,
                 },
             )
+
+    @staticmethod
+    def _mark_device_requires_deploy(device_entry: dict[str, Any]):
+        device_entry["deployed"] = False
+        device_entry["matchStatus"] = "waiting"
+        device_entry["matchMessage"] = "Configuration saved. Deploy device to start data stream."
+        MqttProjectStore._reset_device_tags_to_waiting(device_entry)
+
+    def deploy_device(self, device_name: str) -> dict[str, Any]:
+        normalized_name = str(device_name).strip()
+        if not normalized_name:
+            raise ValueError("Device name is required.")
+
+        with self._lock:
+            device_entry = self._devices.get(normalized_name)
+            if not device_entry:
+                raise ValueError("Device not found.")
+
+            device_entry["deployed"] = True
+            device_entry["matchStatus"] = "waiting"
+            device_entry["matchMessage"] = "Waiting for MQTT payload."
+            self._reset_device_tags_to_waiting(device_entry)
+            topic = self._subscriptions.get(normalized_name)
+
+        self._save_persisted_state()
+        self._publish_snapshot()
+        return {"deviceName": normalized_name, "topic": topic}
 
     def subscribe_device(self, properties: list[dict[str, Any]] | None) -> dict[str, Any]:
         if not MQTT_ENABLED:
@@ -900,7 +935,8 @@ class MqttProjectStore:
                 "configuredTags": configured_tags,
                 "tags": visible_tags,
                 "matchStatus": "waiting",
-                "matchMessage": "Waiting for MQTT payload.",
+                "matchMessage": "Configuration saved. Deploy device to start data stream.",
+                "deployed": False,
             }
             self._devices[device_name] = device_entry
             self._subscriptions[device_name] = topic
@@ -910,7 +946,7 @@ class MqttProjectStore:
                 f"Connected to MQTT broker. Listening on {MQTT_TOPIC_FILTER} with {len(self._subscriptions)} configured device(s)."
             )
         else:
-            self._message = f'Device "{device_name}" added. Waiting for MQTT connection.'
+            self._message = f'Device "{device_name}" saved. Deploy device to start data stream.'
 
         self._save_persisted_state()
         self._publish_snapshot()
@@ -935,9 +971,7 @@ class MqttProjectStore:
             current_device["name"] = next_device_name
             current_device["properties"] = self._build_properties(device_payload)
             current_device["configuredProperties"] = self._build_properties(device_payload)
-            current_device["matchStatus"] = "waiting"
-            current_device["matchMessage"] = "Waiting for MQTT payload."
-            self._reset_device_tags_to_waiting(current_device)
+            self._mark_device_requires_deploy(current_device)
             self._devices[next_device_name] = current_device
             self._subscriptions[next_device_name] = next_topic
             subscription_count = len(self._subscriptions)
@@ -1015,9 +1049,10 @@ class MqttProjectStore:
                     "lastTimestamp": None,
                     "topic": "",
                     "matchStatus": "waiting",
-                    "matchMessage": "Waiting for MQTT payload.",
+                    "matchMessage": "Configuration saved. Deploy device to start data stream.",
                 },
             )
+            self._mark_device_requires_deploy(device_entry)
 
         self._save_persisted_state()
         self._publish_snapshot()
@@ -1036,6 +1071,7 @@ class MqttProjectStore:
 
             device_entry.setdefault("configuredTags", {}).pop(normalized_tag_name, None)
             device_entry.setdefault("tags", {}).pop(normalized_tag_name, None)
+            self._mark_device_requires_deploy(device_entry)
 
         self._save_persisted_state()
         self._publish_snapshot()
@@ -1064,6 +1100,7 @@ class MqttProjectStore:
                         "id": device["id"] or index,
                         "name": device["name"],
                         "properties": device["properties"],
+                        "deployed": bool(device.get("deployed", True)),
                         "tags": [
                             {
                                 "id": f'{device["id"]}:{tag["address"] or tag["name"]}',

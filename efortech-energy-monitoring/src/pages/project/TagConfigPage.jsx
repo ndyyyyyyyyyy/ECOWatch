@@ -178,7 +178,11 @@ function TagConfigPage({ user, onSignOut }) {
       .then(() => {
         setIsTagModalOpen(false)
         setSelectedTagIds([])
-        message.success(tagModalMode === 'add' ? 'Tag configuration added.' : 'Tag configuration updated.')
+        message.success(
+          tagModalMode === 'add'
+            ? 'Tag configuration added. Deploy device to apply changes.'
+            : 'Tag configuration updated. Deploy device to apply changes.',
+        )
       })
       .catch((error) => {
         message.error(error?.response?.data?.detail || 'Failed to save tag configuration.')
@@ -199,7 +203,7 @@ function TagConfigPage({ user, onSignOut }) {
     Promise.all(tagsToDelete.map((tag) => deleteProjectTag(activeDevice.name, tag.address)))
       .then(() => {
         setSelectedTagIds([])
-        message.success('Tag configuration deleted.')
+        message.success('Tag configuration deleted. Deploy device to apply changes.')
       })
       .catch((error) => {
         message.error(error?.response?.data?.detail || 'Failed to delete tag configuration.')
