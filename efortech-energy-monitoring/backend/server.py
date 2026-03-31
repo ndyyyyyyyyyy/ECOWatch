@@ -6,6 +6,7 @@ from fastapi.staticfiles import StaticFiles
 from auth_routes import register_auth_routes
 from config import DIST_DIR, DIST_INDEX, GRAFANA_TARGET, LOGIN_APP_URL, PORT
 from energy_db import ensure_energy_table
+from energy_routes import register_energy_routes
 from grafana_proxy import register_grafana_proxy_routes
 from http_client import shutdown_http_client, startup_http_client
 from middleware import register_gateway_middleware
@@ -22,9 +23,14 @@ def create_app() -> FastAPI:
     register_auth_routes(app)
     register_grafana_proxy_routes(app)
     register_project_routes(app)
+    register_energy_routes(app)
 
     if DIST_DIR.exists():
         app.mount("/assets", StaticFiles(directory=str(DIST_DIR / "assets")), name="assets")
+
+    @app.get("/healthz")
+    async def healthcheck():
+        return {"ok": True}
 
     @app.get("/{full_path:path}")
     async def spa_fallback(full_path: str):

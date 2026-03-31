@@ -92,3 +92,39 @@ def insert_energy_reading(
             connection.commit()
     except OperationalError as error:
         print(f"[energy-db] insert skipped: {error}")
+
+
+def fetch_energy_readings(start: datetime, end: datetime) -> list[dict[str, object]]:
+    if not ENERGY_PG_ENABLED:
+        return []
+
+    normalized_start = _normalize_timestamp(start)
+    normalized_end = _normalize_timestamp(end)
+    query = sql.SQL(
+        """
+        SELECT timestamp, device_name, tag_name, tag_address, value
+        FROM {table_name}
+        WHERE timestamp BETWEEN %s AND %s
+        ORDER BY timestamp ASC
+        """
+    ).format(table_name=sql.Identifier(ENERGY_PG_TABLE))
+
+    try:
+        with psycopg.connect(**_connection_kwargs()) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(query, (normalized_start, normalized_end))
+                rows = cursor.fetchall()
+    except OperationalError as error:
+        print(f"[energy-db] select skipped: {error}")
+        return []
+
+    return [
+        {
+            "timestamp": row[0],
+            "device_name": row[1] or "",
+            "tag_name": row[2] or "",
+            "tag_address": row[3] or "",
+            "value": float(row[4]) if row[4] is not None else 0.0,
+        }
+        for row in rows
+    ]

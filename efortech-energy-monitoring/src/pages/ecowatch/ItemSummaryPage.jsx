@@ -1,158 +1,190 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Select, Button, Space, Typography, Progress, Row, Col } from 'antd';
+import { Card, Select, Button, Space, Typography, Progress, Row, Col, Spin, message } from 'antd';
 import ReactECharts from 'echarts-for-react';
-import { useOutletContext } from 'react-router-dom';
 import axios from 'axios';
+import dayjs from 'dayjs';
+import { useOutletContext } from 'react-router-dom';
+import { ENERGY_ENDPOINT } from './ecowatchApi';
 
 const { Option } = Select;
 const { Title, Text } = Typography;
 
 export default function ItemSummary() {
   const { isDarkMode } = useOutletContext();
-  
-  const [selectedArea, setSelectedArea] = useState("Regional");
-  const mainAreas = "RAC,NR1,NR2,UT_NEW,UTILITY";
 
+  const [selectedArea, setSelectedArea] = useState('Regional');
+  const mainAreas = 'RAC,NR1,NR2,UT_NEW,UTILITY';
   const [topMonthlyData, setTopMonthlyData] = useState(new Array(12).fill(0));
   const [pieData, setPieData] = useState([]);
-  const [loadingMain, setLoadingMain] = useState(false);
-
   const [barDataThisYear, setBarDataThisYear] = useState(new Array(12).fill(0));
+  const [thisYearTotal, setThisYearTotal] = useState(0);
+  const [lastYearTotal, setLastYearTotal] = useState(0);
+  const [realtimeDemand, setRealtimeDemand] = useState(0);
+  const [rankingData, setRankingData] = useState([]);
+  const [loadingMain, setLoadingMain] = useState(false);
   const [loadingBar, setLoadingBar] = useState(false);
 
-  const fetchMainData = () => {
+  const fetchDashboardData = async () => {
     setLoadingMain(true);
-    const currentYear = new Date().getFullYear();
-    const url = `http://LAPTOP-KJ75ERV3:5000/energy?interval=Month&start=${currentYear}-01-01&end=${currentYear}-12-31&areas=${mainAreas}`;
-
-    axios.get(url)
-      .then(res => {
-        const rawData = Array.isArray(res.data) ? res.data : (res.data.data || []);
-        
-        const monthlyTotals = new Array(12).fill(0);
-        const areaTotals = { RAC: 0, NR1: 0, NR2: 0, UT_NEW: 0, UTILITY: 0 };
-
-        rawData.forEach(item => {
-          if (item.timestamp) {
-            const monthIndex = parseInt(item.timestamp.split('-')[1], 10) - 1;
-            if (monthIndex >= 0 && monthIndex < 12) {
-              monthlyTotals[monthIndex] += item.value_kwh;
-              if (areaTotals[item.tag_name] !== undefined) {
-                areaTotals[item.tag_name] += item.value_kwh;
-              }
-            }
-          }
-        });
-
-        const formattedPieData = Object.keys(areaTotals).map(key => ({
-          name: key,
-          value: areaTotals[key]
-        })).filter(item => item.value > 0);
-
-        setTopMonthlyData(monthlyTotals);
-        setPieData(formattedPieData);
-        setLoadingMain(false);
-      })
-      .catch(err => {
-        console.error("Gagal ambil data utama:", err);
-        setLoadingMain(false);
-      });
-  };
-
-  const fetchBarData = (areaName) => {
     setLoadingBar(true);
-    const currentYear = new Date().getFullYear();
-    const targetAreas = areaName === "Regional" ? mainAreas : areaName;
-    
-    let url = `http://LAPTOP-KJ75ERV3:5000/energy?interval=Month&start=${currentYear}-01-01&end=${currentYear}-12-31&areas=${targetAreas}`;
 
-    axios.get(url)
-      .then(res => {
-        const rawData = Array.isArray(res.data) ? res.data : (res.data.data || []);
-        const monthlyValues = new Array(12).fill(0);
+    try {
+      const currentYear = dayjs().year();
+      const lastYear = currentYear - 1;
+      const targetAreas = mainAreas;
+      const today = dayjs().format('YYYY-MM-DD');
 
-        rawData.forEach(item => {
-          if (item.timestamp) {
-            const monthIndex = parseInt(item.timestamp.split('-')[1], 10) - 1;
-            if (monthIndex >= 0 && monthIndex < 12) {
-              monthlyValues[monthIndex] += item.value_kwh;
-            }
-          }
-        });
+      const [thisYearRes, lastYearRes, todayRes] = await Promise.all([
+        axios.get(`${ENERGY_ENDPOINT}?interval=Month&start=${currentYear}-01-01&end=${currentYear}-12-31&areas=${targetAreas}`),
+        axios.get(`${ENERGY_ENDPOINT}?interval=Month&start=${lastYear}-01-01&end=${lastYear}-12-31&areas=${targetAreas}`),
+        axios.get(`${ENERGY_ENDPOINT}?interval=Day&start=${today}&end=${today}&areas=${targetAreas}`),
+      ]);
 
-        setBarDataThisYear(monthlyValues);
-        setLoadingBar(false);
-      })
-      .catch(err => {
-        console.error("Gagal ambil data bar:", err);
-        setLoadingBar(false);
+      const thisYearRaw = thisYearRes.data || [];
+      const lastYearRaw = lastYearRes.data || [];
+      const todayRaw = todayRes.data || [];
+
+      let totalThisYear = 0;
+      const monthlyTotals = new Array(12).fill(0);
+      const areaTotals = {};
+      const tagTotals = {};
+
+      thisYearRaw.forEach((item) => {
+        const val = parseFloat(item.value_kwh);
+        totalThisYear += val;
+
+        const monthIndex = parseInt(item.timestamp.split('-')[1], 10) - 1;
+        if (monthIndex >= 0 && monthIndex < 12) {
+          monthlyTotals[monthIndex] += val;
+        }
+
+        areaTotals[item.tag_name] = (areaTotals[item.tag_name] || 0) + val;
+        tagTotals[item.tag_name] = (tagTotals[item.tag_name] || 0) + val;
       });
-  };
 
-  useEffect(() => {
-    fetchMainData();
-  }, []);
+      let totalLastYear = 0;
+      lastYearRaw.forEach((item) => {
+        totalLastYear += parseFloat(item.value_kwh);
+      });
 
-  useEffect(() => {
-    fetchBarData(selectedArea);
-  }, [selectedArea]);
+      let currentDemand = 0;
+      todayRaw.forEach((item) => {
+        currentDemand += parseFloat(item.value_kwh);
+      });
 
-  const onEvents = {
-    'click': (params) => {
-      setSelectedArea(params.name);
+      setThisYearTotal(totalThisYear);
+      setLastYearTotal(totalLastYear);
+      setRealtimeDemand(currentDemand);
+      setTopMonthlyData(monthlyTotals);
+      setBarDataThisYear(monthlyTotals);
+      setSelectedArea('Regional');
+
+      setPieData(
+        Object.keys(areaTotals)
+          .map((key) => ({ name: key, value: areaTotals[key] }))
+          .filter((item) => item.value > 0)
+      );
+
+      const sortedTags = Object.entries(tagTotals).sort((a, b) => b[1] - a[1]).slice(0, 8);
+      const maxRankingVal = sortedTags.length > 0 ? sortedTags[0][1] : 1;
+      setRankingData(
+        sortedTags.map((tag, index) => ({
+          name: `${index + 1}. ${tag[0]}`,
+          value: tag[1],
+          percent: (tag[1] / maxRankingVal) * 100,
+        }))
+      );
+    } catch (error) {
+      console.error('Failed to fetch main data:', error);
+      message.error('Failed to load data from server');
+    } finally {
+      setLoadingMain(false);
+      setLoadingBar(false);
     }
   };
 
-  const rankingData = [
-    { name: '1. TURBO_ATLAS3', value: 512.14, percent: 100 },
-    { name: '2. TURBO_ATLAS2', value: 411.75, percent: 80 },
-    { name: '3. SCREW_COMPRE...', value: 252.42, percent: 50 },
-    { name: '4. TURBO_ATLAS1', value: 251.99, percent: 49 },
-    { name: '5. DB_2', value: 209.23, percent: 40 },
-    { name: '6. V_F_MALE_C_NR1', value: 205.77, percent: 38 },
-    { name: '7. V_F_MALE_A_NR2', value: 202.84, percent: 37 },
-    { name: '8. SCREW_COMPRE...', value: 171.17, percent: 32 },
-  ];
+  useEffect(() => {
+    fetchDashboardData();
+  }, []);
+
+  const handlePieClick = async (params) => {
+    const areaName = params.name;
+    setSelectedArea(areaName);
+    setLoadingBar(true);
+
+    try {
+      const currentYear = dayjs().year();
+      const res = await axios.get(
+        `${ENERGY_ENDPOINT}?interval=Month&start=${currentYear}-01-01&end=${currentYear}-12-31&areas=${areaName}`
+      );
+      const rawData = res.data || [];
+      const monthlyValues = new Array(12).fill(0);
+
+      rawData.forEach((item) => {
+        const monthIndex = parseInt(item.timestamp.split('-')[1], 10) - 1;
+        if (monthIndex >= 0 && monthIndex < 12) {
+          monthlyValues[monthIndex] += parseFloat(item.value_kwh);
+        }
+      });
+
+      setBarDataThisYear(monthlyValues);
+    } catch (error) {
+      message.error('Failed to load area details');
+    } finally {
+      setLoadingBar(false);
+    }
+  };
+
+  const onEvents = { click: handlePieClick };
+  const yoyDeviation = thisYearTotal - lastYearTotal;
+  const isYoYPositive = yoyDeviation > 0;
+
+  const formatPower = (value) => {
+    if (value >= 1000000) return `${(value / 1000000).toFixed(2)} GWh`;
+    if (value >= 1000) return `${(value / 1000).toFixed(2)} MWh`;
+    return `${value.toFixed(2)} kWh`;
+  };
 
   const maxTop = Math.max(...topMonthlyData);
-  const targetTop = maxTop > 0 ? Math.round(maxTop * 0.9) : 1800;
-  const lastYearTop = topMonthlyData.map(v => v > 0 ? Math.round(v * 0.85) : 0);
+  const targetTop = maxTop > 0 ? Math.round(maxTop * 0.9) : 1000;
+  const lastYearTop = topMonthlyData.map((value) => (value > 0 ? Math.round(value * 0.85) : 0));
 
   const monthlyUsageOption = {
     tooltip: { trigger: 'axis' },
-    legend: { 
-      bottom: 0, 
-      data: ['This year', 'Last year', 'Target usage'], 
-      textStyle: { color: isDarkMode ? '#d9d9d9' : '#595959' } 
-    },
+    legend: { bottom: 0, data: ['This year', 'Last year', 'Target usage'], textStyle: { color: isDarkMode ? '#d9d9d9' : '#595959' } },
     grid: { left: '3%', right: '4%', bottom: '15%', top: '3%', containLabel: true },
     xAxis: { type: 'category', data: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'] },
-    yAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: isDarkMode ? '#303030' : '#e8e8e8' } } },
+    yAxis: {
+      type: 'value',
+      axisLabel: { formatter: (value) => (value >= 1000 ? `${value / 1000}K` : value) },
+      splitLine: { lineStyle: { type: 'dashed', color: isDarkMode ? '#303030' : '#e8e8e8' } },
+    },
     series: [
       { name: 'This year', type: 'bar', itemStyle: { color: '#1890ff' }, data: topMonthlyData },
       { name: 'Last year', type: 'bar', itemStyle: { color: isDarkMode ? '#172b4d' : '#e6f4ff' }, data: lastYearTop },
       { name: 'Target usage', type: 'line', smooth: true, lineStyle: { width: 3, type: 'dashed', color: '#ff4d4f' }, symbol: 'circle', itemStyle: { color: '#ff4d4f' }, data: new Array(12).fill(targetTop) },
-    ]
+    ],
   };
 
   const maxBar = Math.max(...barDataThisYear);
   const targetBar = maxBar > 0 ? Math.round(maxBar * 0.9) : 450;
-  const lastYearBar = barDataThisYear.map(v => v > 0 ? Math.round(v * 0.85) : 0);
+  const lastYearBar = barDataThisYear.map((value) => (value > 0 ? Math.round(value * 0.85) : 0));
 
-  const racMonthlyOption = {
+  const areaMonthlyOption = {
     tooltip: { trigger: 'axis' },
     legend: { bottom: 0, textStyle: { color: isDarkMode ? '#d9d9d9' : '#595959' } },
     grid: { left: '3%', right: '4%', bottom: '15%', top: '3%', containLabel: true },
-    xAxis: { 
-      type: 'category', 
-      data: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'] 
+    xAxis: { type: 'category', data: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'] },
+    yAxis: {
+      type: 'value',
+      axisLabel: { formatter: (value) => (value >= 1000 ? `${value / 1000}K` : value) },
+      splitLine: { lineStyle: { type: 'dashed', color: isDarkMode ? '#303030' : '#e8e8e8' } },
     },
-    yAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: isDarkMode ? '#303030' : '#e8e8e8' } } },
     series: [
       { name: 'This year', type: 'bar', itemStyle: { color: '#1890ff' }, data: barDataThisYear },
       { name: 'Last year', type: 'bar', itemStyle: { color: isDarkMode ? '#172b4d' : '#e6f4ff' }, data: lastYearBar },
       { name: 'Target usage', type: 'line', smooth: true, lineStyle: { width: 3, type: 'dashed', color: '#ff4d4f' }, symbol: 'circle', itemStyle: { color: '#ff4d4f' }, data: new Array(12).fill(targetBar) },
-    ]
+    ],
   };
 
   const regionalUsageOption = {
@@ -164,9 +196,9 @@ export default function ItemSummary() {
         radius: ['45%', '65%'],
         itemStyle: { borderRadius: 4, borderColor: isDarkMode ? '#141414' : '#fff', borderWidth: 2 },
         label: { show: true, position: 'outside', formatter: '{b}\n{d}%', fontWeight: 'bold' },
-        data: pieData.length > 0 ? pieData : [{ name: 'No Data', value: 0 }]
-      }
-    ]
+        data: pieData.length > 0 ? pieData : [{ name: 'No Data', value: 0 }],
+      },
+    ],
   };
 
   return (
@@ -174,67 +206,66 @@ export default function ItemSummary() {
       <Card styles={{ body: { padding: '10px 24px' } }}>
         <Space wrap>
           <span>Area</span>
-          <Select defaultValue="MAIN_ELECTRICAL" style={{ width: 180 }}>
+          <Select defaultValue="MAIN_ELECTRICAL" style={{ width: 180 }} disabled>
             <Option value="MAIN_ELECTRICAL">MAIN_ELECTRICAL</Option>
           </Select>
-          <span>Interval</span>
+          <span style={{ marginLeft: 16 }}>Interval</span>
           <Select defaultValue="This year" style={{ width: 120 }}>
             <Option value="This year">This year</Option>
-            <Option value="Last year">Last year</Option>
           </Select>
-          <Button type="primary">Search</Button>
+          <Button type="primary" onClick={fetchDashboardData} loading={loadingMain}>Refresh</Button>
         </Space>
       </Card>
 
-      <Row gutter={[10, 10]}>
-        <Col xs={24} sm={12} lg={6}><Card bordered={false}><Text type="secondary">This year usage</Text><Title level={3} style={{ margin: 0 }}>3.41 GWh</Title></Card></Col>
-        <Col xs={24} sm={12} lg={6}><Card bordered={false}><Text type="secondary">Last year usage</Text><Title level={3} style={{ margin: 0 }}>22.71 GWh</Title></Card></Col>
-        <Col xs={24} sm={12} lg={6}><Card bordered={false}><Text type="secondary">YoY deviation</Text><Title level={3} style={{ margin: 0, color: '#52c41a' }}>-19.30 GWh</Title></Card></Col>
-        <Col xs={24} sm={12} lg={6}><Card bordered={false}><Text type="secondary">Real-time demand</Text><Title level={3} style={{ margin: 0 }}>2,618.47 kW</Title></Card></Col>
-      </Row>
+      <Spin spinning={loadingMain}>
+        <Row gutter={[10, 10]}>
+          <Col xs={24} sm={12} lg={6}><Card bordered={false}><Text type="secondary">This year usage</Text><Title level={3} style={{ margin: 0 }}>{formatPower(thisYearTotal)}</Title></Card></Col>
+          <Col xs={24} sm={12} lg={6}><Card bordered={false}><Text type="secondary">Last year usage</Text><Title level={3} style={{ margin: 0 }}>{formatPower(lastYearTotal)}</Title></Card></Col>
+          <Col xs={24} sm={12} lg={6}><Card bordered={false}><Text type="secondary">YoY deviation</Text><Title level={3} style={{ margin: 0, color: isYoYPositive ? '#ff4d4f' : '#52c41a' }}>{isYoYPositive ? '+' : ''}{formatPower(yoyDeviation)}</Title></Card></Col>
+          <Col xs={24} sm={12} lg={6}><Card bordered={false}><Text type="secondary">Real-time demand</Text><Title level={3} style={{ margin: 0 }}>{realtimeDemand.toFixed(2)} kW</Title></Card></Col>
+        </Row>
 
-      <Row gutter={[10, 10]} align="stretch">
-        <Col xs={24} lg={16}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', height: '100%' }}>
-            <Card title="Monthly Usage" bordered={false} loading={loadingMain}>
-              <ReactECharts notMerge={true} option={monthlyUsageOption} theme={isDarkMode ? 'dark' : 'light'} style={{ height: '200px' }} />
-            </Card>
-            
-            <Row gutter={[10, 10]}>
-              <Col xs={24} md={12}>
-                <Card title="Regional Usage" bordered={false} loading={loadingMain}>
-                  <ReactECharts 
-                    notMerge={true}
-                    option={regionalUsageOption} 
-                    theme={isDarkMode ? 'dark' : 'light'} 
-                    onEvents={onEvents} 
-                    style={{ height: '250px' }} 
-                  />
-                </Card>
-              </Col>
-              <Col xs={24} md={12}>
-                <Card title={`${selectedArea === "Regional" ? "Overall" : selectedArea} Monthly Usage`} bordered={false} loading={loadingBar}>
-                  <ReactECharts notMerge={true} option={racMonthlyOption} theme={isDarkMode ? 'dark' : 'light'} style={{ height: '250px' }} />
-                </Card>
-              </Col>
-            </Row>
-          </div>
-        </Col>
+        <Row gutter={[10, 10]} align="stretch" style={{ marginTop: 10 }}>
+          <Col xs={24} lg={16}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', height: '100%' }}>
+              <Card title="Monthly Usage" bordered={false}>
+                <ReactECharts notMerge={true} option={monthlyUsageOption} theme={isDarkMode ? 'dark' : 'light'} style={{ height: '200px' }} />
+              </Card>
 
-        <Col xs={24} lg={8}>
-          <Card title="Equipment Usage Ranking" bordered={false} style={{ height: '100%' }}>
-            {rankingData.map((item, index) => (
-              <div key={index} style={{ marginBottom: '10px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <Text style={{ fontSize: '13px', fontWeight: 500 }}>{item.name}</Text>
-                  <Text style={{ fontSize: '13px' }}>{item.value} MWh</Text>
+              <Row gutter={[10, 10]}>
+                <Col xs={24} md={12}>
+                  <Card title="Regional Usage" bordered={false}>
+                    <ReactECharts notMerge={true} option={regionalUsageOption} theme={isDarkMode ? 'dark' : 'light'} onEvents={onEvents} style={{ height: '200px' }} />
+                  </Card>
+                </Col>
+                <Col xs={24} md={12}>
+                  <Spin spinning={loadingBar}>
+                    <Card title={`${selectedArea === 'Regional' ? 'Overall' : selectedArea} Monthly Usage`} bordered={false}>
+                      <ReactECharts notMerge={true} option={areaMonthlyOption} theme={isDarkMode ? 'dark' : 'light'} style={{ height: '200px' }} />
+                    </Card>
+                  </Spin>
+                </Col>
+              </Row>
+            </div>
+          </Col>
+
+          <Col xs={24} lg={8}>
+            <Card title="Equipment Usage Ranking" bordered={false} style={{ height: '100%' }}>
+              {rankingData.length > 0 ? rankingData.map((item, index) => (
+                <div key={index} style={{ marginBottom: '10px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Text style={{ fontSize: '13px', fontWeight: 500 }} ellipsis={true}>{item.name}</Text>
+                    <Text style={{ fontSize: '13px', flexShrink: 0, paddingLeft: 8 }}>{formatPower(item.value)}</Text>
+                  </div>
+                  <Progress percent={item.percent} showInfo={false} strokeColor="#1890ff" size="small" />
                 </div>
-                <Progress percent={item.percent} showInfo={false} strokeColor="#1890ff" size="small"/>
-              </div>
-            ))}
-          </Card>
-        </Col>
-      </Row>
+              )) : (
+                <Text type="secondary">No data available for ranking</Text>
+              )}
+            </Card>
+          </Col>
+        </Row>
+      </Spin>
     </div>
   );
 }

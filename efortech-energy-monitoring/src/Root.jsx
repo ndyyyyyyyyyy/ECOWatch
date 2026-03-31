@@ -119,11 +119,11 @@ function Root() {
             <Route index element={<Navigate to="/ecowatch/area-usage" replace />} />
             <Route path="area-usage" element={<AreaUsagePage />} />
             <Route path="demand" element={<DemandPage />} />
-            <Route path="energy-flow" element={<EnergyFlowPage />} />
+            <Route path="tou-period" element={<TOUPeriodPage />} />
             <Route path="item-summary" element={<ItemSummaryPage />} />
             <Route path="energy-ranking" element={<EnergyRankingPage />} />
+            <Route path="energy-flow" element={<EnergyFlowPage />} />
             <Route path="loss-analysis" element={<LossAnalysisPage />} />
-            <Route path="tou-period" element={<TOUPeriodPage />} />
             <Route path="annual-report" element={<AnnualReportPage />} />
           </Route>
 

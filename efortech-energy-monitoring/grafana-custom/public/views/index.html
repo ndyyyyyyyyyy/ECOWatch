@@ -181,6 +181,182 @@ a[aria-label="Help"],
   }).observe(document.documentElement, { childList: true, subtree: true });
 })();
 </script>
+<script>
+(function () {
+  const PORTAL_PATH = '/portal';
+  const MENU_ITEM_LABEL = 'Back to portal';
+
+  function resolvePortalUrl() {
+    return new URL(PORTAL_PATH, window.location.origin).toString();
+  }
+
+  function findSignOutLink() {
+    const candidates = document.querySelectorAll('a[href], button, [role="menuitem"]');
+    for (const candidate of candidates) {
+      const href = candidate.getAttribute('href') || '';
+      const text = (candidate.textContent || '').trim();
+      const ariaLabel = (candidate.getAttribute('aria-label') || '').trim();
+      if (
+        href.endsWith('/logout') ||
+        href === '/logout' ||
+        text === 'Sign out' ||
+        ariaLabel === 'Sign out'
+      ) {
+        return candidate;
+      }
+    }
+    return null;
+  }
+
+  function createPortalIcon(iconColor, iconOpacity) {
+    const svgNS = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(svgNS, 'svg');
+    svg.setAttribute('viewBox', '0 0 16 16');
+    svg.setAttribute('width', '14');
+    svg.setAttribute('height', '14');
+    svg.setAttribute('fill', 'none');
+    svg.setAttribute('stroke', 'currentColor');
+    svg.setAttribute('stroke-width', '1.35');
+    svg.setAttribute('stroke-linecap', 'round');
+    svg.setAttribute('stroke-linejoin', 'round');
+    svg.style.display = 'block';
+    svg.style.color = iconColor || 'currentColor';
+    svg.style.opacity = iconOpacity || '1';
+
+    const roof = document.createElementNS(svgNS, 'path');
+    roof.setAttribute('d', 'M2.75 7 8 3l5.25 4');
+
+    const house = document.createElementNS(svgNS, 'path');
+    house.setAttribute('d', 'M4.25 6.75v6h7.5v-6');
+
+    const door = document.createElementNS(svgNS, 'path');
+    door.setAttribute('d', 'M7 12.75V9.75h2v3');
+
+    svg.appendChild(roof);
+    svg.appendChild(house);
+    svg.appendChild(door);
+    return svg;
+  }
+
+  function getMenuIconStyle(referenceItem) {
+    const referenceIcon = referenceItem.querySelector('svg, i, [aria-hidden="true"]');
+    if (referenceIcon) {
+      const styles = window.getComputedStyle(referenceIcon);
+      return {
+        color: styles.color || window.getComputedStyle(referenceItem).color,
+        opacity: styles.opacity || '1',
+      };
+    }
+    const itemStyles = window.getComputedStyle(referenceItem);
+    return {
+      color: itemStyles.color,
+      opacity: itemStyles.opacity || '1',
+    };
+  }
+
+  function createBackToPortalItem(signOutItem) {
+    const portalItem = signOutItem.cloneNode(true);
+    const portalUrl = resolvePortalUrl();
+    const iconStyle = getMenuIconStyle(signOutItem);
+    portalItem.setAttribute('data-efortech-back-to-portal', '1');
+    portalItem.setAttribute('aria-label', MENU_ITEM_LABEL);
+    portalItem.setAttribute('title', MENU_ITEM_LABEL);
+
+    if (portalItem.tagName && portalItem.tagName.toLowerCase() === 'a') {
+      portalItem.setAttribute('href', 'javascript:void(0)');
+      portalItem.setAttribute('target', '_self');
+    } else if (portalItem.tagName && portalItem.tagName.toLowerCase() === 'button') {
+      portalItem.setAttribute('type', 'button');
+    }
+
+    portalItem.addEventListener('click', function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      window.location.assign(portalUrl);
+    });
+
+    portalItem.innerHTML = '';
+    portalItem.style.display = 'flex';
+    portalItem.style.flexDirection = 'row';
+    portalItem.style.alignItems = 'center';
+    portalItem.style.justifyContent = 'flex-start';
+    portalItem.style.gap = '12px';
+    portalItem.style.width = '100%';
+    portalItem.style.boxSizing = 'border-box';
+    portalItem.style.textAlign = 'left';
+
+    const signOutSvg = signOutItem.querySelector('svg');
+    const sourceIconWrap = signOutSvg && signOutSvg.parentElement ? signOutSvg.parentElement : null;
+    const iconWrap = sourceIconWrap ? sourceIconWrap.cloneNode(false) : document.createElement('span');
+    iconWrap.setAttribute('aria-hidden', 'true');
+    iconWrap.style.color = iconStyle.color;
+    iconWrap.style.opacity = iconStyle.opacity;
+    iconWrap.appendChild(createPortalIcon(iconStyle.color, iconStyle.opacity));
+
+    const labelWrap = document.createElement('span');
+    labelWrap.textContent = MENU_ITEM_LABEL;
+    labelWrap.style.display = 'inline-block';
+    labelWrap.style.color = 'inherit';
+    labelWrap.style.lineHeight = 'inherit';
+    labelWrap.style.textAlign = 'left';
+    labelWrap.style.whiteSpace = 'nowrap';
+
+    portalItem.appendChild(iconWrap);
+    portalItem.appendChild(labelWrap);
+
+    return portalItem;
+  }
+
+  function injectBackToPortal() {
+    const signOutItem = findSignOutLink();
+    if (!signOutItem) {
+      return;
+    }
+
+    const parent = signOutItem.parentElement;
+    if (!parent || parent.querySelector('[data-efortech-back-to-portal="1"]')) {
+      return;
+    }
+
+    const portalItem = createBackToPortalItem(signOutItem);
+    parent.insertBefore(portalItem, signOutItem);
+  }
+
+  function scheduleInject() {
+    requestAnimationFrame(injectBackToPortal);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', scheduleInject, { once: true });
+  } else {
+    scheduleInject();
+  }
+
+  window.addEventListener('load', scheduleInject);
+  window.addEventListener('popstate', scheduleInject);
+
+  const originalPushState = history.pushState;
+  history.pushState = function () {
+    originalPushState.apply(this, arguments);
+    scheduleInject();
+  };
+
+  const originalReplaceState = history.replaceState;
+  history.replaceState = function () {
+    originalReplaceState.apply(this, arguments);
+    scheduleInject();
+  };
+
+  new MutationObserver((mutations) => {
+    for (const mutation of mutations) {
+      if (mutation.type === 'childList' && mutation.addedNodes.length) {
+        scheduleInject();
+        return;
+      }
+    }
+  }).observe(document.documentElement, { childList: true, subtree: true });
+})();
+</script>
 </head>
 
   <body class="theme-[[ .ThemeType ]] [[.AppNameBodyClass]]">

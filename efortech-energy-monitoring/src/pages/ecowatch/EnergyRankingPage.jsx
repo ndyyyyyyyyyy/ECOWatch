@@ -4,6 +4,7 @@ import ReactECharts from 'echarts-for-react';
 import { useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 import { DotLoader } from 'react-spinners';
+import { ENERGY_ENDPOINT } from './ecowatchApi';
 
 const { Option } = Select;
 const { Text } = Typography;
@@ -17,8 +18,7 @@ export default function EnergyRanking() {
   const [comparisonData, setComparisonData] = useState([]);
   const [currentData, setCurrentData] = useState([]);
   const [growthRates, setGrowthRates] = useState([]);
-
-  const mainAreas = "RAC,NR1,NR2,UT_NEW,UTILITY";
+  const mainAreas = 'RAC,NR1,NR2,UT_NEW,UTILITY';
 
   const fetchData = async () => {
     setLoading(true);
@@ -30,23 +30,21 @@ export default function EnergyRanking() {
     const startCur = `${thisYear}-${String(thisMonth).padStart(2, '0')}-01`;
     const endCur = `${thisYear}-${String(thisMonth).padStart(2, '0')}-31`;
 
-    let startComp, endComp, labelComp;
+    let startComp, endComp;
     
     if (rankingType === 'YoY') {
       startComp = `${thisYear - 1}-${String(thisMonth).padStart(2, '0')}-01`;
       endComp = `${thisYear - 1}-${String(thisMonth).padStart(2, '0')}-31`;
-      labelComp = "Last Year";
     } else {
       const prevMonth = thisMonth === 1 ? 12 : thisMonth - 1;
       const prevYear = thisMonth === 1 ? thisYear - 1 : thisYear;
       startComp = `${prevYear}-${String(prevMonth).padStart(2, '0')}-01`;
       endComp = `${prevYear}-${String(prevMonth).padStart(2, '0')}-31`;
-      labelComp = "Last Month";
     }
 
     try {
-      const resCur = await axios.get(`http://LAPTOP-KJ75ERV3:5000/energy?interval=Month&start=${startCur}&end=${endCur}&areas=${mainAreas}`);
-      const resComp = await axios.get(`http://LAPTOP-KJ75ERV3:5000/energy?interval=Month&start=${startComp}&end=${endComp}&areas=${mainAreas}`);
+      const resCur = await axios.get(`${ENERGY_ENDPOINT}?interval=Month&start=${startCur}&end=${endCur}&areas=${mainAreas}`);
+      const resComp = await axios.get(`${ENERGY_ENDPOINT}?interval=Month&start=${startComp}&end=${endComp}&areas=${mainAreas}`);
 
       const areaList = mainAreas.split(',');
       const curVals = [];
@@ -73,7 +71,7 @@ export default function EnergyRanking() {
       setComparisonData(compVals);
       setGrowthRates(growthVals);
     } catch (err) {
-      console.error("Gagal ambil data:", err);
+      console.error('Failed to fetch data:', err);
     } finally {
       setLoading(false);
     }
@@ -100,9 +98,11 @@ export default function EnergyRanking() {
       data: [rankingType === 'YoY' ? 'Last Year' : 'Last Month', 'Current'],
       textStyle: { color: isDarkMode ? '#d9d9d9' : '#595959' }
     },
-    grid: { top: '5%', left: '3%', right: '15%', bottom: '12%', containLabel: true },
+    grid: { top: '5%', left: '5%', right: '15%', bottom: '12%', containLabel: true },
     xAxis: {
       type: 'value',
+      min: (value) => value.min * 1.2,
+      max: (value) => value.max * 1.2,
       axisLabel: { formatter: (v) => Math.abs(v).toLocaleString() }
     },
     yAxis: {

@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { ENERGY_ENDPOINT } from './ecowatchApi';
 
 const { Text } = Typography;
 
@@ -35,7 +36,7 @@ export default function AnnualReport() {
   const fetchAnnualData = () => {
     setLoading(true);
     
-    let url = `http://LAPTOP-KJ75ERV3:5000/energy?interval=Month&start=${selectedYear}-01-01&end=${selectedYear}-12-31`;
+    let url = `${ENERGY_ENDPOINT}?interval=Month&start=${selectedYear}-01-01&end=${selectedYear}-12-31`;
 
     if (checkedAreaNames && checkedAreaNames.length > 0) {
       url += `&areas=${checkedAreaNames.join(",")}`;
@@ -79,8 +80,8 @@ export default function AnnualReport() {
         setLoading(false);
       })
       .catch(err => {
-        console.error("Error mengambil data laporan:", err);
-        message.error("Gagal terhubung ke database server");
+        console.error('Error fetching annual data:', err);
+        message.error('Failed to connect to database server');
         setLoading(false);
       });
   };

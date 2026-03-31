@@ -1,4 +1,5 @@
 import asyncio
+from contextlib import suppress
 from urllib.parse import urlencode, urlparse
 
 import httpx
@@ -38,6 +39,16 @@ def rewrite_location(location_value: str | None, request: Request) -> str | None
     return location_value
 
 
+def normalize_grafana_path_suffix(path_suffix: str) -> str:
+    # Keep compatibility with older dashboards/plugins that still store
+    # marker/icon asset paths as "build/img/..." while Grafana already serves
+    # them under "/public/build/...". Without this, requests can become
+    # "/public/build/build/..." and return 404.
+    if "/public/build/build/" in path_suffix:
+        return path_suffix.replace("/public/build/build/", "/public/build/", 1)
+    return path_suffix
+
+
 async def proxy_http_to_grafana(request: Request, path_suffix: str) -> Response:
     user, auth_error = require_user(request)
     if auth_error:
@@ -45,6 +56,7 @@ async def proxy_http_to_grafana(request: Request, path_suffix: str) -> Response:
             return RedirectResponse("/#/login" if LOGIN_APP_URL == "/" else LOGIN_APP_URL, status_code=302)
         return auth_error
 
+    path_suffix = normalize_grafana_path_suffix(path_suffix)
     full_path = f"/grafana{path_suffix}"
     target_url = f"{GRAFANA_TARGET}{full_path}"
     if request.query_params:
@@ -132,29 +144,59 @@ async def grafana_live_ws_handler(websocket: WebSocket):
             additional_headers=upstream_headers,
             open_timeout=10,
         ) as upstream_ws:
+            stop_event = asyncio.Event()
+
             async def client_to_upstream():
-                while True:
-                    message = await websocket.receive()
-                    if message.get("type") == "websocket.disconnect":
-                        break
-                    if message.get("text") is not None:
-                        await upstream_ws.send(message["text"])
-                    elif message.get("bytes") is not None:
-                        await upstream_ws.send(message["bytes"])
+                try:
+                    while not stop_event.is_set():
+                        message = await websocket.receive()
+                        if message.get("type") == "websocket.disconnect":
+                            stop_event.set()
+                            break
+                        if message.get("text") is not None:
+                            await upstream_ws.send(message["text"])
+                        elif message.get("bytes") is not None:
+                            await upstream_ws.send(message["bytes"])
+                except (WebSocketDisconnect, RuntimeError, websockets.WebSocketException):
+                    stop_event.set()
 
             async def upstream_to_client():
-                while True:
-                    incoming = await upstream_ws.recv()
-                    if isinstance(incoming, bytes):
-                        await websocket.send_bytes(incoming)
-                    else:
-                        await websocket.send_text(incoming)
+                try:
+                    while not stop_event.is_set():
+                        incoming = await upstream_ws.recv()
+                        if stop_event.is_set():
+                            break
+                        if isinstance(incoming, bytes):
+                            await websocket.send_bytes(incoming)
+                        else:
+                            await websocket.send_text(incoming)
+                except (WebSocketDisconnect, RuntimeError, websockets.WebSocketException):
+                    stop_event.set()
 
-            await asyncio.gather(client_to_upstream(), upstream_to_client())
+            client_task = asyncio.create_task(client_to_upstream())
+            upstream_task = asyncio.create_task(upstream_to_client())
+
+            done, pending = await asyncio.wait(
+                {client_task, upstream_task},
+                return_when=asyncio.FIRST_COMPLETED,
+            )
+
+            stop_event.set()
+
+            for task in pending:
+                task.cancel()
+
+            for task in pending:
+                with suppress(asyncio.CancelledError, WebSocketDisconnect, RuntimeError, websockets.WebSocketException):
+                    await task
+
+            for task in done:
+                with suppress(asyncio.CancelledError, WebSocketDisconnect, RuntimeError, websockets.WebSocketException):
+                    await task
     except (WebSocketDisconnect, websockets.WebSocketException):
         pass
     finally:
-        if websocket.client_state.value == 1:
+        if websocket.client_state.value == 1 and websocket.application_state.value == 1:
             await websocket.close()
 
 

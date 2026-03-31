@@ -6,6 +6,7 @@ import { useOutletContext } from "react-router-dom";
 import axios from "axios";
 import { RefreshCw } from "lucide-react";
 import "./AreaUsage.css";
+import { ENERGY_ENDPOINT } from "./ecowatchApi";
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
@@ -24,7 +25,7 @@ export default function AreaUsagePage() {
   const fetchData = () => {
     setLoading(true);
 
-    let url = `http://LAPTOP-KJ75ERV3:5000/energy?interval=${intervalWaktu}`;
+    let url = `${ENERGY_ENDPOINT}?interval=${intervalWaktu}`;
 
     if (dateRange && dateRange.length === 2) {
       const startDate = dateRange[0].format("YYYY-MM-DD");
@@ -45,8 +46,8 @@ export default function AreaUsagePage() {
         setLoading(false);
       })
       .catch(err => {
-        console.error("Error mengambil data:", err);
-        message.error("Gagal mengambil data dari server");
+        console.error("Error to fetch data:", err);
+        message.error("Failed to fetch data from server");
         setLoading(false);
       });
   };
@@ -59,7 +60,7 @@ export default function AreaUsagePage() {
     if (!chartData || chartData.length === 0) {
       return {
         title: { 
-          text: "Tidak ada data untuk area yang dicentang / Data Kosong", 
+          text: "No data available for selected areas / Empty data", 
           left: "center", top: "center",
           textStyle: { color: isDarkMode ? '#d9d9d9' : '#888', fontWeight: 'normal', fontSize: 14 }
         },
