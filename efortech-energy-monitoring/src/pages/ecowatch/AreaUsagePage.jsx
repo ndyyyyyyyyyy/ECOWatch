@@ -5,6 +5,7 @@ import ReactECharts from "echarts-for-react";
 import { useOutletContext } from "react-router-dom";
 import axios from "axios";
 import { RefreshCw } from "lucide-react";
+import dayjs from "dayjs";
 import "./AreaUsage.css";
 import { ENERGY_ENDPOINT } from "./ecowatchApi";
 
@@ -17,7 +18,14 @@ export default function AreaUsagePage() {
   const [intervalWaktu, setIntervalWaktu] = useState(() => {
     return sessionStorage.getItem("savedInterval") || "Hour";
   });
-  const [dateRange, setDateRange] = useState(null);
+  const [dateRange, setDateRange] = useState(() => {
+    const savedStart = sessionStorage.getItem("savedAreaUsageStart");
+    const savedEnd = sessionStorage.getItem("savedAreaUsageEnd");
+    if (savedStart && savedEnd) {
+      return [dayjs(savedStart), dayjs(savedEnd)];
+    }
+    return [dayjs().startOf("month"), dayjs().endOf("month")];
+  });
   const [chartData, setChartData] = useState([]);
   
   const [loading, setLoading] = useState(false);
@@ -27,10 +35,12 @@ export default function AreaUsagePage() {
 
     let url = `${ENERGY_ENDPOINT}?interval=${intervalWaktu}`;
 
-    if (dateRange && dateRange.length === 2) {
+    if (dateRange && dateRange[0] && dateRange[1]) {
       const startDate = dateRange[0].format("YYYY-MM-DD");
       const endDate = dateRange[1].format("YYYY-MM-DD");
       url += `&start=${startDate}&end=${endDate}`;
+      sessionStorage.setItem("savedAreaUsageStart", startDate);
+      sessionStorage.setItem("savedAreaUsageEnd", endDate);
     }
 
     if (checkedAreaNames && checkedAreaNames.length > 0) {
@@ -140,7 +150,11 @@ export default function AreaUsagePage() {
           </Space>
           <Space size="small">
             <span className="filter-label">Time</span>
-            <RangePicker className="picker-time" onChange={(dates) => setDateRange(dates)} />
+            <RangePicker
+              className="picker-time"
+              value={dateRange}
+              onChange={(dates) => setDateRange(dates)}
+            />
           </Space>
           <Button type="primary" onClick={fetchData}>Search</Button>
         </Space>

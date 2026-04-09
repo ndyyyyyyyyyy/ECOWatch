@@ -51,26 +51,6 @@ a[aria-label="Help"],
 </style>
 <script>
 (function () {
-  function hideHomeRow() {
-    if (!location.pathname.includes("/dashboards")) return;
-
-    // Cara 1: berdasarkan data-testid (paling presisi)
-    document.querySelectorAll('[role="row"][data-testid*="browse dashboards row Home"]').forEach(r => r.remove());
-
-    // Cara 2 (fallback): berdasarkan link + teks
-    document.querySelectorAll('a.css-tadcwa[href*="/d/"]').forEach(a => {
-      if ((a.textContent || "").trim() === "Home" && a.getAttribute("href")?.endsWith("/home")) {
-        a.closest('[role="row"]')?.remove();
-      }
-    });
-  }
-
-  hideHomeRow();
-  new MutationObserver(hideHomeRow).observe(document.body, { childList: true, subtree: true });
-})();
-</script>
-<script>
-(function () {
   function shouldHide() {
     const p = window.location.pathname;
     // khusus dashboard slug /home (UID bebas), termasuk subpath /grafana

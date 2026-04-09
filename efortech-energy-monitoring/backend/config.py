@@ -71,7 +71,6 @@ DIST_DIR = ROOT_DIR / "dist"
 DIST_INDEX = DIST_DIR / "index.html"
 DATA_DIR = ROOT_DIR / "backend" / "data"
 PROJECT_STORE_FILE = DATA_DIR / "project_store.json"
-SOURCE_BRIDGE_FILE = DATA_DIR / "source_bridge.json"
 
 MQTT_ENABLED = _env_bool("MQTT_ENABLED", False)
 MQTT_BROKER_HOST = os.getenv("MQTT_BROKER_HOST", "127.0.0.1")
@@ -79,7 +78,7 @@ MQTT_BROKER_PORT = _env_int("MQTT_BROKER_PORT", 1883)
 MQTT_USERNAME = os.getenv("MQTT_USERNAME", "").strip()
 MQTT_PASSWORD = os.getenv("MQTT_PASSWORD", "").strip()
 MQTT_CLIENT_ID = os.getenv("MQTT_CLIENT_ID", "efortech-project-backend").strip()
-MQTT_TOPIC_FILTER = os.getenv("MQTT_TOPIC_FILTER", "devices/+/+").strip() or "devices/+/+"
+MQTT_TOPIC_FILTER = os.getenv("MQTT_TOPIC_FILTER", "devices/+").strip() or "devices/+"
 
 ENERGY_PG_HOST = os.getenv("ENERGY_PG_HOST", "127.0.0.1").strip() or "127.0.0.1"
 ENERGY_PG_PORT = _env_int("ENERGY_PG_PORT", 5432)
@@ -88,6 +87,3 @@ ENERGY_PG_USER = os.getenv("ENERGY_PG_USER", "postgres").strip() or "postgres"
 ENERGY_PG_PASSWORD = os.getenv("ENERGY_PG_PASSWORD", "").strip()
 ENERGY_PG_TABLE = os.getenv("ENERGY_PG_TABLE", "energy_data").strip() or "energy_data"
 ENERGY_PG_ENABLED = _env_bool("ENERGY_PG_ENABLED", True)
-
-MQTT_SIMULATOR_ENABLED = _env_bool("MQTT_SIMULATOR_ENABLED", True)
-MQTT_SIMULATOR_INTERVAL_SECONDS = _env_int("MQTT_SIMULATOR_INTERVAL_SECONDS", 60)

@@ -40,6 +40,7 @@ export default function EnergyFlowPage() {
       const url = `${ENERGY_ENDPOINT}?interval=Day&start=${start}&end=${end}`;
       const response = await axios.get(url);
       const rawData = response.data;
+
       const nodeDict = {};
 
       rawData.forEach((item) => {
@@ -73,27 +74,25 @@ export default function EnergyFlowPage() {
         }
       });
 
-      const calculateRealisticFlow = (nodeName, visitedNodes = new Set(), currentDepth = 0) => {
+      const assignDepth = (nodeName, currentDepth = 0, visitedNodes = new Set()) => {
         const node = nodeDict[nodeName];
-        if (!node) return 0;
-        if (visitedNodes.has(nodeName)) return 0;
+        if (!node || visitedNodes.has(nodeName)) return;
 
         visitedNodes.add(nodeName);
         node.depth = currentDepth;
+        node.totalFlow = node.directVal;
 
-        let sum = node.directVal;
         node.children.forEach((childName) => {
-          sum += calculateRealisticFlow(childName, new Set(visitedNodes), currentDepth + 1);
+          assignDepth(childName, currentDepth + 1, new Set(visitedNodes));
         });
-
-        node.totalFlow = sum;
-        return sum;
       };
 
       Object.values(nodeDict).forEach((node) => {
-        if (!node.parent) {
-          calculateRealisticFlow(node.name, new Set(), 0);
-        }
+        node.totalFlow = node.directVal;
+      });
+
+      Object.values(nodeDict).forEach((node) => {
+        if (!node.parent) assignDepth(node.name, 0, new Set());
       });
 
       const nodes = [];
@@ -137,9 +136,7 @@ export default function EnergyFlowPage() {
         .sort((a, b) => b.totalFlow - a.totalFlow);
       rootNodes.forEach((root) => addNodeDFS(root.name));
 
-      if (nodes.length === 0) {
-        nodes.push({ name: 'No Data' });
-      }
+      if (nodes.length === 0) nodes.push({ name: 'No Data' });
 
       setSankeyData({ nodes, links });
     } catch (error) {
@@ -162,7 +159,7 @@ export default function EnergyFlowPage() {
         if (params.dataType === 'node') {
           return `${params.name}: <b>${params.data.value?.toLocaleString()} kWh</b>`;
         }
-        return `${params.data.source} ➔ ${params.data.target}: <b>${params.value?.toLocaleString()} kWh</b>`;
+        return `${params.data.source} -> ${params.data.target}: <b>${params.value?.toLocaleString()} kWh</b>`;
       },
     },
     series: [

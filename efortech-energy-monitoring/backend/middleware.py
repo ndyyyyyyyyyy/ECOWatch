@@ -7,12 +7,21 @@ from security import ip_in_allowed_subnet, is_allowed_origin, normalize_ip
 def register_gateway_middleware(app: FastAPI):
     @app.middleware("http")
     async def gateway_guard(request: Request, call_next):
+        host_header = (request.headers.get("host") or "").strip().lower()
+        request_host = host_header.split(":", 1)[0]
         remote_ip = normalize_ip(
             (request.headers.get("x-forwarded-for", "").split(",")[0].strip() or request.client.host)
             if request.client
             else ""
         )
-        if remote_ip and remote_ip != "127.0.0.1" and not ip_in_allowed_subnet(remote_ip):
+        is_localhost_request = request_host in {"localhost", "127.0.0.1"}
+
+        if (
+            remote_ip
+            and remote_ip != "127.0.0.1"
+            and not is_localhost_request
+            and not ip_in_allowed_subnet(remote_ip)
+        ):
             return JSONResponse(
                 {"message": "Forbidden: only local subnet access is allowed."},
                 status_code=403,

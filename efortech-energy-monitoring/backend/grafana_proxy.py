@@ -58,6 +58,14 @@ async def proxy_http_to_grafana(request: Request, path_suffix: str) -> Response:
 
     path_suffix = normalize_grafana_path_suffix(path_suffix)
     full_path = f"/grafana{path_suffix}"
+
+    # Grafana's auth-token rotation endpoint does not play nicely with auth proxy
+    # mode in this gateway setup and can cause an endless reload/spinner loop.
+    # Treat it as a successful no-op because the upstream user identity is already
+    # asserted via X-WEBAUTH-USER on every request.
+    if full_path == "/grafana/api/user/auth-tokens/rotate" and request.method.upper() == "POST":
+        return JSONResponse({"message": "Auth proxy mode: token rotation skipped."}, status_code=200)
+
     target_url = f"{GRAFANA_TARGET}{full_path}"
     if request.query_params:
         target_url = f"{target_url}?{urlencode(list(request.query_params.multi_items()))}"

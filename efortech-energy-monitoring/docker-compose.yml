@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
     container_name: efortech-energy-monitoring
     ports:
-      - "4000:4000"
+      - "${APP_HOST_PORT:-4000}:4000"
     env_file:
       - .env.docker
     depends_on:
@@ -54,9 +54,11 @@ services:
   grafana:
     image: efortech-grafana-custom
     container_name: grafana
+    ports:
+      - "3100:3000"
     environment:
       GF_SERVER_HTTP_ADDR: 0.0.0.0
-      GF_SERVER_ROOT_URL: http://192.168.1.101:4000/grafana/
+      GF_SERVER_ROOT_URL: ${APP_PUBLIC_BASE_URL:-http://192.168.10.101:4000}/grafana/
       GF_SERVER_SERVE_FROM_SUB_PATH: "true"
       GF_SECURITY_ALLOW_EMBEDDING: "true"
       GF_AUTH_ANONYMOUS_ENABLED: "false"
@@ -74,7 +76,6 @@ services:
     restart: unless-stopped
     volumes:
       - grafana-data:/var/lib/grafana
-
 
 volumes:
   grafana-data:

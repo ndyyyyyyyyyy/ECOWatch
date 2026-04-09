@@ -7,7 +7,6 @@ from datetime import datetime, timedelta
 from fastapi import FastAPI, Query
 
 from energy_db import fetch_energy_readings
-from project_store import project_store
 
 LEGACY_ECOWATCH_DEVICE = "LEGACY_ECOWATCH"
 LEGACY_MEASURABLE_TAGS = {
@@ -27,20 +26,15 @@ LEGACY_MEASURABLE_TAGS = {
 DEFAULT_ECOWATCH_TREE: dict[str, dict[str, object]] = {
     "MAIN_ELECTRICAL": {"parent": None, "children": ("RAC", "NR1", "NR2", "UT_NEW", "UTILITY")},
     "RAC": {"parent": "MAIN_ELECTRICAL", "children": ("LVMDP_RAC",)},
-    "NR1": {"parent": "MAIN_ELECTRICAL", "children": ("LVMDP_NR1", "DB1", "DB2", "DB3")},
+    "NR1": {"parent": "MAIN_ELECTRICAL", "children": ("DB1", "DB3")},
     "NR2": {"parent": "MAIN_ELECTRICAL", "children": ("LVMDP_NR2",)},
     "UT_NEW": {"parent": "MAIN_ELECTRICAL", "children": ("LVMDP_UT_NEW",)},
     "UTILITY": {"parent": "MAIN_ELECTRICAL", "children": ("LVMDP_UTILITY",)},
-    "LVMDP_NR1": {"parent": "NR1", "children": ()},
     "DB1": {"parent": "NR1", "children": ()},
-    "DB2": {"parent": "NR1", "children": ()},
-    "DB3": {"parent": "NR1", "children": ("CHAMBER_AR1", "LP_OFFICE_REFF_2", "H_PRESS_MC1", "V_F_MALE_C_NR1", "V_F_FEMALE_B_NR1", "V_F_FEMALE_A_NR1", "V_F_MALE_B_NR1", "V_F_MALE_A_NR1")},
+    "DB3": {"parent": "NR1", "children": ("CHAMBER_AR1", "H_PRESS_MC1", "V_F_MALE_C_NR1", "V_F_MALE_B_NR1", "V_F_MALE_A_NR1")},
     "CHAMBER_AR1": {"parent": "DB3", "children": ()},
-    "LP_OFFICE_REFF_2": {"parent": "DB3", "children": ()},
     "H_PRESS_MC1": {"parent": "DB3", "children": ()},
     "V_F_MALE_C_NR1": {"parent": "DB3", "children": ()},
-    "V_F_FEMALE_B_NR1": {"parent": "DB3", "children": ()},
-    "V_F_FEMALE_A_NR1": {"parent": "DB3", "children": ()},
     "V_F_MALE_B_NR1": {"parent": "DB3", "children": ()},
     "V_F_MALE_A_NR1": {"parent": "DB3", "children": ()},
     "LVMDP_RAC": {"parent": "RAC", "children": ()},
@@ -61,16 +55,6 @@ class EnergyNode:
     device_name: str | None = None
     tag_name: str | None = None
     uses_children_for_rollup: bool = False
-
-
-def _is_usage_tag(tag: dict[str, object]) -> bool:
-    name = str(tag.get("name", "")).strip().lower()
-    address = str(tag.get("address", "")).strip().lower()
-    source_address = str(tag.get("sourceAddress", "")).strip().lower()
-    haystack = " ".join([name, address, source_address])
-    return "kwh" in haystack or "energy" in haystack or "usage" in haystack
-
-
 def _build_energy_nodes() -> dict[str, EnergyNode]:
     nodes: dict[str, EnergyNode] = {}
     for name, config in DEFAULT_ECOWATCH_TREE.items():
@@ -83,72 +67,6 @@ def _build_energy_nodes() -> dict[str, EnergyNode]:
             device_name=LEGACY_ECOWATCH_DEVICE if is_legacy_measurable else None,
             tag_name=name if is_legacy_measurable else None,
             uses_children_for_rollup=not is_legacy_measurable and bool(config["children"]),
-        )
-
-    devices = project_store.get_devices()
-
-    for device in devices:
-        device_name = str(device.get("name", "")).strip()
-        if not device_name:
-            continue
-
-        tags = [tag for tag in device.get("tags", []) if isinstance(tag, dict)]
-        usage_tags = [tag for tag in tags if _is_usage_tag(tag)]
-        effective_tags = usage_tags or tags
-        child_names: list[str] = []
-
-        for tag in effective_tags:
-            tag_name = str(tag.get("name", "")).strip()
-            if not tag_name:
-                continue
-
-            child_names.append(tag_name)
-            if tag_name not in nodes:
-                nodes[tag_name] = EnergyNode(
-                    key=f"{device_name}:{tag_name}",
-                    name=tag_name,
-                    parent_name=device_name,
-                    children_names=(),
-                    device_name=device_name,
-                    tag_name=tag_name,
-                    uses_children_for_rollup=False,
-                )
-            else:
-                existing = nodes[tag_name]
-                nodes[tag_name] = EnergyNode(
-                    key=f"{device_name}:{tag_name}",
-                    name=existing.name,
-                    parent_name=existing.parent_name,
-                    children_names=existing.children_names,
-                    device_name=device_name,
-                    tag_name=tag_name,
-                    uses_children_for_rollup=existing.uses_children_for_rollup,
-                )
-
-        nodes[device_name] = EnergyNode(
-            key=device_name,
-            name=device_name,
-            parent_name=None,
-            children_names=tuple(child_names),
-            device_name=device_name,
-            tag_name=None,
-            uses_children_for_rollup=True,
-        )
-
-    project_only_devices = [
-        device_name
-        for device_name in (str(device.get("name", "")).strip() for device in devices)
-        if device_name and device_name not in DEFAULT_ECOWATCH_TREE
-    ]
-    if project_only_devices:
-        nodes["PROJECT_DEVICES"] = EnergyNode(
-            key="PROJECT_DEVICES",
-            name="PROJECT_DEVICES",
-            parent_name=None,
-            children_names=tuple(project_only_devices),
-            device_name=None,
-            tag_name=None,
-            uses_children_for_rollup=True,
         )
 
     return nodes
@@ -208,7 +126,6 @@ def _generate_buckets(start: datetime, end: datetime, interval: str) -> list[dat
 def _collect_relevant_pairs(node: EnergyNode, nodes: dict[str, EnergyNode], result: set[tuple[str, str]]):
     if node.device_name and node.tag_name:
         result.add((node.device_name, node.tag_name))
-        return
 
     for child_name in node.children_names:
         child = nodes.get(child_name)
@@ -222,10 +139,10 @@ def _resolve_bucket_total(
     nodes: dict[str, EnergyNode],
     bucket_values: dict[tuple[str, datetime], float],
 ) -> float:
-    if node.device_name and node.tag_name:
-        return bucket_values.get((f"{node.device_name}:{node.tag_name}", bucket), 0.0)
-
     total = 0.0
+    if node.device_name and node.tag_name:
+        total += bucket_values.get((f"{node.device_name}:{node.tag_name}", bucket), 0.0)
+
     for child_name in node.children_names:
         child = nodes.get(child_name)
         if child is not None:

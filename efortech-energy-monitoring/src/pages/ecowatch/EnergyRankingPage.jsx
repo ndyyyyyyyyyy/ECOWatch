@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Select, Button, Space, Table, Radio, Typography, Spin } from 'antd';
+import { Card, Select, Button, Space, Table, Radio, Typography, Spin, message } from 'antd';
 import ReactECharts from 'echarts-for-react';
 import { useOutletContext } from 'react-router-dom';
 import axios from 'axios';
@@ -10,7 +10,7 @@ const { Option } = Select;
 const { Text } = Typography;
 
 export default function EnergyRanking() {
-  const { isDarkMode } = useOutletContext();
+  const { isDarkMode, checkedAreaNames } = useOutletContext();
   const [loading, setLoading] = useState(false);
   const [rankingType, setRankingType] = useState('YoY');
   
@@ -20,58 +20,95 @@ export default function EnergyRanking() {
   const [growthRates, setGrowthRates] = useState([]);
   const mainAreas = 'RAC,NR1,NR2,UT_NEW,UTILITY';
 
+  const getTargetAreas = async () => {
+    if (!checkedAreaNames || checkedAreaNames.length === 0) {
+      return mainAreas;
+    }
+
+    const selected = checkedAreaNames[0];
+    if (selected === 'MAIN_ELECTRICAL') {
+      return mainAreas;
+    }
+
+    try {
+      const currentYear = new Date().getFullYear();
+      const res = await axios.get(
+        `${ENERGY_ENDPOINT}?interval=Month&start=${currentYear}-01-01&end=${currentYear}-12-31&areas=${selected}`
+      );
+      const dataArray = Array.isArray(res.data) ? res.data : (res.data.data || []);
+      if (dataArray.length > 0 && Array.isArray(dataArray[0].children_names) && dataArray[0].children_names.length > 0) {
+        return dataArray[0].children_names.join(',');
+      }
+      return selected;
+    } catch (error) {
+      console.error('Failed to fetch child areas:', error);
+      return selected;
+    }
+  };
+
   const fetchData = async () => {
     setLoading(true);
     
     const now = new Date();
     const thisYear = now.getFullYear();
     const thisMonth = now.getMonth() + 1;
+    const lastDayCur = new Date(thisYear, thisMonth, 0).getDate();
 
     const startCur = `${thisYear}-${String(thisMonth).padStart(2, '0')}-01`;
-    const endCur = `${thisYear}-${String(thisMonth).padStart(2, '0')}-31`;
+    const endCur = `${thisYear}-${String(thisMonth).padStart(2, '0')}-${String(lastDayCur).padStart(2, '0')}`;
 
     let startComp, endComp;
     
     if (rankingType === 'YoY') {
+      const lastDayComp = new Date(thisYear - 1, thisMonth, 0).getDate();
       startComp = `${thisYear - 1}-${String(thisMonth).padStart(2, '0')}-01`;
-      endComp = `${thisYear - 1}-${String(thisMonth).padStart(2, '0')}-31`;
+      endComp = `${thisYear - 1}-${String(thisMonth).padStart(2, '0')}-${String(lastDayComp).padStart(2, '0')}`;
     } else {
       const prevMonth = thisMonth === 1 ? 12 : thisMonth - 1;
       const prevYear = thisMonth === 1 ? thisYear - 1 : thisYear;
+      const lastDayComp = new Date(prevYear, prevMonth, 0).getDate();
       startComp = `${prevYear}-${String(prevMonth).padStart(2, '0')}-01`;
-      endComp = `${prevYear}-${String(prevMonth).padStart(2, '0')}-31`;
+      endComp = `${prevYear}-${String(prevMonth).padStart(2, '0')}-${String(lastDayComp).padStart(2, '0')}`;
     }
 
     try {
-      const resCur = await axios.get(`${ENERGY_ENDPOINT}?interval=Month&start=${startCur}&end=${endCur}&areas=${mainAreas}`);
-      const resComp = await axios.get(`${ENERGY_ENDPOINT}?interval=Month&start=${startComp}&end=${endComp}&areas=${mainAreas}`);
+      const targetAreas = await getTargetAreas();
+      const areaList = targetAreas.split(',').map((area) => area.trim()).filter(Boolean);
+      const resCur = await axios.get(`${ENERGY_ENDPOINT}?interval=Month&start=${startCur}&end=${endCur}&areas=${targetAreas}`);
+      const resComp = await axios.get(`${ENERGY_ENDPOINT}?interval=Month&start=${startComp}&end=${endComp}&areas=${targetAreas}`);
 
-      const areaList = mainAreas.split(',');
+      const currentRows = Array.isArray(resCur.data) ? resCur.data : (resCur.data.data || []);
+      const comparisonRows = Array.isArray(resComp.data) ? resComp.data : (resComp.data.data || []);
+
       const curVals = [];
       const compVals = [];
       const growthVals = [];
+      const validCategories = [];
 
       areaList.forEach(area => {
-        const valCur = resCur.data.find(d => d.tag_name === area)?.value_kwh || 0;
-        let valComp = resComp.data.find(d => d.tag_name === area)?.value_kwh || 0;
+        const valCur = currentRows.find((d) => d.tag_name === area)?.value_kwh || 0;
+        let valComp = comparisonRows.find((d) => d.tag_name === area)?.value_kwh || 0;
 
         if (valComp === 0 && valCur > 0) {
           valComp = Math.floor(valCur * (0.8 + Math.random() * 0.2));
         }
 
-        const growth = valComp !== 0 ? (((valCur - valComp) / valComp) * 100).toFixed(2) : "0.00";
-
-        curVals.push(valCur);
-        compVals.push(valComp);
-        growthVals.push(growth);
+        if (valCur > 0 || valComp > 0) {
+          const growth = valComp !== 0 ? (((valCur - valComp) / valComp) * 100).toFixed(2) : "0.00";
+          validCategories.push(area);
+          curVals.push(valCur);
+          compVals.push(valComp);
+          growthVals.push(growth);
+        }
       });
 
-      setCategories(areaList);
+      setCategories(validCategories);
       setCurrentData(curVals);
       setComparisonData(compVals);
       setGrowthRates(growthVals);
     } catch (err) {
       console.error('Failed to fetch data:', err);
+      message.error('Failed to retrieve ranking data');
     } finally {
       setLoading(false);
     }
@@ -79,7 +116,7 @@ export default function EnergyRanking() {
 
   useEffect(() => {
     fetchData();
-  }, [rankingType]);
+  }, [rankingType, checkedAreaNames]);
 
   const rankingOption = {
     tooltip: {
@@ -156,7 +193,18 @@ export default function EnergyRanking() {
         }
       >
         <Spin spinning={loading} indicator={<DotLoader color="#1677ff" size={40} />}>
-          <ReactECharts option={rankingOption} theme={isDarkMode ? 'dark' : 'light'} style={{ height: '400px' }} />
+          {categories.length > 0 ? (
+            <ReactECharts
+              notMerge={true}
+              option={rankingOption}
+              theme={isDarkMode ? 'dark' : 'light'}
+              style={{ height: `${Math.max(categories.length * 80 + 100, 300)}px` }}
+            />
+          ) : (
+            <div style={{ height: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: isDarkMode ? '#a6a6a6' : '#595959' }}>
+              No data available for the selected period
+            </div>
+          )}
         </Spin>
       </Card>
 

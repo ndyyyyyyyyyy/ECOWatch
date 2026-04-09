@@ -2,6 +2,14 @@ export const PROJECT_STORAGE_KEY = 'project_dummy_devices'
 
 export const initialDevices = []
 
+export const emptyTagForm = {
+  name: '',
+  type: 'analog',
+  description: 'Analog Input',
+  address: '',
+  logData: 'yes',
+}
+
 export const devicePropertyTemplates = {
   Modicon: [
     { label: 'Device Name', value: '' },
@@ -70,7 +78,7 @@ export function cloneDevices(devices) {
 }
 
 export function buildDeviceItems(device) {
-  return device.items.map((item) => {
+  return (device.items || []).map((item) => {
     if (item.kind !== 'tag') {
       return item
     }
@@ -80,6 +88,56 @@ export function buildDeviceItems(device) {
       label: `Tag(${device.tags.length})`,
     }
   })
+}
+
+export function buildPropertiesFromForm(formState) {
+  return getDevicePropertySchema(formState['Device Type'] || 'Modicon').map((property) => ({
+    label: property.label,
+    value: formState[property.label] ?? property.value,
+  }))
+}
+
+export function getDeviceTypeLabel(device) {
+  return device?.properties?.find((property) => property.label === 'Device Type')?.value || 'Device'
+}
+
+export function getUnitNumberLabel(device) {
+  return device?.properties?.find((property) => property.label === 'Unit Number')?.value || '0'
+}
+
+export function getDeviceMatchTone(device) {
+  if (!device?.deployed) {
+    return 'Draft'
+  }
+  if (device?.matchStatus === 'matched') {
+    return 'Matched'
+  }
+  if (device?.matchStatus === 'mismatch') {
+    return 'Mismatch'
+  }
+  return 'Waiting'
+}
+
+export function getTagMatchTone(tag) {
+  if (tag?.matchStatus === 'matched') {
+    return 'Matched'
+  }
+  if (tag?.matchStatus === 'mismatch') {
+    return 'Mismatch'
+  }
+  return 'Waiting'
+}
+
+export function getVisibleDeviceProperties(device, activeDeviceType) {
+  const visibleLabels = new Set(getDevicePropertySchema(activeDeviceType).map((property) => property.label))
+  return (device?.properties || []).filter((property) => visibleLabels.has(property.label))
+}
+
+export function getTagAddressValue(deviceType, tag) {
+  if (deviceType === 'Modicon') {
+    return tag?.sourceAddress || tag?.address || '-'
+  }
+  return tag?.address || '-'
 }
 
 function normalizeDevices(devices) {

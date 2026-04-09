@@ -10,7 +10,6 @@ from energy_routes import register_energy_routes
 from grafana_proxy import register_grafana_proxy_routes
 from http_client import shutdown_http_client, startup_http_client
 from middleware import register_gateway_middleware
-from mqtt_simulator import MqttDeviceSimulator
 from project_routes import register_project_routes
 from project_store import project_store
 from security import ALLOWED_SUBNETS
@@ -51,7 +50,6 @@ def create_app() -> FastAPI:
 
 
 app = create_app()
-mqtt_device_simulator = MqttDeviceSimulator(project_store.get_devices)
 
 
 @app.on_event("startup")
@@ -59,12 +57,10 @@ async def startup_event():
     await startup_http_client()
     ensure_energy_table()
     project_store.start()
-    mqtt_device_simulator.start()
 
 
 @app.on_event("shutdown")
 async def shutdown_event():
-    mqtt_device_simulator.stop()
     project_store.stop()
     await shutdown_http_client()
 

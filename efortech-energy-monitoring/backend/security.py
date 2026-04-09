@@ -140,10 +140,16 @@ def local_subnets_from_interfaces() -> list[ipaddress.IPv4Network]:
 
 _ENV_SUBNET = (os.getenv("ALLOWED_SUBNET_CIDR") or "").strip()
 if _ENV_SUBNET:
-    try:
-        ALLOWED_SUBNETS = [ipaddress.ip_network(_ENV_SUBNET, strict=False)]
-    except Exception:
-        ALLOWED_SUBNETS = []
+    parsed_subnets: list[ipaddress.IPv4Network] = []
+    for raw_value in _ENV_SUBNET.split(","):
+        value = raw_value.strip()
+        if not value:
+            continue
+        try:
+            parsed_subnets.append(ipaddress.ip_network(value, strict=False))
+        except Exception:
+            continue
+    ALLOWED_SUBNETS = parsed_subnets
 else:
     ALLOWED_SUBNETS = local_subnets_from_interfaces()
 
