@@ -11,7 +11,7 @@ Web application for configuring energy devices, ingesting MQTT data, storing rea
 - `mosquitto`
   MQTT broker for realtime device payloads.
 - `grafana`
-  Custom-branded Grafana image exposed directly on `3100` and proxied through `/grafana`.
+  Custom-branded Grafana image built from `grafana-custom`, exposed directly on `3100` and proxied through `/grafana`.
 
 ## Main features
 
@@ -102,6 +102,12 @@ npm run build
 sudo docker compose up -d --build --force-recreate
 ```
 
+This repo is now self-contained for Docker deployment:
+
+- the main app image is built from the root `Dockerfile`
+- the Grafana custom image is built from `grafana-custom/Dockerfile`
+- no separate manual `docker build`, `docker save`, or `docker load` step is required for a fresh machine
+
 Useful checks:
 
 ```bash
@@ -116,4 +122,4 @@ sudo docker exec -it postgres psql -U postgres -d Energy -c "SELECT timestamp, d
 - MQTT runtime matching currently depends mainly on `tag address`.
 - MQTT device properties such as `IP Address`, `Username`, and `Password` are configuration metadata unless equivalent fields are present in the payload or enforced at broker level.
 - Some Ecowatch pages still contain fallback logic for sparse comparison data.
-- `grafana-custom` changes require rebuilding the Grafana image to take effect.
+- `grafana-custom` changes require rerunning `docker compose up -d --build` to rebuild the Grafana image.

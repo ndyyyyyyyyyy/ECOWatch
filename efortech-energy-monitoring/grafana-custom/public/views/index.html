@@ -81,8 +81,6 @@ a[aria-label="Help"],
 <script>
 (function () {
   function applyBranding() {
-    document.title = 'Efortech';
-
     document.querySelectorAll('.preloader__logo[aria-label="Loading Grafana"], .preloader__logo[aria-label="Loading Efortech"]').forEach((el) => {
       el.setAttribute('aria-label', 'Loading Efortech');
     });
@@ -122,6 +120,21 @@ a[aria-label="Help"],
     });
   }
 
+  function applyTitleBranding() {
+    const currentTitle = document.title || '';
+    let nextTitle = currentTitle;
+
+    if (!currentTitle.trim()) {
+      nextTitle = 'Efortech';
+    } else if (currentTitle.includes('Grafana')) {
+      nextTitle = currentTitle.replaceAll('Grafana', 'Efortech');
+    }
+
+    if (nextTitle !== currentTitle) {
+      document.title = nextTitle;
+    }
+  }
+
   let scheduled = false;
   function scheduleApply() {
     if (scheduled) return;
@@ -132,23 +145,43 @@ a[aria-label="Help"],
     });
   }
 
+  let titleScheduled = false;
+  function scheduleTitleApply() {
+    if (titleScheduled) return;
+    titleScheduled = true;
+    requestAnimationFrame(() => {
+      titleScheduled = false;
+      applyTitleBranding();
+    });
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', scheduleApply, { once: true });
+    document.addEventListener('DOMContentLoaded', () => {
+      scheduleApply();
+      scheduleTitleApply();
+    }, { once: true });
   } else {
     scheduleApply();
+    scheduleTitleApply();
   }
 
   window.addEventListener('load', scheduleApply);
-  window.addEventListener('popstate', scheduleApply);
+  window.addEventListener('load', scheduleTitleApply);
+  window.addEventListener('popstate', () => {
+    scheduleApply();
+    scheduleTitleApply();
+  });
   const originalPushState = history.pushState;
   history.pushState = function () {
     originalPushState.apply(this, arguments);
     scheduleApply();
+    scheduleTitleApply();
   };
   const originalReplaceState = history.replaceState;
   history.replaceState = function () {
     originalReplaceState.apply(this, arguments);
     scheduleApply();
+    scheduleTitleApply();
   };
 
   new MutationObserver((mutations) => {
@@ -159,6 +192,13 @@ a[aria-label="Help"],
       }
     }
   }).observe(document.documentElement, { childList: true, subtree: true });
+
+  const titleElement = document.querySelector('title');
+  if (titleElement) {
+    new MutationObserver(() => {
+      scheduleTitleApply();
+    }).observe(titleElement, { childList: true, subtree: true, characterData: true });
+  }
 })();
 </script>
 <script>
@@ -684,10 +724,3 @@ a[aria-label="Help"],
     </script>
   </body>
 </html>
-
-
-
-
-
-
-

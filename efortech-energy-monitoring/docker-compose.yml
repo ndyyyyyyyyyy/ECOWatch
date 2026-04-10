@@ -52,6 +52,9 @@ services:
       - mosquitto-log:/mosquitto/log
 
   grafana:
+    build:
+      context: ./grafana-custom
+      dockerfile: Dockerfile
     image: efortech-grafana-custom
     container_name: grafana
     ports:
