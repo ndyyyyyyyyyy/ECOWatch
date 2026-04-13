@@ -4,8 +4,8 @@ Web application for configuring energy devices, ingesting MQTT data, storing rea
 
 ## Main services
 
-- `efortech-energy-monitoring`
-  React frontend + FastAPI backend in one app.
+- `backend`
+  React frontend + FastAPI backend in one app, running as container `efortech-backend`.
 - `postgres`
   Stores energy readings in `energy_data`.
 - `mosquitto`
@@ -111,7 +111,8 @@ This repo is now self-contained for Docker deployment:
 Useful checks:
 
 ```bash
-sudo docker compose logs -f efortech-energy-monitoring
+sudo docker compose logs -f backend
+sudo docker logs -f efortech-backend
 sudo docker logs -f grafana
 sudo docker logs -f mosquitto
 sudo docker exec -it postgres psql -U postgres -d Energy -c "SELECT timestamp, device_name, tag_name, tag_address, value FROM energy_data ORDER BY timestamp DESC LIMIT 20;"

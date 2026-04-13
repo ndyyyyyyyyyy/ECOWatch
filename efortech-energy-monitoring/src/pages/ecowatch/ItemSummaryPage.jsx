@@ -10,7 +10,7 @@ const { Option } = Select;
 const { Title, Text } = Typography;
 
 export default function ItemSummary() {
-  const { isDarkMode } = useOutletContext();
+  const { isDarkMode, checkedAreaNames } = useOutletContext();
 
   const [selectedArea, setSelectedArea] = useState('Regional');
   const mainAreas = 'RAC,NR1,NR2,UT_NEW,UTILITY';
@@ -24,6 +24,23 @@ export default function ItemSummary() {
   const [loadingMain, setLoadingMain] = useState(false);
   const [loadingBar, setLoadingBar] = useState(false);
 
+  const getTargetAreas = () => {
+    if (!checkedAreaNames || checkedAreaNames.length === 0) {
+      return mainAreas;
+    }
+
+    const normalized = checkedAreaNames
+      .map((area) => (area || '').trim())
+      .filter(Boolean)
+      .filter((area) => area !== 'MAIN_ELECTRICAL');
+
+    if (normalized.length === 0) {
+      return mainAreas;
+    }
+
+    return normalized.join(',');
+  };
+
   const fetchDashboardData = async () => {
     setLoadingMain(true);
     setLoadingBar(true);
@@ -31,7 +48,7 @@ export default function ItemSummary() {
     try {
       const currentYear = dayjs().year();
       const lastYear = currentYear - 1;
-      const targetAreas = mainAreas;
+      const targetAreas = getTargetAreas();
       const today = dayjs().format('YYYY-MM-DD');
 
       const [thisYearRes, lastYearRes, todayRes] = await Promise.all([
@@ -77,7 +94,7 @@ export default function ItemSummary() {
       setRealtimeDemand(currentDemand);
       setTopMonthlyData(monthlyTotals);
       setBarDataThisYear(monthlyTotals);
-      setSelectedArea('Regional');
+      setSelectedArea(targetAreas === mainAreas ? 'Regional' : checkedAreaNames[0] || 'Regional');
 
       setPieData(
         Object.keys(areaTotals)
@@ -105,7 +122,7 @@ export default function ItemSummary() {
 
   useEffect(() => {
     fetchDashboardData();
-  }, []);
+  }, [checkedAreaNames]);
 
   const handlePieClick = async (params) => {
     const areaName = params.name;

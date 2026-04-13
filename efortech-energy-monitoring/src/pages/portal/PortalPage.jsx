@@ -54,7 +54,7 @@ function PortalPage({ user, onSignOut }) {
             </button>
             <button
               type="button"
-              className="portal-card"
+              className="portal-card portal-card-primary"
               onClick={() => {
                 window.location.href = DASHBOARD_URL
               }}

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Select, DatePicker, Button, Space, Table, message } from 'antd';
+import { Card, Select, DatePicker, Button, Space, Table, message, Spin } from 'antd';
 import ReactECharts from 'echarts-for-react';
 import * as echarts from 'echarts';
 import { useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 import dayjs from 'dayjs';
+import { RefreshCw, Download } from 'lucide-react';
 import './Demand.css';
 import { ENERGY_ENDPOINT } from './ecowatchApi';
 
@@ -85,6 +86,27 @@ export default function DemandPage() {
     fetchDemandData();
   }, [checkedAreaNames]);
 
+  const handleExportCsv = () => {
+    if (!tableData || tableData.length === 0) {
+      message.warning('No data to export!');
+      return;
+    }
+
+    const headers = ['Date', 'Electricity Period', 'Demand (kW)', 'Time'];
+    const rows = tableData.map((d) => `${d.date},${d.period},${d.demand},${d.time}`);
+    const csvContent = `data:text/csv;charset=utf-8,${headers.join(',')}\n${rows.join('\n')}`;
+    const encodedUri = encodeURI(csvContent);
+
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `DemandData_${dayjs().format('YYYYMMDD_HHmm')}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    message.success('Demand data exported successfully!');
+  };
+
   const seriesName =
     checkedAreaNames && checkedAreaNames.length > 0
       ? checkedAreaNames.length === 1
@@ -140,8 +162,28 @@ export default function DemandPage() {
     { title: 'Time', dataIndex: 'time', key: 'time' },
   ];
 
+  const extraControls = (
+    <Space size="small">
+      <Button
+        type="text"
+        icon={<RefreshCw size={18} />}
+        loading={loading}
+        onClick={fetchDemandData}
+        style={{ color: isDarkMode ? '#a6a6a6' : '#8c8c8c' }}
+        title="Refresh Data"
+      />
+      <Button
+        type="text"
+        icon={<Download size={18} />}
+        onClick={handleExportCsv}
+        style={{ color: isDarkMode ? '#a6a6a6' : '#8c8c8c' }}
+        title="Download CSV"
+      />
+    </Space>
+  );
+
   return (
-    <div className="demand-container">
+    <div className="demand-container" style={{ height: 'calc(100vh - 80px)' }}>
       <Card styles={{ body: { padding: '10px 24px' } }}>
         <div className="demand-filter-wrapper">
           <Space wrap>
@@ -159,7 +201,7 @@ export default function DemandPage() {
               Time
             </span>
             <RangePicker
-              defaultValue={[dayjs(), dayjs()]}
+              value={dateRange}
               onChange={(dates) => setDateRange(dates)}
               allowClear={false}
             />
@@ -175,22 +217,29 @@ export default function DemandPage() {
         </div>
       </Card>
 
-      <Card title="Demand" bordered={false} loading={loading} style={{ marginTop: 5 }}>
-        <ReactECharts
-          notMerge={true}
-          option={demandOption}
-          theme={isDarkMode ? 'dark' : 'light'}
-          className="demand-chart"
-          style={{ height: '350px' }}
-        />
+      <Card title="Demand" bordered={false} extra={extraControls} style={{ marginTop: 5 }}>
+        <Spin spinning={loading}>
+          <ReactECharts
+            notMerge={true}
+            option={demandOption}
+            theme={isDarkMode ? 'dark' : 'light'}
+            className="demand-chart"
+            style={{ height: 'calc(40vh - 70px)', minHeight: '220px', width: '100%' }}
+          />
+        </Spin>
       </Card>
 
-      <Card title="Data analysis" bordered={false} style={{ marginTop: 5 }}>
+      <Card
+        title="Data analysis"
+        bordered={false}
+        style={{ marginTop: 5, flex: '1 1 auto', display: 'flex', flexDirection: 'column' }}
+        styles={{ body: { flex: 1, paddingBottom: 0 } }}
+      >
         <Table
           dataSource={tableData}
           columns={columns}
           size="small"
-          scroll={{ y: 240 }}
+          scroll={{ y: 'calc(40vh - 90px)' }}
           loading={loading}
           pagination={{
             showSizeChanger: true,

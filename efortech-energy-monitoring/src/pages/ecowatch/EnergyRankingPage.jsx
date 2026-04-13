@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Select, Button, Space, Table, Radio, Typography, Spin, message } from 'antd';
+import { Card, Select, Button, Space, Table, Typography, Spin, message, Segmented, ConfigProvider } from 'antd';
 import ReactECharts from 'echarts-for-react';
 import { useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 import { DotLoader } from 'react-spinners';
+import { RefreshCw, Download } from 'lucide-react';
+import dayjs from 'dayjs';
 import { ENERGY_ENDPOINT } from './ecowatchApi';
 
 const { Option } = Select;
@@ -118,7 +120,30 @@ export default function EnergyRanking() {
     fetchData();
   }, [rankingType, checkedAreaNames]);
 
+  const handleExportCsv = () => {
+    if (!categories || categories.length === 0) {
+      message.warning('No data to export!');
+      return;
+    }
+
+    const compLabel = rankingType === 'YoY' ? 'Last Year (kWh)' : 'Last Month (kWh)';
+    const headers = ['Area', 'Current (kWh)', compLabel, `${rankingType} Growth (%)`];
+    const rows = categories.map((cat, i) => `${cat},${currentData[i]},${comparisonData[i]},${growthRates[i]}`);
+    const csvContent = `data:text/csv;charset=utf-8,${headers.join(',')}\n${rows.join('\n')}`;
+    const encodedUri = encodeURI(csvContent);
+
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `EnergyRanking_${rankingType}_${dayjs().format('YYYYMMDD')}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    message.success('Energy Ranking data exported successfully!');
+  };
+
   const rankingOption = {
+    backgroundColor: 'transparent',
     tooltip: {
       trigger: 'axis',
       axisPointer: { type: 'shadow' },
@@ -140,7 +165,11 @@ export default function EnergyRanking() {
       type: 'value',
       min: (value) => value.min * 1.2,
       max: (value) => value.max * 1.2,
-      axisLabel: { formatter: (v) => Math.abs(v).toLocaleString() }
+      axisLabel: {
+        color: isDarkMode ? '#d9d9d9' : '#595959',
+        formatter: (v) => Math.abs(v).toLocaleString()
+      },
+      splitLine: { show: false }
     },
     yAxis: {
       type: 'category',
@@ -154,7 +183,12 @@ export default function EnergyRanking() {
         stack: 'Total',
         data: comparisonData.map(v => -v),
         itemStyle: { color: '#91caff' },
-        label: { show: true, position: 'left', formatter: (p) => Math.abs(p.value).toLocaleString() }
+        label: {
+          show: true,
+          position: 'left',
+          color: isDarkMode ? '#d9d9d9' : '#595959',
+          formatter: (p) => Math.abs(p.value).toLocaleString()
+        }
       },
       {
         name: 'Current',
@@ -162,14 +196,70 @@ export default function EnergyRanking() {
         stack: 'Total',
         data: currentData,
         itemStyle: { color: '#1677ff' },
-        label: { 
-          show: true, 
-          position: 'right', 
-          formatter: (p) => `${p.value.toLocaleString()} (${growthRates[p.dataIndex]}%)` 
+        label: {
+          show: true,
+          position: 'right',
+          color: isDarkMode ? '#d9d9d9' : '#595959',
+          formatter: (p) => `${p.value.toLocaleString()} (${growthRates[p.dataIndex]}%)`
         }
       }
     ]
   };
+
+  const segmentedTheme = {
+    components: {
+      Segmented: {
+        itemSelectedBg: isDarkMode ? '#112a45' : '#e6f4ff',
+        itemSelectedColor: isDarkMode ? '#69c0ff' : '#1677ff',
+        itemColor: isDarkMode ? '#a6a6a6' : '#8c8c8c',
+        trackBg: isDarkMode ? '#141414' : '#ffffff',
+        trackPadding: 2,
+      },
+    },
+  };
+
+  const extraControls = (
+    <Space size="middle" wrap align="center">
+      <ConfigProvider theme={segmentedTheme}>
+        <Segmented
+          options={['YoY', 'MoM']}
+          value={rankingType}
+          onChange={setRankingType}
+          style={{ border: isDarkMode ? '1px solid #303030' : '1px solid #d9d9d9' }}
+        />
+      </ConfigProvider>
+
+      <Space size="small">
+        <Button
+          type="text"
+          icon={<RefreshCw size={18} />}
+          loading={loading}
+          onClick={fetchData}
+          style={{
+            color: isDarkMode ? '#a6a6a6' : '#8c8c8c',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginTop: '2px',
+          }}
+          title="Refresh Data"
+        />
+        <Button
+          type="text"
+          icon={<Download size={18} />}
+          onClick={handleExportCsv}
+          style={{
+            color: isDarkMode ? '#a6a6a6' : '#8c8c8c',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginTop: '2px',
+          }}
+          title="Download CSV"
+        />
+      </Space>
+    </Space>
+  );
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -184,13 +274,8 @@ export default function EnergyRanking() {
       </Card>
 
       <Card 
-        title={`Energy Ranking (${rankingType})`} 
-        extra={
-          <Radio.Group value={rankingType} onChange={(e) => setRankingType(e.target.value)} buttonStyle="solid">
-            <Radio.Button value="YoY">YoY</Radio.Button>
-            <Radio.Button value="MoM">MoM</Radio.Button>
-          </Radio.Group>
-        }
+        title="Energy Ranking"
+        extra={extraControls}
       >
         <Spin spinning={loading} indicator={<DotLoader color="#1677ff" size={40} />}>
           {categories.length > 0 ? (

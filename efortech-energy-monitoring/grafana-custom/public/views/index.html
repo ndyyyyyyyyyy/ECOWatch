@@ -56,6 +56,7 @@ a[aria-label="Help"],
     // khusus dashboard slug /home (UID bebas), termasuk subpath /grafana
     return p.includes("/d/") && p.endsWith("/home");
   }
+
   function hideButtons() {
     if (!shouldHide()) return;
     const toolbar = document.querySelector('div[data-testid="data-testid Nav toolbar"]');
@@ -68,14 +69,45 @@ a[aria-label="Help"],
     ).forEach(el => el.style.display = "none");
     toolbar.querySelectorAll('.css-1ju7n6r').forEach(el => el.style.display = "none");
   }
-  hideButtons();
-  const mo = new MutationObserver(hideButtons);
-  mo.observe(document.documentElement, { childList: true, subtree: true });
-  window.addEventListener("popstate", hideButtons);
-  const _push = history.pushState;
-  history.pushState = function () { _push.apply(this, arguments); hideButtons(); };
-  const _replace = history.replaceState;
-  history.replaceState = function () { _replace.apply(this, arguments); hideButtons(); };
+
+  function hideLatestFromBlog() {
+    var candidates = document.querySelectorAll('a[href], button, [role="menuitem"], li, div');
+    for (var i = 0; i < candidates.length; i++) {
+      var candidate = candidates[i];
+      var text = (candidate.textContent || '').trim();
+      if (text !== 'Latest from the blog') {
+        continue;
+      }
+
+      var menuItem = candidate.closest('a, button, [role="menuitem"], li');
+      if (menuItem) {
+        menuItem.style.display = 'none';
+      } else {
+        candidate.style.display = 'none';
+      }
+    }
+  }
+
+  function applyCleanup() {
+    hideButtons();
+    hideLatestFromBlog();
+  }
+
+  applyCleanup();
+  new MutationObserver(applyCleanup).observe(document.documentElement, { childList: true, subtree: true });
+  window.addEventListener("popstate", applyCleanup);
+
+  const originalPushState = history.pushState;
+  history.pushState = function () {
+    originalPushState.apply(this, arguments);
+    applyCleanup();
+  };
+
+  const originalReplaceState = history.replaceState;
+  history.replaceState = function () {
+    originalReplaceState.apply(this, arguments);
+    applyCleanup();
+  };
 })();
 </script>
 <script>
