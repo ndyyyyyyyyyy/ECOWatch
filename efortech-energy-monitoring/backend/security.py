@@ -15,7 +15,46 @@ def normalize_ip(raw: str | None) -> str:
         return value[7:]
     if value == "::1":
         return "127.0.0.1"
+    if value.startswith("[") and value.endswith("]"):
+        return value[1:-1]
     return value
+
+
+def _first_valid_ip(*candidates: str | None) -> str:
+    for candidate in candidates:
+        normalized = normalize_ip(candidate)
+        if not normalized:
+            continue
+        try:
+            ipaddress.ip_address(normalized)
+            return normalized
+        except Exception:
+            continue
+    return ""
+
+
+def _parse_forwarded_header(value: str | None) -> str:
+    if not value:
+        return ""
+
+    for section in value.split(","):
+        for item in section.split(";"):
+            key, separator, raw_header_value = item.partition("=")
+            if separator != "=" or key.strip().lower() != "for":
+                continue
+
+            cleaned = raw_header_value.strip().strip('"')
+            if cleaned.startswith("["):
+                bracket_end = cleaned.find("]")
+                if bracket_end != -1:
+                    cleaned = cleaned[1:bracket_end]
+            elif ":" in cleaned and cleaned.count(":") == 1:
+                cleaned = cleaned.split(":", 1)[0]
+
+            valid_ip = _first_valid_ip(cleaned)
+            if valid_ip:
+                return valid_ip
+    return ""
 
 
 def is_weekend(now: datetime | None = None) -> bool:
@@ -162,6 +201,28 @@ def ip_in_allowed_subnet(raw_ip: str) -> bool:
     except Exception:
         return False
     return addr.version == 4 and any(addr in subnet for subnet in ALLOWED_SUBNETS)
+
+
+def is_loopback_or_internal_proxy(raw_ip: str) -> bool:
+    normalized = normalize_ip(raw_ip)
+    if normalized in {"127.0.0.1", "::1", "172.18.0.1"}:
+        return True
+
+    try:
+        addr = ipaddress.ip_address(normalized)
+    except Exception:
+        return False
+
+    return bool(addr.is_loopback or addr.is_private or ip_in_allowed_subnet(normalized))
+
+
+def resolve_client_ip(headers: dict[str, str], fallback_ip: str | None) -> str:
+    return _first_valid_ip(
+        headers.get("x-forwarded-for", "").split(",")[0].strip() if headers.get("x-forwarded-for") else "",
+        headers.get("x-real-ip"),
+        _parse_forwarded_header(headers.get("forwarded")),
+        fallback_ip,
+    )
 
 
 def is_allowed_origin(origin: str | None) -> bool:

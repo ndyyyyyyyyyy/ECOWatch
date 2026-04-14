@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import datetime
 
 import psycopg
 from psycopg import sql
@@ -14,13 +14,14 @@ from config import (
     ENERGY_PG_PORT,
     ENERGY_PG_TABLE,
     ENERGY_PG_USER,
+    TIMEZONE_INFO,
 )
 
 
 def _normalize_timestamp(value: datetime) -> datetime:
     if value.tzinfo is None:
         return value
-    return value.astimezone(timezone.utc).replace(tzinfo=None)
+    return value.astimezone(TIMEZONE_INFO).replace(tzinfo=None)
 
 
 def _connection_kwargs() -> dict[str, object]:
@@ -120,7 +121,7 @@ def fetch_energy_readings(start: datetime, end: datetime) -> list[dict[str, obje
 
     return [
         {
-            "timestamp": row[0].replace(tzinfo=timezone.utc) if row[0] is not None else None,
+            "timestamp": row[0].replace(tzinfo=TIMEZONE_INFO) if row[0] is not None else None,
             "device_name": row[1] or "",
             "tag_name": row[2] or "",
             "tag_address": row[3] or "",

@@ -76,13 +76,17 @@ Main environment files:
 Important variables:
 
 - `APP_HOST_PORT`
-- `APP_PUBLIC_BASE_URL`
 - `ALLOWED_SUBNET_CIDR`
 - `ALLOWED_ORIGINS`
 - `MQTT_BROKER_HOST`
 - `MQTT_BROKER_PORT`
 - `MQTT_TOPIC_FILTER`
 - `ENERGY_PG_*`
+
+Optional variable:
+
+- `APP_PUBLIC_BASE_URL`
+  Only needed if you want to pin a single canonical public URL instead of relying on the incoming request host.
 
 Current network assumptions in this repo:
 
