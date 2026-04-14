@@ -335,6 +335,94 @@
           "logData": "yes"
         }
       ]
+    },
+    {
+      "deviceName": "PM_N3",
+      "deployed": true,
+      "configuredProperties": [
+        {
+          "label": "Device Name",
+          "value": "PM_N3"
+        },
+        {
+          "label": "Description",
+          "value": ""
+        },
+        {
+          "label": "Unit Number",
+          "value": "4"
+        },
+        {
+          "label": "Device Type",
+          "value": "MQTT"
+        },
+        {
+          "label": "Heartbeat Frequency (second)",
+          "value": "60"
+        },
+        {
+          "label": "Device ID",
+          "value": "4"
+        },
+        {
+          "label": "Username",
+          "value": "admin"
+        },
+        {
+          "label": "Password",
+          "value": "admin"
+        },
+        {
+          "label": "IP Address",
+          "value": "192.168.10.100"
+        },
+        {
+          "label": "Port Number",
+          "value": "1883"
+        }
+      ],
+      "configuredTags": [
+        {
+          "name": "Current",
+          "type": "analog",
+          "description": "Analog Input",
+          "sourceAddress": "Node3:Current",
+          "address": "Node3:Current",
+          "logData": "yes"
+        },
+        {
+          "name": "Frequency",
+          "type": "analog",
+          "description": "Analog Input",
+          "sourceAddress": "Node3:Frequency",
+          "address": "Node3:Frequency",
+          "logData": "yes"
+        },
+        {
+          "name": "Voltage",
+          "type": "analog",
+          "description": "Analog Input",
+          "sourceAddress": "Node3:Voltage",
+          "address": "Node3:Voltage",
+          "logData": "yes"
+        },
+        {
+          "name": "Power Factor",
+          "type": "analog",
+          "description": "Analog Input",
+          "sourceAddress": "Node3:pF",
+          "address": "Node3:pF",
+          "logData": "yes"
+        },
+        {
+          "name": "kWh",
+          "type": "analog",
+          "description": "Analog Input",
+          "sourceAddress": "Node3:kWh",
+          "address": "Node3:kWh",
+          "logData": "yes"
+        }
+      ]
     }
   ]
 }

@@ -11,7 +11,7 @@ Web application for configuring energy devices, ingesting MQTT data, storing rea
 - `mosquitto`
   MQTT broker for realtime device payloads.
 - `grafana`
-  Custom-branded Grafana image built from `grafana-custom`, exposed directly on `3100` and proxied through `/grafana`.
+  Custom-branded Grafana image built from `grafana-custom`, exposed directly on `3000` and proxied through `/grafana`.
 
 ## Main features
 
@@ -57,6 +57,13 @@ Web application for configuring energy devices, ingesting MQTT data, storing rea
 - `src/pages/portal`
   Main launcher page for Project, Ecowatch, and Grafana.
 
+## Infrastructure folders
+
+- `mosquitto/`
+  Mosquitto broker configuration mounted by Docker Compose.
+- `grafana-custom/`
+  Custom Grafana image, branding assets, and provisioning files.
+
 ## Configuration
 
 Main environment files:
@@ -79,7 +86,7 @@ Important variables:
 
 Current network assumptions in this repo:
 
-- app public IP: `192.168.10.101`
+- app public IP: `192.168.10.12`
 - allowed client subnet: `192.168.10.0/24`
 
 ## Development
@@ -105,6 +112,7 @@ sudo docker compose up -d --build --force-recreate
 This repo is now self-contained for Docker deployment:
 
 - the main app image is built from the root `Dockerfile`
+- the Mosquitto config is mounted from `mosquitto/mosquitto.conf`
 - the Grafana custom image is built from `grafana-custom/Dockerfile`
 - no separate manual `docker build`, `docker save`, or `docker load` step is required for a fresh machine
 
