@@ -6,7 +6,9 @@ from datetime import datetime, timedelta
 
 from fastapi import FastAPI, Query
 
+from config import TIMEZONE_INFO
 from energy_db import fetch_energy_readings
+from project_store import project_store
 
 LEGACY_ECOWATCH_DEVICE = "LEGACY_ECOWATCH"
 LEGACY_MEASURABLE_TAGS = {
@@ -44,6 +46,8 @@ DEFAULT_ECOWATCH_TREE: dict[str, dict[str, object]] = {
 }
 
 DEFAULT_ROOT_AREAS = ("RAC", "NR1", "NR2", "UT_NEW", "UTILITY")
+REAL_ROOT_NAME = "Electrical"
+REAL_ENERGY_TAG_NAMES = {"kwh", "energy"}
 
 
 @dataclass(frozen=True)
@@ -55,6 +59,60 @@ class EnergyNode:
     device_name: str | None = None
     tag_name: str | None = None
     uses_children_for_rollup: bool = False
+
+
+def _build_project_energy_nodes() -> dict[str, EnergyNode]:
+    nodes: dict[str, EnergyNode] = {}
+    child_names: list[str] = []
+
+    try:
+        devices = project_store.get_devices()
+    except Exception:
+        return nodes
+
+    for device in devices:
+        if not bool(device.get("deployed", True)):
+            continue
+
+        device_name = str(device.get("name", "")).strip()
+        if not device_name:
+            continue
+
+        selected_tag_name = None
+        for tag in device.get("tags", []):
+            if str(tag.get("logData", "")).strip().lower() != "yes":
+                continue
+            tag_name = str(tag.get("name", "")).strip()
+            if tag_name.lower() in REAL_ENERGY_TAG_NAMES:
+                selected_tag_name = tag_name
+                break
+
+        if not selected_tag_name:
+            continue
+
+        child_names.append(device_name)
+        nodes[device_name] = EnergyNode(
+            key=device_name,
+            name=device_name,
+            parent_name=REAL_ROOT_NAME,
+            children_names=(),
+            device_name=device_name,
+            tag_name=selected_tag_name,
+            uses_children_for_rollup=False,
+        )
+
+    if child_names:
+        nodes[REAL_ROOT_NAME] = EnergyNode(
+            key=REAL_ROOT_NAME,
+            name=REAL_ROOT_NAME,
+            parent_name=None,
+            children_names=tuple(child_names),
+            uses_children_for_rollup=True,
+        )
+
+    return nodes
+
+
 def _build_energy_nodes() -> dict[str, EnergyNode]:
     nodes: dict[str, EnergyNode] = {}
     for name, config in DEFAULT_ECOWATCH_TREE.items():
@@ -69,6 +127,7 @@ def _build_energy_nodes() -> dict[str, EnergyNode]:
             uses_children_for_rollup=not is_legacy_measurable and bool(config["children"]),
         )
 
+    nodes.update(_build_project_energy_nodes())
     return nodes
 
 
@@ -152,7 +211,7 @@ def _resolve_bucket_total(
 
 def _parse_date_bound(value: str | None, is_end: bool) -> datetime:
     if not value:
-        now = datetime.now()
+        now = datetime.now(TIMEZONE_INFO)
         return now.replace(hour=23, minute=59, second=59, microsecond=999999) if is_end else now.replace(
             hour=0, minute=0, second=0, microsecond=0
         )
@@ -164,10 +223,12 @@ def _parse_date_bound(value: str | None, is_end: bool) -> datetime:
         parsed = datetime.fromisoformat(f"{text} 00:00:00")
 
     if "T" in text or " " in text:
-        return parsed
+        if parsed.tzinfo is None:
+            return parsed.replace(tzinfo=TIMEZONE_INFO)
+        return parsed.astimezone(TIMEZONE_INFO)
     if is_end:
-        return parsed.replace(hour=23, minute=59, second=59, microsecond=999999)
-    return parsed.replace(hour=0, minute=0, second=0, microsecond=0)
+        return parsed.replace(hour=23, minute=59, second=59, microsecond=999999, tzinfo=TIMEZONE_INFO)
+    return parsed.replace(hour=0, minute=0, second=0, microsecond=0, tzinfo=TIMEZONE_INFO)
 
 
 def register_energy_routes(app: FastAPI):
@@ -185,9 +246,26 @@ def register_energy_routes(app: FastAPI):
         requested_names = [item.strip() for item in str(areas or "").split(",") if item.strip()]
 
         if requested_names:
-            selected_nodes = [nodes[name] for name in requested_names if name in nodes]
+            selected_nodes: list[EnergyNode] = []
+            seen_keys: set[str] = set()
+            for name in requested_names:
+                node = nodes.get(name)
+                if node is None:
+                    continue
+
+                if name == REAL_ROOT_NAME:
+                    for child_name in node.children_names:
+                        child = nodes.get(child_name)
+                        if child is not None and child.key not in seen_keys:
+                            selected_nodes.append(child)
+                            seen_keys.add(child.key)
+                    continue
+
+                if node.key not in seen_keys:
+                    selected_nodes.append(node)
+                    seen_keys.add(node.key)
         else:
-            selected_nodes = sorted(nodes.values(), key=lambda item: (item.parent_name or "", item.name.lower()))
+            selected_nodes = [nodes[name] for name in DEFAULT_ECOWATCH_TREE.keys() if name in nodes]
 
         if not selected_nodes:
             return []
@@ -209,7 +287,8 @@ def register_energy_routes(app: FastAPI):
             if not isinstance(row_timestamp, datetime):
                 continue
 
-            bucket = _truncate_datetime(row_timestamp, interval_key)
+            local_timestamp = row_timestamp.astimezone(TIMEZONE_INFO) if row_timestamp.tzinfo else row_timestamp
+            bucket = _truncate_datetime(local_timestamp, interval_key)
             value = float(row.get("value", 0.0) or 0.0)
             bucket_values[(f"{row_device}:{row_tag}", bucket)] += value
 

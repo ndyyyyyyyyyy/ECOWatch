@@ -120,7 +120,7 @@ def fetch_energy_readings(start: datetime, end: datetime) -> list[dict[str, obje
 
     return [
         {
-            "timestamp": row[0],
+            "timestamp": row[0].replace(tzinfo=timezone.utc) if row[0] is not None else None,
             "device_name": row[1] or "",
             "tag_name": row[2] or "",
             "tag_address": row[3] or "",

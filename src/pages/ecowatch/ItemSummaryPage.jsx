@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Select, Button, Space, Typography, Progress, Row, Col, Spin, message } from 'antd';
 import ReactECharts from 'echarts-for-react';
+import { useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 import dayjs from 'dayjs';
-import { useOutletContext } from 'react-router-dom';
 import { ENERGY_ENDPOINT } from './ecowatchApi';
 
 const { Option } = Select;
@@ -14,13 +14,17 @@ export default function ItemSummary() {
 
   const [selectedArea, setSelectedArea] = useState('Regional');
   const mainAreas = 'RAC,NR1,NR2,UT_NEW,UTILITY';
+
   const [topMonthlyData, setTopMonthlyData] = useState(new Array(12).fill(0));
   const [pieData, setPieData] = useState([]);
   const [barDataThisYear, setBarDataThisYear] = useState(new Array(12).fill(0));
+
   const [thisYearTotal, setThisYearTotal] = useState(0);
   const [lastYearTotal, setLastYearTotal] = useState(0);
   const [realtimeDemand, setRealtimeDemand] = useState(0);
+
   const [rankingData, setRankingData] = useState([]);
+
   const [loadingMain, setLoadingMain] = useState(false);
   const [loadingBar, setLoadingBar] = useState(false);
 
@@ -49,12 +53,17 @@ export default function ItemSummary() {
       const currentYear = dayjs().year();
       const lastYear = currentYear - 1;
       const targetAreas = getTargetAreas();
+
+      const thisYearUrl = `${ENERGY_ENDPOINT}?interval=Month&start=${currentYear}-01-01&end=${currentYear}-12-31&areas=${targetAreas}`;
+      const lastYearUrl = `${ENERGY_ENDPOINT}?interval=Month&start=${lastYear}-01-01&end=${lastYear}-12-31&areas=${targetAreas}`;
+
       const today = dayjs().format('YYYY-MM-DD');
+      const todayUrl = `${ENERGY_ENDPOINT}?interval=Day&start=${today}&end=${today}&areas=${targetAreas}`;
 
       const [thisYearRes, lastYearRes, todayRes] = await Promise.all([
-        axios.get(`${ENERGY_ENDPOINT}?interval=Month&start=${currentYear}-01-01&end=${currentYear}-12-31&areas=${targetAreas}`),
-        axios.get(`${ENERGY_ENDPOINT}?interval=Month&start=${lastYear}-01-01&end=${lastYear}-12-31&areas=${targetAreas}`),
-        axios.get(`${ENERGY_ENDPOINT}?interval=Day&start=${today}&end=${today}&areas=${targetAreas}`),
+        axios.get(thisYearUrl),
+        axios.get(lastYearUrl),
+        axios.get(todayUrl),
       ]);
 
       const thisYearRaw = thisYearRes.data || [];
@@ -67,10 +76,10 @@ export default function ItemSummary() {
       const tagTotals = {};
 
       thisYearRaw.forEach((item) => {
-        const val = parseFloat(item.value_kwh);
+        const val = parseFloat(item.value_kwh || 0);
         totalThisYear += val;
 
-        const monthIndex = parseInt(item.timestamp.split('-')[1], 10) - 1;
+        const monthIndex = parseInt(String(item.timestamp).split('-')[1], 10) - 1;
         if (monthIndex >= 0 && monthIndex < 12) {
           monthlyTotals[monthIndex] += val;
         }
@@ -81,36 +90,36 @@ export default function ItemSummary() {
 
       let totalLastYear = 0;
       lastYearRaw.forEach((item) => {
-        totalLastYear += parseFloat(item.value_kwh);
+        totalLastYear += parseFloat(item.value_kwh || 0);
       });
 
       let currentDemand = 0;
       todayRaw.forEach((item) => {
-        currentDemand += parseFloat(item.value_kwh);
+        currentDemand += parseFloat(item.value_kwh || 0);
       });
 
       setThisYearTotal(totalThisYear);
       setLastYearTotal(totalLastYear);
       setRealtimeDemand(currentDemand);
+
       setTopMonthlyData(monthlyTotals);
       setBarDataThisYear(monthlyTotals);
-      setSelectedArea(targetAreas === mainAreas ? 'Regional' : checkedAreaNames[0] || 'Regional');
+      setSelectedArea(targetAreas === mainAreas ? 'Regional' : checkedAreaNames?.[0] || 'Regional');
 
-      setPieData(
-        Object.keys(areaTotals)
-          .map((key) => ({ name: key, value: areaTotals[key] }))
-          .filter((item) => item.value > 0)
-      );
+      const formattedPieData = Object.keys(areaTotals)
+        .map((key) => ({ name: key, value: areaTotals[key] }))
+        .filter((item) => item.value > 0);
+      setPieData(formattedPieData);
 
       const sortedTags = Object.entries(tagTotals).sort((a, b) => b[1] - a[1]).slice(0, 8);
       const maxRankingVal = sortedTags.length > 0 ? sortedTags[0][1] : 1;
-      setRankingData(
-        sortedTags.map((tag, index) => ({
-          name: `${index + 1}. ${tag[0]}`,
-          value: tag[1],
-          percent: (tag[1] / maxRankingVal) * 100,
-        }))
-      );
+
+      const formattedRanking = sortedTags.map((tag, index) => ({
+        name: `${index + 1}. ${tag[0]}`,
+        value: tag[1],
+        percent: (tag[1] / maxRankingVal) * 100,
+      }));
+      setRankingData(formattedRanking);
     } catch (error) {
       console.error('Failed to fetch main data:', error);
       message.error('Failed to load data from server');
@@ -131,19 +140,17 @@ export default function ItemSummary() {
 
     try {
       const currentYear = dayjs().year();
-      const res = await axios.get(
-        `${ENERGY_ENDPOINT}?interval=Month&start=${currentYear}-01-01&end=${currentYear}-12-31&areas=${areaName}`
-      );
+      const url = `${ENERGY_ENDPOINT}?interval=Month&start=${currentYear}-01-01&end=${currentYear}-12-31&areas=${areaName}`;
+      const res = await axios.get(url);
       const rawData = res.data || [];
-      const monthlyValues = new Array(12).fill(0);
 
+      const monthlyValues = new Array(12).fill(0);
       rawData.forEach((item) => {
-        const monthIndex = parseInt(item.timestamp.split('-')[1], 10) - 1;
+        const monthIndex = parseInt(String(item.timestamp).split('-')[1], 10) - 1;
         if (monthIndex >= 0 && monthIndex < 12) {
-          monthlyValues[monthIndex] += parseFloat(item.value_kwh);
+          monthlyValues[monthIndex] += parseFloat(item.value_kwh || 0);
         }
       });
-
       setBarDataThisYear(monthlyValues);
     } catch (error) {
       message.error('Failed to load area details');
@@ -152,7 +159,10 @@ export default function ItemSummary() {
     }
   };
 
-  const onEvents = { click: handlePieClick };
+  const onEvents = {
+    click: handlePieClick,
+  };
+
   const yoyDeviation = thisYearTotal - lastYearTotal;
   const isYoYPositive = yoyDeviation > 0;
 
@@ -167,19 +177,39 @@ export default function ItemSummary() {
   const lastYearTop = topMonthlyData.map((value) => (value > 0 ? Math.round(value * 0.85) : 0));
 
   const monthlyUsageOption = {
+    backgroundColor: 'transparent',
     tooltip: { trigger: 'axis' },
-    legend: { bottom: 0, data: ['This year', 'Last year', 'Target usage'], textStyle: { color: isDarkMode ? '#d9d9d9' : '#595959' } },
+    legend: {
+      bottom: 0,
+      data: ['This year', 'Last year', 'Target usage'],
+      textStyle: { color: isDarkMode ? '#d9d9d9' : '#595959' },
+    },
     grid: { left: '3%', right: '4%', bottom: '15%', top: '3%', containLabel: true },
-    xAxis: { type: 'category', data: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'] },
+    xAxis: {
+      type: 'category',
+      data: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+      axisLabel: { color: isDarkMode ? '#d9d9d9' : '#595959' },
+    },
     yAxis: {
       type: 'value',
-      axisLabel: { formatter: (value) => (value >= 1000 ? `${value / 1000}K` : value) },
+      axisLabel: {
+        color: isDarkMode ? '#d9d9d9' : '#595959',
+        formatter: (value) => (value >= 1000 ? `${value / 1000}K` : value),
+      },
       splitLine: { lineStyle: { type: 'dashed', color: isDarkMode ? '#303030' : '#e8e8e8' } },
     },
     series: [
       { name: 'This year', type: 'bar', itemStyle: { color: '#1890ff' }, data: topMonthlyData },
       { name: 'Last year', type: 'bar', itemStyle: { color: isDarkMode ? '#172b4d' : '#e6f4ff' }, data: lastYearTop },
-      { name: 'Target usage', type: 'line', smooth: true, lineStyle: { width: 3, type: 'dashed', color: '#ff4d4f' }, symbol: 'circle', itemStyle: { color: '#ff4d4f' }, data: new Array(12).fill(targetTop) },
+      {
+        name: 'Target usage',
+        type: 'line',
+        smooth: true,
+        lineStyle: { width: 3, type: 'dashed', color: '#ff4d4f' },
+        symbol: 'circle',
+        itemStyle: { color: '#ff4d4f' },
+        data: new Array(12).fill(targetTop),
+      },
     ],
   };
 
@@ -188,31 +218,58 @@ export default function ItemSummary() {
   const lastYearBar = barDataThisYear.map((value) => (value > 0 ? Math.round(value * 0.85) : 0));
 
   const areaMonthlyOption = {
+    backgroundColor: 'transparent',
     tooltip: { trigger: 'axis' },
     legend: { bottom: 0, textStyle: { color: isDarkMode ? '#d9d9d9' : '#595959' } },
     grid: { left: '3%', right: '4%', bottom: '15%', top: '3%', containLabel: true },
-    xAxis: { type: 'category', data: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'] },
+    xAxis: {
+      type: 'category',
+      data: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+      axisLabel: { color: isDarkMode ? '#d9d9d9' : '#595959' },
+    },
     yAxis: {
       type: 'value',
-      axisLabel: { formatter: (value) => (value >= 1000 ? `${value / 1000}K` : value) },
+      axisLabel: {
+        color: isDarkMode ? '#d9d9d9' : '#595959',
+        formatter: (value) => (value >= 1000 ? `${value / 1000}K` : value),
+      },
       splitLine: { lineStyle: { type: 'dashed', color: isDarkMode ? '#303030' : '#e8e8e8' } },
     },
     series: [
       { name: 'This year', type: 'bar', itemStyle: { color: '#1890ff' }, data: barDataThisYear },
       { name: 'Last year', type: 'bar', itemStyle: { color: isDarkMode ? '#172b4d' : '#e6f4ff' }, data: lastYearBar },
-      { name: 'Target usage', type: 'line', smooth: true, lineStyle: { width: 3, type: 'dashed', color: '#ff4d4f' }, symbol: 'circle', itemStyle: { color: '#ff4d4f' }, data: new Array(12).fill(targetBar) },
+      {
+        name: 'Target usage',
+        type: 'line',
+        smooth: true,
+        lineStyle: { width: 3, type: 'dashed', color: '#ff4d4f' },
+        symbol: 'circle',
+        itemStyle: { color: '#ff4d4f' },
+        data: new Array(12).fill(targetBar),
+      },
     ],
   };
 
   const regionalUsageOption = {
+    backgroundColor: 'transparent',
     tooltip: { trigger: 'item', formatter: '{b} : {c} kWh ({d}%)' },
     series: [
       {
         type: 'pie',
         cursor: 'pointer',
         radius: ['45%', '65%'],
-        itemStyle: { borderRadius: 4, borderColor: isDarkMode ? '#141414' : '#fff', borderWidth: 2 },
-        label: { show: true, position: 'outside', formatter: '{b}\n{d}%', fontWeight: 'bold' },
+        itemStyle: {
+          borderRadius: 4,
+          borderColor: isDarkMode ? '#141414' : '#fff',
+          borderWidth: 2,
+        },
+        label: {
+          show: true,
+          position: 'outside',
+          formatter: '{b}\n{d}%',
+          fontWeight: 'bold',
+          color: isDarkMode ? '#d9d9d9' : '#595959',
+        },
         data: pieData.length > 0 ? pieData : [{ name: 'No Data', value: 0 }],
       },
     ],
@@ -230,16 +287,47 @@ export default function ItemSummary() {
           <Select defaultValue="This year" style={{ width: 120 }}>
             <Option value="This year">This year</Option>
           </Select>
-          <Button type="primary" onClick={fetchDashboardData} loading={loadingMain}>Refresh</Button>
+          <Button type="primary" onClick={fetchDashboardData} loading={loadingMain}>
+            Refresh
+          </Button>
         </Space>
       </Card>
 
       <Spin spinning={loadingMain}>
         <Row gutter={[10, 10]}>
-          <Col xs={24} sm={12} lg={6}><Card bordered={false}><Text type="secondary">This year usage</Text><Title level={3} style={{ margin: 0 }}>{formatPower(thisYearTotal)}</Title></Card></Col>
-          <Col xs={24} sm={12} lg={6}><Card bordered={false}><Text type="secondary">Last year usage</Text><Title level={3} style={{ margin: 0 }}>{formatPower(lastYearTotal)}</Title></Card></Col>
-          <Col xs={24} sm={12} lg={6}><Card bordered={false}><Text type="secondary">YoY deviation</Text><Title level={3} style={{ margin: 0, color: isYoYPositive ? '#ff4d4f' : '#52c41a' }}>{isYoYPositive ? '+' : ''}{formatPower(yoyDeviation)}</Title></Card></Col>
-          <Col xs={24} sm={12} lg={6}><Card bordered={false}><Text type="secondary">Real-time demand</Text><Title level={3} style={{ margin: 0 }}>{realtimeDemand.toFixed(2)} kW</Title></Card></Col>
+          <Col xs={24} sm={12} lg={6}>
+            <Card bordered={false}>
+              <Text type="secondary">This year usage</Text>
+              <Title level={3} style={{ margin: 0 }}>
+                {formatPower(thisYearTotal)}
+              </Title>
+            </Card>
+          </Col>
+          <Col xs={24} sm={12} lg={6}>
+            <Card bordered={false}>
+              <Text type="secondary">Last year usage</Text>
+              <Title level={3} style={{ margin: 0 }}>
+                {formatPower(lastYearTotal)}
+              </Title>
+            </Card>
+          </Col>
+          <Col xs={24} sm={12} lg={6}>
+            <Card bordered={false}>
+              <Text type="secondary">YoY deviation</Text>
+              <Title level={3} style={{ margin: 0, color: isYoYPositive ? '#ff4d4f' : '#52c41a' }}>
+                {isYoYPositive ? '+' : ''}
+                {formatPower(yoyDeviation)}
+              </Title>
+            </Card>
+          </Col>
+          <Col xs={24} sm={12} lg={6}>
+            <Card bordered={false}>
+              <Text type="secondary">Real-time demand</Text>
+              <Title level={3} style={{ margin: 0 }}>
+                {realtimeDemand.toFixed(2)} kW
+              </Title>
+            </Card>
+          </Col>
         </Row>
 
         <Row gutter={[10, 10]} align="stretch" style={{ marginTop: 10 }}>
@@ -252,7 +340,13 @@ export default function ItemSummary() {
               <Row gutter={[10, 10]}>
                 <Col xs={24} md={12}>
                   <Card title="Regional Usage" bordered={false}>
-                    <ReactECharts notMerge={true} option={regionalUsageOption} theme={isDarkMode ? 'dark' : 'light'} onEvents={onEvents} style={{ height: '200px' }} />
+                    <ReactECharts
+                      notMerge={true}
+                      option={regionalUsageOption}
+                      theme={isDarkMode ? 'dark' : 'light'}
+                      onEvents={onEvents}
+                      style={{ height: '200px' }}
+                    />
                   </Card>
                 </Col>
                 <Col xs={24} md={12}>
@@ -268,15 +362,19 @@ export default function ItemSummary() {
 
           <Col xs={24} lg={8}>
             <Card title="Equipment Usage Ranking" bordered={false} style={{ height: '100%' }}>
-              {rankingData.length > 0 ? rankingData.map((item, index) => (
-                <div key={index} style={{ marginBottom: '10px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Text style={{ fontSize: '13px', fontWeight: 500 }} ellipsis={true}>{item.name}</Text>
-                    <Text style={{ fontSize: '13px', flexShrink: 0, paddingLeft: 8 }}>{formatPower(item.value)}</Text>
+              {rankingData.length > 0 ? (
+                rankingData.map((item, index) => (
+                  <div key={index} style={{ marginBottom: '10px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <Text style={{ fontSize: '13px', fontWeight: 500 }} ellipsis>
+                        {item.name}
+                      </Text>
+                      <Text style={{ fontSize: '13px', flexShrink: 0, paddingLeft: 8 }}>{formatPower(item.value)}</Text>
+                    </div>
+                    <Progress percent={item.percent} showInfo={false} strokeColor="#1890ff" size="small" />
                   </div>
-                  <Progress percent={item.percent} showInfo={false} strokeColor="#1890ff" size="small" />
-                </div>
-              )) : (
+                ))
+              ) : (
                 <Text type="secondary">No data available for ranking</Text>
               )}
             </Card>

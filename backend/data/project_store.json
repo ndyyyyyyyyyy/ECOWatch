@@ -1,0 +1,340 @@
+{
+  "devices": [
+    {
+      "deviceName": "PM_N1",
+      "deployed": true,
+      "configuredProperties": [
+        {
+          "label": "Device Name",
+          "value": "PM_N1"
+        },
+        {
+          "label": "Description",
+          "value": ""
+        },
+        {
+          "label": "Unit Number",
+          "value": "1"
+        },
+        {
+          "label": "Device Type",
+          "value": "MQTT"
+        },
+        {
+          "label": "Heartbeat Frequency (second)",
+          "value": "60"
+        },
+        {
+          "label": "Device ID",
+          "value": "1"
+        },
+        {
+          "label": "Username",
+          "value": "admin"
+        },
+        {
+          "label": "Password",
+          "value": "admin"
+        },
+        {
+          "label": "IP Address",
+          "value": "192.168.10.100"
+        },
+        {
+          "label": "Port Number",
+          "value": "1883"
+        }
+      ],
+      "configuredTags": [
+        {
+          "name": "Voltage",
+          "type": "analog",
+          "description": "Analog Input",
+          "sourceAddress": "Node1:Voltage",
+          "address": "Node1:Voltage",
+          "logData": "yes"
+        },
+        {
+          "name": "Current",
+          "type": "analog",
+          "description": "Analog Input",
+          "sourceAddress": "Node1:Current",
+          "address": "Node1:Current",
+          "logData": "yes"
+        },
+        {
+          "name": "Frequency",
+          "type": "analog",
+          "description": "Analog Input",
+          "sourceAddress": "Node1:Frequency",
+          "address": "Node1:Frequency",
+          "logData": "yes"
+        },
+        {
+          "name": "pF",
+          "type": "analog",
+          "description": "Analog Input",
+          "sourceAddress": "Node1:pF",
+          "address": "Node1:pF",
+          "logData": "yes"
+        },
+        {
+          "name": "kWh",
+          "type": "analog",
+          "description": "Analog Input",
+          "sourceAddress": "Node1:kWh",
+          "address": "Node1:kWh",
+          "logData": "yes"
+        }
+      ]
+    },
+    {
+      "deviceName": "PM_N2",
+      "deployed": true,
+      "configuredProperties": [
+        {
+          "label": "Device Name",
+          "value": "PM_N2"
+        },
+        {
+          "label": "Description",
+          "value": ""
+        },
+        {
+          "label": "Unit Number",
+          "value": "2"
+        },
+        {
+          "label": "Device Type",
+          "value": "MQTT"
+        },
+        {
+          "label": "Heartbeat Frequency (second)",
+          "value": "60"
+        },
+        {
+          "label": "Device ID",
+          "value": "2"
+        },
+        {
+          "label": "Username",
+          "value": "admin"
+        },
+        {
+          "label": "Password",
+          "value": "admin"
+        },
+        {
+          "label": "IP Address",
+          "value": "192.168.10.100"
+        },
+        {
+          "label": "Port Number",
+          "value": "1883"
+        }
+      ],
+      "configuredTags": [
+        {
+          "name": "Voltage",
+          "type": "analog",
+          "description": "Analog Input",
+          "sourceAddress": "Node2:Voltage",
+          "address": "Node2:Voltage",
+          "logData": "yes"
+        },
+        {
+          "name": "Current",
+          "type": "analog",
+          "description": "Analog Input",
+          "sourceAddress": "Node2:Current",
+          "address": "Node2:Current",
+          "logData": "yes"
+        },
+        {
+          "name": "Frequency",
+          "type": "analog",
+          "description": "Analog Input",
+          "sourceAddress": "Node2:Frequency",
+          "address": "Node2:Frequency",
+          "logData": "yes"
+        },
+        {
+          "name": "Power Factor",
+          "type": "analog",
+          "description": "Analog Input",
+          "sourceAddress": "Node2:pF",
+          "address": "Node2:pF",
+          "logData": "yes"
+        },
+        {
+          "name": "kWh",
+          "type": "analog",
+          "description": "Analog Input",
+          "sourceAddress": "Node2:kWh",
+          "address": "Node2:kWh",
+          "logData": "yes"
+        }
+      ]
+    },
+    {
+      "deviceName": "OFFICE",
+      "deployed": true,
+      "configuredProperties": [
+        {
+          "label": "Device Name",
+          "value": "OFFICE"
+        },
+        {
+          "label": "Description",
+          "value": ""
+        },
+        {
+          "label": "Unit Number",
+          "value": "3"
+        },
+        {
+          "label": "Device Type",
+          "value": "MQTT"
+        },
+        {
+          "label": "Heartbeat Frequency (second)",
+          "value": "60"
+        },
+        {
+          "label": "Device ID",
+          "value": "3"
+        },
+        {
+          "label": "Username",
+          "value": "admin"
+        },
+        {
+          "label": "Password",
+          "value": "admin"
+        },
+        {
+          "label": "IP Address",
+          "value": "192.168.10.100"
+        },
+        {
+          "label": "Port Number",
+          "value": "1883"
+        }
+      ],
+      "configuredTags": [
+        {
+          "name": "Voltage A",
+          "type": "analog",
+          "description": "Analog Input",
+          "sourceAddress": "WISE4051:Voltage_A",
+          "address": "WISE4051:Voltage_A",
+          "logData": "yes"
+        },
+        {
+          "name": "Voltage B",
+          "type": "analog",
+          "description": "Analog Input",
+          "sourceAddress": "WISE4051:Voltage_B",
+          "address": "WISE4051:Voltage_B",
+          "logData": "yes"
+        },
+        {
+          "name": "Voltage C",
+          "type": "analog",
+          "description": "Analog Input",
+          "sourceAddress": "WISE4051:Voltage_C",
+          "address": "WISE4051:Voltage_C",
+          "logData": "yes"
+        },
+        {
+          "name": "Current A",
+          "type": "analog",
+          "description": "Analog Input",
+          "sourceAddress": "WISE4051:Current_A",
+          "address": "WISE4051:Current_A",
+          "logData": "yes"
+        },
+        {
+          "name": "Current B",
+          "type": "analog",
+          "description": "Analog Input",
+          "sourceAddress": "WISE4051:Current_B",
+          "address": "WISE4051:Current_B",
+          "logData": "yes"
+        },
+        {
+          "name": "Current C",
+          "type": "analog",
+          "description": "Analog Input",
+          "sourceAddress": "WISE4051:Current_C",
+          "address": "WISE4051:Current_C",
+          "logData": "yes"
+        },
+        {
+          "name": "kW A",
+          "type": "analog",
+          "description": "Analog Input",
+          "sourceAddress": "WISE4051:kW_A",
+          "address": "WISE4051:kW_A",
+          "logData": "yes"
+        },
+        {
+          "name": "kW B",
+          "type": "analog",
+          "description": "Analog Input",
+          "sourceAddress": "WISE4051:kW_B",
+          "address": "WISE4051:kW_B",
+          "logData": "yes"
+        },
+        {
+          "name": "kW C",
+          "type": "analog",
+          "description": "Analog Input",
+          "sourceAddress": "WISE4051:kW_C",
+          "address": "WISE4051:kW_C",
+          "logData": "yes"
+        },
+        {
+          "name": "Power Factor A",
+          "type": "analog",
+          "description": "Analog Input",
+          "sourceAddress": "WISE4051:PowerFactor_A",
+          "address": "WISE4051:PowerFactor_A",
+          "logData": "yes"
+        },
+        {
+          "name": "Power Factor B",
+          "type": "analog",
+          "description": "Analog Input",
+          "sourceAddress": "WISE4051:PowerFactor_B",
+          "address": "WISE4051:PowerFactor_B",
+          "logData": "yes"
+        },
+        {
+          "name": "Power Factor C",
+          "type": "analog",
+          "description": "Analog Input",
+          "sourceAddress": "WISE4051:PowerFactor_C",
+          "address": "WISE4051:PowerFactor_C",
+          "logData": "yes"
+        },
+        {
+          "name": "Energy",
+          "type": "analog",
+          "description": "Analog Input",
+          "sourceAddress": "WISE4051:E",
+          "address": "WISE4051:E",
+          "logData": "yes"
+        },
+        {
+          "name": "P",
+          "type": "analog",
+          "description": "Analog Input",
+          "sourceAddress": "WISE4051:P",
+          "address": "WISE4051:P",
+          "logData": "yes"
+        }
+      ]
+    }
+  ]
+}

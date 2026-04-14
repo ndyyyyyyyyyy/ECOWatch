@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
@@ -87,3 +88,5 @@ ENERGY_PG_USER = os.getenv("ENERGY_PG_USER", "postgres").strip() or "postgres"
 ENERGY_PG_PASSWORD = os.getenv("ENERGY_PG_PASSWORD", "").strip()
 ENERGY_PG_TABLE = os.getenv("ENERGY_PG_TABLE", "energy_data").strip() or "energy_data"
 ENERGY_PG_ENABLED = _env_bool("ENERGY_PG_ENABLED", True)
+APP_TIMEZONE = os.getenv("APP_TIMEZONE", "Asia/Jakarta").strip() or "Asia/Jakarta"
+TIMEZONE_INFO = ZoneInfo(APP_TIMEZONE)

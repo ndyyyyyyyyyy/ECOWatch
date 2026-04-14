@@ -1,5 +1,6 @@
 export const ENERGY_ENDPOINT = '/energy';
 export const DEFAULT_ROOT_AREAS = ['RAC', 'NR1', 'NR2', 'UT_NEW', 'UTILITY'];
+const REAL_ROOT = 'Electrical';
 
 export const DEFAULT_ECOWATCH_TREE = [
   {
@@ -46,6 +47,44 @@ export async function fetchRootAreaNames() {
   return [...DEFAULT_ROOT_AREAS];
 }
 
+async function fetchProjectEnergyDevices() {
+  try {
+    const response = await fetch('/api/project/devices', { credentials: 'include' });
+    if (!response.ok) {
+      return [];
+    }
+
+    const payload = await response.json();
+    return (payload.devices || []).filter((device) => {
+      if (!device?.deployed) {
+        return false;
+      }
+
+      return (device.tags || []).some((tag) => {
+        const tagName = String(tag?.name || '').trim().toLowerCase();
+        return tagName === 'kwh' || tagName === 'energy';
+      });
+    });
+  } catch (error) {
+    console.error('Failed to load project devices for real ecowatch nodes:', error);
+    return [];
+  }
+}
+
 export async function fetchEcowatchAreaTree() {
-  return DEFAULT_ECOWATCH_TREE;
+  const projectEnergyDevices = await fetchProjectEnergyDevices();
+  if (projectEnergyDevices.length === 0) {
+    return DEFAULT_ECOWATCH_TREE;
+  }
+
+  const realNode = {
+    title: REAL_ROOT,
+    key: `project:${REAL_ROOT}`,
+    children: projectEnergyDevices.map((device) => ({
+      title: String(device.name || '').trim(),
+      key: `project:${String(device.name || '').trim()}`,
+    })),
+  };
+
+  return [...DEFAULT_ECOWATCH_TREE, realNode];
 }
