@@ -71,7 +71,7 @@ def get_week_key(now: datetime | None = None) -> str:
 _IPV4_RE = re.compile(r"\b(?:\d{1,3}\.){3}\d{1,3}\b")
 
 
-def _windows_subnets_from_ipconfig() -> list[ipaddress.IPv4Network]:
+def _windows_subnets_from_ipconfig() -> list[ipaddress._BaseNetwork]:
     # Parse Windows `ipconfig` output to get real subnet prefix/mask.
     try:
         result = subprocess.run(
@@ -86,7 +86,7 @@ def _windows_subnets_from_ipconfig() -> list[ipaddress.IPv4Network]:
     if result.returncode != 0 or not result.stdout:
         return []
 
-    subnets: list[ipaddress.IPv4Network] = []
+    subnets: list[ipaddress._BaseNetwork] = []
     current_ip: str | None = None
 
     for raw_line in result.stdout.splitlines():
@@ -141,7 +141,7 @@ def _windows_subnets_from_ipconfig() -> list[ipaddress.IPv4Network]:
 
     # Remove duplicates while preserving order.
     seen: set[str] = set()
-    uniq: list[ipaddress.IPv4Network] = []
+    uniq: list[ipaddress._BaseNetwork] = []
     for subnet in subnets:
         key = str(subnet)
         if key in seen:
@@ -151,27 +151,31 @@ def _windows_subnets_from_ipconfig() -> list[ipaddress.IPv4Network]:
     return uniq
 
 
-def local_subnets_from_interfaces() -> list[ipaddress.IPv4Network]:
+def local_subnets_from_interfaces() -> list[ipaddress._BaseNetwork]:
     # Prefer accurate subnet detection on Windows via ipconfig parsing.
     windows_subnets = _windows_subnets_from_ipconfig()
     if windows_subnets:
         return windows_subnets
 
     # Cross-platform fallback: collect host IPv4s and assume /24.
-    subnets: list[ipaddress.IPv4Network] = []
+    subnets: list[ipaddress._BaseNetwork] = []
     try:
-        infos = socket.getaddrinfo(socket.gethostname(), None, socket.AF_INET)
+        infos = socket.getaddrinfo(socket.gethostname(), None)
     except Exception:
         infos = []
 
     seen: set[str] = set()
     for info in infos:
         ip = info[4][0]
-        if ip.startswith("127.") or ip in seen:
+        if ip in seen:
             continue
         seen.add(ip)
         try:
-            subnets.append(ipaddress.ip_network(f"{ip}/24", strict=False))
+            addr = ipaddress.ip_address(ip)
+            if addr.is_loopback:
+                continue
+            prefix = 24 if addr.version == 4 else 64
+            subnets.append(ipaddress.ip_network(f"{ip}/{prefix}", strict=False))
         except Exception:
             continue
     return subnets
@@ -179,7 +183,7 @@ def local_subnets_from_interfaces() -> list[ipaddress.IPv4Network]:
 
 _ENV_SUBNET = (os.getenv("ALLOWED_SUBNET_CIDR") or "").strip()
 if _ENV_SUBNET:
-    parsed_subnets: list[ipaddress.IPv4Network] = []
+    parsed_subnets: list[ipaddress._BaseNetwork] = []
     for raw_value in _ENV_SUBNET.split(","):
         value = raw_value.strip()
         if not value:
@@ -200,7 +204,7 @@ def ip_in_allowed_subnet(raw_ip: str) -> bool:
         addr = ipaddress.ip_address(raw_ip)
     except Exception:
         return False
-    return addr.version == 4 and any(addr in subnet for subnet in ALLOWED_SUBNETS)
+    return any(addr.version == subnet.version and addr in subnet for subnet in ALLOWED_SUBNETS)
 
 
 def is_loopback_or_internal_proxy(raw_ip: str) -> bool:

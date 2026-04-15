@@ -6,7 +6,7 @@ services:
     image: efortech-backend:latest
     container_name: efortech-backend
     ports:
-      - "${APP_HOST_PORT:-4000}:4000"
+      - "4000:4000"
     env_file:
       - .env.docker
     depends_on:

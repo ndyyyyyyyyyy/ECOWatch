@@ -11,6 +11,7 @@ def register_gateway_middleware(app: FastAPI):
         remote_ip = (
             resolve_client_ip(dict(request.headers), peer_ip) if is_loopback_or_internal_proxy(peer_ip) else peer_ip
         )
+
         if remote_ip and remote_ip not in {"127.0.0.1", "::1", "172.18.0.1"} and not ip_in_allowed_subnet(remote_ip):
             return JSONResponse(
                 {"message": "Forbidden: only local subnet access is allowed."},

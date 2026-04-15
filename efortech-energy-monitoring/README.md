@@ -69,13 +69,12 @@ Web application for configuring energy devices, ingesting MQTT data, storing rea
 Main environment files:
 
 - `.env`
-  Local/runtime defaults used outside containers and by compose variable substitution.
+  Local/runtime defaults used outside containers and as an optional host-side compose helper.
 - `.env.docker`
   Environment injected into the main app container.
 
 Important variables:
 
-- `APP_HOST_PORT`
 - `ALLOWED_SUBNET_CIDR`
 - `ALLOWED_ORIGINS`
 - `MQTT_BROKER_HOST`
@@ -87,6 +86,17 @@ Optional variable:
 
 - `APP_PUBLIC_BASE_URL`
   Only needed if you want to pin a single canonical public URL instead of relying on the incoming request host.
+
+Gateway and access notes:
+
+- `ALLOWED_SUBNET_CIDR`
+  Accepts comma-separated IPv4 and IPv6 CIDR entries.
+- For LAN-only deployments, use local ranges such as `192.168.10.0/24`.
+- For reverse-proxy setups, include the trusted proxy subnet or IP if the app sees proxy peer addresses.
+- For public domain deployments behind a trusted proxy or CDN, `0.0.0.0/0,::/0` allows all IPv4 and IPv6 clients at the app layer.
+- `ALLOWED_ORIGINS`
+  Must explicitly include non-IP browser origins such as `https://efortech-ems.wahyutech.my.id`.
+- The backend reads `X-Forwarded-For`, `X-Real-IP`, and `Forwarded` when the immediate peer is a trusted local/private hop.
 
 Current network assumptions in this repo:
 
@@ -118,6 +128,8 @@ This repo is now self-contained for Docker deployment:
 - the main app image is built from the root `Dockerfile`
 - the Mosquitto config is mounted from `mosquitto/mosquitto.conf`
 - the Grafana custom image is built from `grafana-custom/Dockerfile`
+- the backend container reads runtime settings from `.env.docker`
+- the backend host port is fixed to `4000:4000` in `docker-compose.yml`
 - no separate manual `docker build`, `docker save`, or `docker load` step is required for a fresh machine
 
 Useful checks:
