@@ -28,6 +28,39 @@ export default function ItemSummary() {
   const [loadingMain, setLoadingMain] = useState(false);
   const [loadingBar, setLoadingBar] = useState(false);
 
+  const buildEnergyUrl = (params = {}, areaNames = []) => {
+    const query = new URLSearchParams();
+    Object.entries(params).forEach(([key, value]) => {
+      if (value !== undefined && value !== null && value !== '') {
+        query.set(key, String(value));
+      }
+    });
+
+    const normalizedAreas = Array.isArray(areaNames)
+      ? areaNames.map((item) => String(item || '').trim()).filter(Boolean)
+      : [];
+    if (normalizedAreas.length > 0) {
+      query.set('areas', normalizedAreas.join(','));
+      query.set('include_descendants', 'true');
+    }
+
+    return `${ENERGY_ENDPOINT}?${query.toString()}`;
+  };
+
+  const pruneSelectedParents = (rows, selectedAreas = []) => {
+    const selectedSet = new Set(
+      (selectedAreas || []).map((item) => String(item || '').trim()).filter(Boolean)
+    );
+    if (selectedSet.size === 0) {
+      return rows;
+    }
+    return rows.filter((item) => {
+      const tagName = String(item?.tag_name || '').trim();
+      const hasChildren = Array.isArray(item?.children_names) && item.children_names.length > 0;
+      return !(selectedSet.has(tagName) && hasChildren);
+    });
+  };
+
   const getTargetAreas = () => {
     if (!checkedAreaNames || checkedAreaNames.length === 0) {
       return mainAreas;
@@ -53,22 +86,33 @@ export default function ItemSummary() {
       const currentYear = dayjs().year();
       const lastYear = currentYear - 1;
       const targetAreas = getTargetAreas();
+      const selectedAreas = targetAreas.split(',').map((item) => item.trim()).filter(Boolean);
 
-      const thisYearUrl = `${ENERGY_ENDPOINT}?interval=Month&start=${currentYear}-01-01&end=${currentYear}-12-31&areas=${targetAreas}`;
-      const lastYearUrl = `${ENERGY_ENDPOINT}?interval=Month&start=${lastYear}-01-01&end=${lastYear}-12-31&areas=${targetAreas}`;
+      const thisYearUrl = buildEnergyUrl(
+        { interval: 'Month', start: `${currentYear}-01-01`, end: `${currentYear}-12-31` },
+        selectedAreas
+      );
+      const lastYearUrl = buildEnergyUrl(
+        { interval: 'Month', start: `${lastYear}-01-01`, end: `${lastYear}-12-31` },
+        selectedAreas
+      );
 
       const today = dayjs().format('YYYY-MM-DD');
-      const todayUrl = `${ENERGY_ENDPOINT}?interval=Day&start=${today}&end=${today}&areas=${targetAreas}`;
+      const now = dayjs().format('YYYY-MM-DD HH:mm:ss');
+      const todayDemandUrl = buildEnergyUrl(
+        { metric: 'power', interval: 'Minute', start: today, end: now },
+        selectedAreas
+      );
 
-      const [thisYearRes, lastYearRes, todayRes] = await Promise.all([
+      const [thisYearRes, lastYearRes, todayDemandRes] = await Promise.all([
         axios.get(thisYearUrl),
         axios.get(lastYearUrl),
-        axios.get(todayUrl),
+        axios.get(todayDemandUrl),
       ]);
 
-      const thisYearRaw = thisYearRes.data || [];
-      const lastYearRaw = lastYearRes.data || [];
-      const todayRaw = todayRes.data || [];
+      const thisYearRaw = pruneSelectedParents(thisYearRes.data || [], selectedAreas);
+      const lastYearRaw = pruneSelectedParents(lastYearRes.data || [], selectedAreas);
+      const todayDemandRaw = pruneSelectedParents(todayDemandRes.data || [], selectedAreas);
 
       let totalThisYear = 0;
       const monthlyTotals = new Array(12).fill(0);
@@ -94,8 +138,19 @@ export default function ItemSummary() {
       });
 
       let currentDemand = 0;
-      todayRaw.forEach((item) => {
-        currentDemand += parseFloat(item.value_kwh || 0);
+      const latestDemandTimestamp = todayDemandRaw.reduce((latest, item) => {
+        const value = parseFloat(item.value_kw ?? item.value ?? 0);
+        const timestamp = String(item.timestamp || '');
+        if (value <= 0) {
+          return latest;
+        }
+        return timestamp > latest ? timestamp : latest;
+      }, '');
+      todayDemandRaw.forEach((item) => {
+        if (String(item.timestamp || '') !== latestDemandTimestamp) {
+          return;
+        }
+        currentDemand += parseFloat(item.value_kw ?? item.value ?? 0);
       });
 
       setThisYearTotal(totalThisYear);
@@ -140,9 +195,12 @@ export default function ItemSummary() {
 
     try {
       const currentYear = dayjs().year();
-      const url = `${ENERGY_ENDPOINT}?interval=Month&start=${currentYear}-01-01&end=${currentYear}-12-31&areas=${areaName}`;
+      const url = buildEnergyUrl(
+        { interval: 'Month', start: `${currentYear}-01-01`, end: `${currentYear}-12-31` },
+        [areaName]
+      );
       const res = await axios.get(url);
-      const rawData = res.data || [];
+      const rawData = pruneSelectedParents(res.data || [], [areaName]);
 
       const monthlyValues = new Array(12).fill(0);
       rawData.forEach((item) => {
@@ -172,13 +230,18 @@ export default function ItemSummary() {
     return `${value.toFixed(2)} kWh`;
   };
 
+  const round2 = (value) => Number(Number(value || 0).toFixed(2));
+
   const maxTop = Math.max(...topMonthlyData);
   const targetTop = maxTop > 0 ? Math.round(maxTop * 0.9) : 1000;
   const lastYearTop = topMonthlyData.map((value) => (value > 0 ? Math.round(value * 0.85) : 0));
 
   const monthlyUsageOption = {
     backgroundColor: 'transparent',
-    tooltip: { trigger: 'axis' },
+    tooltip: {
+      trigger: 'axis',
+      valueFormatter: (value) => formatPower(Number(value || 0)),
+    },
     legend: {
       bottom: 0,
       data: ['This year', 'Last year', 'Target usage'],
@@ -199,8 +262,8 @@ export default function ItemSummary() {
       splitLine: { lineStyle: { type: 'dashed', color: isDarkMode ? '#303030' : '#e8e8e8' } },
     },
     series: [
-      { name: 'This year', type: 'bar', itemStyle: { color: '#1890ff' }, data: topMonthlyData },
-      { name: 'Last year', type: 'bar', itemStyle: { color: isDarkMode ? '#172b4d' : '#e6f4ff' }, data: lastYearTop },
+      { name: 'This year', type: 'bar', itemStyle: { color: '#1890ff' }, data: topMonthlyData.map(round2) },
+      { name: 'Last year', type: 'bar', itemStyle: { color: isDarkMode ? '#172b4d' : '#e6f4ff' }, data: lastYearTop.map(round2) },
       {
         name: 'Target usage',
         type: 'line',
@@ -208,7 +271,7 @@ export default function ItemSummary() {
         lineStyle: { width: 3, type: 'dashed', color: '#ff4d4f' },
         symbol: 'circle',
         itemStyle: { color: '#ff4d4f' },
-        data: new Array(12).fill(targetTop),
+        data: new Array(12).fill(round2(targetTop)),
       },
     ],
   };
@@ -219,7 +282,10 @@ export default function ItemSummary() {
 
   const areaMonthlyOption = {
     backgroundColor: 'transparent',
-    tooltip: { trigger: 'axis' },
+    tooltip: {
+      trigger: 'axis',
+      valueFormatter: (value) => formatPower(Number(value || 0)),
+    },
     legend: { bottom: 0, textStyle: { color: isDarkMode ? '#d9d9d9' : '#595959' } },
     grid: { left: '3%', right: '4%', bottom: '15%', top: '3%', containLabel: true },
     xAxis: {
@@ -236,8 +302,8 @@ export default function ItemSummary() {
       splitLine: { lineStyle: { type: 'dashed', color: isDarkMode ? '#303030' : '#e8e8e8' } },
     },
     series: [
-      { name: 'This year', type: 'bar', itemStyle: { color: '#1890ff' }, data: barDataThisYear },
-      { name: 'Last year', type: 'bar', itemStyle: { color: isDarkMode ? '#172b4d' : '#e6f4ff' }, data: lastYearBar },
+      { name: 'This year', type: 'bar', itemStyle: { color: '#1890ff' }, data: barDataThisYear.map(round2) },
+      { name: 'Last year', type: 'bar', itemStyle: { color: isDarkMode ? '#172b4d' : '#e6f4ff' }, data: lastYearBar.map(round2) },
       {
         name: 'Target usage',
         type: 'line',
@@ -245,14 +311,17 @@ export default function ItemSummary() {
         lineStyle: { width: 3, type: 'dashed', color: '#ff4d4f' },
         symbol: 'circle',
         itemStyle: { color: '#ff4d4f' },
-        data: new Array(12).fill(targetBar),
+        data: new Array(12).fill(round2(targetBar)),
       },
     ],
   };
 
   const regionalUsageOption = {
     backgroundColor: 'transparent',
-    tooltip: { trigger: 'item', formatter: '{b} : {c} kWh ({d}%)' },
+    tooltip: {
+      trigger: 'item',
+      formatter: (params) => `${params.name} : ${formatPower(Number(params.value || 0))} (${params.percent}%)`,
+    },
     series: [
       {
         type: 'pie',

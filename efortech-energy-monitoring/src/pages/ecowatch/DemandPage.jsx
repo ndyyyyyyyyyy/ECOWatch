@@ -22,6 +22,8 @@ export default function DemandPage() {
   const [chartSeries, setChartSeries] = useState([]);
   const [tableData, setTableData] = useState([]);
 
+  const formatKw = (value) => `${Number(value || 0).toFixed(2)} kW`;
+
   const fetchDemandData = async () => {
     if (!dateRange || dateRange.length !== 2) {
       message.warning('Choose a date range first!');
@@ -33,11 +35,11 @@ export default function DemandPage() {
       const start = dateRange[0].format('YYYY-MM-DD');
       const end = dateRange[1].format('YYYY-MM-DD');
 
-      let url = `${ENERGY_ENDPOINT}?interval=${intervalWaktu}&start=${start}&end=${end}`;
+      let url = `${ENERGY_ENDPOINT}?metric=power&interval=${intervalWaktu}&start=${start}&end=${end}`;
       if (checkedAreaNames && checkedAreaNames.length > 0) {
         url += `&areas=${checkedAreaNames.join(',')}`;
       } else {
-        url += '&areas=MAIN_ELECTRICAL';
+        url += '&areas=Office';
       }
 
       const response = await axios.get(url);
@@ -48,7 +50,7 @@ export default function DemandPage() {
         if (!aggregatedData[item.timestamp]) {
           aggregatedData[item.timestamp] = 0;
         }
-        aggregatedData[item.timestamp] += parseFloat(item.value_kwh);
+        aggregatedData[item.timestamp] += parseFloat(item.value_kw ?? item.value ?? 0);
       });
 
       const timestamps = Object.keys(aggregatedData).sort();
@@ -112,10 +114,13 @@ export default function DemandPage() {
       ? checkedAreaNames.length === 1
         ? checkedAreaNames[0]
         : 'Total Selected Areas'
-      : 'Demand (MAIN_ELECTRICAL)';
+      : 'Demand (Office)';
 
   const demandOption = {
-    tooltip: { trigger: 'axis' },
+    tooltip: {
+      trigger: 'axis',
+      valueFormatter: (value) => formatKw(value),
+    },
     grid: { top: '13%', left: '3%', right: '3%', bottom: '50px', containLabel: true },
     dataZoom: [
       { type: 'inside', start: 0, end: 100, height: 15 },
@@ -129,6 +134,9 @@ export default function DemandPage() {
     yAxis: {
       type: 'value',
       name: 'kW',
+      axisLabel: {
+        formatter: (value) => Number(value).toFixed(2),
+      },
       splitLine: {
         lineStyle: { type: 'dashed', color: isDarkMode ? '#303030' : '#e8e8e8' },
       },
@@ -137,7 +145,7 @@ export default function DemandPage() {
       {
         name: seriesName,
         type: 'line',
-        data: chartSeries,
+        data: chartSeries.map((value) => Number(Number(value).toFixed(2))),
         itemStyle: { color: '#52c41a' },
         lineStyle: { width: 2 },
         areaStyle: {

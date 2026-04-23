@@ -1,6 +1,14 @@
-import { ChevronRight, Cpu, PencilLine, SquarePlus } from 'lucide-react'
+import { ChevronRight, Cpu, PencilLine } from 'lucide-react'
 
 import { getUnitNumberLabel } from '../../projectStorage.js'
+
+function formatPropertyValue(property) {
+  const rawValue = property?.value || ''
+  if (property?.label === 'Password') {
+    return rawValue ? '•'.repeat(Math.max(String(rawValue).length, 8)) : '\u00A0'
+  }
+  return rawValue || '\u00A0'
+}
 
 export default function DeviceDetails({
   activeDevice,
@@ -54,10 +62,6 @@ export default function DeviceDetails({
             <strong>{activeDevice.tags.length}</strong>
           </div>
           <div className="project-stat-card">
-            <span>Blocks</span>
-            <strong>{activeDeviceItems.filter((item) => item.kind === 'block').length}</strong>
-          </div>
-          <div className="project-stat-card">
             <span>Unit</span>
             <strong>{getUnitNumberLabel(activeDevice)}</strong>
           </div>
@@ -68,8 +72,8 @@ export default function DeviceDetails({
         <section className="project-section-card">
           <div className="project-panel-head">
             <div>
-              <h2>Tag and Block Access</h2>
-              <span>Open tag management directly or review block availability.</span>
+              <h2>Tag Access</h2>
+              <span>Open tag management directly for the selected device.</span>
             </div>
           </div>
           <div className="project-shortcut-grid">
@@ -77,19 +81,22 @@ export default function DeviceDetails({
               <button
                 key={item.id}
                 type="button"
-                className={`project-shortcut-card ${item.kind === 'tag' ? 'is-tag' : 'is-block'} ${item.kind === 'tag' ? 'is-clickable' : 'is-static'}`}
+                className="project-shortcut-card is-tag is-clickable"
                 onClick={() => openTagConfiguration(activeDevice, item)}
               >
                 <div className="project-shortcut-icon">
-                  {item.kind === 'tag' ? <Cpu size={18} strokeWidth={1.9} /> : <SquarePlus size={18} strokeWidth={1.9} />}
+                  <Cpu size={18} strokeWidth={1.9} />
                 </div>
                 <div className="project-shortcut-copy">
                   <strong>{item.label}</strong>
-                  <span>{item.kind === 'tag' ? 'Manage device data points' : 'Block configuration placeholder'}</span>
+                  <span>Manage device data points</span>
                 </div>
-                {item.kind === 'tag' && <ChevronRight size={18} strokeWidth={1.9} />}
+                <ChevronRight size={18} strokeWidth={1.9} />
               </button>
             ))}
+            {!activeDeviceItems.length && (
+              <div className="project-shortcut-empty">No shortcut items available for this device type.</div>
+            )}
           </div>
         </section>
 
@@ -104,7 +111,7 @@ export default function DeviceDetails({
             {visibleActiveDeviceProperties.map((property) => (
               <div className="project-property-item" key={property.label}>
                 <div className="project-property-label">{property.label}</div>
-                <div className="project-property-value">{property.value || '\u00A0'}</div>
+                <div className="project-property-value">{formatPropertyValue(property)}</div>
               </div>
             ))}
           </div>

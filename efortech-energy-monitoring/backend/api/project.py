@@ -1,15 +1,20 @@
 from __future__ import annotations
 
+from core.config import INFLUX_ENABLED
 from fastapi import Body, FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
 
-from project_store import project_store
+from project.store import project_store
+from queues.analysis_queue import queue_available, queue_metrics
+from queues.raw_queue import raw_queue_available, raw_queue_metrics
 
 
 def register_project_routes(app: FastAPI):
     @app.get("/api/project/status")
     async def project_status():
         status = project_store.get_status()
+        metrics = queue_metrics() if queue_available() else {}
+        raw_metrics = raw_queue_metrics() if raw_queue_available() else {}
         return {
             "mqttEnabled": status.enabled,
             "connected": status.connected,
@@ -18,11 +23,32 @@ def register_project_routes(app: FastAPI):
             "brokerHost": status.broker_host,
             "brokerPort": status.broker_port,
             "message": status.message,
+            "queueEnabled": queue_available(),
+            "queueDepth": metrics.get("queueDepth", 0),
+            "queuePendingCount": metrics.get("pendingCount", 0),
+            "queueDlqDepth": metrics.get("dlqDepth", 0),
+            "queueProcessedCount": metrics.get("processedCount", 0),
+            "queueRetriedCount": metrics.get("retriedCount", 0),
+            "queueDeadLetterCount": metrics.get("deadLetterCount", 0),
+            "queueFailedCount": metrics.get("failedCount", 0),
+            "queueBackpressureRejectedCount": metrics.get("backpressureRejectedCount", 0),
+            "rawQueueEnabled": raw_queue_available() and INFLUX_ENABLED,
+            "rawQueueDepth": raw_metrics.get("queueDepth", 0),
+            "rawQueuePendingCount": raw_metrics.get("pendingCount", 0),
+            "rawQueueDlqDepth": raw_metrics.get("dlqDepth", 0),
+            "rawQueueProcessedCount": raw_metrics.get("processedCount", 0),
+            "rawQueueRetriedCount": raw_metrics.get("retriedCount", 0),
+            "rawQueueDeadLetterCount": raw_metrics.get("deadLetterCount", 0),
+            "rawQueueFailedCount": raw_metrics.get("failedCount", 0),
+            "rawQueueBackpressureRejectedCount": raw_metrics.get("backpressureRejectedCount", 0),
+            "topicWorkerCount": len(project_store._topic_threads),
         }
 
     @app.get("/api/project/devices")
     async def project_devices():
         status = project_store.get_status()
+        metrics = queue_metrics() if queue_available() else {}
+        raw_metrics = raw_queue_metrics() if raw_queue_available() else {}
         return {
             "source": "mqtt" if status.enabled else "unavailable",
             "devices": project_store.get_devices(),
@@ -32,6 +58,25 @@ def register_project_routes(app: FastAPI):
                 "available": status.available,
                 "message": status.message,
                 "topicFilter": status.topic_filter,
+                "queueEnabled": queue_available(),
+                "queueDepth": metrics.get("queueDepth", 0),
+                "queuePendingCount": metrics.get("pendingCount", 0),
+                "queueDlqDepth": metrics.get("dlqDepth", 0),
+                "queueProcessedCount": metrics.get("processedCount", 0),
+                "queueRetriedCount": metrics.get("retriedCount", 0),
+                "queueDeadLetterCount": metrics.get("deadLetterCount", 0),
+                "queueFailedCount": metrics.get("failedCount", 0),
+                "queueBackpressureRejectedCount": metrics.get("backpressureRejectedCount", 0),
+                "rawQueueEnabled": raw_queue_available() and INFLUX_ENABLED,
+                "rawQueueDepth": raw_metrics.get("queueDepth", 0),
+                "rawQueuePendingCount": raw_metrics.get("pendingCount", 0),
+                "rawQueueDlqDepth": raw_metrics.get("dlqDepth", 0),
+                "rawQueueProcessedCount": raw_metrics.get("processedCount", 0),
+                "rawQueueRetriedCount": raw_metrics.get("retriedCount", 0),
+                "rawQueueDeadLetterCount": raw_metrics.get("deadLetterCount", 0),
+                "rawQueueFailedCount": raw_metrics.get("failedCount", 0),
+                "rawQueueBackpressureRejectedCount": raw_metrics.get("backpressureRejectedCount", 0),
+                "topicWorkerCount": len(project_store._topic_threads),
             },
         }
 

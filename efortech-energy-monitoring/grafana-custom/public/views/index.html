@@ -239,7 +239,7 @@ a[aria-label="Help"],
   const MENU_ITEM_LABEL = 'Back to portal';
 
   function resolvePortalUrl() {
-    return new URL(PORTAL_PATH, window.location.origin).toString();
+    return PORTAL_PATH;
   }
 
   function findSignOutLink() {
@@ -363,6 +363,20 @@ a[aria-label="Help"],
     const signOutItem = findSignOutLink();
     if (!signOutItem) {
       return;
+    }
+
+    if (signOutItem.getAttribute('data-efortech-signout-patched') !== '1') {
+      const logoutUrl = '/sign-out';
+      signOutItem.setAttribute('data-efortech-signout-patched', '1');
+      if (signOutItem.tagName && signOutItem.tagName.toLowerCase() === 'a') {
+        signOutItem.setAttribute('href', logoutUrl);
+        signOutItem.setAttribute('target', '_self');
+      }
+      signOutItem.addEventListener('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        window.location.assign(logoutUrl);
+      });
     }
 
     const parent = signOutItem.parentElement;

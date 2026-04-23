@@ -32,47 +32,97 @@ export default function AreaUsagePage() {
   const [chartType, setChartType] = useState("bar");
   const [comparisonMode, setComparisonMode] = useState("Target energy");
 
+  const formatEnergy = (value) => {
+    const numericValue = Number(value || 0);
+    if (numericValue >= 1000000) {
+      return `${(numericValue / 1000000).toFixed(2)} GWh`;
+    }
+    if (numericValue >= 1000) {
+      return `${(numericValue / 1000).toFixed(2)} MWh`;
+    }
+    return `${numericValue.toFixed(2)} kWh`;
+  };
+
+  const buildAreaUsageUrl = (baseInterval, startDate, endDate, areaNames = []) => {
+    const query = new URLSearchParams({ interval: baseInterval });
+    if (startDate && endDate) {
+      query.set("start", startDate);
+      query.set("end", endDate);
+    }
+    const normalizedAreas = Array.isArray(areaNames)
+      ? areaNames.map((item) => String(item || "").trim()).filter(Boolean)
+      : [];
+    if (normalizedAreas.length > 0) {
+      query.set("areas", normalizedAreas.join(","));
+      query.set("include_descendants", "true");
+    }
+    return `${ENERGY_ENDPOINT}?${query.toString()}`;
+  };
+
+  const pruneSelectedParents = (rows, selectedAreas = []) => {
+    const selectedSet = new Set(
+      (selectedAreas || []).map((item) => String(item || "").trim()).filter(Boolean)
+    );
+    if (selectedSet.size === 0) {
+      return rows;
+    }
+    return rows.filter((item) => {
+      const tagName = String(item?.tag_name || "").trim();
+      const hasChildren = Array.isArray(item?.children_names) && item.children_names.length > 0;
+      return !(selectedSet.has(tagName) && hasChildren);
+    });
+  };
+
   const fetchData = async () => {
     setLoading(true);
 
     try {
       let url = `${ENERGY_ENDPOINT}?interval=${intervalWaktu}`;
       let compUrl = `${ENERGY_ENDPOINT}?interval=${intervalWaktu}`;
+      const selectedAreas = Array.isArray(checkedAreaNames) ? checkedAreaNames : [];
+      let startDate = "";
+      let endDate = "";
 
       if (dateRange && dateRange[0] && dateRange[1]) {
-        const startDate = dateRange[0].format("YYYY-MM-DD");
-        const endDate = dateRange[1].format("YYYY-MM-DD");
-        url += `&start=${startDate}&end=${endDate}`;
+        startDate = dateRange[0].format("YYYY-MM-DD");
+        endDate = dateRange[1].format("YYYY-MM-DD");
+        url = buildAreaUsageUrl(intervalWaktu, startDate, endDate, selectedAreas);
 
         sessionStorage.setItem("savedAreaUsageStart", startDate);
         sessionStorage.setItem("savedAreaUsageEnd", endDate);
 
         if (comparisonMode === "YoY") {
-          compUrl += `&start=${dateRange[0].subtract(1, "year").format("YYYY-MM-DD")}&end=${dateRange[1]
-            .subtract(1, "year")
-            .format("YYYY-MM-DD")}`;
+          compUrl = buildAreaUsageUrl(
+            intervalWaktu,
+            dateRange[0].subtract(1, "year").format("YYYY-MM-DD"),
+            dateRange[1].subtract(1, "year").format("YYYY-MM-DD"),
+            selectedAreas
+          );
         } else if (comparisonMode === "MoM") {
-          compUrl += `&start=${dateRange[0].subtract(1, "month").format("YYYY-MM-DD")}&end=${dateRange[1]
-            .subtract(1, "month")
-            .format("YYYY-MM-DD")}`;
+          compUrl = buildAreaUsageUrl(
+            intervalWaktu,
+            dateRange[0].subtract(1, "month").format("YYYY-MM-DD"),
+            dateRange[1].subtract(1, "month").format("YYYY-MM-DD"),
+            selectedAreas
+          );
         }
-      }
-
-      if (checkedAreaNames && checkedAreaNames.length > 0) {
-        const areaStr = checkedAreaNames.join(",");
-        url += `&areas=${areaStr}`;
-        compUrl += `&areas=${areaStr}`;
       }
 
       sessionStorage.setItem("savedInterval", intervalWaktu);
 
       const res = await axios.get(url);
-      const dataArray = Array.isArray(res.data) ? res.data : (res.data.data || []);
+      const dataArray = pruneSelectedParents(
+        Array.isArray(res.data) ? res.data : (res.data.data || []),
+        selectedAreas
+      );
       setChartData(dataArray);
 
       if (comparisonMode !== "Target energy") {
         const compRes = await axios.get(compUrl);
-        const compArray = Array.isArray(compRes.data) ? compRes.data : (compRes.data.data || []);
+        const compArray = pruneSelectedParents(
+          Array.isArray(compRes.data) ? compRes.data : (compRes.data.data || []),
+          selectedAreas
+        );
         setCompChartData(compArray);
       } else {
         setCompChartData([]);
@@ -156,7 +206,7 @@ export default function AreaUsagePage() {
         stack: chartType === "bar" ? "Total" : null,
         emphasis: { focus: "series" },
         smooth: true,
-        data: xAxisData.map((time) => dataMap[tag]?.[time] || 0),
+        data: xAxisData.map((time) => Number(Number(dataMap[tag]?.[time] || 0).toFixed(2))),
       });
 
       if (comparisonMode !== "Target energy") {
@@ -167,13 +217,16 @@ export default function AreaUsagePage() {
           smooth: true,
           lineStyle: { type: "dashed", width: 2 },
           itemStyle: { opacity: 0.6, borderType: "dashed" },
-          data: xAxisData.map((_, index) => compDataMap[tag]?.[index] || 0),
+          data: xAxisData.map((_, index) => Number(Number(compDataMap[tag]?.[index] || 0).toFixed(2))),
         });
       }
     });
 
     return {
-      tooltip: { trigger: "axis" },
+      tooltip: {
+        trigger: "axis",
+        valueFormatter: (value) => formatEnergy(value),
+      },
       legend: { bottom: 0, type: "scroll", textStyle: { color: isDarkMode ? "#d9d9d9" : "#595959" } },
       grid: { top: "5%", left: "3%", right: "4%", bottom: "80px", containLabel: true },
       dataZoom: [{ type: "slider", bottom: 35, height: 15 }, { type: "inside" }],
@@ -186,7 +239,10 @@ export default function AreaUsagePage() {
         type: "value",
         name: "kWh",
         nameTextStyle: { color: isDarkMode ? "#d9d9d9" : "#595959" },
-        axisLabel: { color: isDarkMode ? "#d9d9d9" : "#595959" },
+        axisLabel: {
+          color: isDarkMode ? "#d9d9d9" : "#595959",
+          formatter: (value) => formatEnergy(value).replace(" kWh", "").replace(" MWh", "M").replace(" GWh", "G"),
+        },
         splitLine: { lineStyle: { color: isDarkMode ? "#303030" : "#e8e8e8", type: "dashed" } },
       },
       series,

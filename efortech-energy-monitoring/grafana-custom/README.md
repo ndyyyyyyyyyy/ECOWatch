@@ -7,19 +7,20 @@ This folder contains the custom Grafana build used by the project.
 - apply Efortech branding
 - hide selected default Grafana UI elements
 - add a `Back to portal` menu item
-- provision PostgreSQL datasource
+- provision the InfluxDB datasource
 - bundle required plugins
+- run behind nginx on path `/grafana`
 
 ## Folder layout
 
 - `Dockerfile`
   Builds `efortech-grafana-custom` from `grafana/grafana:12.2.1`.
 - `grafana.ini`
-  Grafana server settings used by the custom image.
+  Grafana server settings used by the custom image, including subpath `/grafana`.
 - `public/views/index.html`
   Main branding and DOM-level UI customization entry point.
-- `provisioning/datasources/postgres-energy.yml`
-  Default PostgreSQL datasource definition.
+- `provisioning/datasources/influxdb-raw.yml`
+  Default InfluxDB InfluxQL datasource definition for raw telemetry.
 - `plugins/`
   Bundled Grafana plugins used by this deployment.
 
@@ -75,3 +76,14 @@ Then recreate the Grafana container from compose.
 ## Important note
 
 Editing files in this folder does not change the running Grafana container until the custom image is rebuilt and redeployed.
+
+Runtime topology:
+
+- public access goes through `nginx` on `http://HOST:4000/grafana/`
+- nginx forwards authenticated requests directly to the `grafana` container
+- the backend session is used to authorize access before nginx reaches Grafana
+
+The datasource provisioning file is intentionally non-destructive for shared Grafana instances:
+
+- it provisions or updates `Energy Raw InfluxDB`
+- it does not delete existing datasources owned by other dashboards or applications

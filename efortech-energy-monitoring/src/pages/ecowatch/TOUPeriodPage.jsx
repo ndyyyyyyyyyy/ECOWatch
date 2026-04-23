@@ -29,6 +29,22 @@ export default function TOUPeriod() {
   const [barChartData, setBarChartData] = useState({ tags: [], values: [] });
   const [topChartType, setTopChartType] = useState('bar');
 
+  const formatEnergy = (value) => {
+    const numericValue = Number(value || 0);
+    if (numericValue >= 1000000) return `${(numericValue / 1000000).toFixed(2)} GWh`;
+    if (numericValue >= 1000) return `${(numericValue / 1000).toFixed(2)} MWh`;
+    return `${numericValue.toFixed(2)} kWh`;
+  };
+
+  const formatAxisEnergy = (value) => {
+    const numericValue = Number(value || 0);
+    if (numericValue >= 1000000) return `${(numericValue / 1000000).toFixed(2)}G`;
+    if (numericValue >= 1000) return `${(numericValue / 1000).toFixed(2)}M`;
+    return numericValue.toFixed(2);
+  };
+
+  const round2 = (value) => Number(Number(value || 0).toFixed(2));
+
   const fetchTOUData = async () => {
     if (!dateRange || dateRange.length !== 2) {
       message.warning('Choose a date range!');
@@ -42,9 +58,10 @@ export default function TOUPeriod() {
       const targetAreas =
         checkedAreaNames && checkedAreaNames.length > 0
           ? checkedAreaNames.join(',')
-          : 'MAIN_ELECTRICAL';
+          : 'Office';
 
-      const url = `${ENERGY_ENDPOINT}?interval=Hour&start=${start}&end=${end}&areas=${targetAreas}`;
+      const backendInterval = intervalWaktu === 'Month' ? 'Day' : 'Hour';
+      const url = `${ENERGY_ENDPOINT}?interval=${backendInterval}&start=${start}&end=${end}&areas=${targetAreas}`;
       const response = await axios.get(url);
       const rawData = response.data || [];
 
@@ -92,8 +109,8 @@ export default function TOUPeriod() {
       const sortedDates = Object.keys(timeSeriesMap).sort();
       setLineChartData({
         dates: sortedDates,
-        peak: sortedDates.map((date) => timeSeriesMap[date].peak.toFixed(2)),
-        offPeak: sortedDates.map((date) => timeSeriesMap[date].offPeak.toFixed(2)),
+        peak: sortedDates.map((date) => round2(timeSeriesMap[date].peak)),
+        offPeak: sortedDates.map((date) => round2(timeSeriesMap[date].offPeak)),
       });
 
       const sortedTags = Object.entries(tagUsageMap)
@@ -102,7 +119,7 @@ export default function TOUPeriod() {
 
       setBarChartData({
         tags: sortedTags.map((tag) => tag[0]),
-        values: sortedTags.map((tag) => tag[1].toFixed(2)),
+        values: sortedTags.map((tag) => round2(tag[1])),
       });
     } catch (error) {
       console.error('Error fetching data TOU:', error);
@@ -162,7 +179,10 @@ export default function TOUPeriod() {
         fontWeight: 'bold',
       },
     },
-    tooltip: { trigger: 'item', formatter: '{b}: {c} kWh ({d}%)' },
+    tooltip: {
+      trigger: 'item',
+      formatter: (params) => `${params.name}: ${formatEnergy(params.value)} (${params.percent}%)`,
+    },
     legend: {
       orient: 'vertical',
       right: '5%',
@@ -180,12 +200,12 @@ export default function TOUPeriod() {
         labelLine: { show: false },
         data: [
           {
-            value: summaryData.peakKwh.toFixed(2),
+            value: round2(summaryData.peakKwh),
             name: `On-peak (${peakPct}%)`,
             itemStyle: { color: '#faad14' },
           },
           {
-            value: summaryData.offPeakKwh.toFixed(2),
+            value: round2(summaryData.offPeakKwh),
             name: `Off-peak (${offPeakPct}%)`,
             itemStyle: { color: '#52c41a' },
           },
@@ -239,7 +259,10 @@ export default function TOUPeriod() {
   };
 
   const touLineOption = {
-    tooltip: { trigger: 'axis' },
+    tooltip: {
+      trigger: 'axis',
+      valueFormatter: (value) => formatEnergy(value),
+    },
     legend: {
       bottom: 0,
       data: ['On-peak', 'Off-peak'],
@@ -252,7 +275,10 @@ export default function TOUPeriod() {
       type: 'value',
       name: 'kWh',
       nameTextStyle: { color: isDarkMode ? '#d9d9d9' : '#595959' },
-      axisLabel: { color: isDarkMode ? '#d9d9d9' : '#595959' },
+      axisLabel: {
+        color: isDarkMode ? '#d9d9d9' : '#595959',
+        formatter: (value) => formatAxisEnergy(value),
+      },
       splitLine: {
         lineStyle: { type: 'dashed', color: isDarkMode ? '#303030' : '#e8e8e8' },
       },
@@ -276,7 +302,11 @@ export default function TOUPeriod() {
   };
 
   const topUsageOption = {
-    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: { type: 'shadow' },
+      valueFormatter: (value) => formatEnergy(value),
+    },
     grid: { top: '15%', left: '3%', right: '4%', bottom: '15%', containLabel: true },
     dataZoom: [{ type: 'inside' }, { type: 'slider', bottom: 10, height: 15 }],
     xAxis: {
@@ -288,7 +318,10 @@ export default function TOUPeriod() {
       type: 'value',
       name: 'kWh',
       nameTextStyle: { color: isDarkMode ? '#d9d9d9' : '#595959' },
-      axisLabel: { color: isDarkMode ? '#d9d9d9' : '#595959' },
+      axisLabel: {
+        color: isDarkMode ? '#d9d9d9' : '#595959',
+        formatter: (value) => formatAxisEnergy(value),
+      },
       splitLine: {
         lineStyle: { type: 'dashed', color: isDarkMode ? '#303030' : '#e8e8e8' },
       },

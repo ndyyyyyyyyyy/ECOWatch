@@ -25,8 +25,8 @@ export const devicePropertyTemplates = {
     { label: 'Description', value: '' },
     { label: 'Unit Number', value: '' },
     { label: 'Device Type', value: 'MQTT' },
+    { label: 'Topic', value: '' },
     { label: 'Heartbeat Frequency (second)', value: '' },
-    { label: 'Device ID', value: '' },
     { label: 'Username', value: '' },
     { label: 'Password', value: '' },
     { label: 'IP Address', value: '' },
@@ -78,7 +78,7 @@ export function cloneDevices(devices) {
 }
 
 export function buildDeviceItems(device) {
-  return (device.items || []).map((item) => {
+  return (device.items || []).filter((item) => item.kind === 'tag').map((item) => {
     if (item.kind !== 'tag') {
       return item
     }
@@ -130,7 +130,9 @@ export function getTagMatchTone(tag) {
 
 export function getVisibleDeviceProperties(device, activeDeviceType) {
   const visibleLabels = new Set(getDevicePropertySchema(activeDeviceType).map((property) => property.label))
-  return (device?.properties || []).filter((property) => visibleLabels.has(property.label))
+  return (device?.properties || []).filter(
+    (property) => visibleLabels.has(property.label) && !(activeDeviceType === 'MQTT' && property.label === 'Device ID'),
+  )
 }
 
 export function getTagAddressValue(deviceType, tag) {

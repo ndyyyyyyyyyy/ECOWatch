@@ -3,16 +3,17 @@ from fastapi import FastAPI
 from fastapi.responses import FileResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
-from auth_routes import register_auth_routes
-from config import DIST_DIR, DIST_INDEX, GRAFANA_TARGET, LOGIN_APP_URL, PORT
-from energy_db import ensure_energy_table
-from energy_routes import register_energy_routes
-from grafana_proxy import register_grafana_proxy_routes
-from http_client import shutdown_http_client, startup_http_client
-from middleware import register_gateway_middleware
-from project_routes import register_project_routes
-from project_store import project_store
-from security import ALLOWED_SUBNETS
+from api.auth import register_auth_routes
+from api.ecowatch import register_energy_routes
+from api.ecowatch_config import register_ecowatch_config_routes
+from api.project import register_project_routes
+from core.config import DIST_DIR, DIST_INDEX, GRAFANA_TARGET, LOGIN_APP_URL, PORT
+from core.http_client import shutdown_http_client, startup_http_client
+from core.middleware import register_gateway_middleware
+from core.security import ALLOWED_SUBNETS
+from project.store import project_store
+from storage.energy_db import close_connection_pool, ensure_energy_table
+from storage.project_store_db import ensure_project_store_tables
 
 
 def create_app() -> FastAPI:
@@ -20,9 +21,9 @@ def create_app() -> FastAPI:
 
     register_gateway_middleware(app)
     register_auth_routes(app)
-    register_grafana_proxy_routes(app)
     register_project_routes(app)
     register_energy_routes(app)
+    register_ecowatch_config_routes(app)
 
     if DIST_DIR.exists():
         app.mount("/assets", StaticFiles(directory=str(DIST_DIR / "assets")), name="assets")
@@ -56,12 +57,14 @@ app = create_app()
 async def startup_event():
     await startup_http_client()
     ensure_energy_table()
+    ensure_project_store_tables()
     project_store.start()
 
 
 @app.on_event("shutdown")
 async def shutdown_event():
     project_store.stop()
+    close_connection_pool()
     await shutdown_http_client()
 
 

@@ -9,7 +9,7 @@ const { Option } = Select;
 const { RangePicker } = DatePicker;
 
 export default function EnergyFlowPage() {
-  const { isDarkMode } = useOutletContext();
+  const { isDarkMode, checkedAreaNames } = useOutletContext();
   const [loading, setLoading] = useState(false);
   const [sankeyData, setSankeyData] = useState({ nodes: [], links: [] });
   const [selectedDates, setSelectedDates] = useState([]);
@@ -37,7 +37,20 @@ export default function EnergyFlowPage() {
         end = selectedDates[1];
       }
 
-      const url = `${ENERGY_ENDPOINT}?interval=Day&start=${start}&end=${end}`;
+      const normalizedAreas = Array.isArray(checkedAreaNames)
+        ? checkedAreaNames.map((item) => String(item || '').trim()).filter(Boolean)
+        : [];
+      const query = new URLSearchParams({
+        interval: 'Day',
+        start,
+        end,
+      });
+      if (normalizedAreas.length > 0) {
+        query.set('areas', normalizedAreas.join(','));
+        query.set('include_descendants', 'true');
+      }
+
+      const url = `${ENERGY_ENDPOINT}?${query.toString()}`;
       const response = await axios.get(url);
       const rawData = response.data;
 
@@ -149,7 +162,7 @@ export default function EnergyFlowPage() {
 
   useEffect(() => {
     fetchSankeyData();
-  }, []);
+  }, [checkedAreaNames]);
 
   const sankeyOption = {
     tooltip: {

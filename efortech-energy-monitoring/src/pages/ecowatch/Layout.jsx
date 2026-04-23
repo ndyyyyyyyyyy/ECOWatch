@@ -82,7 +82,7 @@ const treeData = [
   },
 ];
 
-const REAL_ROOT = 'Electrical';
+const REAL_ROOT = 'Office';
 
 async function fetchProjectEnergyTreeNode() {
   try {

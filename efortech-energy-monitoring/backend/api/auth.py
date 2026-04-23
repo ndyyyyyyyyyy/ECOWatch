@@ -5,7 +5,7 @@ from threading import Lock
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse, RedirectResponse, Response
 
-from config import (
+from core.config import (
     ALLOW_LOCAL_LOGIN_WITHOUT_PASSWORD,
     AUTH_MODE,
     GRAFANA_DEFAULT_PATH,
@@ -16,8 +16,8 @@ from config import (
     REMEMBER_ME_MAX_AGE_SECONDS,
     SESSION_COOKIE_NAME,
 )
-from http_client import get_http_client
-from security import get_week_key, is_weekend
+from core.http_client import get_http_client
+from core.security import get_week_key, is_weekend
 
 _SESSIONS: dict[str, dict] = {}
 _SESSIONS_LOCK = Lock()
@@ -116,6 +116,17 @@ def register_auth_routes(app: FastAPI):
                 clear_session_cookie(response)
             return response
         return {"authenticated": True, "user": str(user)}
+
+    @app.get("/api/internal/grafana-auth")
+    async def api_internal_grafana_auth(request: Request):
+        user, auth_error = require_user(request)
+        if auth_error:
+            return auth_error
+
+        response = Response(status_code=204)
+        response.headers["X-WEBAUTH-USER"] = str(user)
+        response.headers["Cache-Control"] = "no-store"
+        return response
 
     @app.post("/api/login")
     async def api_login(request: Request):

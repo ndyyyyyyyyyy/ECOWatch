@@ -1,7 +1,13 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse, Response
 
-from security import ip_in_allowed_subnet, is_allowed_origin, is_loopback_or_internal_proxy, normalize_ip, resolve_client_ip
+from core.security import (
+    ip_in_allowed_subnet,
+    is_allowed_origin,
+    is_loopback_or_internal_proxy,
+    normalize_ip,
+    resolve_client_ip,
+)
 
 
 def register_gateway_middleware(app: FastAPI):
